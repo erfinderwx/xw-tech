@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <title>Technical Robot Service Proposal</title>
   <style>
@@ -566,13 +567,15 @@
       .lang-switcher button { padding: 7px 10px; font-size: .72rem; }
       .hero { padding-top: 74px; }
       .section { padding: 64px 0; }
-      .hero-card { border-radius: 24px; padding: 30px 22px; box-shadow: 10px 10px 0 rgba(255,107,42,.10), var(--shadow); }
+      .hero-card { width: 100%; min-width: 0; border-radius: 24px; padding: 30px 22px; box-shadow: 10px 10px 0 rgba(255,107,42,.10), var(--shadow); }
       h1 { font-size: clamp(2.2rem, 14vw, 3.35rem); }
       h2 { font-size: clamp(1.75rem, 8vw, 2.35rem); }
       .subtitle { font-size: 1.04rem; }
       .hero-tags { gap: 7px; }
       .tag-pill { font-size: .76rem; padding: 7px 10px; }
-      .hero-footer { margin-top: 28px; }
+      .hero-footer { width: 100%; min-width: 0; margin-top: 28px; }
+      .hero-footer > div { width: 100%; min-width: 0; }
+      h1, .subtitle, .hero-footer p { overflow-wrap: anywhere; hyphens: auto; }
       .hero-footer .right { text-align: left !important; }
       .grid, .grid-3, .video-grid, .step-grid { grid-template-columns: 1fr; }
       .video-frame { aspect-ratio: 16 / 10; }
@@ -593,8 +596,8 @@
   <div class="topbar">
     <div class="lang-switcher" aria-label="Language switch">
       <button type="button" data-lang="zh">中文</button>
-      <button type="button" data-lang="de">DE</button>
       <button type="button" data-lang="en">EN</button>
+      <button type="button" data-lang="de">DE</button>
     </div>
   </div>
 
@@ -1139,6 +1142,11 @@
     function setLang(lang) {
       const c = CONTENT[lang];
       document.documentElement.lang = lang === 'zh' ? 'zh' : lang;
+      document.title = {
+        zh: '机器人技术服务方案',
+        en: 'Technical Robot Service Proposal',
+        de: 'Angebot für technischen Roboterservice'
+      }[lang];
       $$('[data-lang]').forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
       $$('[data-text]').forEach(el => setMultiline(el, getPath(c, el.dataset.text)));
       renderHero(lang);
@@ -1149,11 +1157,11 @@
       renderCards('onsiteCards', c.onsite.cards);
       renderList('subscriptionList', c.pricing.subscriptionList);
       renderList('ondemandList', c.pricing.ondemandList);
-      localStorage.setItem('robotServiceProposalLang', lang);
+      localStorage.setItem('xwTechLang', lang);
     }
 
     $$('[data-lang]').forEach(btn => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
-    setLang(localStorage.getItem('robotServiceProposalLang') || 'zh');
+    setLang(localStorage.getItem('xwTechLang') || localStorage.getItem('robotServiceProposalLang') || 'zh');
   </script>
 </body>
 </html>
