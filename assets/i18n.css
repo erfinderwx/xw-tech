@@ -1,0 +1,79 @@
+.xw-language-switcher {
+  position: fixed;
+  top: 13px;
+  right: max(14px, calc((100vw - 1120px) / 2));
+  z-index: 1000;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  color: #fff;
+  background: rgba(8, 20, 28, .84);
+  border: 1px solid rgba(255, 255, 255, .18);
+  border-radius: 999px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, .18);
+  backdrop-filter: blur(14px);
+}
+
+.xw-language-switcher button {
+  min-width: 38px;
+  padding: 6px 9px;
+  color: rgba(255, 255, 255, .76);
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 850;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.xw-language-switcher button:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, .1);
+}
+
+.xw-language-switcher button.active {
+  color: #10212b;
+  background: #fff;
+}
+
+body[data-page="bellabot"] .xw-language-switcher {
+  position: static;
+  inset: auto;
+  flex: 0 0 auto;
+  padding: 3px;
+  background: rgba(0, 38, 34, .38);
+  box-shadow: none;
+}
+
+body[data-page="bellabot"] .xw-language-switcher button {
+  min-width: 34px;
+  padding: 5px 7px;
+  font-size: 11px;
+}
+
+body[data-page="bellabot"] .top-actions .xw-language-switcher button.active,
+body[data-page="bellabot"] .top-actions .xw-language-switcher button.active:hover {
+  color: #10212b;
+  background: #fff;
+  border-color: transparent;
+}
+
+@media (max-width: 560px) {
+  .xw-language-switcher {
+    top: 10px;
+    right: 10px;
+  }
+
+  .xw-language-switcher button {
+    min-width: 34px;
+    padding: 5px 7px;
+    font-size: 11px;
+  }
+
+  body[data-page="bellabot"] .print-button {
+    display: none;
+  }
+}
