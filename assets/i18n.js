@@ -42,7 +42,7 @@
           "Delivery and service robot documentation",
           "Dokumentation für Liefer- und Serviceroboter"
         ),
-        ".pudu .status": tr("已有 2 份资料 →", "2 documents available →", "2 Dokumente verfügbar →"),
+        ".pudu .status": tr("已有 3 份资料 →", "3 documents available →", "3 Dokumente verfügbar →"),
         ".card:not(.pudu):not(.orion) p": tr(
           "商用清洁机器人资料",
           "Commercial cleaning robot documentation",
@@ -106,20 +106,35 @@
           "For authorized service personnel, covering component replacement, parameter configuration and operational verification.",
           "Für autorisiertes Servicepersonal: Bauteiltausch, Parameterkonfiguration und Funktionsprüfung."
         ),
-        ".service-guide .tag": tr(
+        ".chassis-motor-guide .tag": tr(
           "BellaBot · 维修配置 · 图文 + 视频",
           "BellaBot · Service Configuration · Images + Video",
           "BellaBot · Servicekonfiguration · Bilder + Video"
         ),
-        ".service-guide h3": tr(
+        ".chassis-motor-guide h3": tr(
           "底盘轮毂电机更换与配置说明",
           "Chassis Hub Motor Replacement and Configuration",
           "Austausch und Konfiguration des Radnabenmotors"
         ),
-        ".service-guide > div > p": tr(
+        ".chassis-motor-guide > div > p": tr(
           "电机更换视频、motorVersion 字段选择、两个系统配置入口及重启后验证。",
           "Motor replacement video, motorVersion selection, two configuration paths and post-restart verification.",
           "Video zum Motortausch, Auswahl von motorVersion, zwei Konfigurationswege und Prüfung nach dem Neustart."
+        ),
+        ".rgbd-calibration-guide .tag": tr(
+          "BellaBot · 维修配置 · 图文 + 视频",
+          "BellaBot · Service Configuration · Images + Video",
+          "BellaBot · Servicekonfiguration · Bilder + Video"
+        ),
+        ".rgbd-calibration-guide h3": tr(
+          "下视 RGB-D 相机检查与标定",
+          "Downward RGB-D Camera Check and Calibration",
+          "Nach unten gerichtete RGB-D-Kameras prüfen und kalibrieren"
+        ),
+        ".rgbd-calibration-guide > div > p": tr(
+          "检查三路下视深度图像和 Check Tool 结果，并保存检查图像与相机通道配置。",
+          "Inspect the three downward depth images and the Check Tool result, then save the check image and camera-channel configuration.",
+          "Die drei nach unten gerichteten Tiefenbilder und das Check-Tool-Ergebnis prüfen und anschließend Prüfbild und Kamerakanal-Konfiguration speichern."
         ),
         "#documents .section-kicker": tr("客户资料", "Customer Documents", "Kundendokumente"),
         "#documents h2": tr("客户资料", "Customer Documents", "Kundendokumente"),
@@ -150,10 +165,15 @@
           en: ["CC1 Pro", "7 steps", "中文 / EN / DE", "Mobile friendly"],
           de: ["CC1 Pro", "7 Schritte", "中文 / EN / DE", "Mobil optimiert"]
         },
-        ".service-guide .meta span": {
+        ".chassis-motor-guide .meta span": {
           zh: ["BellaBot", "字段 13", "中文 / EN / DE", "视频 4:09"],
           en: ["BellaBot", "Field 13", "中文 / EN / DE", "Video 4:09"],
           de: ["BellaBot", "Feld 13", "中文 / EN / DE", "Video 4:09"]
+        },
+        ".rgbd-calibration-guide .meta span": {
+          zh: ["BellaBot", "7 个步骤", "中文 / EN / DE", "视频 0:55"],
+          en: ["BellaBot", "7 steps", "中文 / EN / DE", "Video 0:55"],
+          de: ["BellaBot", "7 Schritte", "中文 / EN / DE", "Video 0:55"]
         }
       }
     },

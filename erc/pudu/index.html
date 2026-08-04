@@ -139,6 +139,7 @@
       border-color: rgba(0,130,116,.48);
       box-shadow: 0 22px 50px rgba(21,45,54,.13);
     }
+    .guide + .guide { margin-top: 14px; }
     .guide-icon {
       display: grid;
       width: 72px;
@@ -233,8 +234,9 @@
     <h1>普渡机器人文档</h1>
     <p class="lead">客户诊断、维修配置和交付资料按用途集中整理。</p>
 
+    <!-- Maintenance: Keep these totals and the guide cards below in sync whenever a guide is added, renamed, moved or removed. -->
     <div class="summary" aria-label="资料概览">
-      <article><strong>2</strong><span>份已发布资料</span></article>
+      <article><strong>3</strong><span>份已发布资料</span></article>
       <article><strong>2</strong><span>个产品型号</span></article>
       <article><strong>3</strong><span>种页面语言</span></article>
     </div>
@@ -272,7 +274,7 @@
           <p class="section-copy">面向获得授权的维修人员，包含部件更换、参数配置和操作验证。</p>
         </div>
       </div>
-      <a class="guide service-guide" href="guides/bellabot-chassis-motor/">
+      <a class="guide service-guide chassis-motor-guide" href="guides/bellabot-chassis-motor/">
         <span class="guide-icon" aria-hidden="true">BB</span>
         <div>
           <span class="tag">BellaBot · 维修配置 · 图文 + 视频</span>
@@ -283,6 +285,21 @@
             <span>字段 13</span>
             <span>中文 / EN / DE</span>
             <span>视频 4:09</span>
+          </div>
+        </div>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="guide service-guide rgbd-calibration-guide" href="guides/bellabot-downward-rgbd-calibration/">
+        <span class="guide-icon" aria-hidden="true">RGB</span>
+        <div>
+          <span class="tag">BellaBot · 维修配置 · 图文 + 视频</span>
+          <h3>下视 RGB-D 相机检查与标定</h3>
+          <p>检查三路下视深度图像和 Check Tool 结果，并保存检查图像与相机通道配置。</p>
+          <div class="meta">
+            <span>BellaBot</span>
+            <span>7 个步骤</span>
+            <span>中文 / EN / DE</span>
+            <span>视频 0:55</span>
           </div>
         </div>
         <span class="arrow" aria-hidden="true">→</span>
