@@ -397,6 +397,10 @@
     }
   };
 
+  const externalPage = window.xwPageI18n;
+  const externalPageName = document.body.dataset.page;
+  if (externalPage && externalPageName) pages[externalPageName] = externalPage;
+
   function applyHtml(config, lang) {
     Object.entries(config.html || {}).forEach(([selector, values]) => {
       const element = document.querySelector(selector);
@@ -438,5 +442,7 @@
   });
 
   const saved = localStorage.getItem(STORAGE_KEY);
-  applyLanguage(LANGS.includes(saved) ? saved : "zh");
+  const requestedDefault = document.body.dataset.defaultLang;
+  const defaultLang = LANGS.includes(requestedDefault) ? requestedDefault : "zh";
+  applyLanguage(LANGS.includes(saved) ? saved : defaultLang);
 })();
