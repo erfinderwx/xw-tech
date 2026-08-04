@@ -42,7 +42,7 @@
           "Delivery and service robot documentation",
           "Dokumentation für Liefer- und Serviceroboter"
         ),
-        ".pudu .status": tr("已有 1 份指南 →", "1 guide available →", "1 Anleitung verfügbar →"),
+        ".pudu .status": tr("已有 2 份资料 →", "2 documents available →", "2 Dokumente verfügbar →"),
         ".card:not(.pudu):not(.orion) p": tr(
           "商用清洁机器人资料",
           "Commercial cleaning robot documentation",
@@ -73,32 +73,87 @@
         ),
         "h1": tr("普渡机器人文档", "PUDU Robotics Documentation", "PUDU-Robotics-Dokumentation"),
         ".lead": tr(
-          "操作指南与客户资料分区整理。",
-          "Operating guides and customer documents, clearly organized.",
-          "Übersichtlich gegliederte Bedienungsanleitungen und Kundendokumente."
+          "客户诊断、维修配置和交付资料按用途集中整理。",
+          "Customer diagnostics, service configuration and delivery documents organized by purpose.",
+          "Kundendiagnose, Servicekonfiguration und Übergabedokumente nach Verwendungszweck geordnet."
         ),
-        ".guide .tag": tr("BellaBot · 图文 + 视频", "BellaBot · Images + Video", "BellaBot · Bilder + Video"),
-        ".guide h3": tr(
+        "#diagnostics .section-kicker": tr("客户诊断", "Customer Diagnostics", "Kundendiagnose"),
+        "#diagnostics h2": tr("客户诊断", "Customer Diagnostics", "Kundendiagnose"),
+        "#diagnostics .section-copy": tr(
+          "面向现场人员的安全自检流程，用于收集故障信息并完成首轮排查。",
+          "Safe self-checks for on-site staff to collect fault information and complete the first diagnostic pass.",
+          "Sichere Selbstprüfungen für das Personal vor Ort zur Fehleraufnahme und ersten Eingrenzung."
+        ),
+        ".diagnostic-guide .tag": tr(
+          "CC1 Pro · 客户自检 · 图文",
+          "CC1 Pro · Customer Check · Images",
+          "CC1 Pro · Kundenprüfung · Bilder"
+        ),
+        ".diagnostic-guide h3": tr(
+          "不吸污水与“清洁过滤器”排查",
+          "No Wastewater Pickup and “Clean Filter” Check",
+          "Kein Schmutzwasser aufgenommen / „Filter reinigen“"
+        ),
+        ".diagnostic-guide > div > p": tr(
+          "检查滤水盒、过滤海绵、污水箱盖、吸水扒、吸污管和吸力，并整理需要反馈的照片与视频。",
+          "Check the filter box, filter sponge, wastewater-tank lid, squeegee, suction hose and suction, then collect the required photos and videos.",
+          "Filterbox, Filterschwamm, Tankdeckel, Saugleiste, Saugschlauch und Saugkraft prüfen und die benötigten Fotos und Videos zusammenstellen."
+        ),
+        "#service .section-kicker": tr("维修与配置", "Service & Configuration", "Service & Konfiguration"),
+        "#service h2": tr("维修与配置", "Service & Configuration", "Service & Konfiguration"),
+        "#service .section-copy": tr(
+          "面向获得授权的维修人员，包含部件更换、参数配置和操作验证。",
+          "For authorized service personnel, covering component replacement, parameter configuration and operational verification.",
+          "Für autorisiertes Servicepersonal: Bauteiltausch, Parameterkonfiguration und Funktionsprüfung."
+        ),
+        ".service-guide .tag": tr(
+          "BellaBot · 维修配置 · 图文 + 视频",
+          "BellaBot · Service Configuration · Images + Video",
+          "BellaBot · Servicekonfiguration · Bilder + Video"
+        ),
+        ".service-guide h3": tr(
           "底盘轮毂电机更换与配置说明",
           "Chassis Hub Motor Replacement and Configuration",
           "Austausch und Konfiguration des Radnabenmotors"
         ),
-        ".guide p": tr(
-          "电机更换视频、motorVersion 字段选择及两个系统配置入口。",
-          "Motor replacement video, motorVersion selection and two system configuration paths.",
-          "Video zum Motortausch, Auswahl von motorVersion und zwei Konfigurationswege."
+        ".service-guide > div > p": tr(
+          "电机更换视频、motorVersion 字段选择、两个系统配置入口及重启后验证。",
+          "Motor replacement video, motorVersion selection, two configuration paths and post-restart verification.",
+          "Video zum Motortausch, Auswahl von motorVersion, zwei Konfigurationswege und Prüfung nach dem Neustart."
+        ),
+        "#documents .section-kicker": tr("客户资料", "Customer Documents", "Kundendokumente"),
+        "#documents h2": tr("客户资料", "Customer Documents", "Kundendokumente"),
+        "#documents .section-copy": tr(
+          "用于集中放置说明书、PDF 和其他客户交付材料。",
+          "A central location for manuals, PDF files and other customer delivery materials.",
+          "Zentraler Bereich für Handbücher, PDF-Dateien und weitere Übergabeunterlagen."
         ),
         ".empty": tr(
           "说明书、PDF 与其他交付资料将在这里发布。",
           "Manuals, PDF files and other customer documents will be published here.",
           "Handbücher, PDF-Dateien und weitere Kundendokumente werden hier veröffentlicht."
+        ),
+        "footer": tr(
+          "所有内容按“客户诊断 / 维修与配置 / 客户资料”分类。具体页面请使用对应的直接链接分享。",
+          "All content is classified as Customer Diagnostics, Service & Configuration, or Customer Documents. Share the relevant direct page link.",
+          "Alle Inhalte sind als Kundendiagnose, Service & Konfiguration oder Kundendokumente gegliedert. Teilen Sie jeweils den direkten Seitenlink."
         )
       },
       groups: {
-        "section > h2": {
-          zh: ["操作指南 · Interactive Guides", "客户资料 · Customer Documents"],
-          en: ["Operating Guides", "Customer Documents"],
-          de: ["Bedienungsanleitungen", "Kundendokumente"]
+        ".summary span": {
+          zh: ["份已发布资料", "个产品型号", "种页面语言"],
+          en: ["published documents", "product models", "page languages"],
+          de: ["veröffentlichte Dokumente", "Produktmodelle", "Seitensprachen"]
+        },
+        ".diagnostic-guide .meta span": {
+          zh: ["CC1 Pro", "7 个步骤", "中文 / EN / DE", "手机友好"],
+          en: ["CC1 Pro", "7 steps", "中文 / EN / DE", "Mobile friendly"],
+          de: ["CC1 Pro", "7 Schritte", "中文 / EN / DE", "Mobil optimiert"]
+        },
+        ".service-guide .meta span": {
+          zh: ["BellaBot", "字段 13", "中文 / EN / DE", "视频 4:09"],
+          en: ["BellaBot", "Field 13", "中文 / EN / DE", "Video 4:09"],
+          de: ["BellaBot", "Feld 13", "中文 / EN / DE", "Video 4:09"]
         }
       }
     },
