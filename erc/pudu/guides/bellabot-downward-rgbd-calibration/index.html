@@ -1,0 +1,960 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="referrer" content="no-referrer">
+  <meta name="description" content="BellaBot 下视 RGB-D 相机检查、标定与通道保存操作指导">
+  <title>BellaBot 下视 RGB-D 相机检查与标定</title>
+  <link rel="icon" href="../../../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../../../assets/i18n.css">
+  <style>
+    :root {
+      --ink: #14242d;
+      --muted: #61727c;
+      --paper: #fff;
+      --canvas: #eef4f4;
+      --line: #d7e2e2;
+      --teal: #007f72;
+      --teal-dark: #005d54;
+      --teal-soft: #e4f5f2;
+      --blue: #176ed1;
+      --blue-soft: #eaf3ff;
+      --orange: #ed6b2d;
+      --orange-soft: #fff0e8;
+      --green: #15875b;
+      --green-soft: #e8f7ef;
+      --red: #c83d32;
+      --red-soft: #fff0ee;
+      --shadow: 0 18px 52px rgba(26, 53, 61, .09);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 90% 0, rgba(23, 110, 209, .12), transparent 28rem),
+        radial-gradient(circle at 0 25%, rgba(0, 127, 114, .10), transparent 25rem),
+        linear-gradient(180deg, #f8fbfb 0%, var(--canvas) 100%);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img, video { display: block; max-width: 100%; }
+    a { color: inherit; }
+    code {
+      padding: .12em .38em;
+      color: #075d55;
+      background: #e8f5f3;
+      border-radius: 6px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .92em;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 11px max(20px, calc((100vw - 1160px) / 2));
+      color: #fff;
+      background: rgba(10, 39, 48, .95);
+      border-bottom: 1px solid rgba(255, 255, 255, .13);
+      backdrop-filter: blur(14px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      font-size: 14px;
+      font-weight: 820;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 40px;
+      height: 31px;
+      flex: 0 0 auto;
+      place-items: center;
+      color: var(--teal-dark);
+      background: #fff;
+      border-radius: 9px;
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .top-actions > a {
+      padding: 7px 11px;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, .24);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 750;
+      text-decoration: none;
+    }
+
+    .top-actions > a:hover { background: rgba(255, 255, 255, .10); }
+
+    .topbar .xw-language-switcher {
+      position: static;
+      inset: auto;
+      flex: 0 0 auto;
+      padding: 3px;
+      background: rgba(255, 255, 255, .09);
+      box-shadow: none;
+    }
+
+    .topbar .xw-language-switcher button {
+      min-width: 34px;
+      padding: 5px 7px;
+      font-size: 11px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      background:
+        linear-gradient(120deg, rgba(0, 85, 76, .98), rgba(15, 104, 160, .92)),
+        var(--teal);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -120px;
+      bottom: -210px;
+      width: 560px;
+      height: 560px;
+      border: 74px solid rgba(255, 255, 255, .07);
+      border-radius: 50%;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 72px 24px 82px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      margin-bottom: 16px;
+      padding: 6px 11px;
+      color: #dffdfa;
+      background: rgba(255, 255, 255, .12);
+      border: 1px solid rgba(255, 255, 255, .17);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .09em;
+    }
+
+    h1 {
+      max-width: 930px;
+      margin: 0;
+      font-size: clamp(38px, 6vw, 66px);
+      line-height: 1.08;
+      letter-spacing: -.04em;
+    }
+
+    .hero-copy {
+      max-width: 820px;
+      margin: 21px 0 0;
+      color: rgba(255, 255, 255, .84);
+      font-size: clamp(16px, 2.2vw, 20px);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 26px;
+    }
+
+    .hero-meta span {
+      padding: 7px 11px;
+      background: rgba(0, 36, 43, .24);
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-radius: 9px;
+      font-size: 13px;
+    }
+
+    main {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 0 0 76px;
+    }
+
+    .access-note {
+      position: relative;
+      z-index: 3;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 15px;
+      align-items: center;
+      margin: -38px 0 28px;
+      padding: 20px 22px;
+      color: #613100;
+      background: #fff8ec;
+      border: 1px solid #f0c477;
+      border-left: 7px solid var(--orange);
+      border-radius: 17px;
+      box-shadow: var(--shadow);
+    }
+
+    .access-icon {
+      display: grid;
+      width: 44px;
+      height: 44px;
+      place-items: center;
+      color: #fff;
+      background: var(--orange);
+      border-radius: 50%;
+      font-weight: 900;
+    }
+
+    .access-note strong { display: block; margin-bottom: 2px; font-size: 17px; }
+    .access-note p { margin: 0; color: #79502a; }
+
+    section {
+      margin-top: 26px;
+      padding: clamp(24px, 4vw, 42px);
+      background: var(--paper);
+      border: 1px solid rgba(189, 205, 208, .72);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 36px rgba(26, 53, 61, .06);
+    }
+
+    .section-kicker {
+      margin: 0 0 4px;
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 40px);
+      line-height: 1.2;
+      letter-spacing: -.025em;
+    }
+
+    .lead { max-width: 850px; margin: 10px 0 0; color: var(--muted); }
+
+    .route-line {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-top: 22px;
+      padding: 16px;
+      background: #f4f8f8;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+
+    .route-line span {
+      padding: 6px 9px;
+      color: #075e56;
+      background: #fff;
+      border: 1px solid #cfe0de;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 820;
+    }
+
+    .route-line i { color: #8da1a4; font-style: normal; font-weight: 900; }
+
+    .prep-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .prep-card {
+      padding: 18px;
+      background: #f7fafb;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+    }
+
+    .prep-card b { display: block; margin-bottom: 5px; color: var(--teal-dark); }
+    .prep-card p { margin: 0; color: var(--muted); font-size: 14px; }
+
+    .video-shell {
+      margin-top: 24px;
+      padding: 10px;
+      background: #0b1d25;
+      border-radius: 17px;
+      box-shadow: 0 16px 42px rgba(3, 18, 25, .20);
+    }
+
+    video { width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: 11px; }
+
+    .video-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .video-meta span {
+      padding: 5px 9px;
+      color: #50636e;
+      background: #f2f6f7;
+      border: 1px solid #dce6e7;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 760;
+    }
+
+    .step-list { display: grid; gap: 22px; margin-top: 28px; }
+
+    .step {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+    }
+
+    .step-copy {
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 14px;
+      padding: 21px 22px 18px;
+    }
+
+    .step-no {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      color: #fff;
+      background: var(--teal);
+      border-radius: 12px;
+      font-weight: 900;
+    }
+
+    .step h3 { margin: 0 0 5px; font-size: 20px; }
+    .step p { margin: 0; color: var(--muted); }
+
+    figure { margin: 0; background: #edf3f4; border-top: 1px solid var(--line); }
+    figure img { width: 100%; height: auto; }
+    figcaption { padding: 11px 16px 13px; color: #566a74; font-size: 13px; }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .result-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+    }
+
+    .result-card header { padding: 15px 17px; }
+    .result-card header b { display: block; margin-bottom: 2px; }
+    .result-card header p { margin: 0; font-size: 14px; }
+    .result-card img { width: 100%; }
+
+    .result-card.fail { border-color: #efbcb7; }
+    .result-card.fail header { color: #7b2822; background: var(--red-soft); }
+    .result-card.pass { border-color: #aedbc6; }
+    .result-card.pass header { color: #075d3c; background: var(--green-soft); }
+
+    .save-box {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 12px;
+      align-items: stretch;
+      margin-top: 24px;
+    }
+
+    .save-box article {
+      padding: 18px;
+      background: var(--blue-soft);
+      border: 1px solid #c9dcf7;
+      border-radius: 15px;
+    }
+
+    .save-box article:last-of-type { background: var(--green-soft); border-color: #c5e4d5; }
+    .save-box b { display: block; margin-bottom: 4px; color: #155ba6; }
+    .save-box article:last-of-type b { color: #0b704b; }
+    .save-box p { margin: 0; color: var(--muted); font-size: 14px; }
+    .save-arrow { display: grid; place-items: center; color: #91a3a8; font-size: 24px; font-weight: 900; }
+
+    .trouble-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .trouble-grid article {
+      padding: 18px;
+      background: #f7fafb;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+    }
+
+    .trouble-grid b { display: block; margin-bottom: 6px; color: var(--teal-dark); }
+    .trouble-grid p { margin: 0; color: var(--muted); font-size: 14px; }
+
+    .stop-note {
+      margin-top: 20px;
+      padding: 16px 18px;
+      color: #6b3100;
+      background: var(--orange-soft);
+      border-left: 5px solid var(--orange);
+      border-radius: 12px;
+    }
+
+    footer {
+      padding: 26px 20px 38px;
+      color: #657780;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    @media (max-width: 880px) {
+      .prep-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .save-box { grid-template-columns: 1fr; }
+      .save-arrow { transform: rotate(90deg); }
+      .trouble-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 700px) {
+      .top-actions > a { display: none; }
+      .brand span:last-child { overflow: hidden; text-overflow: ellipsis; }
+      .hero-inner { padding: 52px 20px 70px; }
+      main { width: min(100% - 24px, 1160px); }
+      .access-note { grid-template-columns: 1fr; margin-top: -28px; padding: 18px; }
+      section { padding: 22px 16px; border-radius: 18px; }
+      .result-grid { grid-template-columns: 1fr; }
+      .step-copy { grid-template-columns: 38px 1fr; padding: 17px 15px; }
+      .step-no { width: 36px; height: 36px; border-radius: 10px; }
+    }
+
+    @media (max-width: 480px) {
+      .topbar { padding-inline: 10px; }
+      .brand-mark { display: none; }
+      .brand { font-size: 12px; }
+      .prep-grid { grid-template-columns: 1fr; }
+      .route-line { align-items: stretch; flex-direction: column; }
+      .route-line i { display: none; }
+    }
+
+    @media print {
+      .topbar { position: static; }
+      .xw-language-switcher, video { display: none !important; }
+      body { background: #fff; }
+      section, .access-note { box-shadow: none; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body data-page="bellabot-rgbd" data-default-lang="zh">
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">RGB-D</span>
+      <span>BellaBot 下视 RGB-D 指导</span>
+    </div>
+    <nav class="top-actions" aria-label="Page navigation">
+      <a href="#video">完整视频</a>
+      <a href="#steps">操作步骤</a>
+      <a href="#results">结果判断</a>
+      <div class="xw-language-switcher" role="group" aria-label="Language">
+        <button type="button" data-lang-switch="zh">中文</button>
+        <button type="button" data-lang-switch="en">EN</button>
+        <button type="button" data-lang-switch="de">DE</button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">BELLA BOT · RGB-D SERVICE GUIDE</div>
+      <h1>下视 RGB-D 相机检查与标定</h1>
+      <p class="hero-copy">
+        本指导用于检查三个下视 RGB-D 相机的画面、确认检测结果，并保存正确的相机通道配置。
+        操作前请先完整观看视频。
+      </p>
+      <div class="hero-meta">
+        <span>BellaBot</span>
+        <span>3 个下视 RGB-D 相机</span>
+        <span>约 55 秒视频</span>
+        <span>中文 / EN / DE</span>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <aside class="access-note">
+      <span class="access-icon">!</span>
+      <div>
+        <strong>调试入口仅供获得授权并具备操作能力的人员使用</strong>
+        <p>管理员密码不会在本公开页面显示。请向授权技术支持单独索取，并且不要修改本指导未提到的其他设置。</p>
+      </div>
+    </aside>
+
+    <section id="overview">
+      <p class="section-kicker">Before you start</p>
+      <h2>操作前准备</h2>
+      <p class="lead">机器人应停在安全、平整、地面颜色均匀的区域；机器人前方必须有足够的无遮挡空间。</p>
+
+      <div class="route-line" aria-label="操作路径">
+        <span>Settings</span><i>›</i>
+        <span>Testen / Debug</span><i>›</i>
+        <span>Hardware</span><i>›</i>
+        <span>RGBDShow</span><i>›</i>
+        <span>Check Tool</span><i>›</i>
+        <span>Save Img</span><i>›</i>
+        <span>Save</span>
+      </div>
+
+      <div class="prep-grid">
+        <article class="prep-card">
+          <b>安全停放</b>
+          <p>暂停配送任务，确保机器人不会自行移动，并留出推动或旋转机器人的空间。</p>
+        </article>
+        <article class="prep-card">
+          <b>检查环境</b>
+          <p>选择平整、干燥、颜色尽量均匀的地面；前方不要有墙面、桌椅、人员或杂物遮挡。</p>
+        </article>
+        <article class="prep-card">
+          <b>清洁镜头</b>
+          <p>用干净柔软的镜头布清洁三个下视 RGB-D 相机窗口，避免灰尘、油污和遮挡。</p>
+        </article>
+        <article class="prep-card">
+          <b>准备权限</b>
+          <p>提前向授权技术支持取得管理员密码；页面不会公开提供该密码。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="video">
+      <p class="section-kicker">Complete video</p>
+      <h2>先观看完整操作视频</h2>
+      <p class="lead">视频展示了从设置菜单进入调试工具、检查 RGB-D、保存图片与保存通道配置的完整过程。</p>
+      <div class="video-shell">
+        <video controls playsinline preload="metadata" poster="assets/rgbd-preview.png">
+          <source src="assets/bellabot-downward-rgbd-calibration.mp4" type="video/mp4">
+          Your browser does not support MP4 video playback.
+        </video>
+      </div>
+      <div class="video-meta">
+        <span>时长：约 0:55</span>
+        <span>分辨率：1920 × 1080</span>
+        <span>格式：MP4 · H.264 / AAC</span>
+        <span>字幕：中文 / English</span>
+      </div>
+    </section>
+
+    <section id="steps">
+      <p class="section-kicker">Step by step</p>
+      <h2>操作步骤</h2>
+      <p class="lead">不同软件版本的菜单文字可能略有差异。德语界面通常显示 <code>Testen</code>，部分版本显示 <code>Debug</code>。</p>
+
+      <div class="step-list">
+        <article class="step">
+          <div class="step-copy">
+            <span class="step-no">1</span>
+            <div>
+              <h3>进入 Testen / Debug</h3>
+              <p>打开 <strong>Settings / 设置</strong>，将左侧菜单滚动到底部，选择 <strong>Testen</strong> 或 <strong>Debug</strong>。按提示输入由技术支持单独提供的管理员密码；如果出现确认页，点击 <strong>DEBUG</strong>。</p>
+            </div>
+          </div>
+          <figure>
+            <img src="assets/debug-entry.png" alt="Debug menu and DEBUG button">
+            <figcaption>菜单名称可能是 Testen 或 Debug；调试确认页显示 DEBUG 按钮。</figcaption>
+          </figure>
+        </article>
+
+        <article class="step">
+          <div class="step-copy">
+            <span class="step-no">2</span>
+            <div>
+              <h3>打开 Hardware</h3>
+              <p>在调试页面找到 <strong>DebugHardwareAndSensor</strong> 区域，点击 <strong>Hardware</strong>。</p>
+            </div>
+          </div>
+          <figure>
+            <img src="assets/hardware.png" alt="Hardware button on the debug screen">
+            <figcaption>Hardware 按钮位于 DebugHardwareAndSensor 区域。</figcaption>
+          </figure>
+        </article>
+
+        <article class="step">
+          <div class="step-copy">
+            <span class="step-no">3</span>
+            <div>
+              <h3>打开 RGBDShow</h3>
+              <p>在 Hardware 页面向下找到 <strong>RGBD</strong> 区域，点击 <strong>RGBDShow</strong>。</p>
+            </div>
+          </div>
+          <figure>
+            <img src="assets/rgbd-show.png" alt="RGBDShow button in the hardware screen">
+            <figcaption>点击 RGBDShow 后会进入三个下视 RGB-D 相机的预览页面。</figcaption>
+          </figure>
+        </article>
+
+        <article class="step">
+          <div class="step-copy">
+            <span class="step-no">4</span>
+            <div>
+              <h3>检查三个相机预览并打开 Check Tool</h3>
+              <p>确认页面显示 <strong>CENTER RGBD</strong>、<strong>RIGHT RGBD</strong> 和 <strong>LEFT RGBD</strong> 三个预览。点击左侧的 <strong>Check Tool</strong>。</p>
+            </div>
+          </div>
+          <figure>
+            <img src="assets/rgbd-preview.png" alt="Three RGBD previews and Check Tool button">
+            <figcaption>进入 Check Tool 前，三个相机预览都应有正常的深度图像。</figcaption>
+          </figure>
+        </article>
+
+        <article class="step">
+          <div class="step-copy">
+            <span class="step-no">5</span>
+            <div>
+              <h3>调整机器人，直到结果显示 OK</h3>
+              <p>如果出现 <code>Failed-1050 mm fill rate error!</code>，将机器人缓慢推动或旋转，使相机面对更空旷、无遮挡且地面均匀的区域。保持人员和物体离开检测范围，直到显示 <code>OK-1050 mm</code>。</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="step">
+          <div class="step-copy">
+            <span class="step-no">6</span>
+            <div>
+              <h3>保存检查图像并返回</h3>
+              <p>只有在页面显示 <code>OK-1050 mm</code> 后，才点击 <strong>Save Img</strong>，然后点击 <strong>Return</strong> 回到三个相机的预览页面。</p>
+            </div>
+          </div>
+          <figure>
+            <img src="assets/check-ok.png" alt="OK-1050 mm result with Save Img and Return buttons">
+            <figcaption>正确顺序：确认 OK → Save Img → Return。</figcaption>
+          </figure>
+        </article>
+
+        <article class="step">
+          <div class="step-copy">
+            <span class="step-no">7</span>
+            <div>
+              <h3>核对通道、保存配置并退出</h3>
+              <p>返回预览页后，确认 CENTER、RIGHT、LEFT 与实际相机位置相符。如果通道位置明显不正确，点击预览图交换位置，直到对应正确。然后点击 <strong>Save</strong>，确认出现“保存配置成功”，再点击 <strong>Return</strong>，使用系统返回键退出到配送页面。</p>
+            </div>
+          </div>
+          <figure>
+            <img src="assets/save-success.png" alt="RGBD configuration saved successfully">
+            <figcaption>看到“保存配置成功”后再退出调试页面。</figcaption>
+          </figure>
+        </article>
+      </div>
+    </section>
+
+    <section id="results">
+      <p class="section-kicker">Result check</p>
+      <h2>如何判断检查结果</h2>
+      <p class="lead">Check Tool 的状态用于判断当前画面是否满足检查条件。不要在 Failed 状态下继续保存。</p>
+
+      <div class="result-grid">
+        <article class="result-card fail">
+          <header>
+            <b>未通过：Failed-1050 mm fill rate error!</b>
+            <p>检测区域遮挡过多、地面条件不合适或镜头有污染。调整环境并重新检查。</p>
+          </header>
+          <img src="assets/check-failed.png" alt="Failed-1050 mm fill rate error result">
+        </article>
+        <article class="result-card pass">
+          <header>
+            <b>通过：OK-1050 mm</b>
+            <p>当前检测条件合格，可以继续 Save Img、Return 和最终 Save。</p>
+          </header>
+          <img src="assets/check-ok.png" alt="OK-1050 mm result">
+        </article>
+      </div>
+
+      <div class="save-box" aria-label="保存顺序">
+        <article>
+          <b>① Check Tool</b>
+          <p>先确认结果为 OK-1050 mm。</p>
+        </article>
+        <span class="save-arrow">→</span>
+        <article>
+          <b>② Save Img + Return</b>
+          <p>保存检查图像并返回预览页。</p>
+        </article>
+        <span class="save-arrow">→</span>
+        <article>
+          <b>③ Save</b>
+          <p>保存通道配置并确认成功提示。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="troubleshooting">
+      <p class="section-kicker">If it does not pass</p>
+      <h2>未通过或问题仍存在</h2>
+      <div class="trouble-grid">
+        <article>
+          <b>持续显示 Failed</b>
+          <p>再次清洁镜头，换到更平整、颜色更均匀且前方更空旷的位置；确认没有人脚、桌椅或墙面进入检测区域。</p>
+        </article>
+        <article>
+          <b>某一路没有正常画面</b>
+          <p>不要随意保存通道配置。拍摄 CENTER、RIGHT、LEFT 三个预览的完整页面，并联系技术支持。</p>
+        </article>
+        <article>
+          <b>保存后问题仍未改善</b>
+          <p>记录 Check Tool 结果和三个预览画面，并将机器人的软件版本、序列号及故障复现视频提供给技术支持继续诊断。</p>
+        </article>
+      </div>
+      <div class="stop-note">如果无法确认相机通道对应关系，或页面内容与本指导明显不同，请停止操作并联系技术支持。</div>
+    </section>
+  </main>
+
+  <footer>BellaBot 下视 RGB-D 相机检查、标定与通道保存指导</footer>
+
+  <script>
+    window.xwPageI18n = {
+      title: {
+        zh: "BellaBot 下视 RGB-D 相机检查与标定",
+        en: "BellaBot Downward RGB-D Camera Check and Calibration",
+        de: "BellaBot – Prüfung und Kalibrierung der nach unten gerichteten RGB-D-Kameras"
+      },
+      html: {
+        ".brand span:last-child": {
+          zh: "BellaBot 下视 RGB-D 指导",
+          en: "BellaBot Downward RGB-D Guide",
+          de: "BellaBot RGB-D-Anleitung"
+        },
+        ".top-actions > a[href='#video']": { zh: "完整视频", en: "Full video", de: "Video" },
+        ".top-actions > a[href='#steps']": { zh: "操作步骤", en: "Steps", de: "Schritte" },
+        ".top-actions > a[href='#results']": { zh: "结果判断", en: "Results", de: "Ergebnis" },
+        ".hero h1": {
+          zh: "下视 RGB-D 相机检查与标定",
+          en: "Downward RGB-D Camera Check and Calibration",
+          de: "Nach unten gerichtete RGB-D-Kameras prüfen und kalibrieren"
+        },
+        ".hero-copy": {
+          zh: "本指导用于检查三个下视 RGB-D 相机的画面、确认检测结果，并保存正确的相机通道配置。操作前请先完整观看视频。",
+          en: "Use this guide to inspect the three downward RGB-D camera images, confirm the check result and save the correct camera-channel configuration. Watch the full video before starting.",
+          de: "Mit dieser Anleitung prüfen Sie die Bilder der drei nach unten gerichteten RGB-D-Kameras, bestätigen das Prüfergebnis und speichern die richtige Kamerakanal-Zuordnung. Sehen Sie vor Beginn das vollständige Video an."
+        },
+        ".access-note strong": {
+          zh: "调试入口仅供获得授权并具备操作能力的人员使用",
+          en: "The debug area is only for authorized and capable personnel",
+          de: "Der Debug-Bereich ist nur für autorisierte und entsprechend befähigte Personen bestimmt"
+        },
+        ".access-note p": {
+          zh: "管理员密码不会在本公开页面显示。请向授权技术支持单独索取，并且不要修改本指导未提到的其他设置。",
+          en: "The administrator password is not published on this page. Obtain it separately from authorized technical support and do not change any settings not covered by this guide.",
+          de: "Das Administratorpasswort wird auf dieser öffentlichen Seite nicht angezeigt. Fordern Sie es separat beim autorisierten technischen Support an und ändern Sie keine Einstellungen, die in dieser Anleitung nicht beschrieben sind."
+        },
+        "#overview > h2": { zh: "操作前准备", en: "Preparation", de: "Vorbereitung" },
+        "#overview > .lead": {
+          zh: "机器人应停在安全、平整、地面颜色均匀的区域；机器人前方必须有足够的无遮挡空间。",
+          en: "Place the robot in a safe area with a flat, uniformly colored floor and sufficient unobstructed space in front of it.",
+          de: "Stellen Sie den Roboter in einem sicheren Bereich auf einem ebenen, möglichst einfarbigen Boden ab. Vor dem Roboter muss ausreichend freier Raum vorhanden sein."
+        },
+        "#video > h2": { zh: "先观看完整操作视频", en: "Watch the Full Procedure First", de: "Zuerst das vollständige Video ansehen" },
+        "#video > .lead": {
+          zh: "视频展示了从设置菜单进入调试工具、检查 RGB-D、保存图片与保存通道配置的完整过程。",
+          en: "The video shows the complete process: entering the debug tool from Settings, checking RGB-D, saving the check image and saving the channel configuration.",
+          de: "Das Video zeigt den gesamten Ablauf: Debug-Tool über die Einstellungen öffnen, RGB-D prüfen, Prüfbild speichern und Kanalzuordnung speichern."
+        },
+        "#steps > h2": { zh: "操作步骤", en: "Procedure", de: "Vorgehensweise" },
+        "#steps > .lead": {
+          zh: "不同软件版本的菜单文字可能略有差异。德语界面通常显示 <code>Testen</code>，部分版本显示 <code>Debug</code>。",
+          en: "Menu labels may vary slightly between software versions. The German interface usually shows <code>Testen</code>; some versions show <code>Debug</code>.",
+          de: "Die Menübezeichnungen können je nach Softwareversion leicht abweichen. In der deutschen Oberfläche steht normalerweise <code>Testen</code>, in manchen Versionen <code>Debug</code>."
+        },
+        "#results > h2": { zh: "如何判断检查结果", en: "How to Interpret the Result", de: "Prüfergebnis beurteilen" },
+        "#results > .lead": {
+          zh: "Check Tool 的状态用于判断当前画面是否满足检查条件。不要在 Failed 状态下继续保存。",
+          en: "The Check Tool status indicates whether the current image meets the test conditions. Do not continue saving while the status is Failed.",
+          de: "Der Status im Check Tool zeigt, ob das aktuelle Bild die Prüfbedingungen erfüllt. Speichern Sie nicht weiter, solange Failed angezeigt wird."
+        },
+        "#troubleshooting > h2": { zh: "未通过或问题仍存在", en: "If the Check Fails or the Problem Remains", de: "Wenn die Prüfung fehlschlägt oder das Problem bestehen bleibt" },
+        ".stop-note": {
+          zh: "如果无法确认相机通道对应关系，或页面内容与本指导明显不同，请停止操作并联系技术支持。",
+          en: "If you cannot confirm the camera-channel assignment or the screen differs significantly from this guide, stop and contact technical support.",
+          de: "Wenn Sie die Kamerakanal-Zuordnung nicht eindeutig bestätigen können oder die Anzeige deutlich von dieser Anleitung abweicht, brechen Sie ab und wenden Sie sich an den technischen Support."
+        },
+        "body > footer": {
+          zh: "BellaBot 下视 RGB-D 相机检查、标定与通道保存指导",
+          en: "BellaBot Downward RGB-D Camera Check, Calibration and Channel Save Guide",
+          de: "BellaBot – Anleitung zur Prüfung, Kalibrierung und Speicherung der RGB-D-Kanäle"
+        }
+      },
+      groups: {
+        ".hero-meta span": {
+          zh: ["BellaBot", "3 个下视 RGB-D 相机", "约 55 秒视频", "中文 / EN / DE"],
+          en: ["BellaBot", "3 downward RGB-D cameras", "Approx. 55-second video", "中文 / EN / DE"],
+          de: ["BellaBot", "3 nach unten gerichtete RGB-D-Kameras", "Video ca. 55 Sekunden", "中文 / EN / DE"]
+        },
+        ".prep-card b": {
+          zh: ["安全停放", "检查环境", "清洁镜头", "准备权限"],
+          en: ["Park safely", "Check the area", "Clean the lenses", "Prepare access"],
+          de: ["Sicher abstellen", "Umgebung prüfen", "Linsen reinigen", "Zugang vorbereiten"]
+        },
+        ".prep-card p": {
+          zh: [
+            "暂停配送任务，确保机器人不会自行移动，并留出推动或旋转机器人的空间。",
+            "选择平整、干燥、颜色尽量均匀的地面；前方不要有墙面、桌椅、人员或杂物遮挡。",
+            "用干净柔软的镜头布清洁三个下视 RGB-D 相机窗口，避免灰尘、油污和遮挡。",
+            "提前向授权技术支持取得管理员密码；页面不会公开提供该密码。"
+          ],
+          en: [
+            "Pause delivery tasks, make sure the robot cannot move automatically and leave room to push or rotate it.",
+            "Use a flat, dry and uniformly colored floor. Keep walls, furniture, people and objects out of the area in front.",
+            "Clean all three downward RGB-D camera windows with a clean, soft lens cloth. Remove dust, grease and obstructions.",
+            "Obtain the administrator password from authorized technical support in advance. It is not published on this page."
+          ],
+          de: [
+            "Pausieren Sie alle Lieferaufträge, verhindern Sie selbstständige Bewegungen und lassen Sie Platz zum Schieben oder Drehen des Roboters.",
+            "Verwenden Sie einen ebenen, trockenen und möglichst einfarbigen Boden. Vor dem Roboter dürfen sich keine Wände, Möbel, Personen oder Gegenstände befinden.",
+            "Reinigen Sie die Fenster aller drei nach unten gerichteten RGB-D-Kameras mit einem sauberen, weichen Optiktuch. Entfernen Sie Staub, Fett und Abdeckungen.",
+            "Fordern Sie das Administratorpasswort vorab beim autorisierten technischen Support an. Es wird auf dieser Seite nicht veröffentlicht."
+          ]
+        },
+        ".video-meta span": {
+          zh: ["时长：约 0:55", "分辨率：1920 × 1080", "格式：MP4 · H.264 / AAC", "字幕：中文 / English"],
+          en: ["Duration: approx. 0:55", "Resolution: 1920 × 1080", "Format: MP4 · H.264 / AAC", "Subtitles: 中文 / English"],
+          de: ["Dauer: ca. 0:55", "Auflösung: 1920 × 1080", "Format: MP4 · H.264 / AAC", "Untertitel: 中文 / English"]
+        },
+        ".step h3": {
+          zh: ["进入 Testen / Debug", "打开 Hardware", "打开 RGBDShow", "检查三个相机预览并打开 Check Tool", "调整机器人，直到结果显示 OK", "保存检查图像并返回", "核对通道、保存配置并退出"],
+          en: ["Enter Testen / Debug", "Open Hardware", "Open RGBDShow", "Inspect all three previews and open Check Tool", "Adjust the robot until the result is OK", "Save the check image and return", "Verify channels, save the configuration and exit"],
+          de: ["Testen / Debug öffnen", "Hardware öffnen", "RGBDShow öffnen", "Alle drei Vorschauen prüfen und Check Tool öffnen", "Roboter ausrichten, bis OK angezeigt wird", "Prüfbild speichern und zurückkehren", "Kanäle prüfen, Konfiguration speichern und beenden"]
+        },
+        ".step p": {
+          zh: [
+            "打开 <strong>Settings / 设置</strong>，将左侧菜单滚动到底部，选择 <strong>Testen</strong> 或 <strong>Debug</strong>。按提示输入由技术支持单独提供的管理员密码；如果出现确认页，点击 <strong>DEBUG</strong>。",
+            "在调试页面找到 <strong>DebugHardwareAndSensor</strong> 区域，点击 <strong>Hardware</strong>。",
+            "在 Hardware 页面向下找到 <strong>RGBD</strong> 区域，点击 <strong>RGBDShow</strong>。",
+            "确认页面显示 <strong>CENTER RGBD</strong>、<strong>RIGHT RGBD</strong> 和 <strong>LEFT RGBD</strong> 三个预览。点击左侧的 <strong>Check Tool</strong>。",
+            "如果出现 <code>Failed-1050 mm fill rate error!</code>，将机器人缓慢推动或旋转，使相机面对更空旷、无遮挡且地面均匀的区域。保持人员和物体离开检测范围，直到显示 <code>OK-1050 mm</code>。",
+            "只有在页面显示 <code>OK-1050 mm</code> 后，才点击 <strong>Save Img</strong>，然后点击 <strong>Return</strong> 回到三个相机的预览页面。",
+            "返回预览页后，确认 CENTER、RIGHT、LEFT 与实际相机位置相符。如果通道位置明显不正确，点击预览图交换位置，直到对应正确。然后点击 <strong>Save</strong>，确认出现“保存配置成功”，再点击 <strong>Return</strong>，使用系统返回键退出到配送页面。"
+          ],
+          en: [
+            "Open <strong>Settings</strong>, scroll the left menu to the bottom and select <strong>Testen</strong> or <strong>Debug</strong>. Enter the administrator password supplied separately by technical support. If the confirmation page appears, select <strong>DEBUG</strong>.",
+            "Find <strong>DebugHardwareAndSensor</strong> on the debug screen and select <strong>Hardware</strong>.",
+            "Scroll to the <strong>RGBD</strong> area on the Hardware screen and select <strong>RGBDShow</strong>.",
+            "Confirm that the page shows <strong>CENTER RGBD</strong>, <strong>RIGHT RGBD</strong> and <strong>LEFT RGBD</strong>. Select <strong>Check Tool</strong> on the left.",
+            "If <code>Failed-1050 mm fill rate error!</code> appears, slowly push or rotate the robot so the cameras face a more open, unobstructed area with a uniform floor. Keep people and objects outside the test area until <code>OK-1050 mm</code> appears.",
+            "Only after <code>OK-1050 mm</code> appears, select <strong>Save Img</strong>, then select <strong>Return</strong> to return to the three-camera preview.",
+            "Back on the preview screen, confirm that CENTER, RIGHT and LEFT match the physical camera positions. If the channel positions are clearly wrong, select the preview images to swap them until they match. Select <strong>Save</strong>, confirm that the configuration-saved message appears, select <strong>Return</strong> and use the system Back button to return to the delivery screen."
+          ],
+          de: [
+            "Öffnen Sie <strong>Settings / Einstellungen</strong>, scrollen Sie das linke Menü ganz nach unten und wählen Sie <strong>Testen</strong> oder <strong>Debug</strong>. Geben Sie das vom technischen Support separat bereitgestellte Administratorpasswort ein. Falls die Bestätigungsseite erscheint, wählen Sie <strong>DEBUG</strong>.",
+            "Suchen Sie im Debug-Bildschirm den Bereich <strong>DebugHardwareAndSensor</strong> und wählen Sie <strong>Hardware</strong>.",
+            "Scrollen Sie im Hardware-Bildschirm zum Bereich <strong>RGBD</strong> und wählen Sie <strong>RGBDShow</strong>.",
+            "Prüfen Sie, ob <strong>CENTER RGBD</strong>, <strong>RIGHT RGBD</strong> und <strong>LEFT RGBD</strong> angezeigt werden. Wählen Sie links <strong>Check Tool</strong>.",
+            "Wenn <code>Failed-1050 mm fill rate error!</code> erscheint, schieben oder drehen Sie den Roboter langsam, sodass die Kameras auf einen freieren, unverdeckten Bereich mit gleichmäßigem Boden gerichtet sind. Halten Sie Personen und Gegenstände aus dem Prüfbereich fern, bis <code>OK-1050 mm</code> angezeigt wird.",
+            "Erst wenn <code>OK-1050 mm</code> angezeigt wird, wählen Sie <strong>Save Img</strong> und anschließend <strong>Return</strong>, um zur Vorschau der drei Kameras zurückzukehren.",
+            "Prüfen Sie in der Vorschau, ob CENTER, RIGHT und LEFT den tatsächlichen Kamerapositionen entsprechen. Wenn die Kanalpositionen eindeutig falsch sind, wählen Sie die Vorschaubilder, um sie zu tauschen, bis die Zuordnung stimmt. Wählen Sie <strong>Save</strong>, bestätigen Sie die Meldung über das erfolgreiche Speichern, wählen Sie <strong>Return</strong> und kehren Sie mit der System-Zurück-Taste zur Lieferansicht zurück."
+          ]
+        },
+        ".step figcaption": {
+          zh: [
+            "菜单名称可能是 Testen 或 Debug；调试确认页显示 DEBUG 按钮。",
+            "Hardware 按钮位于 DebugHardwareAndSensor 区域。",
+            "点击 RGBDShow 后会进入三个下视 RGB-D 相机的预览页面。",
+            "进入 Check Tool 前，三个相机预览都应有正常的深度图像。",
+            "正确顺序：确认 OK → Save Img → Return。",
+            "看到“保存配置成功”后再退出调试页面。"
+          ],
+          en: [
+            "The menu may be named Testen or Debug; the confirmation page shows the DEBUG button.",
+            "The Hardware button is in the DebugHardwareAndSensor area.",
+            "RGBDShow opens the preview page for the three downward RGB-D cameras.",
+            "All three previews should show a valid depth image before you open Check Tool.",
+            "Correct sequence: confirm OK → Save Img → Return.",
+            "Exit the debug area only after the configuration-saved message appears."
+          ],
+          de: [
+            "Der Menüpunkt kann Testen oder Debug heißen; auf der Bestätigungsseite wird die Schaltfläche DEBUG angezeigt.",
+            "Die Schaltfläche Hardware befindet sich im Bereich DebugHardwareAndSensor.",
+            "RGBDShow öffnet die Vorschauseite der drei nach unten gerichteten RGB-D-Kameras.",
+            "Alle drei Vorschauen sollten ein gültiges Tiefenbild zeigen, bevor Check Tool geöffnet wird.",
+            "Richtige Reihenfolge: OK bestätigen → Save Img → Return.",
+            "Verlassen Sie den Debug-Bereich erst nach der Meldung über das erfolgreiche Speichern."
+          ]
+        },
+        ".result-card header b": {
+          zh: ["未通过：Failed-1050 mm fill rate error!", "通过：OK-1050 mm"],
+          en: ["Not passed: Failed-1050 mm fill rate error!", "Passed: OK-1050 mm"],
+          de: ["Nicht bestanden: Failed-1050 mm fill rate error!", "Bestanden: OK-1050 mm"]
+        },
+        ".result-card header p": {
+          zh: ["检测区域遮挡过多、地面条件不合适或镜头有污染。调整环境并重新检查。", "当前检测条件合格，可以继续 Save Img、Return 和最终 Save。"],
+          en: ["The test area is too obstructed, the floor is unsuitable or a lens is contaminated. Adjust the area and check again.", "The current test conditions are valid. Continue with Save Img, Return and the final Save."],
+          de: ["Der Prüfbereich ist zu stark verdeckt, der Boden ist ungeeignet oder eine Linse verschmutzt. Umgebung anpassen und erneut prüfen.", "Die aktuellen Prüfbedingungen sind erfüllt. Fahren Sie mit Save Img, Return und dem abschließenden Save fort."]
+        },
+        ".save-box b": {
+          zh: ["① Check Tool", "② Save Img + Return", "③ Save"],
+          en: ["① Check Tool", "② Save Img + Return", "③ Save"],
+          de: ["① Check Tool", "② Save Img + Return", "③ Save"]
+        },
+        ".save-box p": {
+          zh: ["先确认结果为 OK-1050 mm。", "保存检查图像并返回预览页。", "保存通道配置并确认成功提示。"],
+          en: ["First confirm OK-1050 mm.", "Save the check image and return to the preview.", "Save the channel configuration and confirm the success message."],
+          de: ["Zuerst OK-1050 mm bestätigen.", "Prüfbild speichern und zur Vorschau zurückkehren.", "Kanalzuordnung speichern und Erfolgsmeldung bestätigen."]
+        },
+        ".trouble-grid b": {
+          zh: ["持续显示 Failed", "某一路没有正常画面", "保存后问题仍未改善"],
+          en: ["Failed remains on screen", "One channel has no valid image", "The issue remains after saving"],
+          de: ["Failed wird weiterhin angezeigt", "Ein Kanal zeigt kein gültiges Bild", "Problem besteht nach dem Speichern fort"]
+        },
+        ".trouble-grid p": {
+          zh: [
+            "再次清洁镜头，换到更平整、颜色更均匀且前方更空旷的位置；确认没有人脚、桌椅或墙面进入检测区域。",
+            "不要随意保存通道配置。拍摄 CENTER、RIGHT、LEFT 三个预览的完整页面，并联系技术支持。",
+            "记录 Check Tool 结果和三个预览画面，并将机器人的软件版本、序列号及故障复现视频提供给技术支持继续诊断。"
+          ],
+          en: [
+            "Clean the lenses again and move to a flatter, more uniformly colored area with more open space in front. Keep feet, furniture and walls out of the test area.",
+            "Do not save the channel configuration at random. Photograph the full page with CENTER, RIGHT and LEFT previews and contact technical support.",
+            "Record the Check Tool result and all three previews. Provide the robot software version, serial number and a video reproducing the fault to technical support."
+          ],
+          de: [
+            "Reinigen Sie die Linsen erneut und wechseln Sie zu einem ebeneren, gleichmäßiger gefärbten Bereich mit mehr Freiraum vor dem Roboter. Füße, Möbel und Wände dürfen nicht im Prüfbereich liegen.",
+            "Speichern Sie die Kanalzuordnung nicht auf Verdacht. Fotografieren Sie die vollständige Seite mit CENTER-, RIGHT- und LEFT-Vorschau und wenden Sie sich an den technischen Support.",
+            "Dokumentieren Sie das Check-Tool-Ergebnis und alle drei Vorschauen. Übermitteln Sie dem technischen Support außerdem Softwareversion, Seriennummer und ein Video, das den Fehler reproduziert."
+          ]
+        }
+      }
+    };
+  </script>
+  <script src="../../../../assets/i18n.js"></script>
+</body>
+</html>
