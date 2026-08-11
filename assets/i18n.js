@@ -42,7 +42,7 @@
           "Delivery and service robot documentation",
           "Dokumentation für Liefer- und Serviceroboter"
         ),
-        ".pudu .status": tr("已有 4 份资料 →", "4 documents available →", "4 Dokumente verfügbar →"),
+        ".pudu .status": tr("已有 5 份资料 →", "5 documents available →", "5 Dokumente verfügbar →"),
         ".card:not(.pudu):not(.orion) p": tr(
           "商用清洁机器人资料",
           "Commercial cleaning robot documentation",
@@ -158,6 +158,21 @@
           "A central location for manuals, PDF files and other customer delivery materials.",
           "Zentraler Bereich für Handbücher, PDF-Dateien und weitere Übergabeunterlagen."
         ),
+        ".cc1-schnellguide .tag": tr(
+          "CC1 Pro · 员工简易指南 · 德语",
+          "CC1 Pro · Staff Quick Guide · German",
+          "CC1 Pro · Mitarbeiter-Kurzanleitung · Deutsch"
+        ),
+        ".cc1-schnellguide h3": tr(
+          "日常操作、楼层切换与地毯清洁",
+          "Daily Operation, Floor Change and Carpet Cleaning",
+          "Tägliche Nutzung, Etagenwechsel und Teppichreinigung"
+        ),
+        ".cc1-schnellguide > div > p": tr(
+          "面向现场员工的三页 A4 快速指南，包含日常检查、地图切换、任务选择、配件对照和维护入口。",
+          "A three-page A4 guide for on-site staff covering daily checks, map changes, task selection, accessory setup and maintenance access.",
+          "Dreiseitige A4-Anleitung für Mitarbeitende vor Ort: tägliche Prüfung, Kartenwechsel, Aufgabenauswahl, Zubehör und Wartungszugang."
+        ),
         ".empty": tr(
           "说明书、PDF 与其他交付资料将在这里发布。",
           "Manuals, PDF files and other customer documents will be published here.",
@@ -194,6 +209,11 @@
           zh: ["BellaBot", "7 个步骤", "中文 / EN / DE", "视频 0:55"],
           en: ["BellaBot", "7 steps", "中文 / EN / DE", "Video 0:55"],
           de: ["BellaBot", "7 Schritte", "中文 / EN / DE", "Video 0:55"]
+        },
+        ".cc1-schnellguide .meta span": {
+          zh: ["CC1 Pro", "3 页", "德语", "A4 打印"],
+          en: ["CC1 Pro", "3 pages", "German", "A4 print"],
+          de: ["CC1 Pro", "3 Seiten", "Deutsch", "A4-Druck"]
         }
       }
     },
