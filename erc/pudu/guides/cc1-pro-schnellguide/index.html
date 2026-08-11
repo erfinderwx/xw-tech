@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="referrer" content="no-referrer">
+  <title>PUDU CC1 Pro – Kurzanleitung</title>
+  <style>
+    @page { size: A4; margin: 10mm; }
+
+    :root {
+      --blue: #1f67d8;
+      --blue-dark: #123f8a;
+      --green: #22b86e;
+      --green-dark: #11854b;
+      --orange: #f08a24;
+      --red: #d93b3b;
+      --text: #24324a;
+      --muted: #5d6d83;
+      --line: #d8e2ef;
+      --bg: #f5f8fc;
+      --soft-blue: #eef5ff;
+      --soft-green: #f4fff9;
+      --soft-orange: #fff8ef;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+
+    body {
+      margin: 0;
+      background: #eef3f8;
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .page {
+      width: 190mm;
+      height: 277mm;
+      margin: 10px auto;
+      padding: 9mm 10mm 8mm;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      box-shadow: 0 2mm 6mm rgba(0, 0, 0, .08);
+      break-after: page;
+      page-break-after: always;
+    }
+
+    .page:last-of-type { break-after: auto; page-break-after: auto; }
+    .keep { break-inside: avoid; page-break-inside: avoid; }
+
+    h1 {
+      margin: 0;
+      color: var(--blue-dark);
+      font-size: 18.6pt;
+      line-height: 1.12;
+    }
+
+    .subtitle {
+      margin-top: 1.4mm;
+      color: #4e5f78;
+      font-weight: 700;
+      font-size: 10.7pt;
+    }
+
+    .top-hint {
+      margin-top: 2.8mm;
+      padding: 2.3mm 3mm;
+      background: var(--soft-blue);
+      border-left: 4px solid var(--blue);
+      font-size: 10.2pt;
+      line-height: 1.32;
+    }
+
+    .card {
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 4mm;
+    }
+
+    .card img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .caption {
+      padding: 2.2mm 3mm;
+      background: #fbfdff;
+      border-top: 1px solid var(--line);
+      font-size: 10.2pt;
+      line-height: 1.34;
+    }
+
+    .caption.compact { padding: 2mm 2.5mm; font-size: 9.65pt; }
+
+    .start-panel {
+      margin-top: 4mm;
+      padding: 3.2mm;
+      background: var(--soft-green);
+      border: 2px solid #bde8cf;
+      border-radius: 4mm;
+    }
+
+    .start-title {
+      margin: 0 0 2.4mm;
+      color: var(--green-dark);
+      font-size: 14pt;
+      font-weight: 800;
+    }
+
+    .start-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2.2mm;
+    }
+
+    .start-item {
+      min-height: 30mm;
+      padding: 2.4mm;
+      background: #fff;
+      border: 1px solid #cdebdc;
+      border-radius: 3mm;
+      font-size: 9.35pt;
+      line-height: 1.28;
+    }
+
+    .letter, .num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 800;
+      line-height: 1;
+      border-radius: 50%;
+    }
+
+    .letter {
+      width: 7.2mm;
+      height: 7.2mm;
+      margin-bottom: 1.4mm;
+      background: var(--green);
+      font-size: 9.6pt;
+    }
+
+    .num {
+      width: 6.6mm;
+      height: 6.6mm;
+      flex: 0 0 6.6mm;
+      background: var(--blue);
+      font-size: 9pt;
+    }
+
+    .small-note {
+      margin-top: 2.5mm;
+      padding: 2.1mm 2.8mm;
+      background: #fbfdff;
+      border: 1px solid var(--line);
+      border-radius: 3mm;
+      font-size: 9.8pt;
+      line-height: 1.3;
+    }
+
+    .home-card { margin-top: 4mm; }
+
+    .legend-horizontal {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2.2mm;
+      margin-top: 3.5mm;
+    }
+
+    .legend-card {
+      min-height: 22mm;
+      padding: 2.3mm 2.1mm;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 3.2mm;
+    }
+
+    .legend-head {
+      display: flex;
+      align-items: center;
+      gap: 1.6mm;
+      margin-bottom: 1mm;
+    }
+
+    .legend-title {
+      color: #0f274f;
+      font-size: 9.1pt;
+      font-weight: 800;
+      line-height: 1.15;
+    }
+
+    .legend-sub { font-size: 8.25pt; line-height: 1.22; }
+
+    .task-demo {
+      display: grid;
+      grid-template-columns: 46mm 1fr;
+      gap: 4mm;
+      margin-top: 4mm;
+      padding: 4mm;
+      background: #dfe5eb;
+      border: 1px solid #cad5e2;
+      border-radius: 4mm;
+    }
+
+    .robot-choice {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 72mm;
+      padding: 3mm;
+      background: #fff;
+      border-radius: 3.5mm;
+      text-align: center;
+    }
+
+    .robot-choice .screen-icon { font-size: 36pt; line-height: 1; }
+    .robot-choice strong { margin-top: 3mm; color: #33425c; font-size: 12pt; }
+
+    .task-list {
+      padding: 4mm;
+      background: #fff;
+      border-radius: 3.5mm;
+    }
+
+    .task-list h2 {
+      margin: 0 0 3mm;
+      color: var(--blue-dark);
+      font-size: 14pt;
+    }
+
+    .task-option {
+      display: flex;
+      align-items: center;
+      gap: 3mm;
+      padding: 3mm;
+      border: 1px solid #ccd7e5;
+      border-radius: 2.5mm;
+      font-size: 10.5pt;
+      font-weight: 700;
+    }
+
+    .task-option + .task-option { margin-top: 2mm; }
+    .task-option.selected { background: var(--soft-blue); border: 3px solid var(--blue); }
+    .task-option .check { color: var(--blue); font-size: 15pt; }
+
+    .start-button {
+      margin-top: 3mm;
+      padding: 2.7mm;
+      color: #fff;
+      background: var(--green);
+      border-radius: 2.5mm;
+      text-align: center;
+      font-size: 11pt;
+      font-weight: 800;
+    }
+
+    .mini-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5mm;
+      margin-top: 4mm;
+      align-items: stretch;
+    }
+
+    .mini-card { display: flex; flex-direction: column; }
+    .mini-card.station img { height: 45mm; object-fit: contain; }
+    .mini-card.more img { height: 45mm; object-fit: contain; }
+
+    .tips {
+      margin-top: 4mm;
+      padding: 3.4mm 4mm;
+      background: var(--soft-green);
+      border: 1.5px solid #bde8cf;
+      border-radius: 4mm;
+    }
+
+    .tips h2 {
+      margin: 0 0 2.2mm;
+      color: var(--green-dark);
+      font-size: 12.6pt;
+    }
+
+    .tips ul {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.8mm 7mm;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .tips li {
+      position: relative;
+      padding-left: 4mm;
+      font-size: 9.7pt;
+      line-height: 1.28;
+    }
+
+    .tips li::before {
+      position: absolute;
+      left: 0;
+      color: var(--green-dark);
+      content: "•";
+      font-weight: 900;
+    }
+
+    .transfer-top {
+      display: grid;
+      grid-template-columns: 47mm 1fr;
+      gap: 4mm;
+      margin-top: 4mm;
+    }
+
+    .position-card img {
+      height: 47mm;
+      object-fit: contain;
+      background: #f7f8fa;
+    }
+
+    .position-card .caption {
+      padding: 2.2mm 2.5mm;
+      border-left: 4px solid var(--green);
+      font-size: 10.2pt;
+      font-weight: 800;
+    }
+
+    .quick-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5mm;
+    }
+
+    .quick-step {
+      min-height: 58mm;
+      padding: 3mm;
+      background: var(--soft-blue);
+      border: 1px solid #bdd2f3;
+      border-radius: 3.5mm;
+    }
+
+    .quick-step .num { margin-bottom: 2mm; }
+    .quick-step strong { display: block; color: var(--blue-dark); font-size: 10.3pt; line-height: 1.22; }
+    .quick-step p { margin: 1.8mm 0 0; font-size: 9.15pt; line-height: 1.25; }
+
+    .settings-flow {
+      margin-top: 3.5mm;
+      padding: 3mm;
+      background: #f8fbff;
+      border: 2px solid #bed3f3;
+      border-radius: 3.5mm;
+    }
+
+    .flow-title {
+      margin-bottom: 2.3mm;
+      color: var(--blue-dark);
+      font-size: 11pt;
+      font-weight: 800;
+    }
+
+    .flow-line {
+      display: grid;
+      grid-template-columns: 1fr 7mm 1fr 7mm 1.25fr 7mm 1.25fr;
+      align-items: center;
+      gap: 1.3mm;
+    }
+
+    .flow-box {
+      min-height: 15mm;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2mm;
+      background: #fff;
+      border: 1px solid #ccd9e9;
+      border-radius: 2.5mm;
+      color: #263a59;
+      text-align: center;
+      font-size: 9.4pt;
+      font-weight: 800;
+      line-height: 1.18;
+    }
+
+    .flow-box.target { background: var(--soft-green); border: 2.5px solid var(--green); }
+    .arrow { color: var(--blue); text-align: center; font-size: 18pt; font-weight: 800; }
+
+    .mode-match {
+      display: grid;
+      grid-template-columns: 1fr 15mm 1fr;
+      align-items: center;
+      gap: 3mm;
+      margin-top: 3.5mm;
+      padding: 3mm;
+      background: #fff;
+      border: 1.5px solid var(--line);
+      border-radius: 3.5mm;
+    }
+
+    .match-box {
+      padding: 2.5mm;
+      background: var(--bg);
+      border-radius: 2.5mm;
+      text-align: center;
+      font-size: 9.7pt;
+      line-height: 1.25;
+    }
+
+    .match-box strong { display: block; color: var(--blue-dark); font-size: 10.3pt; }
+    .match-arrow { color: var(--green-dark); text-align: center; font-size: 23pt; font-weight: 800; }
+
+    .accessory-title {
+      margin: 3.5mm 0 2.3mm;
+      color: var(--blue-dark);
+      font-size: 12.2pt;
+      font-weight: 800;
+    }
+
+    .accessory-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4mm;
+    }
+
+    .mode-card {
+      overflow: hidden;
+      border: 2px solid;
+      border-radius: 3.5mm;
+    }
+
+    .mode-card.carpet { border-color: #6897db; }
+    .mode-card.wet { border-color: #58bd88; }
+
+    .mode-head {
+      padding: 2.1mm 3mm;
+      color: #fff;
+      font-size: 11pt;
+      font-weight: 800;
+    }
+
+    .carpet .mode-head { background: var(--blue); }
+    .wet .mode-head { background: var(--green-dark); }
+
+    .parts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.8mm;
+      padding: 2.2mm;
+    }
+
+    .part {
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 2.5mm;
+    }
+
+    .part img {
+      display: block;
+      width: 100%;
+      height: 20mm;
+      object-fit: contain;
+      background: #fff;
+    }
+
+    .part span {
+      display: flex;
+      min-height: 9mm;
+      align-items: center;
+      justify-content: center;
+      padding: 1.3mm;
+      background: #f9fbfd;
+      border-top: 1px solid var(--line);
+      text-align: center;
+      font-size: 8.2pt;
+      font-weight: 800;
+      line-height: 1.12;
+    }
+
+    .common-part {
+      margin-top: 2.5mm;
+      padding: 2.2mm 3mm;
+      background: var(--soft-orange);
+      border: 2px solid #f4bd82;
+      border-radius: 3mm;
+      text-align: center;
+      font-size: 10pt;
+      font-weight: 800;
+    }
+
+    .finish-row {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 3mm;
+      margin-top: 2.5mm;
+    }
+
+    .finish-card {
+      padding: 2.6mm 3mm;
+      border-radius: 3mm;
+      font-size: 9.7pt;
+      font-weight: 800;
+      line-height: 1.27;
+    }
+
+    .finish-card.start { background: var(--soft-blue); border: 1.5px solid #bcd2f4; }
+    .finish-card.done { background: var(--soft-green); border: 1.5px solid #bde8cf; }
+    .finish-card .tiny-num { color: var(--blue); font-weight: 900; }
+
+    .warning {
+      margin-top: 2.5mm;
+      padding: 2.5mm 3mm;
+      background: #fff4f2;
+      border-left: 5px solid var(--red);
+      border-radius: 2.5mm;
+      font-size: 9.45pt;
+      line-height: 1.25;
+    }
+
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8mm;
+      margin-top: auto;
+      padding-top: 3mm;
+      border-top: 2px solid #e6edf7;
+    }
+
+    .brand {
+      color: var(--blue-dark);
+      font-size: 10.5pt;
+      font-weight: 900;
+      letter-spacing: .3px;
+    }
+
+    .footer-text {
+      color: var(--blue-dark);
+      text-align: right;
+      font-size: 10pt;
+      font-weight: 700;
+    }
+
+    .edit-toolbar {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px;
+      background: rgba(255, 255, 255, .96);
+      border: 1px solid #cfd8e6;
+      border-radius: 12px;
+      box-shadow: 0 3px 14px rgba(0, 0, 0, .16);
+    }
+
+    .edit-toolbar button,
+    .edit-toolbar a {
+      padding: 8px 12px;
+      color: #fff;
+      background: var(--blue);
+      border: 0;
+      border-radius: 9px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .edit-toolbar button.secondary { background: var(--green); }
+    .edit-toolbar button.gray { background: #5e6d82; }
+    .edit-hint { margin-left: 4px; color: var(--text); font-size: 12px; font-weight: 700; white-space: nowrap; }
+
+    body.edit-mode .editable {
+      outline: 2px dashed var(--blue);
+      outline-offset: 3px;
+      background-color: rgba(31, 103, 216, .055);
+    }
+
+    body.edit-mode .editable:focus { outline: 3px solid var(--green); background: #fff; }
+
+    @media (max-width: 900px) {
+      .page { margin: 0 auto 10px; transform-origin: top left; }
+      .edit-hint { display: none; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      .page { margin: 0; box-shadow: none; }
+      .edit-toolbar { display: none !important; }
+      body.edit-mode .editable { outline: none !important; background: transparent !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="page">
+    <h1 class="editable">Kurzanleitung – PUDU CC1 Pro</h1>
+    <div class="subtitle editable">Tägliche Nutzung · Schnell prüfen · Aufgabe starten</div>
+
+    <div class="start-panel keep editable">
+      <div class="start-title">Vor dem Start</div>
+      <div class="start-grid">
+        <div class="start-item"><span class="letter">A</span><div>Wasserstand und Batteriestand prüfen.</div></div>
+        <div class="start-item"><span class="letter">B</span><div>Deckel öffnen und <strong>Filter / Behälter</strong> prüfen.</div></div>
+        <div class="start-item"><span class="letter">C</span><div>Filter, Walzen, Behälter, Saugleiste und Sensoren reinigen.</div></div>
+        <div class="start-item"><span class="letter">D</span><div>Wenn alles in Ordnung ist: Aufgabe starten.</div></div>
+        <div class="start-item"><span class="letter">E</span><div>Bei Störung: Foto / kurzes Video und Uhrzeit aufnehmen.</div></div>
+      </div>
+      <div class="small-note"><strong>Reinigung:</strong> möglichst täglich, spätestens alle 2 Tage.</div>
+    </div>
+
+    <div class="top-hint editable">Die Markierungen im Bild zeigen die wichtigsten Stellen auf dem Startbildschirm.</div>
+
+    <div class="card home-card keep">
+      <img src="assets/homepage.png" alt="Startbildschirm des PUDU CC1 Pro mit markierten Bedienelementen">
+    </div>
+
+    <div class="legend-horizontal keep editable">
+      <div class="legend-card">
+        <div class="legend-head"><span class="num">1</span><span class="legend-title">Wasser</span></div>
+        <div class="legend-sub">Klar- und Schmutzwasser prüfen.</div>
+      </div>
+      <div class="legend-card">
+        <div class="legend-head"><span class="num">2</span><span class="legend-title">Akku</span></div>
+        <div class="legend-sub">Vor der Aufgabe Batteriestand prüfen.</div>
+      </div>
+      <div class="legend-card">
+        <div class="legend-head"><span class="num">3</span><span class="legend-title">Automatisch</span></div>
+        <div class="legend-sub">Gespeicherte Reinigungsaufgabe starten.</div>
+      </div>
+      <div class="legend-card">
+        <div class="legend-head"><span class="num">4</span><span class="legend-title">Mehr</span></div>
+        <div class="legend-sub">Walzenwechsel, Neustart, Ausschalten.</div>
+      </div>
+      <div class="legend-card">
+        <div class="legend-head"><span class="num">5</span><span class="legend-title">Hilfe</span></div>
+        <div class="legend-sub">Bedienungs- und Wartungsvideos öffnen.</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="brand">ENERGIE REICH CONSULTING</div>
+      <div class="footer-text editable">Xi Wang · EnergieReich Consulting GmbH</div>
+    </div>
+  </section>
+
+  <section class="page">
+    <h1 class="editable">Aufgabe starten · Station · Wartung</h1>
+    <div class="subtitle editable">Die richtige Aufgabe wählen und den Roboter einsatzbereit halten</div>
+
+    <div class="task-demo keep">
+      <div class="robot-choice">
+        <div class="screen-icon" aria-hidden="true">🧹</div>
+        <strong>Automatisch reinigen</strong>
+      </div>
+      <div class="task-list editable">
+        <h2>Aufgabe auswählen</h2>
+        <div class="task-option"><span class="check">○</span><span>Beispiel: Erdgeschoss – Nassreinigung</span></div>
+        <div class="task-option selected"><span class="check">●</span><span>Beispiel: 3. OG – Teppich</span></div>
+        <div class="start-button">Starten</div>
+      </div>
+    </div>
+    <div class="caption compact editable"><strong>Automatisch reinigen</strong> öffnen, passende Aufgabe auswählen und auf <strong>Starten</strong> tippen.</div>
+
+    <div class="mini-row keep">
+      <div class="card mini-card station">
+        <img src="assets/arbeitsstation.png" alt="Menü Arbeitsstation mit markierter Funktion Wasser nachfüllen und Aufladen">
+        <div class="caption compact editable"><strong>Arbeitsstation:</strong> „Wasser nachfüllen + Aufladen“ nur auswählen, wenn der Roboter zur Station fahren soll.</div>
+      </div>
+      <div class="card mini-card more">
+        <img src="assets/mehr.png" alt="Mehr-Menü mit den Wartungsfunktionen">
+        <div class="caption compact editable"><strong>… Mehr:</strong> Bürstenwalze austauschen, Neustart oder Ausschalten. Der grüne Hilfe-Button öffnet weitere Videos.</div>
+      </div>
+    </div>
+
+    <div class="tips keep editable">
+      <h2>Wichtige Hinweise</h2>
+      <ul>
+        <li>Tür zum Laderaum / zur Ladestation während der Reinigung offen lassen.</li>
+        <li>Darauf achten, dass die Ladestation immer Strom hat.</li>
+        <li>Der grüne Hilfe-Button enthält Bedienungs- und Wartungsvideos.</li>
+        <li>Bei Aufgaben mit Arbeitsstation fährt der Roboter automatisch zur Station zurück.</li>
+      </ul>
+    </div>
+
+    <div class="footer">
+      <div class="brand">ENERGIE REICH CONSULTING</div>
+      <div class="footer-text editable">Xi Wang · EnergieReich Consulting GmbH</div>
+    </div>
+  </section>
+
+  <section class="page">
+    <h1 class="editable">Etage wechseln · Teppichreinigung</h1>
+    <div class="subtitle editable">Roboter positionieren, richtige Karte und passende Aufgabe auswählen</div>
+
+    <div class="transfer-top keep">
+      <div class="card position-card">
+        <img src="assets/positioning-code.png" alt="PUDU CC1 Pro direkt unter dem Positionscode an der Decke">
+        <div class="caption editable">Roboter direkt unter den Positionscode schieben.</div>
+      </div>
+
+      <div class="quick-steps editable">
+        <div class="quick-step">
+          <span class="num">1</span>
+          <strong>Mit dem Aufzug</strong>
+          <p>Roboter in die gewünschte Etage schieben.</p>
+        </div>
+        <div class="quick-step">
+          <span class="num">2</span>
+          <strong>Karte wechseln</strong>
+          <p>Etage in den Karteneinstellungen auswählen.</p>
+        </div>
+        <div class="quick-step">
+          <span class="num">3</span>
+          <strong>Aufgabe starten</strong>
+          <p>Passende Aufgabe wählen und Zubehör prüfen.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-flow keep editable">
+      <div class="flow-title">Karte wechseln</div>
+      <div class="flow-line">
+        <div class="flow-box">⚙ Einstellungen</div>
+        <div class="arrow">›</div>
+        <div class="flow-box">▧ Karte</div>
+        <div class="arrow">›</div>
+        <div class="flow-box">Karteneinstellungen</div>
+        <div class="arrow">›</div>
+        <div class="flow-box target">Richtige Etage auswählen</div>
+      </div>
+    </div>
+
+    <div class="mode-match keep editable">
+      <div class="match-box"><strong>Karte</strong>Beispiel: 3. OG</div>
+      <div class="match-arrow">→</div>
+      <div class="match-box"><strong>Passende Aufgabe</strong>Beispiel: 3. OG – Teppich</div>
+    </div>
+
+    <div class="accessory-title editable">Beim Start erscheint die Zubehörprüfung – so muss der Roboter ausgerüstet sein:</div>
+
+    <div class="accessory-grid keep">
+      <div class="mode-card carpet">
+        <div class="mode-head editable">Teppichreinigung</div>
+        <div class="parts">
+          <div class="part"><img src="assets/kehrwalzen.png" alt="Kehrwalze"><span>Kehrwalzen</span></div>
+          <div class="part"><img src="assets/staubbehaelter.jpg" alt="Staubbehälter"><span>Staubbehälter</span></div>
+          <div class="part"><img src="assets/teppichsaugmodul.jpg" alt="Teppichsaugmodul"><span>Teppich-<br>saugmodul</span></div>
+        </div>
+      </div>
+
+      <div class="mode-card wet">
+        <div class="mode-head editable">Nassreinigung</div>
+        <div class="parts">
+          <div class="part"><img src="assets/schrubbwalzen.jpg" alt="Schrubbwalzen"><span>Schrubbwalzen</span></div>
+          <div class="part"><img src="assets/filterbox.jpg" alt="Filterbox"><span>Filterbox</span></div>
+          <div class="part"><img src="assets/saugleiste.jpg" alt="Saugleiste"><span>Saugleiste</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="common-part keep editable">Bei beiden Reinigungsarten: Seitenbürste abnehmen.</div>
+
+    <div class="finish-row keep editable">
+      <div class="finish-card start"><span class="tiny-num">4</span> Zubehör bestätigen → Griff absenken → Aufgabe starten.</div>
+      <div class="finish-card done"><span class="tiny-num">5</span> Nach Abschluss fährt der Roboter zum Wartepunkt am Aufzug.</div>
+    </div>
+
+    <div class="warning keep editable"><strong>Wichtig:</strong> Nass- und Teppichreinigung möglichst an unterschiedlichen Tagen durchführen. Nach der Nassreinigung nicht direkt trocken reinigen – feuchte Bauteile können Verstopfungen verursachen.</div>
+
+    <div class="footer">
+      <div class="brand">ENERGIE REICH CONSULTING</div>
+      <div class="footer-text editable">Xi Wang · EnergieReich Consulting GmbH</div>
+    </div>
+  </section>
+
+  <div class="edit-toolbar" aria-label="Bearbeitungsleiste">
+    <button id="editToggle" type="button">Text bearbeiten</button>
+    <button id="saveHtml" type="button" class="secondary">HTML speichern</button>
+    <button id="printPage" type="button" class="gray">Als PDF drucken</button>
+    <a href="PUDU_CC1_Pro_Schnellguide.pdf" download>PDF herunterladen</a>
+    <span id="editHint" class="edit-hint">Bearbeitung aus</span>
+  </div>
+
+  <script>
+    (() => {
+      const toggleBtn = document.getElementById('editToggle');
+      const saveBtn = document.getElementById('saveHtml');
+      const printBtn = document.getElementById('printPage');
+      const hint = document.getElementById('editHint');
+      const editableItems = Array.from(document.querySelectorAll('.editable'));
+
+      function setEditMode(on) {
+        document.body.classList.toggle('edit-mode', on);
+        editableItems.forEach((element) => {
+          element.setAttribute('contenteditable', on ? 'true' : 'false');
+          element.setAttribute('spellcheck', 'true');
+        });
+        toggleBtn.textContent = on ? 'Bearbeitung beenden' : 'Text bearbeiten';
+        hint.textContent = on ? 'Text direkt anklicken und ändern' : 'Bearbeitung aus';
+      }
+
+      toggleBtn.addEventListener('click', () => setEditMode(!document.body.classList.contains('edit-mode')));
+      printBtn.addEventListener('click', () => { setEditMode(false); window.print(); });
+
+      saveBtn.addEventListener('click', () => {
+        setEditMode(false);
+        const clone = document.documentElement.cloneNode(true);
+        const html = '<!doctype html>\n' + clone.outerHTML;
+        const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+        const link = document.createElement('a');
+        const now = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'PUDU_CC1_Pro_Schnellguide_' + now + '.html';
+        document.body.appendChild(link);
+        link.click();
+        URL.revokeObjectURL(link.href);
+        link.remove();
+      });
+
+      setEditMode(false);
+    })();
+  </script>
+</body>
+</html>
