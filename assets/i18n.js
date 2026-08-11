@@ -42,7 +42,7 @@
           "Delivery and service robot documentation",
           "Dokumentation für Liefer- und Serviceroboter"
         ),
-        ".pudu .status": tr("已有 3 份资料 →", "3 documents available →", "3 Dokumente verfügbar →"),
+        ".pudu .status": tr("已有 4 份资料 →", "4 documents available →", "4 Dokumente verfügbar →"),
         ".card:not(.pudu):not(.orion) p": tr(
           "商用清洁机器人资料",
           "Commercial cleaning robot documentation",
@@ -98,6 +98,21 @@
           "检查滤水盒、过滤海绵、污水箱盖、吸水扒、吸污管和吸力，并整理需要反馈的照片与视频。",
           "Check the filter box, filter sponge, wastewater-tank lid, squeegee, suction hose and suction, then collect the required photos and videos.",
           "Filterbox, Filterschwamm, Tankdeckel, Saugleiste, Saugschlauch und Saugkraft prüfen und die benötigten Fotos und Videos zusammenstellen."
+        ),
+        ".flow-meter-guide .tag": tr(
+          "CC1 Pro · 客户自检 · 图文 + DOCX",
+          "CC1 Pro · Customer Check · Images + DOCX",
+          "CC1 Pro · Kundenprüfung · Bilder + DOCX"
+        ),
+        ".flow-meter-guide h3": tr(
+          "流量计报警与不出清水排查",
+          "Flow Meter Error and No Fresh-Water Output",
+          "FlowMeterError und kein Frischwasseraustritt"
+        ),
+        ".flow-meter-guide > div > p": tr(
+          "清洁清水滤芯与滚刷仓小孔，通过短时无滤芯测试判断堵塞，并准备远程诊断。",
+          "Clean the fresh-water filter and roller-chamber openings, isolate a blockage with a short filterless test, and prepare for remote diagnostics.",
+          "Frischwasserfilter und Öffnungen im Walzenbürstenfach reinigen, eine Blockade kurz ohne Filter eingrenzen und die Ferndiagnose vorbereiten."
         ),
         "#service .section-kicker": tr("维修与配置", "Service & Configuration", "Service & Konfiguration"),
         "#service h2": tr("维修与配置", "Service & Configuration", "Service & Konfiguration"),
@@ -160,10 +175,15 @@
           en: ["published documents", "product models", "page languages"],
           de: ["veröffentlichte Dokumente", "Produktmodelle", "Seitensprachen"]
         },
-        ".diagnostic-guide .meta span": {
+        ".diagnostic-guide:not(.flow-meter-guide) .meta span": {
           zh: ["CC1 Pro", "7 个步骤", "中文 / EN / DE", "手机友好"],
           en: ["CC1 Pro", "7 steps", "中文 / EN / DE", "Mobile friendly"],
           de: ["CC1 Pro", "7 Schritte", "中文 / EN / DE", "Mobil optimiert"]
+        },
+        ".flow-meter-guide .meta span": {
+          zh: ["CC1 Pro", "维护 + 诊断", "中文 / EN / DE", "德语 DOCX"],
+          en: ["CC1 Pro", "Maintenance + diagnostics", "中文 / EN / DE", "German DOCX"],
+          de: ["CC1 Pro", "Wartung + Diagnose", "中文 / EN / DE", "Deutsche DOCX"]
         },
         ".chassis-motor-guide .meta span": {
           zh: ["BellaBot", "字段 13", "中文 / EN / DE", "视频 4:09"],

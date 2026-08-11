@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="referrer" content="no-referrer">
+  <meta name="description" content="PUDU CC1 Pro – Wartung und sichere Erstprüfung bei FlowMeterError und fehlendem Frischwasseraustritt">
+  <title>PUDU CC1 Pro – FlowMeterError und kein Frischwasseraustritt</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../../../assets/i18n.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="cc1flow" data-default-lang="de">
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">CC1</span>
+      <span class="brand-copy">PUDU CC1 Pro · Frischwasser prüfen</span>
+    </div>
+    <div class="top-actions">
+      <button class="print-button" type="button">Drucken / PDF speichern</button>
+      <div class="xw-language-switcher" role="group" aria-label="Language">
+        <button type="button" data-lang-switch="zh" aria-pressed="false">中文</button>
+        <button type="button" data-lang-switch="en" aria-pressed="false">EN</button>
+        <button type="button" data-lang-switch="de" aria-pressed="true">DE</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="hero-inner">
+      <span class="eyebrow">CC1 PRO · KUNDENDIAGNOSE</span>
+      <h1>FlowMeterError und kein Frischwasseraustritt</h1>
+      <p class="subtitle">Wartung und kurze Fehlerprüfung bei fehlendem oder zu geringem Wasserfluss im Walzenbürstenfach.</p>
+      <div class="hero-meta">
+        <span>Fehler: FlowMeterError – FLOW_METER_DAMAGE</span>
+        <span>Bereich: Frischwasserweg</span>
+        <span>Ohne Öffnen des Gehäuses</span>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <div class="scope-panel" id="scope">
+      <article class="scope-card scope-main">
+        <strong>Diese Anleitung gilt für fehlenden Frischwasseraustritt.</strong>
+        <p>Verwenden Sie sie, wenn im Nasswisch-/Schrubbmodus kein oder nur sehr wenig Wasser im Walzenbürstenfach austritt.</p>
+      </article>
+      <article class="scope-card scope-alt">
+        <strong>Wasser liegt auf dem Boden und wird nicht aufgenommen?</strong>
+        <p>Dann betrifft die Störung den Schmutzwasser-/Saugweg. Diese Anleitung ist dafür nicht geeignet.</p>
+      </article>
+    </div>
+
+    <section id="safety">
+      <p class="section-kicker">Vor dem Beginn</p>
+      <h2>Sicher arbeiten</h2>
+      <p class="lead">Reinigung, Filterausbau und Sichtprüfung erfolgen ausschließlich bei vollständig ausgeschaltetem Roboter.</p>
+      <ul class="safety-list">
+        <li>Reinigungsaufgabe beenden und Roboter vollständig ausschalten.</li>
+        <li>Schlüsselschalter vor Wartungsarbeiten auf AUS stellen.</li>
+        <li>Beim Filterausbau einen Wasserbehälter bereithalten.</li>
+        <li>Vor dem Neigen Frisch- und Schmutzwassertank vollständig entleeren.</li>
+        <li>Den schweren Roboter nur mit einer zweiten Person neigen.</li>
+        <li>Gehäuse, Leitungen und elektrische Bauteile nicht öffnen.</li>
+      </ul>
+      <div class="stop-note">Ein Test ohne Filter ist nur für wenige Minuten zur Diagnose zulässig. In diesem Zustand keinen normalen Reinigungsauftrag durchführen.</div>
+    </section>
+
+    <section id="overview">
+      <p class="section-kicker">Ablauf</p>
+      <h2>Prüfung in fünf Abschnitten</h2>
+      <p class="lead">Zuerst werden Filter und Walzenbürstenfach gewartet. Danach wird mit einem kurzen Test geprüft, ob der Filter den Wasserfluss blockiert.</p>
+      <div class="flow">
+        <article class="flow-item"><b>1</b><span>Filter reinigen</span></article>
+        <article class="flow-item"><b>2</b><span>Kleine Öffnungen reinigen</span></article>
+        <article class="flow-item"><b>3</b><span>Status dokumentieren</span></article>
+        <article class="flow-item"><b>4</b><span>Kurz ohne Filter testen</span></article>
+        <article class="flow-item"><b>5</b><span>Ergebnis melden</span></article>
+      </div>
+    </section>
+
+    <section class="step-section" id="filter-maintenance" data-step="01">
+      <p class="step-label">Wartung 1</p>
+      <h2>Frischwasserfilter reinigen</h2>
+      <p class="lead">Schmutzpartikel und Kalkablagerungen können den Frischwasserfilter zusetzen und den Wasserdurchfluss stark verringern oder vollständig blockieren.</p>
+      <ul class="check-list">
+        <li>Roboter eben abstellen, vollständig ausschalten und Schlüsselschalter auf AUS stellen.</li>
+        <li>Wasserbehälter bereithalten, Filterabdeckung abschrauben und Filtereinsatz herausziehen.</li>
+        <li>Filtereinsatz gründlich mit klarem Wasser abspülen, bis das feine Metallgewebe frei ist.</li>
+        <li>Filtergehäuse und Dichtung kontrollieren und sichtbare Rückstände entfernen.</li>
+        <li>Filter vollständig einsetzen, Abdeckung verschließen, Frischwasser einfüllen und Wasseraustritt prüfen.</li>
+      </ul>
+      <div class="photo-grid">
+        <figure class="photo-card contain">
+          <button class="photo-button" type="button" aria-label="Bild vergrößern">
+            <img src="assets/images/fresh-water-filter-location.webp" width="657" height="489" loading="lazy" alt="Position des Frischwasserfiltergehäuses an der Unterseite des PUDU CC1 Pro">
+          </button>
+          <figcaption>Position des Frischwasserfiltergehäuses an der Unterseite. Beim Öffnen kann Wasser austreten. Quelle: PUDU Academy.</figcaption>
+        </figure>
+        <figure class="photo-card contain">
+          <button class="photo-button" type="button" aria-label="Bild vergrößern">
+            <img src="assets/images/fresh-water-filter-element.webp" width="480" height="581" loading="lazy" alt="Herausgenommener Frischwasserfiltereinsatz des PUDU CC1 Pro">
+          </button>
+          <figcaption>Herausgenommener Frischwasserfilter. Das feine Metallgewebe muss vollständig frei sein. Quelle: PUDU Academy.</figcaption>
+        </figure>
+      </div>
+      <div class="important-note">PUDU empfiehlt eine Reinigung alle 3-5 Wochen. Bei hartem Wasser oder sichtbaren Ablagerungen häufiger kontrollieren. Keine scharfen Werkzeuge oder aggressiven Entkalker verwenden.</div>
+    </section>
+
+    <section class="step-section" id="opening-maintenance" data-step="02">
+      <p class="step-label">Wartung 2</p>
+      <h2>Kleine Öffnungen im Walzenbürstenfach reinigen</h2>
+      <p class="lead">Schlamm und Schmutz im Walzenbürstenfach können die kleinen Ablauf-/Auslassöffnungen blockieren und den Wasserfluss beeinträchtigen.</p>
+      <ul class="check-list">
+        <li>Frischwasser- und Schmutzwassertank vollständig entleeren.</li>
+        <li>Roboter ausschalten und Schlüsselschalter auf AUS stellen.</li>
+        <li>Roboter mit einer zweiten Person vorsichtig nach hinten auf eine weiche, stabile Unterlage neigen.</li>
+        <li>Kleine Öffnungen vorsichtig mit einer feinen Drahtbürste reinigen.</li>
+        <li>Das übrige Walzenbürstenfach mit einer weichen Bürste säubern und trockenwischen.</li>
+        <li>Roboter aufrecht stellen, Frischwasser einfüllen und gleichmäßigen Wasseraustritt prüfen.</li>
+      </ul>
+      <div class="photo-grid">
+        <figure class="photo-card">
+          <button class="photo-button" type="button" aria-label="Bild vergrößern">
+            <img src="assets/images/roller-chamber-openings.webp" width="1278" height="785" loading="lazy" alt="Kleine Öffnungen im Walzenbürstenfach des PUDU CC1 Pro">
+          </button>
+          <figcaption>Die kleinen Öffnungen befinden sich im Walzenbürstenfach. Quelle: PUDU Academy.</figcaption>
+        </figure>
+        <figure class="photo-card">
+          <button class="photo-button" type="button" aria-label="Bild vergrößern">
+            <img src="assets/images/roller-chamber-cleaning.webp" width="1581" height="980" loading="lazy" alt="Reinigung der kleinen Öffnungen im Walzenbürstenfach mit einer Bürste">
+          </button>
+          <figcaption>Öffnungen vorsichtig reinigen und nicht gewaltsam vergrößern. Quelle: PUDU Academy.</figcaption>
+        </figure>
+      </div>
+      <div class="important-note">PUDU empfiehlt, Walzenbürstenfach und kleine Öffnungen alle 2-3 Wochen zu kontrollieren und zu reinigen.</div>
+    </section>
+
+    <section id="diagnostics">
+      <p class="section-kicker">Kurzer Diagnosetest</p>
+      <h2>Nach der Wartung: Filter als Ursache prüfen</h2>
+      <p class="lead">Die folgenden Schritte grenzen ein, ob der gereinigte Filter weiterhin den Wasserfluss blockiert. Bitte die angeforderten Fotos unverändert an den technischen Support senden.</p>
+      <ol class="diagnostic-list">
+        <li>
+          <strong>Filterreinigung bestätigen und fotografieren</strong>
+          <p>Bestätigen Sie, dass der Frischwasserfilter vollständig gereinigt wurde, und senden Sie ein Foto des herausgenommenen Filters.</p>
+        </li>
+        <li>
+          <strong>Filterstatus fotografieren</strong>
+          <p>Wenn die Meldung weiterhin erscheint, öffnen Sie „Status/Gerätestatus“, scrollen Sie ganz nach unten und fotografieren Sie den angezeigten Nutzungszustand des Filters.</p>
+        </li>
+        <li>
+          <strong>Kurz ohne Filter testen</strong>
+          <p>Roboter ausschalten, Filter entfernen und Filtergehäuse mit dem Deckel schließen. Falls Wasser ausgelaufen ist, etwas Frischwasser nachfüllen. Roboter einschalten und nur kurz prüfen, ob die Meldung weiterhin erscheint.</p>
+        </li>
+      </ol>
+      <div class="stop-note">Nach dem Test nicht ohne Filter weiterarbeiten. Der filterlose Betrieb ist ausschließlich für diese kurze Diagnose vorgesehen.</div>
+    </section>
+
+    <section id="results">
+      <p class="section-kicker">Ergebnis</p>
+      <h2>Was der Test bedeutet</h2>
+      <div class="decision-grid">
+        <article class="decision-card ok">
+          <h3>Meldung verschwindet ohne Filter</h3>
+          <p>Der Filter ist zugesetzt und muss ersetzt werden.</p>
+          <ul class="check-list">
+            <li>Keinen normalen Auftrag ohne Filter starten.</li>
+            <li>Bei zwei Robotern kann der Filter des ausschließlich zum Saugen eingesetzten Geräts in den Nasswisch-/Schrubbroboter eingesetzt werden.</li>
+            <li>Der technische Service stellt einen neuen Filter bereit.</li>
+          </ul>
+        </article>
+        <article class="decision-card stop">
+          <h3>Meldung bleibt und es tritt kein Wasser aus</h3>
+          <p>Die Ursache liegt wahrscheinlich nicht am Filter. Das Gerät muss per Fernzugriff weiter geprüft werden.</p>
+          <ul class="check-list">
+            <li>Etwas Frischwasser einfüllen.</li>
+            <li>Roboter mit dem Internet verbinden und eingeschaltet lassen.</li>
+            <li>Roboter auf eine Fläche stellen, auf der austretendes Wasser keinen Schaden verursacht.</li>
+          </ul>
+        </article>
+      </div>
+      <div class="remote-panel">
+        <strong>Für den Fernzugriff bereit?</strong>
+        <p>Sobald Wasser eingefüllt, der Roboter online und der Aufstellort vorbereitet ist, den technischen Support informieren. Weitere Tests erfolgen anschließend per Fernzugriff.</p>
+      </div>
+    </section>
+
+    <section id="download">
+      <p class="section-kicker">Kundendokument</p>
+      <h2>Wartungsanleitung herunterladen</h2>
+      <p class="lead">Die kompakte deutsche Word-Anleitung enthält die Filter- und Walzenbürstenfach-Wartung mit den offiziellen Produktabbildungen.</p>
+      <div class="download-panel">
+        <div>
+          <h3>PUDU CC1 Pro · Wartung des Frischwasserwegs</h3>
+          <p>DOCX · Deutsch · Filter und kleine Öffnungen</p>
+        </div>
+        <a class="download-link" href="assets/downloads/PUDU_CC1_Pro_Wartung_Wasserweg_DE.docx" download>Word-Dokument herunterladen</a>
+      </div>
+    </section>
+
+    <section class="source-panel" id="source">
+      <p class="section-kicker">Offizielle Quelle</p>
+      <h2>Technische Grundlage</h2>
+      <p class="source-copy">Technische Wartungsschritte und Produktabbildungen: PUDU Academy, „PUDU CC1 Pro Operation Guide“, Version V2.0, Modell CCBC02, Kapitel 5.1.6 und 5.1.9, aktualisiert am 13.03.2026.</p>
+      <a class="source-link" href="https://academy.pudutech.com/en/docs/PUDU-CC1-Pro-Operation-Guide-V2" target="_blank" rel="noopener noreferrer">Vollständige Anleitung bei PUDU Academy öffnen ↗</a>
+      <p class="source-note">Diese Seite dient der sicheren Erstprüfung und ersetzt keine Reparatur durch autorisiertes Fachpersonal. Die PUDU-Abbildungen werden nur als notwendige Auszüge mit Quellenkennzeichnung verwendet.</p>
+    </section>
+  </main>
+
+  <footer>PUDU CC1 Pro · Frischwasserweg und FlowMeterError · Keine Kundendaten auf dieser Seite</footer>
+
+  <dialog class="image-dialog" aria-label="Vergrößerte Produktabbildung">
+    <button class="dialog-close" type="button" aria-label="Bild schließen">×</button>
+    <img src="assets/images/fresh-water-filter-location.webp" alt="Vergrößerte Produktabbildung">
+  </dialog>
+
+  <script>
+    (() => {
+      const tr = (zh, en, de) => ({ zh, en, de });
+
+      window.xwPageI18n = {
+        title: tr(
+          "PUDU CC1 Pro – 流量计报警与不出清水排查",
+          "PUDU CC1 Pro – Flow Meter Error and No Fresh-Water Output",
+          "PUDU CC1 Pro – FlowMeterError und kein Frischwasseraustritt"
+        ),
+        html: {
+          ".brand-copy": tr("PUDU CC1 Pro · 清水水路检查", "PUDU CC1 Pro · Fresh-water check", "PUDU CC1 Pro · Frischwasser prüfen"),
+          ".print-button": tr("打印 / 保存 PDF", "Print / Save PDF", "Drucken / PDF speichern"),
+          ".hero .eyebrow": tr("CC1 PRO · 客户诊断", "CC1 PRO · CUSTOMER DIAGNOSTICS", "CC1 PRO · KUNDENDIAGNOSE"),
+          ".hero h1": tr("流量计报警与不出清水排查", "Flow Meter Error and No Fresh-Water Output", "FlowMeterError und kein Frischwasseraustritt"),
+          ".hero .subtitle": tr(
+            "适用于滚刷仓无水或出水量过小的维护与简短故障隔离流程。",
+            "Maintenance and a short diagnostic check for missing or insufficient water flow in the roller-brush chamber.",
+            "Wartung und kurze Fehlerprüfung bei fehlendem oder zu geringem Wasserfluss im Walzenbürstenfach."
+          ),
+          "#scope .scope-main strong": tr("本指南适用于清水不出。", "This guide applies when fresh water does not dispense.", "Diese Anleitung gilt für fehlenden Frischwasseraustritt."),
+          "#scope .scope-main p": tr(
+            "如果在湿拖/洗地模式下滚刷仓没有水或水量很小，请使用本指南。",
+            "Use this guide when little or no water reaches the roller-brush chamber in wet-mopping/scrubbing mode.",
+            "Verwenden Sie sie, wenn im Nasswisch-/Schrubbmodus kein oder nur sehr wenig Wasser im Walzenbürstenfach austritt."
+          ),
+          "#scope .scope-alt strong": tr("地面有水但吸不回污水箱？", "Water remains on the floor and is not picked up?", "Wasser liegt auf dem Boden und wird nicht aufgenommen?"),
+          "#scope .scope-alt p": tr(
+            "这属于污水回收/吸污水路故障，本指南不适用。",
+            "That concerns the wastewater/suction path. This guide does not apply.",
+            "Dann betrifft die Störung den Schmutzwasser-/Saugweg. Diese Anleitung ist dafür nicht geeignet."
+          ),
+          "#safety .section-kicker": tr("开始之前", "Before you begin", "Vor dem Beginn"),
+          "#safety h2": tr("安全操作", "Work safely", "Sicher arbeiten"),
+          "#safety .lead": tr(
+            "清洁、拆卸滤芯和目视检查必须在机器人完全关机后进行。",
+            "Cleaning, filter removal and visual inspection must be performed only while the robot is fully powered off.",
+            "Reinigung, Filterausbau und Sichtprüfung erfolgen ausschließlich bei vollständig ausgeschaltetem Roboter."
+          ),
+          "#safety .stop-note": tr(
+            "无滤芯测试仅允许用于几分钟的故障诊断。不要在此状态下执行正常清洁任务。",
+            "Running without the filter is permitted only for a diagnostic test lasting a few minutes. Do not run a normal cleaning task in this state.",
+            "Ein Test ohne Filter ist nur für wenige Minuten zur Diagnose zulässig. In diesem Zustand keinen normalen Reinigungsauftrag durchführen."
+          ),
+          "#overview .section-kicker": tr("流程", "Procedure", "Ablauf"),
+          "#overview h2": tr("五个检查部分", "Five-part check", "Prüfung in fünf Abschnitten"),
+          "#overview .lead": tr(
+            "先维护滤芯和滚刷仓，然后通过短时测试判断滤芯是否阻塞水流。",
+            "First maintain the filter and roller-brush chamber, then use a short test to determine whether the filter is blocking water flow.",
+            "Zuerst werden Filter und Walzenbürstenfach gewartet. Danach wird mit einem kurzen Test geprüft, ob der Filter den Wasserfluss blockiert."
+          ),
+          "#filter-maintenance .step-label": tr("维护 1", "Maintenance 1", "Wartung 1"),
+          "#filter-maintenance h2": tr("清洁清水滤芯", "Clean the fresh-water filter", "Frischwasserfilter reinigen"),
+          "#filter-maintenance .lead": tr(
+            "水管中的杂质和水垢会堵塞清水滤芯，使流量明显下降或完全中断。",
+            "Debris and limescale from water pipes can clog the fresh-water filter and greatly reduce or completely stop water flow.",
+            "Schmutzpartikel und Kalkablagerungen können den Frischwasserfilter zusetzen und den Wasserdurchfluss stark verringern oder vollständig blockieren."
+          ),
+          "#filter-maintenance .important-note": tr(
+            "PUDU 建议每3-5周清洁一次；硬水或有明显沉积时应更频繁检查。不要使用尖锐工具或强力除垢剂。",
+            "PUDU recommends cleaning every 3-5 weeks. Inspect more often with hard water or visible deposits. Do not use sharp tools or aggressive descalers.",
+            "PUDU empfiehlt eine Reinigung alle 3-5 Wochen. Bei hartem Wasser oder sichtbaren Ablagerungen häufiger kontrollieren. Keine scharfen Werkzeuge oder aggressiven Entkalker verwenden."
+          ),
+          "#opening-maintenance .step-label": tr("维护 2", "Maintenance 2", "Wartung 2"),
+          "#opening-maintenance h2": tr("清洁滚刷仓小孔", "Clean the small roller-chamber openings", "Kleine Öffnungen im Walzenbürstenfach reinigen"),
+          "#opening-maintenance .lead": tr(
+            "滚刷仓内的污泥和杂质会堵塞小排水/出水孔，从而影响水流。",
+            "Sludge and debris in the roller-brush chamber can block the small drain/outlet openings and impair water flow.",
+            "Schlamm und Schmutz im Walzenbürstenfach können die kleinen Ablauf-/Auslassöffnungen blockieren und den Wasserfluss beeinträchtigen."
+          ),
+          "#opening-maintenance .important-note": tr(
+            "PUDU 建议每2-3周检查并清洁滚刷仓和小孔。",
+            "PUDU recommends checking and cleaning the roller-brush chamber and small openings every 2-3 weeks.",
+            "PUDU empfiehlt, Walzenbürstenfach und kleine Öffnungen alle 2-3 Wochen zu kontrollieren und zu reinigen."
+          ),
+          "#diagnostics .section-kicker": tr("简短诊断测试", "Short diagnostic test", "Kurzer Diagnosetest"),
+          "#diagnostics h2": tr("维护后：确认滤芯是否为故障原因", "After maintenance: check whether the filter is the cause", "Nach der Wartung: Filter als Ursache prüfen"),
+          "#diagnostics .lead": tr(
+            "以下步骤用于判断清洗后的滤芯是否仍阻塞水流。请将要求的照片原样发送给技术支持。",
+            "The following steps determine whether the cleaned filter is still blocking water flow. Send the requested photos to technical support without editing.",
+            "Die folgenden Schritte grenzen ein, ob der gereinigte Filter weiterhin den Wasserfluss blockiert. Bitte die angeforderten Fotos unverändert an den technischen Support senden."
+          ),
+          "#diagnostics .stop-note": tr(
+            "测试结束后不要在无滤芯状态下继续运行。无滤芯运行仅用于这次简短诊断。",
+            "Do not continue operating without the filter after the test. Filterless operation is solely for this short diagnostic check.",
+            "Nach dem Test nicht ohne Filter weiterarbeiten. Der filterlose Betrieb ist ausschließlich für diese kurze Diagnose vorgesehen."
+          ),
+          "#results .section-kicker": tr("结果", "Result", "Ergebnis"),
+          "#results h2": tr("如何判断测试结果", "What the result means", "Was der Test bedeutet"),
+          "#results .remote-panel strong": tr("已准备好远程测试？", "Ready for remote access?", "Für den Fernzugriff bereit?"),
+          "#results .remote-panel p": tr(
+            "加好水、机器人联网并准备好安全放置区域后，请通知技术支持。后续检查将通过远程方式进行。",
+            "Once water is added, the robot is online and the placement area is prepared, notify technical support. Further checks will then be performed remotely.",
+            "Sobald Wasser eingefüllt, der Roboter online und der Aufstellort vorbereitet ist, den technischen Support informieren. Weitere Tests erfolgen anschließend per Fernzugriff."
+          ),
+          "#download .section-kicker": tr("客户文档", "Customer document", "Kundendokument"),
+          "#download h2": tr("下载维护说明", "Download the maintenance guide", "Wartungsanleitung herunterladen"),
+          "#download .lead": tr(
+            "德语 Word 简版包含滤芯和滚刷仓维护步骤及官方产品图片。",
+            "The compact German Word guide contains filter and roller-chamber maintenance with official product images.",
+            "Die kompakte deutsche Word-Anleitung enthält die Filter- und Walzenbürstenfach-Wartung mit den offiziellen Produktabbildungen."
+          ),
+          "#download .download-panel h3": tr("PUDU CC1 Pro · 清水水路维护", "PUDU CC1 Pro · Fresh-water path maintenance", "PUDU CC1 Pro · Wartung des Frischwasserwegs"),
+          "#download .download-panel p": tr("DOCX · 德语 · 滤芯与小孔", "DOCX · German · Filter and small openings", "DOCX · Deutsch · Filter und kleine Öffnungen"),
+          "#download .download-link": tr("下载 Word 文档", "Download Word document", "Word-Dokument herunterladen"),
+          "#source .section-kicker": tr("官方来源", "Official source", "Offizielle Quelle"),
+          "#source h2": tr("技术依据", "Technical basis", "Technische Grundlage"),
+          "#source .source-copy": tr(
+            "维护步骤和产品图片来源：PUDU Academy《PUDU CC1 Pro Operation Guide》V2.0，型号 CCBC02，第5.1.6和5.1.9节，更新于2026年3月13日。",
+            "Maintenance steps and product images: PUDU Academy, PUDU CC1 Pro Operation Guide V2.0, model CCBC02, sections 5.1.6 and 5.1.9, updated March 13, 2026.",
+            "Technische Wartungsschritte und Produktabbildungen: PUDU Academy, „PUDU CC1 Pro Operation Guide“, Version V2.0, Modell CCBC02, Kapitel 5.1.6 und 5.1.9, aktualisiert am 13.03.2026."
+          ),
+          "#source .source-link": tr("打开 PUDU Academy 完整说明 ↗", "Open the full guide at PUDU Academy ↗", "Vollständige Anleitung bei PUDU Academy öffnen ↗"),
+          "#source .source-note": tr(
+            "本页面用于安全的初步检查，不能替代授权维修。PUDU 图片仅作为必要摘录，并已标明来源。",
+            "This page supports a safe first check and does not replace repair by authorized personnel. PUDU images are used only as necessary excerpts with source attribution.",
+            "Diese Seite dient der sicheren Erstprüfung und ersetzt keine Reparatur durch autorisiertes Fachpersonal. Die PUDU-Abbildungen werden nur als notwendige Auszüge mit Quellenkennzeichnung verwendet."
+          ),
+          "footer": tr(
+            "PUDU CC1 Pro · 清水水路与流量计报警 · 本页面不包含客户数据",
+            "PUDU CC1 Pro · Fresh-water path and Flow Meter Error · No customer data on this page",
+            "PUDU CC1 Pro · Frischwasserweg und FlowMeterError · Keine Kundendaten auf dieser Seite"
+          )
+        },
+        groups: {
+          ".hero-meta span": {
+            zh: ["故障：FlowMeterError – FLOW_METER_DAMAGE", "范围：清水水路", "无需拆开机身"],
+            en: ["Error: FlowMeterError – FLOW_METER_DAMAGE", "Area: fresh-water path", "No housing removal"],
+            de: ["Fehler: FlowMeterError – FLOW_METER_DAMAGE", "Bereich: Frischwasserweg", "Ohne Öffnen des Gehäuses"]
+          },
+          "#safety .safety-list li": {
+            zh: ["结束清洁任务并彻底关闭机器人。", "维护前将钥匙开关置于 OFF。", "拆滤芯时准备接水容器。", "倾斜机器人前排空清水箱和污水箱。", "机器人较重，必须由两人共同倾斜。", "不要打开外壳、管路或电气部件。"],
+            en: ["End the cleaning task and fully power off the robot.", "Set the key switch to OFF before maintenance.", "Prepare a container to catch water when removing the filter.", "Empty both clean- and dirty-water tanks before tilting.", "Because the robot is heavy, use two people when tilting it.", "Do not open the housing, pipes or electrical components."],
+            de: ["Reinigungsaufgabe beenden und Roboter vollständig ausschalten.", "Schlüsselschalter vor Wartungsarbeiten auf AUS stellen.", "Beim Filterausbau einen Wasserbehälter bereithalten.", "Vor dem Neigen Frisch- und Schmutzwassertank vollständig entleeren.", "Den schweren Roboter nur mit einer zweiten Person neigen.", "Gehäuse, Leitungen und elektrische Bauteile nicht öffnen."]
+          },
+          ".flow-item span": {
+            zh: ["清洁滤芯", "清洁小孔", "记录状态", "短时无滤芯测试", "反馈结果"],
+            en: ["Clean filter", "Clean openings", "Document status", "Short test without filter", "Report result"],
+            de: ["Filter reinigen", "Kleine Öffnungen reinigen", "Status dokumentieren", "Kurz ohne Filter testen", "Ergebnis melden"]
+          },
+          "#filter-maintenance .check-list li": {
+            zh: ["将机器人停在平整地面，彻底关机并将钥匙开关置于 OFF。", "准备接水容器，拧开滤芯盖并取出滤芯。", "用清水彻底冲洗滤芯，直到细密金属网完全畅通。", "检查滤芯壳体和密封圈，清除可见杂质。", "装好滤芯并盖紧，加清水后检查出水。"],
+            en: ["Park on a level surface, fully power off and set the key switch to OFF.", "Prepare a water container, unscrew the filter cover and remove the filter.", "Rinse thoroughly with clean water until the fine metal mesh is clear.", "Inspect the filter housing and seal and remove visible debris.", "Reinstall fully, close the cover, add fresh water and check output."],
+            de: ["Roboter eben abstellen, vollständig ausschalten und Schlüsselschalter auf AUS stellen.", "Wasserbehälter bereithalten, Filterabdeckung abschrauben und Filtereinsatz herausziehen.", "Filtereinsatz gründlich mit klarem Wasser abspülen, bis das feine Metallgewebe frei ist.", "Filtergehäuse und Dichtung kontrollieren und sichtbare Rückstände entfernen.", "Filter vollständig einsetzen, Abdeckung verschließen, Frischwasser einfüllen und Wasseraustritt prüfen."]
+          },
+          "#opening-maintenance .check-list li": {
+            zh: ["彻底排空清水箱和污水箱。", "关闭机器人并将钥匙开关置于 OFF。", "两人配合将机器人向后倾放在柔软、稳固的垫子上。", "用细钢丝刷轻柔清理小孔。", "用软刷清洁滚刷仓其他区域并擦干。", "扶正机器人、加清水并检查是否均匀出水。"],
+            en: ["Completely empty both clean- and dirty-water tanks.", "Power off and set the key switch to OFF.", "With a second person, carefully tilt the robot backward onto a soft, stable support.", "Carefully clean the small openings with a fine wire brush.", "Clean the rest of the chamber with a soft brush and wipe dry.", "Set upright, add fresh water and check for even output."],
+            de: ["Frischwasser- und Schmutzwassertank vollständig entleeren.", "Roboter ausschalten und Schlüsselschalter auf AUS stellen.", "Roboter mit einer zweiten Person vorsichtig nach hinten auf eine weiche, stabile Unterlage neigen.", "Kleine Öffnungen vorsichtig mit einer feinen Drahtbürste reinigen.", "Das übrige Walzenbürstenfach mit einer weichen Bürste säubern und trockenwischen.", "Roboter aufrecht stellen, Frischwasser einfüllen und gleichmäßigen Wasseraustritt prüfen."]
+          },
+          ".photo-card figcaption": {
+            zh: ["清水滤芯壳体位于机器人底部。打开时可能有水流出。来源：PUDU Academy。", "取出的清水滤芯；细密金属网必须完全畅通。来源：PUDU Academy。", "小孔位于滚刷仓内。来源：PUDU Academy。", "轻柔清洁小孔，不要强行扩大孔径。来源：PUDU Academy。"],
+            en: ["Fresh-water filter housing under the robot. Water may escape when opened. Source: PUDU Academy.", "Removed fresh-water filter; the fine metal mesh must be fully clear. Source: PUDU Academy.", "The small openings are in the roller-brush chamber. Source: PUDU Academy.", "Clean gently and do not forcibly enlarge the openings. Source: PUDU Academy."],
+            de: ["Position des Frischwasserfiltergehäuses an der Unterseite. Beim Öffnen kann Wasser austreten. Quelle: PUDU Academy.", "Herausgenommener Frischwasserfilter. Das feine Metallgewebe muss vollständig frei sein. Quelle: PUDU Academy.", "Die kleinen Öffnungen befinden sich im Walzenbürstenfach. Quelle: PUDU Academy.", "Öffnungen vorsichtig reinigen und nicht gewaltsam vergrößern. Quelle: PUDU Academy."]
+          },
+          "#diagnostics .diagnostic-list strong": {
+            zh: ["确认滤芯已清洁并拍照", "拍摄滤芯使用状态", "短时无滤芯测试"],
+            en: ["Confirm cleaning and photograph the filter", "Photograph filter usage status", "Short test without filter"],
+            de: ["Filterreinigung bestätigen und fotografieren", "Filterstatus fotografieren", "Kurz ohne Filter testen"]
+          },
+          "#diagnostics .diagnostic-list p": {
+            zh: ["确认清水滤芯已彻底清洁，并拍摄取出的滤芯。", "若仍报警，进入 Status/Gerätestatus，下拉到最底部，拍摄滤芯的使用状态。", "关机后拆掉滤芯并盖好滤芯盖。如有水流出，补充少量清水。开机后只短暂确认报警是否仍出现。"],
+            en: ["Confirm that the fresh-water filter was thoroughly cleaned and photograph it after removal.", "If the error remains, open Status/Device Status, scroll to the bottom and photograph the displayed filter usage status.", "Power off, remove the filter and close the filter housing cover. If water escaped, add a little fresh water. Power on only briefly to check whether the message remains."],
+            de: ["Bestätigen Sie, dass der Frischwasserfilter vollständig gereinigt wurde, und senden Sie ein Foto des herausgenommenen Filters.", "Wenn die Meldung weiterhin erscheint, öffnen Sie „Status/Gerätestatus“, scrollen Sie ganz nach unten und fotografieren Sie den angezeigten Nutzungszustand des Filters.", "Roboter ausschalten, Filter entfernen und Filtergehäuse mit dem Deckel schließen. Falls Wasser ausgelaufen ist, etwas Frischwasser nachfüllen. Roboter einschalten und nur kurz prüfen, ob die Meldung weiterhin erscheint."]
+          },
+          "#results .decision-card h3": {
+            zh: ["无滤芯时报警消失", "报警仍存在且没有出水"],
+            en: ["Message disappears without the filter", "Message remains and no water dispenses"],
+            de: ["Meldung verschwindet ohne Filter", "Meldung bleibt und es tritt kein Wasser aus"]
+          },
+          "#results .decision-card > p": {
+            zh: ["滤芯已堵塞，需要更换。", "故障原因很可能不是滤芯，需要进行远程检查。"],
+            en: ["The filter is clogged and must be replaced.", "The cause is probably not the filter. The device requires further remote inspection."],
+            de: ["Der Filter ist zugesetzt und muss ersetzt werden.", "Die Ursache liegt wahrscheinlich nicht am Filter. Das Gerät muss per Fernzugriff weiter geprüft werden."]
+          },
+          "#results .decision-card.ok .check-list li": {
+            zh: ["不要在无滤芯状态下执行正常任务。", "如果有两台机器人，可将仅用于吸尘机器人的滤芯装到湿拖/洗地机器人上。", "技术服务会提供新的滤芯。"],
+            en: ["Do not run a normal task without the filter.", "With two robots, the filter from the vacuum-only unit may be installed in the wet-mopping/scrubbing robot.", "Technical service will provide a new filter."],
+            de: ["Keinen normalen Auftrag ohne Filter starten.", "Bei zwei Robotern kann der Filter des ausschließlich zum Saugen eingesetzten Geräts in den Nasswisch-/Schrubbroboter eingesetzt werden.", "Der technische Service stellt einen neuen Filter bereit."]
+          },
+          "#results .decision-card.stop .check-list li": {
+            zh: ["加入少量清水。", "将机器人联网并保持开机。", "把机器人放在不怕积水的地面。"],
+            en: ["Add a little fresh water.", "Connect the robot to the internet and leave it powered on.", "Place it on a surface where escaping water cannot cause damage."],
+            de: ["Etwas Frischwasser einfüllen.", "Roboter mit dem Internet verbinden und eingeschaltet lassen.", "Roboter auf eine Fläche stellen, auf der austretendes Wasser keinen Schaden verursacht."]
+          }
+        }
+      };
+    })();
+  </script>
+  <script src="../../../../assets/i18n.js"></script>
+  <script>
+    (() => {
+      const dialog = document.querySelector(".image-dialog");
+      const dialogImage = dialog.querySelector("img");
+
+      document.querySelectorAll(".photo-button").forEach((button) => {
+        button.addEventListener("click", () => {
+          const image = button.querySelector("img");
+          dialogImage.src = image.src;
+          dialogImage.alt = image.alt;
+          dialog.showModal();
+        });
+      });
+
+      dialog.querySelector(".dialog-close").addEventListener("click", () => dialog.close());
+      dialog.addEventListener("click", (event) => {
+        if (event.target === dialog) dialog.close();
+      });
+
+      document.querySelector(".print-button").addEventListener("click", () => window.print());
+    })();
+  </script>
+</body>
+</html>
