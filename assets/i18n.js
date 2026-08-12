@@ -42,7 +42,7 @@
           "Delivery and service robot documentation",
           "Dokumentation für Liefer- und Serviceroboter"
         ),
-        ".pudu .status": tr("已有 5 份资料 →", "5 documents available →", "5 Dokumente verfügbar →"),
+        ".pudu .status": tr("已有 6 份资料 →", "6 documents available →", "6 Dokumente verfügbar →"),
         ".card:not(.pudu):not(.orion) p": tr(
           "商用清洁机器人资料",
           "Commercial cleaning robot documentation",
@@ -151,6 +151,21 @@
           "Inspect the three downward depth images and the Check Tool result, then save the check image and camera-channel configuration.",
           "Die drei nach unten gerichteten Tiefenbilder und das Check-Tool-Ergebnis prüfen und anschließend Prüfbild und Kamerakanal-Konfiguration speichern."
         ),
+        ".food-cover-guide .tag": tr(
+          "BellaBot · 机械拆装 · 图文 + 视频",
+          "BellaBot · Mechanical Service · Images + Video",
+          "BellaBot · Mechanischer Service · Bilder + Video"
+        ),
+        ".food-cover-guide h3": tr(
+          "菜罩拆装与托盘恢复指南",
+          "Food Cover Installation, Removal and Tray Restoration",
+          "Speisehaube montieren, demontieren und Tabletts wiederherstellen"
+        ),
+        ".food-cover-guide > div > p": tr(
+          "拆原托盘、保护定位引脚、拆固定插座、安装菜罩、恢复托盘及拆散菜罩组件。",
+          "Remove the original trays, protect the locating pin, remove the fixing sockets, install the cover, restore the trays and dismantle the cover module.",
+          "Originaltabletts ausbauen, Positionierstift schützen, Halteaufnahmen entfernen, Haube montieren, Tabletts wiederherstellen und Haubeneinheit zerlegen."
+        ),
         "#documents .section-kicker": tr("客户资料", "Customer Documents", "Kundendokumente"),
         "#documents h2": tr("客户资料", "Customer Documents", "Kundendokumente"),
         "#documents .section-copy": tr(
@@ -209,6 +224,11 @@
           zh: ["BellaBot", "7 个步骤", "中文 / EN / DE", "视频 0:55"],
           en: ["BellaBot", "7 steps", "中文 / EN / DE", "Video 0:55"],
           de: ["BellaBot", "7 Schritte", "中文 / EN / DE", "Video 0:55"]
+        },
+        ".food-cover-guide .meta span": {
+          zh: ["BellaBot", "4 个阶段", "中文 / EN / DE", "视频 23:51"],
+          en: ["BellaBot", "4 phases", "中文 / EN / DE", "Video 23:51"],
+          de: ["BellaBot", "4 Phasen", "中文 / EN / DE", "Video 23:51"]
         },
         ".cc1-schnellguide .meta span": {
           zh: ["CC1 Pro", "3 页", "德语", "A4 打印"],
