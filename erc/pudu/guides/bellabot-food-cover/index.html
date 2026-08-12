@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="referrer" content="no-referrer">
+  <meta name="description" content="BellaBot 菜罩拆装、托盘拆卸与恢复安装指南">
+  <title>BellaBot 菜罩拆装指南</title>
+  <link rel="icon" href="../../../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../../../assets/i18n.css">
+  <style>
+    :root {
+      --ink: #17242d;
+      --muted: #60727c;
+      --paper: #fff;
+      --canvas: #eef4f3;
+      --line: #d5e1df;
+      --brand: #087f72;
+      --brand-dark: #055d54;
+      --brand-soft: #e5f5f2;
+      --orange: #e76d12;
+      --orange-soft: #fff1e5;
+      --red: #c83d32;
+      --red-soft: #ffedeb;
+      --blue: #286eb8;
+      --blue-soft: #eaf3fc;
+      --green: #14865a;
+      --green-soft: #e9f7f0;
+      --shadow: 0 18px 54px rgba(24, 55, 61, .10);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 0, rgba(8,127,114,.12), transparent 30rem),
+        linear-gradient(180deg, #f8fbfb, var(--canvas));
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px max(18px, calc((100vw - 1180px) / 2));
+      color: #fff;
+      background: rgba(4, 83, 74, .95);
+      border-bottom: 1px solid rgba(255,255,255,.15);
+      backdrop-filter: blur(14px);
+    }
+    .brand { display: flex; align-items: center; gap: 10px; min-width: 0; font-size: 14px; font-weight: 800; }
+    .brand-mark {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      flex: 0 0 auto;
+      place-items: center;
+      color: var(--brand-dark);
+      background: #fff;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 900;
+    }
+    .top-actions { display: flex; align-items: center; gap: 8px; }
+    .top-actions > a {
+      padding: 7px 10px;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 750;
+      text-decoration: none;
+    }
+    .top-actions > a:hover { background: rgba(255,255,255,.10); }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      background: linear-gradient(120deg, #064e47, #0a8b7d 72%, #19a293);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -120px;
+      bottom: -220px;
+      width: 560px;
+      height: 560px;
+      border: 74px solid rgba(255,255,255,.07);
+      border-radius: 50%;
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; padding: 76px 24px 84px; }
+    .eyebrow {
+      display: inline-flex;
+      margin-bottom: 18px;
+      padding: 6px 11px;
+      color: #d9fff9;
+      background: rgba(255,255,255,.11);
+      border: 1px solid rgba(255,255,255,.17);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .09em;
+    }
+    h1 { max-width: 880px; margin: 0; font-size: clamp(39px, 6vw, 68px); line-height: 1.06; letter-spacing: -.04em; }
+    .hero-copy { max-width: 820px; margin: 21px 0 0; color: rgba(255,255,255,.84); font-size: clamp(17px,2.2vw,21px); }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 28px; }
+    .hero-meta span { padding: 7px 11px; background: rgba(0,32,29,.22); border: 1px solid rgba(255,255,255,.14); border-radius: 9px; font-size: 13px; }
+
+    main { width: min(1160px, calc(100% - 36px)); margin: 0 auto; padding: 0 0 80px; }
+    section { margin-top: 27px; padding: clamp(24px,4vw,42px); background: var(--paper); border: 1px solid rgba(184,201,199,.72); border-radius: var(--radius); box-shadow: 0 12px 36px rgba(26,53,61,.06); }
+    .section-kicker { margin: 0 0 4px; color: var(--brand); font-size: 12px; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+    h2 { margin: 0; font-size: clamp(28px,4vw,40px); line-height: 1.2; letter-spacing: -.025em; }
+    .lead { max-width: 880px; margin: 10px 0 0; color: var(--muted); }
+
+    .critical {
+      position: relative;
+      z-index: 3;
+      margin-top: -46px;
+      padding: clamp(22px,4vw,34px);
+      color: #63231d;
+      background: #fff9f7;
+      border: 1px solid #efafa8;
+      border-left: 8px solid var(--red);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+    .critical-head { display: grid; grid-template-columns: 54px 1fr; gap: 16px; align-items: center; }
+    .critical-icon { display: grid; width: 52px; height: 52px; place-items: center; color: #fff; background: var(--red); border-radius: 50%; font-size: 25px; font-weight: 950; }
+    .critical h2 { color: #7c251e; font-size: clamp(24px,3.4vw,34px); }
+    .critical-intro { margin: 6px 0 0; color: #84514c; }
+    .critical-rules { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; margin-top: 22px; }
+    .critical-rules article { padding: 17px; background: #fff; border: 1px solid #efd4d0; border-radius: 14px; }
+    .critical-rules b { display: block; margin-bottom: 5px; color: #8a2821; }
+    .critical-rules p { margin: 0; color: #75504c; font-size: 14px; }
+
+    .scope-strip { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; margin-top: 23px; }
+    .tool-card { padding: 17px; background: #f6faf9; border: 1px solid var(--line); border-radius: 14px; }
+    .tool-card b { display: block; margin-bottom: 4px; color: var(--brand-dark); }
+    .tool-card p { margin: 0; color: var(--muted); font-size: 14px; }
+
+    .video-shell { margin-top: 24px; padding: 10px; background: #091c23; border-radius: 17px; box-shadow: 0 16px 42px rgba(3,18,25,.20); }
+    video { display: block; width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 11px; }
+    .video-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 13px; }
+    .video-meta span { padding: 5px 9px; color: #50636e; background: #f2f6f7; border: 1px solid #dce6e7; border-radius: 8px; font-size: 12px; font-weight: 760; }
+    .chapters { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px; margin-top: 18px; }
+    .chapter { padding: 14px; color: inherit; background: var(--blue-soft); border: 1px solid #c9dbed; border-radius: 13px; text-align: left; cursor: pointer; font: inherit; }
+    .chapter:hover { border-color: #78a8d5; }
+    .chapter b { display: block; color: #174f86; }
+    .chapter span { color: #60758a; font-size: 12px; }
+
+    .phase-list { display: grid; gap: 22px; margin-top: 28px; }
+    .phase { overflow: hidden; border: 1px solid var(--line); border-radius: 19px; background: #fbfdfd; }
+    .phase > header { padding: 18px 21px; color: #fff; background: linear-gradient(110deg,var(--brand-dark),var(--brand)); }
+    .phase:nth-child(2) > header { background: linear-gradient(110deg,#275f93,#347fc5); }
+    .phase:nth-child(3) > header { background: linear-gradient(110deg,#7e4c0d,#c57917); }
+    .phase:nth-child(4) > header { background: linear-gradient(110deg,#4e5061,#717488); }
+    .phase > header h3 { margin: 0; font-size: 23px; }
+    .phase > header p { margin: 4px 0 0; color: rgba(255,255,255,.78); font-size: 14px; }
+    .steps { display: grid; gap: 1px; background: var(--line); }
+    .step { display: grid; grid-template-columns: minmax(0,1fr) minmax(340px,.92fr); background: #fff; }
+    .step-copy { display: grid; grid-template-columns: 44px 1fr; gap: 14px; padding: 22px; }
+    .step-no { display: grid; width: 42px; height: 42px; place-items: center; color: #fff; background: var(--brand); border-radius: 12px; font-weight: 900; }
+    .step h4 { margin: 0 0 6px; font-size: 20px; }
+    .step-text { margin: 0; color: var(--muted); }
+    figure { margin: 0; background: #edf3f2; border-left: 1px solid var(--line); }
+    figure img { width: 100%; height: 100%; max-height: 320px; object-fit: cover; }
+    figcaption { padding: 10px 14px 12px; color: #586d73; background: #f1f6f5; font-size: 12px; }
+    .pin-note { display: block; margin-top: 11px; padding: 11px 13px; color: #76231d; background: var(--red-soft); border-left: 4px solid var(--red); border-radius: 9px; font-size: 14px; font-weight: 760; }
+
+    .checklist { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px 24px; margin: 22px 0 0; padding: 0; list-style: none; }
+    .checklist li { position: relative; padding: 12px 14px 12px 42px; background: var(--green-soft); border: 1px solid #c8e4d5; border-radius: 12px; }
+    .checklist li::before { content: "✓"; position: absolute; left: 15px; top: 11px; color: var(--green); font-weight: 950; }
+    .stop-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; margin-top: 24px; }
+    .stop-grid article { padding: 17px; background: var(--orange-soft); border: 1px solid #efcfad; border-radius: 14px; }
+    .stop-grid b { display: block; margin-bottom: 5px; color: #8a4a08; }
+    .stop-grid p { margin: 0; color: #755a3c; font-size: 14px; }
+    footer { padding: 26px 20px 38px; color: #657780; text-align: center; font-size: 12px; }
+
+    @media (max-width: 900px) {
+      .critical-rules, .scope-strip, .chapters { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .step { grid-template-columns: 1fr; }
+      figure { border-left: 0; border-top: 1px solid var(--line); }
+      figure img { max-height: none; }
+    }
+    @media (max-width: 700px) {
+      .top-actions > a { display: none; }
+      .brand span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .hero-inner { padding: 52px 20px 72px; }
+      main { width: min(100% - 24px,1160px); }
+      .critical { margin-top: -34px; padding: 19px 16px; }
+      .critical-head { grid-template-columns: 42px 1fr; gap: 11px; }
+      .critical-icon { width: 42px; height: 42px; font-size: 21px; }
+      section { padding: 22px 16px; border-radius: 18px; }
+      .step-copy { grid-template-columns: 37px 1fr; padding: 18px 15px; }
+      .step-no { width: 35px; height: 35px; border-radius: 10px; }
+      .checklist { grid-template-columns: 1fr; }
+      .stop-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .topbar { padding-inline: 10px; }
+      .brand-mark { display: none; }
+      .brand { font-size: 12px; }
+      .critical-rules, .scope-strip, .chapters { grid-template-columns: 1fr; }
+      .phase > header { padding: 16px; }
+    }
+    @media print {
+      .topbar { position: static; }
+      .xw-language-switcher, video, .chapters { display: none !important; }
+      body { background: #fff; }
+      section, .critical, .phase { box-shadow: none; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body data-page="bellabot-food-cover" data-default-lang="zh">
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">FC</span><span>BellaBot 菜罩拆装指南</span></div>
+    <nav class="top-actions" aria-label="Page navigation">
+      <a href="#critical">重点</a>
+      <a href="#video">完整视频</a>
+      <a href="#procedure">拆装步骤</a>
+      <div class="xw-language-switcher" role="group" aria-label="Language">
+        <button type="button" data-lang-switch="zh">中文</button>
+        <button type="button" data-lang-switch="en">EN</button>
+        <button type="button" data-lang-switch="de">DE</button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">BELLA BOT · FOOD COVER SERVICE GUIDE</div>
+      <h1>菜罩拆装与托盘恢复指南</h1>
+      <p class="hero-copy">按照 PUDU 学院视频完成原托盘拆除、菜罩组装与安装、托盘恢复以及菜罩组件拆解。拆托盘前请先阅读下方引脚警告。</p>
+      <div class="hero-meta"><span>BellaBot</span><span>4 个阶段</span><span>视频 23:51</span><span>中文 / EN / DE</span></div>
+    </div>
+  </div>
+
+  <main>
+    <aside class="critical" id="critical">
+      <div class="critical-head">
+        <span class="critical-icon">!</span>
+        <div>
+          <h2>拆托盘：先向上敲松带引脚的一端</h2>
+          <p class="critical-intro">托盘会很紧，因为一端有定位引脚。不要在未松动时水平硬拉；错误受力可能弯曲或折断引脚。</p>
+        </div>
+      </div>
+      <div class="critical-rules">
+        <article><b>① 向上敲 / 顶起</b><p>拆完固定螺丝后，从下方朝上轻敲或顶起带引脚的一端，直到托盘与定位处松开。</p></article>
+        <article><b>② 拆固定插座</b><p>托盘取下后，继续拆掉托盘固定插座（视频中也称托扣 / 固定座），不要把它留在机身上。</p></article>
+        <article><b>③ 全程保护引脚</b><p>取放和收纳托盘时避免侧向碰撞引脚；复装时先对准引脚，再将托盘平稳落位。</p></article>
+      </div>
+    </aside>
+
+    <section id="overview">
+      <p class="section-kicker">Before you start</p>
+      <h2>适用范围与准备</h2>
+      <p class="lead">本页面向具备 BellaBot 机械拆装能力的人员。开始前停止机器人任务，准备零件收纳位置，并先完整观看视频。</p>
+      <div class="scope-strip">
+        <article class="tool-card"><b>常用工具</b><p>视频所示螺丝刀、六角套筒 / 内六角工具和开口扳手。</p></article>
+        <article class="tool-card"><b>辅助材料</b><p>黑色胶带、扎带以及用于分类保存螺丝和垫片的容器。</p></article>
+        <article class="tool-card"><b>两人配合</b><p>抬起整套菜罩和落位时建议两人配合，避免玻璃门板或机身受碰撞。</p></article>
+        <article class="tool-card"><b>紧固原则</b><p>需要调位置的螺丝先预紧；门板顺畅后再按视频顺序最终锁紧。</p></article>
+      </div>
+    </section>
+
+    <section id="video">
+      <p class="section-kicker">PUDU Academy video</p>
+      <h2>完整拆装视频</h2>
+      <p class="lead">视频包含从 Bella 托盘改装为菜罩、再恢复托盘，以及菜罩组件拆散的完整过程。网页视频保留原有中英字幕。</p>
+      <div class="video-shell">
+        <video id="procedure-video" controls playsinline preload="metadata" poster="assets/images/video-poster.jpg">
+          <source src="assets/video/bellabot-food-cover-installation-removal.mp4" type="video/mp4">
+          Your browser does not support MP4 video playback.
+        </video>
+      </div>
+      <div class="video-meta"><span>时长：23:51</span><span>网页版：960 × 540</span><span>格式：MP4 · H.264 / AAC</span><span>原字幕：中文 / English</span></div>
+      <div class="chapters" aria-label="Video chapters">
+        <button class="chapter" type="button" data-time="8"><b>拆原托盘</b><span>00:08–05:23</span></button>
+        <button class="chapter" type="button" data-time="323"><b>组装并安装菜罩</b><span>05:23–13:18</span></button>
+        <button class="chapter" type="button" data-time="798"><b>恢复原托盘</b><span>13:18–20:01</span></button>
+        <button class="chapter" type="button" data-time="1201"><b>拆散菜罩组件</b><span>20:01–23:51</span></button>
+      </div>
+    </section>
+
+    <section id="procedure">
+      <p class="section-kicker">Step by step</p>
+      <h2>拆装步骤</h2>
+      <p class="lead">下列顺序按视频整理。螺丝、垫片、固定片和线束位置以实机及原视频画面为准，不要混装或遗漏。</p>
+      <div class="phase-list">
+        <article class="phase">
+          <header><h3>A · 拆除原托盘并准备机身</h3><p>对应视频 00:08–05:23。引脚和托盘固定插座是本阶段的重点。</p></header>
+          <div class="steps">
+            <article class="step">
+              <div class="step-copy"><span class="step-no">1</span><div><h4>拆上层和中层托盘</h4><p class="step-text">按视频拆下托盘前后固定螺丝。托盘仍会很紧：从下方朝上轻敲 / 顶起带定位引脚的一端，松开后再抬走托盘。依次处理其余托盘，并按视频拆灯带线固定螺丝、固定片或卡扣。</p><span class="pin-note">禁止水平硬拽托盘；不要让引脚承受侧向力。</span></div></div>
+              <figure><img src="assets/images/remove-tray.jpg" alt="Tray being lifted from BellaBot"><figcaption>螺丝拆完后先让带引脚的一端向上脱开，再取走托盘。</figcaption></figure>
+            </article>
+            <article class="step">
+              <div class="step-copy"><span class="step-no">2</span><div><h4>托盘取下后，拆固定插座</h4><p class="step-text">每个托盘取下后，继续拆下托盘固定插座 / 托扣 / 固定座。按视频保存固定铁片、螺丝和垫片，并用黑色胶带封住拆除后留下的开口。保护好托盘端部的定位引脚。</p></div></div>
+              <figure><img src="assets/images/remove-tray-holder.jpg" alt="Removing the BellaBot tray fixing socket"><figcaption>托盘拆除不等于本步骤完成：固定插座也必须从机身上拆下。</figcaption></figure>
+            </article>
+            <article class="step">
+              <div class="step-copy"><span class="step-no">3</span><div><h4>拆底层托盘并更换机身固定件</h4><p class="step-text">从底层托盘下方拆固定螺丝，再拆底层托盘和固定块。取下底盘上壳，拆两侧托盘固定插座，并按视频处理灯带电源线。装回上壳后，将原托盘固定件换成菜罩固定件并锁紧。</p></div></div>
+              <figure><img src="assets/images/tray-pin-end.jpg" alt="Tray underside and locating end shown in the PUDU video"><figcaption>托盘端部定位位置示意；拆装和收纳时都要避免碰弯引脚。</figcaption></figure>
+            </article>
+          </div>
+        </article>
+
+        <article class="phase">
+          <header><h3>B · 组装并安装菜罩</h3><p>对应视频 05:23–13:18。先完成菜罩框架，再整体落位并调门板。</p></header>
+          <div class="steps">
+            <article class="step">
+              <div class="step-copy"><span class="step-no">4</span><div><h4>组装侧板、底板和层板</h4><p class="step-text">在平整、柔软的台面上，按视频使用锁紧螺母和平垫安装侧板铰链。确认底板方向后装到底板与侧板上，再装另一侧板；依次装好中间层板并逐步紧固。</p></div></div>
+              <figure><img src="assets/images/assemble-panels.jpg" alt="Assembling the food cover side panels and shelves"><figcaption>先确认板件方向，再按顺序连接侧板、底板和层板。</figcaption></figure>
+            </article>
+            <article class="step">
+              <div class="step-copy"><span class="step-no">5</span><div><h4>安装透明门板</h4><p class="step-text">确认门板上下和左右方向。先固定磁吸件，再把透明门板装到铰链上；用平垫与锁紧螺母固定。依次完成所有门板，避免玻璃边缘互相碰撞。</p></div></div>
+              <figure><img src="assets/images/install-door-panels.jpg" alt="Installing the transparent food cover doors"><figcaption>门板方向必须一致；螺母先均匀预紧。</figcaption></figure>
+            </article>
+            <article class="step">
+              <div class="step-copy"><span class="step-no">6</span><div><h4>菜罩整体落位，先预紧</h4><p class="step-text">两人抬起整套菜罩，平稳放到 BellaBot 机身上。按视频从两侧插入共 12 颗连接螺丝，但先不要完全锁紧；保留位置调整余量。再连接底部固定件。</p></div></div>
+              <figure><img src="assets/images/place-cover-on-robot.jpg" alt="Complete food cover placed on BellaBot"><figcaption>整套菜罩落位时避免刮碰机器人外壳和门板。</figcaption></figure>
+            </article>
+            <article class="step">
+              <div class="step-copy"><span class="step-no">7</span><div><h4>安装顶板磁吸件并调门</h4><p class="step-text">按视频把长条磁吸件装到 U 形件，并注意三颗螺丝的位置；再把 U 形件安装到顶板。调整顶板和底部固定件，反复开关所有门板，确认无卡滞后固定顶板，最后锁紧菜罩与机身的 12 颗连接螺丝。</p></div></div>
+              <figure><img src="assets/images/align-cover.jpg" alt="Adjusting the top cover until doors open and close correctly"><figcaption>最终锁紧前，所有门板都必须能顺畅开合并正确吸合。</figcaption></figure>
+            </article>
+          </div>
+        </article>
+
+        <article class="phase">
+          <header><h3>C · 从菜罩恢复原托盘</h3><p>对应视频 13:18–20:01。按相反顺序拆菜罩，并恢复托盘固定插座和灯带连接。</p></header>
+          <div class="steps">
+            <article class="step">
+              <div class="step-copy"><span class="step-no">8</span><div><h4>取下整套菜罩并恢复固定插座</h4><p class="step-text">先拆底部菜罩固定件与机身的连接，再拆两侧共 12 颗螺丝；两人抬走菜罩。拆掉菜罩固定件和底盘上壳，按视频恢复两侧托盘固定插座 / 托扣及其固定片，确认插座无松动。</p></div></div>
+              <figure><img src="assets/images/reinstall-tray-holder.jpg" alt="Reinstalling a BellaBot tray fixing socket"><figcaption>恢复托盘前，两侧固定插座必须按原位置安装到位。</figcaption></figure>
+            </article>
+            <article class="step">
+              <div class="step-copy"><span class="step-no">9</span><div><h4>恢复底层及其余托盘</h4><p class="step-text">装回底盘上壳、底层托盘和底部固定件，并按视频锁紧。取出灯带电源线，恢复连接、固定片和卡扣；随后逐层安装其余托盘。每个托盘都先对准定位引脚，再平稳落位并锁紧固定螺丝。</p><span class="pin-note">复装时如托盘不能自然落平，停止压入并重新检查引脚与孔位。</span></div></div>
+              <figure><img src="assets/images/reconnect-light-cable.jpg" alt="Reconnecting the tray light power cable"><figcaption>灯带电源线、固定片和卡扣按原路径恢复，避免夹线。</figcaption></figure>
+            </article>
+          </div>
+        </article>
+
+        <article class="phase">
+          <header><h3>D · 拆散菜罩组件</h3><p>对应视频 20:01–23:51。用于运输、返修或分件收纳。</p></header>
+          <div class="steps">
+            <article class="step">
+              <div class="step-copy"><span class="step-no">10</span><div><h4>按视频顺序拆顶板、门板和框架</h4><p class="step-text">拆下顶板两侧螺丝并取走顶板；拆门板锁紧螺母并安全放置透明门板；再拆层板固定螺丝、底板和侧板铰链。最后拆下 U 形件和顶部门板磁吸件。所有螺丝、平垫和锁紧螺母按位置分类保存。</p></div></div>
+              <figure><img src="assets/images/disassemble-top-cover.jpg" alt="Removing the food cover top plate"><figcaption>拆透明门板时应托住门板，防止螺母松开后掉落。</figcaption></figure>
+            </article>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="verification">
+      <p class="section-kicker">Final check</p>
+      <h2>完成后的检查</h2>
+      <p class="lead">无论安装菜罩还是恢复托盘，都应在重新投入使用前完成以下检查。</p>
+      <ul class="checklist">
+        <li>托盘定位引脚笔直、无磕碰，托盘已平稳落位</li>
+        <li>托盘固定插座 / 菜罩固定件均已按当前配置安装并锁紧</li>
+        <li>灯带电源线和其他线束连接正确、无夹压或拉扯</li>
+        <li>所有菜罩门板开合顺畅、磁吸正常、相邻门板不干涉</li>
+        <li>螺丝、平垫和锁紧螺母无遗漏，机身外壳已复位</li>
+      </ul>
+      <div class="stop-grid">
+        <article><b>引脚弯曲或托盘落不平</b><p>停止安装，不要用螺丝强行拉紧；保护现场并联系技术支持。</p></article>
+        <article><b>固定插座位置不确定</b><p>不要凭感觉混装。对照视频和拆前位置照片，确认后再继续。</p></article>
+        <article><b>门板卡滞或无法吸合</b><p>先松开预紧螺丝重新调整顶板和底部固定件，再最终锁紧。</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer>BellaBot 菜罩拆装、托盘恢复与组件拆解指南</footer>
+
+  <script>
+    window.xwPageI18n = {
+      title: {
+        zh: "BellaBot 菜罩拆装指南",
+        en: "BellaBot Food Cover Installation and Removal Guide",
+        de: "BellaBot – Anleitung zur Montage und Demontage der Speisehaube"
+      },
+      html: {
+        ".brand span:last-child": { zh: "BellaBot 菜罩拆装指南", en: "BellaBot Food Cover Guide", de: "BellaBot Speisehauben-Anleitung" },
+        ".top-actions > a[href='#critical']": { zh: "重点", en: "Critical points", de: "Wichtige Hinweise" },
+        ".top-actions > a[href='#video']": { zh: "完整视频", en: "Full video", de: "Video" },
+        ".top-actions > a[href='#procedure']": { zh: "拆装步骤", en: "Procedure", de: "Vorgehen" },
+        ".hero h1": { zh: "菜罩拆装与托盘恢复指南", en: "Food Cover Installation, Removal and Tray Restoration", de: "Speisehaube montieren, demontieren und Tabletts wiederherstellen" },
+        ".hero-copy": {
+          zh: "按照 PUDU 学院视频完成原托盘拆除、菜罩组装与安装、托盘恢复以及菜罩组件拆解。拆托盘前请先阅读下方引脚警告。",
+          en: "Follow the PUDU Academy video to remove the original trays, assemble and install the food cover, restore the trays and dismantle the food-cover module. Read the locating-pin warning below before removing any tray.",
+          de: "Folgen Sie dem Video der PUDU Academy, um die Originaltabletts auszubauen, die Speisehaube zu montieren, die Tabletts wiederherzustellen und die Haubeneinheit zu zerlegen. Lesen Sie vor dem Ausbau eines Tabletts unbedingt den Hinweis zum Positionierstift."
+        },
+        ".critical h2": { zh: "拆托盘：先向上敲松带引脚的一端", en: "Tray removal: tap the locating-pin end upward first", de: "Tablettausbau: Die Seite mit dem Positionierstift zuerst nach oben lösen" },
+        ".critical-intro": {
+          zh: "托盘会很紧，因为一端有定位引脚。不要在未松动时水平硬拉；错误受力可能弯曲或折断引脚。",
+          en: "The tray can be very tight because one end has a locating pin. Do not pull it sideways while it is still seated; incorrect force can bend or break the pin.",
+          de: "Das Tablett kann sehr fest sitzen, weil sich an einem Ende ein Positionierstift befindet. Ziehen Sie es nicht seitlich heraus, solange es noch fest sitzt; falsche Krafteinwirkung kann den Stift verbiegen oder abbrechen."
+        },
+        "#overview > h2": { zh: "适用范围与准备", en: "Scope and Preparation", de: "Anwendungsbereich und Vorbereitung" },
+        "#overview > .lead": {
+          zh: "本页面向具备 BellaBot 机械拆装能力的人员。开始前停止机器人任务，准备零件收纳位置，并先完整观看视频。",
+          en: "This guide is for personnel capable of mechanical work on BellaBot. Stop robot tasks, prepare organized storage for parts and watch the full video before starting.",
+          de: "Diese Anleitung richtet sich an Personen, die mechanische Arbeiten am BellaBot fachgerecht ausführen können. Stoppen Sie Roboteraufträge, bereiten Sie eine geordnete Teileablage vor und sehen Sie zuerst das vollständige Video an."
+        },
+        "#video > h2": { zh: "完整拆装视频", en: "Complete Procedure Video", de: "Vollständiges Montage- und Demontagevideo" },
+        "#video > .lead": {
+          zh: "视频包含从 Bella 托盘改装为菜罩、再恢复托盘，以及菜罩组件拆散的完整过程。网页视频保留原有中英字幕。",
+          en: "The video covers conversion from Bella trays to the food cover, restoration of the trays and dismantling of the food-cover module. The web video retains the original Chinese and English subtitles.",
+          de: "Das Video zeigt den Umbau von Bella-Tabletts zur Speisehaube, die Rückrüstung auf Tabletts und das Zerlegen der Haubeneinheit. Die Webversion enthält die ursprünglichen chinesischen und englischen Untertitel."
+        },
+        "#procedure > h2": { zh: "拆装步骤", en: "Installation and Removal Procedure", de: "Montage- und Demontageschritte" },
+        "#procedure > .lead": {
+          zh: "下列顺序按视频整理。螺丝、垫片、固定片和线束位置以实机及原视频画面为准，不要混装或遗漏。",
+          en: "The sequence below follows the video. Use the actual robot and the original video to confirm the positions of screws, washers, retaining plates and cables. Do not mix up or omit parts.",
+          de: "Die folgende Reihenfolge entspricht dem Video. Prüfen Sie die Positionen von Schrauben, Scheiben, Halteblechen und Leitungen am Roboter und im Originalvideo. Teile dürfen nicht vertauscht oder weggelassen werden."
+        },
+        "#verification > h2": { zh: "完成后的检查", en: "Final Check", de: "Abschlussprüfung" },
+        "#verification > .lead": {
+          zh: "无论安装菜罩还是恢复托盘，都应在重新投入使用前完成以下检查。",
+          en: "Whether installing the food cover or restoring the trays, complete these checks before returning the robot to service.",
+          de: "Führen Sie diese Prüfungen durch, bevor der Roboter nach Montage der Speisehaube oder Rückrüstung der Tabletts wieder eingesetzt wird."
+        },
+        "body > footer": {
+          zh: "BellaBot 菜罩拆装、托盘恢复与组件拆解指南",
+          en: "BellaBot Food Cover Installation, Tray Restoration and Module Disassembly Guide",
+          de: "BellaBot – Speisehaube montieren, Tabletts wiederherstellen und Haubeneinheit zerlegen"
+        }
+      },
+      groups: {
+        ".hero-meta span": {
+          zh: ["BellaBot", "4 个阶段", "视频 23:51", "中文 / EN / DE"],
+          en: ["BellaBot", "4 phases", "Video 23:51", "中文 / EN / DE"],
+          de: ["BellaBot", "4 Phasen", "Video 23:51", "中文 / EN / DE"]
+        },
+        ".critical-rules b": {
+          zh: ["① 向上敲 / 顶起", "② 拆固定插座", "③ 全程保护引脚"],
+          en: ["① Tap / push upward", "② Remove the fixing socket", "③ Protect the pin throughout"],
+          de: ["① Nach oben klopfen / drücken", "② Halteaufnahme ausbauen", "③ Stift durchgehend schützen"]
+        },
+        ".critical-rules p": {
+          zh: [
+            "拆完固定螺丝后，从下方朝上轻敲或顶起带引脚的一端，直到托盘与定位处松开。",
+            "托盘取下后，继续拆掉托盘固定插座（视频中也称托扣 / 固定座），不要把它留在机身上。",
+            "取放和收纳托盘时避免侧向碰撞引脚；复装时先对准引脚，再将托盘平稳落位。"
+          ],
+          en: [
+            "After removing the fixing screws, lightly tap or push the pin end upward from below until it releases from the locating point.",
+            "After lifting off the tray, also remove the tray fixing socket/holder (called the tray clip in the video). Do not leave it on the robot.",
+            "Avoid side impacts to the pin while handling or storing the tray. During reinstallation, align the pin first and lower the tray evenly."
+          ],
+          de: [
+            "Klopfen oder drücken Sie nach dem Entfernen der Befestigungsschrauben die Stiftseite von unten leicht nach oben, bis sie sich aus der Positionierung löst.",
+            "Bauen Sie nach dem Abheben des Tabletts auch die Tablett-Halteaufnahme aus (im Video als Tray Clip bezeichnet). Sie darf nicht am Roboter verbleiben.",
+            "Vermeiden Sie beim Handhaben und Lagern seitliche Stöße gegen den Stift. Richten Sie bei der Montage zuerst den Stift aus und senken Sie das Tablett gleichmäßig ab."
+          ]
+        },
+        ".tool-card b": {
+          zh: ["常用工具", "辅助材料", "两人配合", "紧固原则"],
+          en: ["Common tools", "Supporting materials", "Two-person handling", "Tightening principle"],
+          de: ["Werkzeuge", "Hilfsmaterial", "Arbeit zu zweit", "Anzugsprinzip"]
+        },
+        ".tool-card p": {
+          zh: [
+            "视频所示螺丝刀、六角套筒 / 内六角工具和开口扳手。",
+            "黑色胶带、扎带以及用于分类保存螺丝和垫片的容器。",
+            "抬起整套菜罩和落位时建议两人配合，避免玻璃门板或机身受碰撞。",
+            "需要调位置的螺丝先预紧；门板顺畅后再按视频顺序最终锁紧。"
+          ],
+          en: [
+            "Screwdrivers, hex socket/hex tool and open-end wrench as shown in the video.",
+            "Black tape, cable ties and containers for organizing screws and washers.",
+            "Two people should lift and position the complete cover to avoid impact to the glass doors or robot body.",
+            "Only pre-tighten screws needed for alignment; complete final tightening after all doors move freely."
+          ],
+          de: [
+            "Schraubendreher, Sechskant-Steckwerkzeug/Inbusschlüssel und Maulschlüssel wie im Video gezeigt.",
+            "Schwarzes Klebeband, Kabelbinder und Behälter zum geordneten Ablegen von Schrauben und Scheiben.",
+            "Die komplette Haube sollte von zwei Personen angehoben und positioniert werden, damit Glastüren und Robotergehäuse nicht beschädigt werden.",
+            "Schrauben für die Ausrichtung zunächst nur vorziehen; erst nach leichtgängiger Türfunktion gemäß Video endgültig festziehen."
+          ]
+        },
+        ".video-meta span": {
+          zh: ["时长：23:51", "网页版：960 × 540", "格式：MP4 · H.264 / AAC", "原字幕：中文 / English"],
+          en: ["Duration: 23:51", "Web version: 960 × 540", "Format: MP4 · H.264 / AAC", "Original subtitles: 中文 / English"],
+          de: ["Dauer: 23:51", "Webversion: 960 × 540", "Format: MP4 · H.264 / AAC", "Originaluntertitel: 中文 / English"]
+        },
+        ".chapter b": {
+          zh: ["拆原托盘", "组装并安装菜罩", "恢复原托盘", "拆散菜罩组件"],
+          en: ["Remove original trays", "Assemble and install cover", "Restore original trays", "Dismantle cover module"],
+          de: ["Originaltabletts ausbauen", "Haube montieren", "Originaltabletts wiederherstellen", "Haubeneinheit zerlegen"]
+        },
+        ".chapter span": {
+          zh: ["00:08–05:23", "05:23–13:18", "13:18–20:01", "20:01–23:51"],
+          en: ["00:08–05:23", "05:23–13:18", "13:18–20:01", "20:01–23:51"],
+          de: ["00:08–05:23", "05:23–13:18", "13:18–20:01", "20:01–23:51"]
+        },
+        ".phase > header h3": {
+          zh: ["A · 拆除原托盘并准备机身", "B · 组装并安装菜罩", "C · 从菜罩恢复原托盘", "D · 拆散菜罩组件"],
+          en: ["A · Remove the Original Trays and Prepare the Robot", "B · Assemble and Install the Food Cover", "C · Restore the Original Trays", "D · Dismantle the Food-Cover Module"],
+          de: ["A · Originaltabletts ausbauen und Roboter vorbereiten", "B · Speisehaube zusammenbauen und montieren", "C · Originaltabletts wiederherstellen", "D · Speisehaubeneinheit zerlegen"]
+        },
+        ".phase > header p": {
+          zh: [
+            "对应视频 00:08–05:23。引脚和托盘固定插座是本阶段的重点。",
+            "对应视频 05:23–13:18。先完成菜罩框架，再整体落位并调门板。",
+            "对应视频 13:18–20:01。按相反顺序拆菜罩，并恢复托盘固定插座和灯带连接。",
+            "对应视频 20:01–23:51。用于运输、返修或分件收纳。"
+          ],
+          en: [
+            "Video 00:08–05:23. The locating pin and tray fixing sockets are critical in this phase.",
+            "Video 05:23–13:18. Complete the cover frame first, then place it on the robot and align the doors.",
+            "Video 13:18–20:01. Remove the cover in reverse order and restore the tray fixing sockets and light connection.",
+            "Video 20:01–23:51. For transport, repair return or separate storage."
+          ],
+          de: [
+            "Video 00:08–05:23. Positionierstift und Tablett-Halteaufnahmen sind in dieser Phase besonders wichtig.",
+            "Video 05:23–13:18. Zuerst den Haubenrahmen fertigstellen, dann aufsetzen und die Türen ausrichten.",
+            "Video 13:18–20:01. Haube in umgekehrter Reihenfolge ausbauen und Halteaufnahmen sowie Lichtanschluss wiederherstellen.",
+            "Video 20:01–23:51. Für Transport, Rücksendung zur Reparatur oder getrennte Lagerung."
+          ]
+        },
+        ".step h4": {
+          zh: ["拆上层和中层托盘", "托盘取下后，拆固定插座", "拆底层托盘并更换机身固定件", "组装侧板、底板和层板", "安装透明门板", "菜罩整体落位，先预紧", "安装顶板磁吸件并调门", "取下整套菜罩并恢复固定插座", "恢复底层及其余托盘", "按视频顺序拆顶板、门板和框架"],
+          en: ["Remove the upper and middle trays", "Remove the fixing socket after the tray", "Remove the bottom tray and change the body fitting", "Assemble side panels, base and shelves", "Install the transparent doors", "Position the complete cover and pre-tighten", "Install the top magnet and align the doors", "Lift off the cover and restore the fixing sockets", "Restore the bottom and remaining trays", "Remove the top, doors and frame in video order"],
+          de: ["Obere und mittlere Tabletts ausbauen", "Nach dem Tablett die Halteaufnahme ausbauen", "Unteres Tablett ausbauen und Gehäusehalter wechseln", "Seitenplatten, Boden und Ablagen zusammenbauen", "Transparente Türen montieren", "Komplette Haube aufsetzen und vorziehen", "Oberen Magneten montieren und Türen ausrichten", "Haube abheben und Halteaufnahmen wiederherstellen", "Unteres und übrige Tabletts wiederherstellen", "Deckplatte, Türen und Rahmen in Videoreihenfolge zerlegen"]
+        },
+        ".step .step-text": {
+          zh: [
+            "按视频拆下托盘前后固定螺丝。托盘仍会很紧：从下方朝上轻敲 / 顶起带定位引脚的一端，松开后再抬走托盘。依次处理其余托盘，并按视频拆灯带线固定螺丝、固定片或卡扣。",
+            "每个托盘取下后，继续拆下托盘固定插座 / 托扣 / 固定座。按视频保存固定铁片、螺丝和垫片，并用黑色胶带封住拆除后留下的开口。保护好托盘端部的定位引脚。",
+            "从底层托盘下方拆固定螺丝，再拆底层托盘和固定块。取下底盘上壳，拆两侧托盘固定插座，并按视频处理灯带电源线。装回上壳后，将原托盘固定件换成菜罩固定件并锁紧。",
+            "在平整、柔软的台面上，按视频使用锁紧螺母和平垫安装侧板铰链。确认底板方向后装到底板与侧板上，再装另一侧板；依次装好中间层板并逐步紧固。",
+            "确认门板上下和左右方向。先固定磁吸件，再把透明门板装到铰链上；用平垫与锁紧螺母固定。依次完成所有门板，避免玻璃边缘互相碰撞。",
+            "两人抬起整套菜罩，平稳放到 BellaBot 机身上。按视频从两侧插入共 12 颗连接螺丝，但先不要完全锁紧；保留位置调整余量。再连接底部固定件。",
+            "按视频把长条磁吸件装到 U 形件，并注意三颗螺丝的位置；再把 U 形件安装到顶板。调整顶板和底部固定件，反复开关所有门板，确认无卡滞后固定顶板，最后锁紧菜罩与机身的 12 颗连接螺丝。",
+            "先拆底部菜罩固定件与机身的连接，再拆两侧共 12 颗螺丝；两人抬走菜罩。拆掉菜罩固定件和底盘上壳，按视频恢复两侧托盘固定插座 / 托扣及其固定片，确认插座无松动。",
+            "装回底盘上壳、底层托盘和底部固定件，并按视频锁紧。取出灯带电源线，恢复连接、固定片和卡扣；随后逐层安装其余托盘。每个托盘都先对准定位引脚，再平稳落位并锁紧固定螺丝。",
+            "拆下顶板两侧螺丝并取走顶板；拆门板锁紧螺母并安全放置透明门板；再拆层板固定螺丝、底板和侧板铰链。最后拆下 U 形件和顶部门板磁吸件。所有螺丝、平垫和锁紧螺母按位置分类保存。"
+          ],
+          en: [
+            "Remove the front and rear tray screws as shown. The tray will still be tight: lightly tap or push the locating-pin end upward from below and lift the tray only after it releases. Repeat for the other trays and remove the light-cable screw, retaining plate or clip as shown.",
+            "After each tray is lifted off, also remove its fixing socket/holder/tray clip. Keep the retaining plates, screws and washers organized and seal the remaining openings with black tape as shown. Protect the locating pin at the tray end.",
+            "Remove the screws from below the bottom tray, then remove the tray and fixing block. Remove the chassis upper shell, take out both tray fixing sockets and handle the light power cable as shown. Refit the shell, replace the tray fitting with the food-cover fitting and tighten it.",
+            "On a flat, protected surface, install the side-panel hinges with lock nuts and flat washers as shown. Confirm the base direction, connect it to the first side panel, add the other side panel and install the intermediate shelves in sequence.",
+            "Confirm the top/bottom and left/right orientation of each door. Fit the magnetic parts, mount each transparent door to its hinges and secure it with flat washers and lock nuts. Prevent glass edges from striking each other.",
+            "With two people, lift the complete cover onto BellaBot. Insert all 12 body screws from both sides but do not fully tighten them yet; keep enough play for alignment. Then connect the lower fixing part.",
+            "Install the long magnet on the U-shaped part as shown and note the positions of the three screws; mount the U-shaped part to the top plate. Adjust the top plate and lower fitting, repeatedly test every door, secure the top plate and finally tighten the 12 cover-to-body screws.",
+            "Disconnect the lower cover fitting, then remove all 12 side screws and lift the cover away with two people. Remove the cover fitting and chassis upper shell, reinstall both tray fixing sockets/clips and their retaining plates, and confirm they are secure.",
+            "Refit the chassis upper shell, bottom tray and lower fixing parts. Restore the light power connection, retaining plates and clips, then install the remaining trays level by level. Align each locating pin first, lower the tray evenly and tighten the screws.",
+            "Remove the screws on both sides of the top plate and lift it away. Remove the door lock nuts and place the transparent doors safely. Remove the shelf screws, base and side hinges, followed by the U-shaped part and top-door magnet. Sort all screws, flat washers and lock nuts by position."
+          ],
+          de: [
+            "Entfernen Sie gemäß Video die vorderen und hinteren Tablettschrauben. Das Tablett sitzt weiterhin fest: Klopfen oder drücken Sie die Seite mit dem Positionierstift von unten leicht nach oben und heben Sie das Tablett erst nach dem Lösen ab. Wiederholen Sie dies bei den übrigen Tabletts und lösen Sie wie gezeigt Schraube, Halteblech oder Clip der Lichtleitung.",
+            "Bauen Sie nach jedem abgehobenen Tablett auch dessen Halteaufnahme/Halter/Tray Clip aus. Bewahren Sie Haltebleche, Schrauben und Scheiben geordnet auf und verschließen Sie die verbleibenden Öffnungen wie im Video mit schwarzem Band. Schützen Sie den Positionierstift am Tablettende.",
+            "Entfernen Sie die Schrauben unter dem unteren Tablett, anschließend Tablett und Halteblock. Nehmen Sie die obere Chassisschale ab, bauen Sie beide Tablett-Halteaufnahmen aus und führen Sie die Lichtleitung wie gezeigt. Montieren Sie die Schale wieder, ersetzen Sie den Tablett-Halter durch den Haubenhalter und ziehen Sie ihn fest.",
+            "Montieren Sie auf einer ebenen, geschützten Fläche die Seitenplattenscharniere mit Sicherungsmuttern und Unterlegscheiben. Prüfen Sie die Bodenrichtung, verbinden Sie Boden und erste Seitenplatte, montieren Sie die zweite Seitenplatte und anschließend die Zwischenablagen.",
+            "Prüfen Sie oben/unten und links/rechts jeder Tür. Montieren Sie die Magnetteile, setzen Sie die transparenten Türen in die Scharniere und sichern Sie sie mit Unterlegscheiben und Sicherungsmuttern. Glaskanten dürfen nicht gegeneinanderschlagen.",
+            "Heben Sie die komplette Haube zu zweit auf den BellaBot. Setzen Sie alle 12 Gehäuseschrauben von beiden Seiten ein, ziehen Sie sie aber noch nicht endgültig fest. Verbinden Sie anschließend das untere Befestigungsteil.",
+            "Montieren Sie den langen Magneten wie gezeigt am U-förmigen Teil und beachten Sie die Positionen der drei Schrauben. Befestigen Sie das U-Teil an der Deckplatte. Richten Sie Deckplatte und unteren Halter aus, prüfen Sie jede Tür mehrfach, befestigen Sie die Deckplatte und ziehen Sie zuletzt die 12 Gehäuseschrauben fest.",
+            "Lösen Sie den unteren Haubenhalter, entfernen Sie alle 12 Seitenschrauben und heben Sie die Haube zu zweit ab. Bauen Sie Haubenhalter und obere Chassisschale aus, montieren Sie beide Tablett-Halteaufnahmen/Clips und deren Haltebleche wieder und prüfen Sie den festen Sitz.",
+            "Montieren Sie obere Chassisschale, unteres Tablett und untere Halter wieder. Stellen Sie Lichtanschluss, Haltebleche und Clips wieder her und montieren Sie anschließend die übrigen Tabletts. Richten Sie jeweils zuerst den Positionierstift aus, senken Sie das Tablett gleichmäßig ab und ziehen Sie die Schrauben fest.",
+            "Entfernen Sie die Schrauben an beiden Seiten der Deckplatte und nehmen Sie sie ab. Lösen Sie die Tür-Sicherungsmuttern und legen Sie die transparenten Türen sicher ab. Demontieren Sie Ablageschrauben, Boden und Seitenscharniere sowie anschließend U-Teil und oberen Türmagneten. Sortieren Sie alle Schrauben, Scheiben und Sicherungsmuttern nach Position."
+          ]
+        },
+        ".step figcaption": {
+          zh: [
+            "螺丝拆完后先让带引脚的一端向上脱开，再取走托盘。",
+            "托盘拆除不等于本步骤完成：固定插座也必须从机身上拆下。",
+            "托盘端部定位位置示意；拆装和收纳时都要避免碰弯引脚。",
+            "先确认板件方向，再按顺序连接侧板、底板和层板。",
+            "门板方向必须一致；螺母先均匀预紧。",
+            "整套菜罩落位时避免刮碰机器人外壳和门板。",
+            "最终锁紧前，所有门板都必须能顺畅开合并正确吸合。",
+            "恢复托盘前，两侧固定插座必须按原位置安装到位。",
+            "灯带电源线、固定片和卡扣按原路径恢复，避免夹线。",
+            "拆透明门板时应托住门板，防止螺母松开后掉落。"
+          ],
+          en: [
+            "After removing the screws, release the pin end upward before lifting the tray away.",
+            "Tray removal is not the end of the step: the fixing socket must also be removed from the robot.",
+            "Locating area at the tray end; prevent the pin from being struck or bent during work and storage.",
+            "Confirm panel orientation before connecting side panels, base and shelves in sequence.",
+            "Keep door orientation consistent and pre-tighten the nuts evenly.",
+            "Avoid scraping the robot body or doors while positioning the complete cover.",
+            "Before final tightening, every door must move freely and latch correctly.",
+            "Both fixing sockets must be restored to their original positions before installing trays.",
+            "Restore the light cable, retaining plate and clip along the original route without pinching the cable.",
+            "Support each transparent door while removing its nuts so it cannot drop."
+          ],
+          de: [
+            "Nach dem Entfernen der Schrauben zuerst die Stiftseite nach oben lösen und dann das Tablett abheben.",
+            "Mit dem Tablettausbau ist der Schritt nicht beendet: Auch die Halteaufnahme muss vom Roboter entfernt werden.",
+            "Positionierbereich am Tablettende; der Stift darf bei Arbeit und Lagerung nicht angestoßen oder verbogen werden.",
+            "Vor dem Verbinden von Seitenplatten, Boden und Ablagen die Ausrichtung prüfen.",
+            "Türausrichtung einheitlich halten und Muttern gleichmäßig vorziehen.",
+            "Beim Aufsetzen der Haube Robotergehäuse und Türen nicht verkratzen oder anstoßen.",
+            "Vor dem endgültigen Festziehen müssen alle Türen leichtgängig öffnen, schließen und einrasten.",
+            "Vor der Tablettmontage müssen beide Halteaufnahmen wieder an ihrer ursprünglichen Position sitzen.",
+            "Lichtleitung, Halteblech und Clip entlang der ursprünglichen Führung ohne Einklemmen wiederherstellen.",
+            "Transparente Tür beim Lösen der Muttern abstützen, damit sie nicht herunterfällt."
+          ]
+        },
+        ".pin-note": {
+          zh: ["禁止水平硬拽托盘；不要让引脚承受侧向力。", "复装时如托盘不能自然落平，停止压入并重新检查引脚与孔位。"],
+          en: ["Do not pull the tray sideways or apply lateral force to the locating pin.", "If a tray does not sit flat naturally, stop pressing and recheck the locating pin and hole."],
+          de: ["Tablett nicht seitlich herausziehen und den Positionierstift nicht seitlich belasten.", "Wenn ein Tablett nicht von selbst eben aufliegt, nicht weiter drücken, sondern Stift und Bohrung erneut prüfen."]
+        },
+        ".checklist li": {
+          zh: ["托盘定位引脚笔直、无磕碰，托盘已平稳落位", "托盘固定插座 / 菜罩固定件均已按当前配置安装并锁紧", "灯带电源线和其他线束连接正确、无夹压或拉扯", "所有菜罩门板开合顺畅、磁吸正常、相邻门板不干涉", "螺丝、平垫和锁紧螺母无遗漏，机身外壳已复位"],
+          en: ["Tray locating pins are straight and undamaged; trays sit flat", "Tray fixing sockets or food-cover fittings match the current configuration and are tight", "Light power cable and other harnesses are connected correctly without pinching or tension", "All food-cover doors move freely, latch magnetically and do not interfere", "No screws, washers or lock nuts are missing; body panels are restored"],
+          de: ["Tablett-Positionierstifte sind gerade und unbeschädigt; Tabletts liegen eben auf", "Tablett-Halteaufnahmen bzw. Haubenhalter entsprechen der Konfiguration und sind fest", "Lichtleitung und Kabelbäume sind korrekt verbunden, nicht eingeklemmt und nicht unter Zug", "Alle Haubentüren sind leichtgängig, schließen magnetisch und behindern sich nicht", "Keine Schrauben, Scheiben oder Sicherungsmuttern fehlen; Gehäuseteile sind montiert"]
+        },
+        ".stop-grid b": {
+          zh: ["引脚弯曲或托盘落不平", "固定插座位置不确定", "门板卡滞或无法吸合"],
+          en: ["Bent pin or uneven tray", "Fixing-socket position is uncertain", "Door binds or does not latch"],
+          de: ["Stift verbogen oder Tablett liegt nicht eben", "Position der Halteaufnahme unklar", "Tür klemmt oder schließt nicht magnetisch"]
+        },
+        ".stop-grid p": {
+          zh: ["停止安装，不要用螺丝强行拉紧；保护现场并联系技术支持。", "不要凭感觉混装。对照视频和拆前位置照片，确认后再继续。", "先松开预紧螺丝重新调整顶板和底部固定件，再最终锁紧。"],
+          en: ["Stop installation. Do not use screws to force the tray down; protect the parts and contact technical support.", "Do not guess or mix parts. Compare the video and pre-removal photos before continuing.", "Loosen the pre-tightened screws, realign the top plate and lower fitting, then complete final tightening."],
+          de: ["Montage stoppen. Tablett nicht mit Schrauben zwangsweise herunterziehen; Teile schützen und technischen Support kontaktieren.", "Teile nicht auf Verdacht mischen. Video und Fotos vor dem Ausbau vergleichen und erst nach Bestätigung fortfahren.", "Vorgezogene Schrauben lösen, Deckplatte und unteren Halter neu ausrichten und erst dann endgültig festziehen."]
+        }
+      }
+    };
+
+    document.querySelectorAll(".chapter").forEach((button) => {
+      button.addEventListener("click", () => {
+        const video = document.querySelector("#procedure-video");
+        video.currentTime = Number(button.dataset.time || 0);
+        video.play().catch(() => {});
+        video.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+    });
+  </script>
+  <script src="../../../../assets/i18n.js"></script>
+</body>
+</html>
