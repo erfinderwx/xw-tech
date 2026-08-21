@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="RJ Tech battery replacement and wiring installation field guide with seven edited videos and bilingual Chinese-English captions.">
+  <meta name="referrer" content="no-referrer">
+  <meta name="color-scheme" content="light">
+  <meta property="og:title" content="RJ Tech | Battery Replacement Guide">
+  <meta property="og:description" content="Seven-stage field guide with edited service videos and bilingual captions.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://xw-tech.de/rj/">
+  <meta property="og:image" content="https://xw-tech.de/rj/assets/og.png">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+  <title>RJ Tech | Battery Replacement Guide</title>
+  <style>:root {
+  --ink: #142019;
+  --muted: #5f6c64;
+  --paper: #f2f5f2;
+  --surface: #ffffff;
+  --surface-soft: #e8eeea;
+  --line: #d3ddd6;
+  --green: #13915c;
+  --green-dark: #0c5c3a;
+  --green-soft: #e3f5eb;
+  --warning: #fff4cf;
+  --warning-line: #dba800;
+  --shadow: 0 18px 52px rgba(21, 46, 32, .09);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  text-rendering: optimizeLegibility;
+}
+a { color: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { font: inherit; }
+main { min-height: 100vh; }
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  height: 68px;
+  padding: 0 clamp(1.1rem, 5vw, 5.5rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,.13);
+  background: rgba(12, 38, 26, .94);
+  color: #f7fff9;
+  backdrop-filter: blur(14px);
+}
+.brand { color: inherit; font-size: .84rem; font-weight: 900; letter-spacing: .15em; text-decoration: none; }
+.brand span { margin-left: .7rem; color: #72e0a8; font-weight: 650; }
+.topbar-link { padding: .6rem .86rem; border: 1px solid rgba(255,255,255,.25); border-radius: 999px; font-size: .83rem; font-weight: 750; text-decoration: none; }
+.topbar-link:hover, .topbar-link:focus-visible { background: #f6fff9; color: var(--green-dark); outline: none; }
+
+.eyebrow { margin: 0 0 .75rem; color: var(--green-dark); font-size: .75rem; font-weight: 850; letter-spacing: .14em; text-transform: uppercase; }
+.hero {
+  min-height: calc(88vh - 68px);
+  padding: clamp(4rem, 8vw, 8rem) clamp(1.25rem, 7vw, 7.5rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(260px, .55fr);
+  align-items: end;
+  gap: clamp(2rem, 6vw, 7rem);
+  background:
+    radial-gradient(circle at 82% 18%, rgba(57, 229, 141, .19), transparent 31%),
+    linear-gradient(145deg, #0c2117 0%, #163c28 58%, #1a5537 100%);
+  color: #f7fff9;
+}
+.hero .eyebrow { color: #75dfa9; }
+.hero h1 { max-width: 1020px; margin: 0; font-size: clamp(3rem, 7vw, 7.3rem); line-height: .92; letter-spacing: -.068em; text-wrap: balance; }
+.lede { max-width: 760px; margin: 1.8rem 0; color: #d6e7dc; font-size: clamp(1.08rem, 1.8vw, 1.38rem); line-height: 1.62; }
+.hero-actions { display: flex; align-items: center; gap: 1.4rem; color: #b9cec0; font-size: .9rem; }
+.primary-action { padding: .9rem 1.15rem; border-radius: 10px; background: #64dea0; color: #092a19; font-weight: 850; text-decoration: none; }
+.primary-action:hover, .primary-action:focus-visible { background: #92efbd; outline: 3px solid rgba(146,239,189,.3); }
+.hero-card { align-self: end; padding: 1.35rem; border: 1px solid rgba(255,255,255,.17); border-radius: 18px; background: rgba(4, 23, 14, .38); box-shadow: 0 30px 70px rgba(0,0,0,.2); }
+.status-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #69e4a4; box-shadow: 0 0 0 6px rgba(105,228,164,.12); }
+.hero-card p { margin: 1rem 0 .45rem; color: #83e7b4; font-size: .73rem; font-weight: 850; letter-spacing: .12em; text-transform: uppercase; }
+.hero-card strong { display: block; font-size: 1.05rem; line-height: 1.55; }
+.hero-card small { display: block; margin-top: 1rem; color: #bdd1c4; line-height: 1.55; }
+
+.safety, .overview, .tools, .final-check { padding: clamp(4rem, 8vw, 7.5rem) clamp(1.25rem, 7vw, 7.5rem); }
+.safety { display: grid; grid-template-columns: .75fr 1.25fr; gap: clamp(2rem, 7vw, 8rem); background: #f8faf8; border-bottom: 1px solid var(--line); }
+.safety h2, .section-heading h2, .final-check h2 { margin: 0; font-size: clamp(2rem, 4vw, 3.7rem); line-height: 1.02; letter-spacing: -.05em; }
+.safety-list { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.safety-list p { margin: 0; padding: 1.2rem; border-top: 2px solid var(--green); background: var(--green-soft); line-height: 1.58; }
+
+.section-heading { display: flex; align-items: end; justify-content: space-between; gap: 2rem; margin-bottom: 2.2rem; }
+.section-heading h2 { max-width: 760px; }
+.overview { background: var(--paper); }
+.module-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .9rem; margin: 0; padding: 0; list-style: none; }
+.module-grid li { min-width: 0; }
+.module-grid a { min-height: 210px; padding: 1.25rem; display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); text-decoration: none; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+.module-grid a:hover, .module-grid a:focus-visible { transform: translateY(-3px); border-color: #84cba6; box-shadow: var(--shadow); outline: none; }
+.module-grid span { color: var(--green); font-size: .8rem; font-weight: 900; letter-spacing: .1em; }
+.module-grid h3 { margin: auto 0 .75rem; font-size: 1.08rem; line-height: 1.28; }
+.module-grid p { margin: 0; color: var(--muted); font-size: .83rem; }
+
+.tools { background: #12261a; color: #eff9f2; }
+.tools .eyebrow { color: #72dfa8; }
+.tools .section-heading h2 { max-width: 800px; }
+.tool-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; border: 1px solid rgba(255,255,255,.15); background: rgba(255,255,255,.15); }
+.tool-grid div { min-height: 190px; padding: 1.35rem; background: #173222; }
+.tool-grid h3 { margin: 0 0 3.3rem; color: #81e6b1; font-size: .84rem; letter-spacing: .08em; text-transform: uppercase; }
+.tool-grid p { margin: 0; color: #d4e4d9; line-height: 1.55; }
+.scope-note { margin: 1rem 0 0; color: #b7cabd; font-size: .9rem; }
+
+.procedures { background: var(--paper); }
+.procedure { padding: clamp(4.5rem, 9vw, 9rem) clamp(1.25rem, 7vw, 7.5rem); border-bottom: 1px solid var(--line); scroll-margin-top: 68px; }
+.procedure:nth-child(even) { background: #f8faf8; }
+.procedure-header { max-width: 1080px; margin-bottom: 3rem; display: grid; grid-template-columns: 90px 1fr; gap: 1.4rem; align-items: start; }
+.procedure-number { width: 76px; aspect-ratio: 1; display: grid; place-items: center; border-radius: 50%; background: var(--green-dark); color: white; font-size: 1.1rem; font-weight: 900; letter-spacing: .1em; }
+.procedure-header .eyebrow { margin-top: .25rem; }
+.procedure-header h2 { max-width: 850px; margin: 0; font-size: clamp(2rem, 4.5vw, 4.5rem); line-height: .98; letter-spacing: -.055em; }
+.procedure-summary { max-width: 780px; margin: 1rem 0 0; color: var(--muted); font-size: 1.05rem; line-height: 1.62; }
+.procedure-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(360px, .95fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+.warning { margin-bottom: 1.5rem; padding: 1.1rem 1.2rem; border-left: 4px solid var(--warning-line); background: var(--warning); }
+.warning strong { display: block; margin-bottom: .35rem; font-size: .75rem; letter-spacing: .11em; text-transform: uppercase; }
+.warning p { margin: 0; line-height: 1.58; }
+.step-list { margin: 0; padding: 0; list-style: none; }
+.step-list li { display: grid; grid-template-columns: 42px 1fr; gap: 1rem; padding: 1.4rem 0; border-top: 1px solid var(--line); }
+.step-list li:last-child { border-bottom: 1px solid var(--line); }
+.step-list > li > span { color: var(--green); font-size: .76rem; font-weight: 900; letter-spacing: .08em; }
+.step-list h3 { margin: -.1rem 0 .45rem; font-size: 1.06rem; }
+.step-list p { margin: 0; color: #46534b; line-height: 1.64; }
+.media-panel { position: sticky; top: 92px; min-width: 0; }
+.video-frame { overflow: hidden; display: grid; place-items: center; border-radius: 18px; background: #08110c; box-shadow: var(--shadow); }
+.video-frame video { width: 100%; max-height: min(70vh, 720px); display: block; background: #08110c; object-fit: contain; }
+.video-frame video::cue { color: #fff; background: rgba(3, 12, 7, .82); font-size: 1rem; line-height: 1.35; text-shadow: 0 1px 2px #000; }
+.video-meta { display: flex; justify-content: space-between; gap: 1rem; padding: .8rem .1rem; color: var(--muted); font-size: .76rem; }
+.video-meta span:first-child { color: var(--green-dark); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+.edit-note { margin: -.15rem .1rem .9rem; color: var(--muted); font-size: .78rem; line-height: 1.55; }
+.chapters { display: grid; grid-template-columns: 1fr 1fr; gap: .55rem; }
+.chapters button { min-width: 0; padding: .75rem; display: grid; grid-template-columns: 44px 1fr; align-items: start; gap: .55rem; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); text-align: left; cursor: pointer; }
+.chapters button:hover, .chapters button:focus-visible { border-color: var(--green); background: var(--green-soft); outline: none; }
+.chapters time { color: var(--green-dark); font-size: .78rem; font-weight: 900; }
+.chapters span { overflow-wrap: anywhere; font-size: .78rem; line-height: 1.35; }
+.direct-link { margin-top: .8rem; display: inline-block; color: var(--green-dark); font-size: .82rem; font-weight: 750; text-underline-offset: 3px; }
+.completion-check { margin-top: 3rem; padding: 1.3rem; border: 1px solid #b9d9c6; border-radius: 14px; background: var(--green-soft); }
+.completion-check h3 { margin: 0 0 .8rem; font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; }
+.completion-check ul { display: grid; grid-template-columns: repeat(3, 1fr); gap: .7rem 2rem; margin: 0; padding: 0; list-style: none; }
+.completion-check li { position: relative; padding-left: 1.45rem; line-height: 1.5; }
+.completion-check li::before { content: "✓"; position: absolute; left: 0; color: var(--green-dark); font-weight: 900; }
+
+.final-check { display: grid; grid-template-columns: .75fr 1.25fr; gap: clamp(2rem, 7vw, 8rem); background: #10271a; color: #f0f9f3; }
+.final-check .eyebrow { color: #78e1aa; }
+.final-check ol { margin: 0; padding: 0; list-style: none; }
+.final-check li { display: grid; grid-template-columns: 45px 1fr; gap: 1rem; padding: 1.2rem 0; border-top: 1px solid rgba(255,255,255,.17); }
+.final-check li:last-child { border-bottom: 1px solid rgba(255,255,255,.17); }
+.final-check span { color: #78e1aa; font-size: .78rem; font-weight: 900; letter-spacing: .08em; }
+.final-check p { margin: 0; color: #d0e0d5; line-height: 1.55; }
+footer { padding: 2rem clamp(1.25rem, 7vw, 7.5rem); display: flex; align-items: center; gap: 1.2rem; background: #09150e; color: #d9e9de; font-size: .82rem; }
+footer strong { letter-spacing: .13em; }
+footer p { margin: 0; color: #8da496; }
+footer a { margin-left: auto; color: #79dfaa; }
+
+@media (max-width: 1050px) {
+  .hero { grid-template-columns: 1fr; align-items: end; }
+  .hero-card { max-width: 620px; }
+  .module-grid { grid-template-columns: repeat(2, 1fr); }
+  .tool-grid { grid-template-columns: 1fr 1fr; }
+  .procedure-grid { grid-template-columns: 1fr; }
+  .media-panel { position: static; max-width: 760px; }
+}
+
+@media (max-width: 700px) {
+  html { scroll-padding-top: 62px; }
+  .topbar { height: 60px; }
+  .brand span { display: none; }
+  .hero { min-height: auto; padding-top: 4.8rem; }
+  .hero h1 { font-size: clamp(2.65rem, 14vw, 4.6rem); }
+  .hero-actions { align-items: flex-start; flex-direction: column; gap: .9rem; }
+  .safety, .final-check { grid-template-columns: 1fr; }
+  .safety-list { grid-template-columns: 1fr; }
+  .section-heading { align-items: flex-start; flex-direction: column; }
+  .module-grid, .tool-grid { grid-template-columns: 1fr; }
+  .module-grid a { min-height: 165px; }
+  .tool-grid div { min-height: auto; }
+  .tool-grid h3 { margin-bottom: 1.2rem; }
+  .procedure { scroll-margin-top: 60px; }
+  .procedure-header { grid-template-columns: 55px 1fr; gap: .85rem; }
+  .procedure-number { width: 50px; font-size: .82rem; }
+  .procedure-header h2 { font-size: clamp(2rem, 10vw, 3.1rem); }
+  .chapters { grid-template-columns: 1fr; }
+  .completion-check ul { grid-template-columns: 1fr; }
+  footer { align-items: flex-start; flex-direction: column; }
+  footer a { margin-left: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .module-grid a { transition: none; }
+}
+
+@media print {
+  .topbar, .hero-actions, .media-panel, .chapters, .direct-link { display: none !important; }
+  body { background: white; color: black; font-size: 10pt; }
+  .hero, .tools, .final-check { background: white; color: black; min-height: 0; }
+  .hero { display: block; padding-block: 2rem; }
+  .hero .eyebrow, .tools .eyebrow, .final-check .eyebrow, .brand, .procedure-number { color: black; }
+  .hero-card { border-color: #999; box-shadow: none; }
+  .hero-card small, .lede, .tool-grid p, .final-check p { color: #222; }
+  .procedure { padding-block: 2rem; break-before: page; }
+  .procedure-grid { display: block; }
+  .tool-grid { border-color: #999; }
+  .tool-grid div { min-height: 0; background: white; color: black; }
+  .final-check { display: block; }
+}
+    @media print{.embedded-note{display:none}}
+  </style>
+</head>
+<body>
+<main>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="RJ Tech guide home">RJ TECH <span>SERVICE</span></a>
+    <a class="topbar-link" href="#procedures">View procedures</a>
+  </header>
+  <section class="hero" id="top">
+    <div class="hero-copy">
+      <p class="eyebrow">Field service guide · English edition</p>
+      <h1>Battery replacement<br>&amp; wiring installation</h1>
+      <p class="lede">A complete seven-stage procedure for the RJ Tech vehicle configuration shown in the source videos.</p>
+      <div class="hero-actions"><a class="primary-action" href="#procedures">Start the procedure</a><span>7 edited videos · 27 min 33 sec</span></div>
+    </div>
+    <div class="hero-card"><span class="status-dot"></span><p>Scope</p><strong>Mechanical conversion, battery installation, control units and complete vehicle harness routing.</strong><small>Confirm that the vehicle hardware and connector layout match the configuration shown before beginning.</small></div>
+  </section>
+  <section class="safety" aria-labelledby="safety-title">
+    <div><p class="eyebrow">Read before work begins</p><h2 id="safety-title">Safety is a required first step</h2></div>
+    <div class="safety-list">
+      <p><strong>Qualified technicians only.</strong> This procedure includes battery, controller and power-cable work.</p>
+      <p>Switch off the vehicle, disconnect external charging and follow the approved high-voltage isolation procedure.</p>
+      <p>Prevent unexpected vehicle movement and protect cables, painted surfaces and nearby components during cutting or grinding.</p>
+      <p>Verify connector labels, keying and terminal markings. If the vehicle differs from the videos, stop and obtain the approved service information.</p>
+    </div>
+  </section>
+  <section class="overview" id="procedures" aria-labelledby="overview-title">
+    <div class="section-heading"><div><p class="eyebrow">Procedure overview</p><h2 id="overview-title">Seven stages, completed in order</h2></div></div>
+    <ol class="module-grid">
+      <li><a href="#underbody-plates"><span>01</span><h3>Replace the underbody protection plates</h3><p>02:54 video</p></a></li><li><a href="#battery-tray"><span>02</span><h3>Replace the battery tray</h3><p>00:55 video</p></a></li><li><a href="#battery"><span>03</span><h3>Install the new battery</h3><p>00:35 video</p></a></li><li><a href="#vcu-dc"><span>04</span><h3>Install the VCU, DC assembly and harness</h3><p>02:34 video</p></a></li><li><a href="#rear-drive"><span>05</span><h3>Install the rear-drive harness</h3><p>03:19 video</p></a></li><li><a href="#charging-trailer"><span>06</span><h3>Install the charging and powered-trailer harnesses</h3><p>06:12 video</p></a></li><li><a href="#column-front-drive"><span>07</span><h3>Install the steering-column and front-drive harnesses</h3><p>11:04 video</p></a></li>
+    </ol>
+  </section>
+  <section class="tools" aria-labelledby="tools-title">
+    <div class="section-heading"><div><p class="eyebrow">Prepare</p><h2 id="tools-title">Tools and supplied hardware</h2></div></div>
+    <div class="tool-grid"><div><h3>Drive &amp; torque</h3><p>Powered driver, T30 Torx bit and calibrated torque wrench</p></div><div><h3>Installation hardware</h3><p>M6 × 30 T30 screws, M6 nuts, washers, spacers and supplied clamps</p></div><div><h3>Routing materials</h3><p>PVC electrical tape, guide line, clips and cable ties</p></div><div><h3>Work protection</h3><p>Approved isolation equipment, PPE and protection for nearby surfaces</p></div></div>
+    <p class="scope-note">Hardware varies by kit. Compare every supplied fastener, clamp and connector with the source video before installation.</p>
+  </section>
+  <section class="procedures" aria-label="Detailed procedures">
+    <article class="procedure" id="underbody-plates">
+      <header class="procedure-header"><div class="procedure-number">01</div><div><p class="eyebrow">Procedure · 02:54</p><h2>Replace the underbody protection plates</h2><p class="procedure-summary">Replace the front and rear protection plates, add the supplied spacers and complete the final torque check.</p></div></header>
+      <div class="procedure-grid">
+        <div class="instruction-panel">
+          <div class="warning"><strong>Important</strong><p>The source narration specifies a final torque of 12 N·m. Confirm that this value matches the approved hardware supplied for the vehicle before tightening.</p></div>
+          <ol class="step-list"><li><span>01</span><div><h3>Remove the original plates</h3><p>Remove the existing fasteners and lower the protection plates. Keep the front and rear plate positions clearly identified.</p></div></li><li><span>02</span><div><h3>Prepare the replacement hardware</h3><p>Use the M6 × 30 T30 Torx fasteners shown in the video. Position a spacer between the plate and frame at each specified center mounting point.</p></div></li><li><span>03</span><div><h3>Fit and align</h3><p>Apply thread-locking compound to each required fastener. Support the plate, start all fasteners and check that the edges sit clear of the frame and nearby components.</p></div></li><li><span>04</span><div><h3>Tighten and torque</h3><p>Snug the fasteners with the powered tool, then use a torque wrench for the final 12 N·m tightening pass. Do not use the powered tool for the final torque check.</p></div></li></ol>
+        </div>
+        <aside class="media-panel" aria-label="Replace the underbody protection plates video">
+          <div class="video-frame"><video id="video-underbody-plates" controls preload="metadata" playsinline poster="assets/posters/01-underbody-protection-plates.jpg"><source src="assets/videos/01-underbody-protection-plates.mp4" type="video/mp4"><track kind="captions" src="assets/subtitles/01-underbody-protection-plates-bilingual.vtt" srclang="zh" label="中文 + English" default>Your browser cannot play the embedded video.</video></div>
+          <div class="video-meta"><span>Edited training video</span><span>Chinese audio · 中文 + English captions</span></div>
+          <p class="edit-note">Narration and critical connections remain at normal speed. Repetitive work is accelerated up to 4×.</p>
+          <div class="chapters" aria-label="Video chapters"><button type="button" data-video="video-underbody-plates" data-time="0" aria-label="Play Tools and hardware at 0:00"><time>0:00</time><span>Tools and hardware</span></button><button type="button" data-video="video-underbody-plates" data-time="18" aria-label="Play Remove original plates at 0:18"><time>0:18</time><span>Remove original plates</span></button><button type="button" data-video="video-underbody-plates" data-time="54" aria-label="Play Replacement hardware at 0:54"><time>0:54</time><span>Replacement hardware</span></button><button type="button" data-video="video-underbody-plates" data-time="85" aria-label="Play Spacers and threadlocker at 1:25"><time>1:25</time><span>Spacers and threadlocker</span></button><button type="button" data-video="video-underbody-plates" data-time="147" aria-label="Play Final torque pass at 2:27"><time>2:27</time><span>Final torque pass</span></button></div>
+        </aside>
+      </div>
+      <div class="completion-check"><h3>Before continuing</h3><ul><li>Front and rear plates face the correct direction</li><li>All spacers are present and seated</li><li>Every specified fastener has been torque-checked</li></ul></div>
+    </article>
+    <article class="procedure" id="battery-tray">
+      <header class="procedure-header"><div class="procedure-number">02</div><div><p class="eyebrow">Procedure · 00:55</p><h2>Replace the battery tray</h2><p class="procedure-summary">Transfer the support pads and washers, prepare the specified fixing point and install the replacement tray.</p></div></header>
+      <div class="procedure-grid">
+        <div class="instruction-panel">
+          <div class="warning"><strong>Important</strong><p>This stage includes cutting and grinding one specific rear-center fixing point. Confirm the exact target shown in the video before making any irreversible modification. Do not alter the other mounting studs.</p></div>
+          <ol class="step-list"><li><span>01</span><div><h3>Remove the old tray</h3><p>Lift the original battery tray from the vehicle and place it where its support parts can be transferred without being lost.</p></div></li><li><span>02</span><div><h3>Transfer the supports</h3><p>Remove the rubber pads and flat washers shown in the video. Inspect them before reuse and keep their installed order.</p></div></li><li><span>03</span><div><h3>Prepare the center fixing point</h3><p>Remove only the rear-center protruding fixing point identified in the video, then finish the remaining surface smooth. Protect nearby wiring and painted surfaces while cutting or grinding.</p></div></li><li><span>04</span><div><h3>Verify and install</h3><p>Confirm that the five required mounting studs, rubber pads and flat washers are present, then lower the replacement tray into position without trapping a cable or pad.</p></div></li></ol>
+        </div>
+        <aside class="media-panel" aria-label="Replace the battery tray video">
+          <div class="video-frame"><video id="video-battery-tray" controls preload="metadata" playsinline poster="assets/posters/02-battery-tray.jpg"><source src="assets/videos/02-battery-tray.mp4" type="video/mp4"><track kind="captions" src="assets/subtitles/02-battery-tray-bilingual.vtt" srclang="zh" label="中文 + English" default>Your browser cannot play the embedded video.</video></div>
+          <div class="video-meta"><span>Edited training video</span><span>Chinese audio · 中文 + English captions</span></div>
+          <p class="edit-note">Narration and critical connections remain at normal speed. Repetitive work is accelerated up to 4×.</p>
+          <div class="chapters" aria-label="Video chapters"><button type="button" data-video="video-battery-tray" data-time="0" aria-label="Play Remove old tray at 0:00"><time>0:00</time><span>Remove old tray</span></button><button type="button" data-video="video-battery-tray" data-time="8" aria-label="Play Transfer pads and washers at 0:08"><time>0:08</time><span>Transfer pads and washers</span></button><button type="button" data-video="video-battery-tray" data-time="19" aria-label="Play Modify the specified point at 0:19"><time>0:19</time><span>Modify the specified point</span></button><button type="button" data-video="video-battery-tray" data-time="32" aria-label="Play Verify five mounting points at 0:32"><time>0:32</time><span>Verify five mounting points</span></button><button type="button" data-video="video-battery-tray" data-time="42" aria-label="Play Install replacement tray at 0:42"><time>0:42</time><span>Install replacement tray</span></button></div>
+        </aside>
+      </div>
+      <div class="completion-check"><h3>Before continuing</h3><ul><li>Only the specified fixing point was modified</li><li>Five mounting studs are present</li><li>Rubber pads and flat washers are correctly seated</li></ul></div>
+    </article>
+    <article class="procedure" id="battery">
+      <header class="procedure-header"><div class="procedure-number">03</div><div><p class="eyebrow">Procedure · 00:35</p><h2>Install the new battery</h2><p class="procedure-summary">Lower the new battery assembly into the tray, align all five points and secure it evenly.</p></div></header>
+      <div class="procedure-grid">
+        <div class="instruction-panel">
+          <div class="warning"><strong>Important</strong><p>The source video does not specify a tightening torque for this stage. Use the approved service value for the supplied battery hardware.</p></div>
+          <ol class="step-list"><li><span>01</span><div><h3>Prepare the tray</h3><p>Check that the five mounting locations are clear and that no harness, washer or support pad can be trapped beneath the battery.</p></div></li><li><span>02</span><div><h3>Lower the battery</h3><p>Use an appropriate handling method to lower the new battery assembly squarely into the tray. Keep hands and cables clear of pinch points.</p></div></li><li><span>03</span><div><h3>Align five points</h3><p>Move the assembly only as required until all five mounting points line up without forcing the battery against the tray.</p></div></li><li><span>04</span><div><h3>Secure evenly</h3><p>Start each fixing before tightening. Tighten progressively around the assembly so the battery remains flat and centered.</p></div></li></ol>
+        </div>
+        <aside class="media-panel" aria-label="Install the new battery video">
+          <div class="video-frame"><video id="video-battery" controls preload="metadata" playsinline poster="assets/posters/03-new-battery-installation.jpg"><source src="assets/videos/03-new-battery-installation.mp4" type="video/mp4"><track kind="captions" src="assets/subtitles/03-new-battery-installation-bilingual.vtt" srclang="zh" label="中文 + English" default>Your browser cannot play the embedded video.</video></div>
+          <div class="video-meta"><span>Edited training video</span><span>Chinese audio · 中文 + English captions</span></div>
+          <p class="edit-note">Narration and critical connections remain at normal speed. Repetitive work is accelerated up to 4×.</p>
+          <div class="chapters" aria-label="Video chapters"><button type="button" data-video="video-battery" data-time="5" aria-label="Play Lower the new battery at 0:05"><time>0:05</time><span>Lower the new battery</span></button><button type="button" data-video="video-battery" data-time="10" aria-label="Play Align five mounting points at 0:10"><time>0:10</time><span>Align five mounting points</span></button><button type="button" data-video="video-battery" data-time="21" aria-label="Play Secure the battery at 0:21"><time>0:21</time><span>Secure the battery</span></button></div>
+        </aside>
+      </div>
+      <div class="completion-check"><h3>Before continuing</h3><ul><li>All five mounting points are engaged</li><li>The battery sits flat in the tray</li><li>No harness or support part is trapped</li></ul></div>
+    </article>
+    <article class="procedure" id="vcu-dc">
+      <header class="procedure-header"><div class="procedure-number">04</div><div><p class="eyebrow">Procedure · 02:34</p><h2>Install the VCU, DC assembly and harness</h2><p class="procedure-summary">Mount the new harness and control assemblies, connect the matching plugs and secure the complete routing path.</p></div></header>
+      <div class="procedure-grid">
+        <div class="instruction-panel">
+          <div class="warning"><strong>Important</strong><p>Make every connection with the electrical system isolated. Match connector labels, keying and latch position; never force a connector that does not seat freely.</p></div>
+          <ol class="step-list"><li><span>01</span><div><h3>Position the harness assembly</h3><p>Place the new harness assembly in the battery compartment and align it with the five mounting points shown.</p></div></li><li><span>02</span><div><h3>Secure the five points</h3><p>Install the M6 nuts and tighten the assembly evenly. Keep the harness clear of the nut faces and tool path.</p></div></li><li><span>03</span><div><h3>Install the control bracket</h3><p>Position the combined VCU and DC assembly bracket in the orientation shown in the video, then engage its mounting locations.</p></div></li><li><span>04</span><div><h3>Connect the control units</h3><p>Connect the labeled harness plugs to their matching VCU and DC assembly interfaces. Confirm each latch is fully engaged.</p></div></li><li><span>05</span><div><h3>Mount and route</h3><p>Secure the assembly at its two fixing points. Route the harness along the demonstrated path and lock each clip into its assigned hole.</p></div></li></ol>
+        </div>
+        <aside class="media-panel" aria-label="Install the VCU, DC assembly and harness video">
+          <div class="video-frame"><video id="video-vcu-dc" controls preload="metadata" playsinline poster="assets/posters/04-vcu-dc-harness.jpg"><source src="assets/videos/04-vcu-dc-harness.mp4" type="video/mp4"><track kind="captions" src="assets/subtitles/04-vcu-dc-harness-bilingual.vtt" srclang="zh" label="中文 + English" default>Your browser cannot play the embedded video.</video></div>
+          <div class="video-meta"><span>Edited training video</span><span>Chinese audio · 中文 + English captions</span></div>
+          <p class="edit-note">Narration and critical connections remain at normal speed. Repetitive work is accelerated up to 4×.</p>
+          <div class="chapters" aria-label="Video chapters"><button type="button" data-video="video-vcu-dc" data-time="4" aria-label="Play Position harness assembly at 0:04"><time>0:04</time><span>Position harness assembly</span></button><button type="button" data-video="video-vcu-dc" data-time="9" aria-label="Play Align five mounting points at 0:09"><time>0:09</time><span>Align five mounting points</span></button><button type="button" data-video="video-vcu-dc" data-time="19" aria-label="Play Secure with M6 nuts at 0:19"><time>0:19</time><span>Secure with M6 nuts</span></button><button type="button" data-video="video-vcu-dc" data-time="40" aria-label="Play Install VCU and DC bracket at 0:40"><time>0:40</time><span>Install VCU and DC bracket</span></button><button type="button" data-video="video-vcu-dc" data-time="46" aria-label="Play Connect control-unit plugs at 0:46"><time>0:46</time><span>Connect control-unit plugs</span></button><button type="button" data-video="video-vcu-dc" data-time="83" aria-label="Play Mount the assembly at 1:23"><time>1:23</time><span>Mount the assembly</span></button><button type="button" data-video="video-vcu-dc" data-time="109" aria-label="Play Route and clip the harness at 1:49"><time>1:49</time><span>Route and clip the harness</span></button></div>
+        </aside>
+      </div>
+      <div class="completion-check"><h3>Before continuing</h3><ul><li>Five harness-assembly fasteners are installed</li><li>VCU and DC connectors are latched</li><li>All routing clips are seated and the harness is strain-free</li></ul></div>
+    </article>
+    <article class="procedure" id="rear-drive">
+      <header class="procedure-header"><div class="procedure-number">05</div><div><p class="eyebrow">Procedure · 03:19</p><h2>Install the rear-drive harness</h2><p class="procedure-summary">Route the rear power leads, connect both drive sides and complete the motor and vehicle-harness interfaces.</p></div></header>
+      <div class="procedure-grid">
+        <div class="instruction-panel">
+          <div class="warning"><strong>Important</strong><p>Verify terminal markings and left/right routing on the components before tightening. Do not determine polarity from cable colour alone.</p></div>
+          <ol class="step-list"><li><span>01</span><div><h3>Position the main harness</h3><p>Lay the initial power-harness section in the position shown and secure it with the supplied clamp and M6 fixing.</p></div></li><li><span>02</span><div><h3>Route to both rear drives</h3><p>Lead the rear-drive power cables to the left and right drive areas. Maintain the demonstrated bend radius and keep the cables clear of suspension and steering movement.</p></div></li><li><span>03</span><div><h3>Orient the cable lugs</h3><p>Arrange the paired cable lugs in the orientation shown, with the adjacent lugs turned approximately 90 degrees to avoid overlap and stress.</p></div></li><li><span>04</span><div><h3>Connect left and right drive wiring</h3><p>Open the protective covers and attach the corresponding leads to the marked terminals on each side. Refit the terminal protection after tightening.</p></div></li><li><span>05</span><div><h3>Complete the signal connections</h3><p>Connect the left and right motor harnesses and mate the three-pin connector to the vehicle harness. Secure the finished routing with the demonstrated ties.</p></div></li></ol>
+        </div>
+        <aside class="media-panel" aria-label="Install the rear-drive harness video">
+          <div class="video-frame"><video id="video-rear-drive" controls preload="metadata" playsinline poster="assets/posters/05-rear-drive-harness.jpg"><source src="assets/videos/05-rear-drive-harness.mp4" type="video/mp4"><track kind="captions" src="assets/subtitles/05-rear-drive-harness-bilingual.vtt" srclang="zh" label="中文 + English" default>Your browser cannot play the embedded video.</video></div>
+          <div class="video-meta"><span>Edited training video</span><span>Chinese audio · 中文 + English captions</span></div>
+          <p class="edit-note">Narration and critical connections remain at normal speed. Repetitive work is accelerated up to 4×.</p>
+          <div class="chapters" aria-label="Video chapters"><button type="button" data-video="video-rear-drive" data-time="1" aria-label="Play Position the main harness at 0:01"><time>0:01</time><span>Position the main harness</span></button><button type="button" data-video="video-rear-drive" data-time="37" aria-label="Play Route rear-drive power cables at 0:37"><time>0:37</time><span>Route rear-drive power cables</span></button><button type="button" data-video="video-rear-drive" data-time="96" aria-label="Play Orient and secure cable lugs at 1:36"><time>1:36</time><span>Orient and secure cable lugs</span></button><button type="button" data-video="video-rear-drive" data-time="124" aria-label="Play Open terminal covers at 2:04"><time>2:04</time><span>Open terminal covers</span></button><button type="button" data-video="video-rear-drive" data-time="140" aria-label="Play Connect motors and vehicle harness at 2:20"><time>2:20</time><span>Connect motors and vehicle harness</span></button><button type="button" data-video="video-rear-drive" data-time="188" aria-label="Play Final routing check at 3:08"><time>3:08</time><span>Final routing check</span></button></div>
+        </aside>
+      </div>
+      <div class="completion-check"><h3>Before continuing</h3><ul><li>Left and right routes match the component positions</li><li>Terminal covers are restored</li><li>Power and signal cables are secured away from moving parts</li></ul></div>
+    </article>
+    <article class="procedure" id="charging-trailer">
+      <header class="procedure-header"><div class="procedure-number">06</div><div><p class="eyebrow">Procedure · 06:12</p><h2>Install the charging and powered-trailer harnesses</h2><p class="procedure-summary">Install both rear interfaces, route the harnesses along the frame and complete the battery-side connections.</p></div></header>
+      <div class="procedure-grid">
+        <div class="instruction-panel">
+          <div class="warning"><strong>Important</strong><p>The charging and trailer-power interfaces are not interchangeable. Confirm the connector label, keying and battery-port designation before insertion.</p></div>
+          <ol class="step-list"><li><span>01</span><div><h3>Route the trailer harness</h3><p>Feed the powered-trailer harness through the indicated frame opening toward the rear of the vehicle.</p></div></li><li><span>02</span><div><h3>Mount the trailer connector</h3><p>Install the connector in the rear metal bracket with the orientation shown. Route the harness along the frame and secure every supplied clamp.</p></div></li><li><span>03</span><div><h3>Install the charging harness</h3><p>Route the charging harness from the front section to the rear and mount the charging inlet in the demonstrated position.</p></div></li><li><span>04</span><div><h3>Secure the signal branch</h3><p>Install the DR-harness signal connector at its mounting position and secure the charging and DR harnesses together along the shared route.</p></div></li><li><span>05</span><div><h3>Make the battery-side connections</h3><p>Connect the charging harness to the matching battery charge interface and the trailer-power leads to their matching output interface. Push each connector until its lock is positively engaged.</p></div></li><li><span>06</span><div><h3>Close the compartment</h3><p>Arrange the internal harnesses without tight bends or trapped sections. Refit the compartment covers and tighten all four cover fixing points.</p></div></li></ol>
+        </div>
+        <aside class="media-panel" aria-label="Install the charging and powered-trailer harnesses video">
+          <div class="video-frame"><video id="video-charging-trailer" controls preload="metadata" playsinline poster="assets/posters/06-charging-trailer-harness.jpg"><source src="assets/videos/06-charging-trailer-harness.mp4" type="video/mp4"><track kind="captions" src="assets/subtitles/06-charging-trailer-harness-bilingual.vtt" srclang="zh" label="中文 + English" default>Your browser cannot play the embedded video.</video></div>
+          <div class="video-meta"><span>Edited training video</span><span>Chinese audio · 中文 + English captions</span></div>
+          <p class="edit-note">Narration and critical connections remain at normal speed. Repetitive work is accelerated up to 4×.</p>
+          <div class="chapters" aria-label="Video chapters"><button type="button" data-video="video-charging-trailer" data-time="0" aria-label="Play Route powered-trailer harness at 0:00"><time>0:00</time><span>Route powered-trailer harness</span></button><button type="button" data-video="video-charging-trailer" data-time="18" aria-label="Play Mount trailer connector at 0:18"><time>0:18</time><span>Mount trailer connector</span></button><button type="button" data-video="video-charging-trailer" data-time="60" aria-label="Play Route charging harness at 1:00"><time>1:00</time><span>Route charging harness</span></button><button type="button" data-video="video-charging-trailer" data-time="128" aria-label="Play Install signal connector at 2:08"><time>2:08</time><span>Install signal connector</span></button><button type="button" data-video="video-charging-trailer" data-time="226" aria-label="Play Connect battery interfaces at 3:46"><time>3:46</time><span>Connect battery interfaces</span></button><button type="button" data-video="video-charging-trailer" data-time="312" aria-label="Play Organize compartment wiring at 5:12"><time>5:12</time><span>Organize compartment wiring</span></button><button type="button" data-video="video-charging-trailer" data-time="347" aria-label="Play Refit and secure covers at 5:47"><time>5:47</time><span>Refit and secure covers</span></button></div>
+        </aside>
+      </div>
+      <div class="completion-check"><h3>Before continuing</h3><ul><li>Both rear connectors are correctly oriented and secure</li><li>Harness clamps are installed along the full frame route</li><li>Battery-side connectors are locked and covers are secured at four points</li></ul></div>
+    </article>
+    <article class="procedure" id="column-front-drive">
+      <header class="procedure-header"><div class="procedure-number">07</div><div><p class="eyebrow">Procedure · 11:04</p><h2>Install the steering-column and front-drive harnesses</h2><p class="procedure-summary">Pull the four-branch harness through the column, connect the handlebar equipment and reinstall both front-drive controllers.</p></div></header>
+      <div class="procedure-grid">
+        <div class="instruction-panel">
+          <div class="warning"><strong>Important</strong><p>Before tightening a controller terminal, read the B+ and B− marks on that controller. Stop if the component labels or cable colours differ from the configuration shown in the source video.</p></div>
+          <ol class="step-list"><li><span>01</span><div><h3>Install the guide line</h3><p>Feed a guide line from the upper steering-column opening to the lower opening. Join it securely to the four-branch DR harness with PVC electrical tape.</p></div></li><li><span>02</span><div><h3>Pull the harness through</h3><p>Pull slowly while gently rotating the guide line. Feed the branches into the column without scraping, kinking or pulling directly on a connector.</p></div></li><li><span>03</span><div><h3>Route the lower section</h3><p>Remove the tape and guide line, organize the lower branches and pass them into the electrical compartment outlet.</p></div></li><li><span>04</span><div><h3>Ground, clamp and seal</h3><p>Secure the ground lug, install the supplied column clamp and fit the lower grommet fully into the opening.</p></div></li><li><span>05</span><div><h3>Connect the upper branches</h3><p>Using the harness labels, connect the left brake, right brake, instrument cluster, left switch, ignition switch and throttle branches to their matching plugs.</p></div></li><li><span>06</span><div><h3>Complete the column</h3><p>Route and connect the key switch, then return the connectors into the column one at a time. Fit the upper grommet without pinching the harness.</p></div></li><li><span>07</span><div><h3>Connect the front-drive power leads</h3><p>On the high-voltage pair shown, connect red to B+ and blue to B−. On the harness power branch shown, connect red to B+ and black to B−. Verify the controller markings before every connection.</p></div></li><li><span>08</span><div><h3>Reconnect the controllers</h3><p>Restore the terminal protection, connect the DR plug until it locks, and mate the controller motor interfaces to the corresponding motor harness.</p></div></li><li><span>09</span><div><h3>Reinstall and inspect</h3><p>Install the right and left controllers in their respective housings, secure their mounting points and verify full steering movement without harness tension or rubbing.</p></div></li></ol>
+        </div>
+        <aside class="media-panel" aria-label="Install the steering-column and front-drive harnesses video">
+          <div class="video-frame"><video id="video-column-front-drive" controls preload="metadata" playsinline poster="assets/posters/07-steering-column-front-drive-harness.jpg"><source src="assets/videos/07-steering-column-front-drive-harness.mp4" type="video/mp4"><track kind="captions" src="assets/subtitles/07-steering-column-front-drive-harness-bilingual.vtt" srclang="zh" label="中文 + English" default>Your browser cannot play the embedded video.</video></div>
+          <div class="video-meta"><span>Edited training video</span><span>Chinese audio · 中文 + English captions</span></div>
+          <p class="edit-note">Narration and critical connections remain at normal speed. Repetitive work is accelerated up to 4×.</p>
+          <div class="chapters" aria-label="Video chapters"><button type="button" data-video="video-column-front-drive" data-time="3" aria-label="Play Insert the guide line at 0:03"><time>0:03</time><span>Insert the guide line</span></button><button type="button" data-video="video-column-front-drive" data-time="19" aria-label="Play Tape the DR harness at 0:19"><time>0:19</time><span>Tape the DR harness</span></button><button type="button" data-video="video-column-front-drive" data-time="43" aria-label="Play Pull four branches through at 0:43"><time>0:43</time><span>Pull four branches through</span></button><button type="button" data-video="video-column-front-drive" data-time="106" aria-label="Play Route the lower harness at 1:46"><time>1:46</time><span>Route the lower harness</span></button><button type="button" data-video="video-column-front-drive" data-time="141" aria-label="Play Secure ground and clamp at 2:21"><time>2:21</time><span>Secure ground and clamp</span></button><button type="button" data-video="video-column-front-drive" data-time="193" aria-label="Play Fit the lower grommet at 3:13"><time>3:13</time><span>Fit the lower grommet</span></button><button type="button" data-video="video-column-front-drive" data-time="218" aria-label="Play Connect upper branches at 3:38"><time>3:38</time><span>Connect upper branches</span></button><button type="button" data-video="video-column-front-drive" data-time="298" aria-label="Play Route the key switch at 4:58"><time>4:58</time><span>Route the key switch</span></button><button type="button" data-video="video-column-front-drive" data-time="339" aria-label="Play Return connectors and seal at 5:39"><time>5:39</time><span>Return connectors and seal</span></button><button type="button" data-video="video-column-front-drive" data-time="417" aria-label="Play Prepare front-drive controllers at 6:57"><time>6:57</time><span>Prepare front-drive controllers</span></button><button type="button" data-video="video-column-front-drive" data-time="478" aria-label="Play Connect controller harnesses at 7:58"><time>7:58</time><span>Connect controller harnesses</span></button><button type="button" data-video="video-column-front-drive" data-time="555" aria-label="Play Reinstall controllers at 9:15"><time>9:15</time><span>Reinstall controllers</span></button><button type="button" data-video="video-column-front-drive" data-time="627" aria-label="Play Final routing check at 10:27"><time>10:27</time><span>Final routing check</span></button></div>
+        </aside>
+      </div>
+      <div class="completion-check"><h3>Before continuing</h3><ul><li>Both column grommets are fully seated</li><li>All upper connectors match their harness labels</li><li>Controller polarity was verified from B+/B− markings</li><li>Steering moves lock-to-lock without pulling or rubbing a harness</li></ul></div>
+    </article></section>
+  <section class="final-check" aria-labelledby="final-title">
+    <div><p class="eyebrow">Final inspection</p><h2 id="final-title">Verify before power-up</h2></div>
+    <ol>
+      <li><span>01</span><p>Confirm that the battery, tray, control units, covers and protection plates are mechanically secure.</p></li>
+      <li><span>02</span><p>Check every connector latch, grommet, terminal cover, routing clip and cable tie.</p></li>
+      <li><span>03</span><p>Recheck B+ and B− connections against the component markings and approved wiring information.</p></li>
+      <li><span>04</span><p>Move the steering through its full range and inspect all four wheel areas for cable clearance.</p></li>
+      <li><span>05</span><p>Complete electrical checks and commissioning only in accordance with the approved RJ Tech service procedure.</p></li>
+    </ol>
+  </section>
+  <footer><strong>RJ TECH</strong><p>Battery Replacement &amp; Wiring Installation · English field guide</p><a href="#top">Back to top</a></footer>
+</main>
+<script>
+document.addEventListener("click", function (event) {
+  const button = event.target.closest("button[data-video]");
+  if (!button) return;
+  const video = document.getElementById(button.dataset.video);
+  if (!video) return;
+  video.currentTime = Number(button.dataset.time || 0);
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  video.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
+  video.play().catch(function () {});
+});
+</script>
+</body>
+</html>
