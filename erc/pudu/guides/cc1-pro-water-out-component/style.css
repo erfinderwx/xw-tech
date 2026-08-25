@@ -491,6 +491,8 @@ h3 {
 }
 
 .step-card {
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   background: #fff;
   border: 1px solid var(--line);
@@ -508,8 +510,106 @@ h3 {
 
 .step-image img {
   width: 100%;
+  height: auto;
   aspect-ratio: 16 / 9;
   object-fit: cover;
+}
+
+.text-only-step .step-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+#preparation .prep-step:last-child,
+#removal .removal-step:first-child,
+.install-step:last-child,
+.hose-card { grid-column: 1 / -1; }
+
+.debug-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+}
+
+.debug-pair figure,
+.annotated-figure { margin: 0; }
+
+.debug-image img {
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.debug-pair figcaption {
+  min-height: 52px;
+  margin: 0;
+  padding: 10px 14px 13px;
+  background: #fff;
+}
+
+.annotated-media {
+  position: relative;
+  overflow: hidden;
+  background: #0d1717;
+}
+
+.target-marker {
+  position: absolute;
+  z-index: 3;
+  left: var(--x);
+  top: var(--y);
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  color: #fff;
+  background: #e5452f;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, .28), 0 0 0 4px rgba(229, 69, 47, .30);
+  font-size: 14px;
+  font-weight: 950;
+  line-height: 1;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.marker-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  padding: 11px 14px 0;
+  color: #465a66;
+  background: #fff;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.marker-legend > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.marker-legend b {
+  display: inline-grid;
+  flex: 0 0 auto;
+  width: 21px;
+  height: 21px;
+  place-items: center;
+  color: #fff;
+  background: #e5452f;
+  border-radius: 50%;
+  font-size: 11px;
+}
+
+.annotated-figure figcaption,
+.standalone-caption {
+  display: block;
+  margin: 0 !important;
+  padding: 8px 14px 12px;
+  background: #fff;
 }
 
 .step-body { padding: 20px; }
@@ -535,6 +635,65 @@ h3 {
   margin-top: 11px;
   color: #71818b;
   font-size: 12px;
+}
+
+.video-jump {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 9px;
+  margin-top: 16px;
+  padding: 9px 12px;
+  color: #fff;
+  background: var(--brand-dark);
+  border: 0;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.video-jump::before {
+  content: "▶";
+  font-size: 10px;
+}
+
+.video-jump time {
+  padding-left: 9px;
+  border-left: 1px solid rgba(255, 255, 255, .35);
+  font-variant-numeric: tabular-nums;
+}
+
+.video-jump:hover { background: var(--brand); }
+
+.hose-substeps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  padding: 0 20px 20px;
+}
+
+.hose-substep {
+  overflow: hidden;
+  padding: 16px;
+  background: #f6faf9;
+  border: 1px solid #cfe2df;
+  border-radius: 14px;
+}
+
+.hose-substep h4 { margin: 0; }
+
+.hose-substep > p {
+  margin: 6px 0 14px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.hose-substep .annotated-figure {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
 }
 
 .torque-card {
@@ -634,10 +793,21 @@ footer {
 
 .image-dialog::backdrop { background: rgba(0, 0, 0, .76); }
 
+.dialog-media {
+  position: relative;
+  overflow: hidden;
+}
+
 .image-dialog img {
   width: 100%;
   max-height: 86vh;
   object-fit: contain;
+}
+
+.dialog-markers {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
 
 .dialog-close {
@@ -674,6 +844,13 @@ footer {
   .verify-grid,
   .decision-grid { grid-template-columns: 1fr; }
 
+  #preparation .prep-step:last-child,
+  #removal .removal-step:first-child,
+  .install-step:last-child,
+  .hose-card { grid-column: auto; }
+
+  .hose-substeps { grid-template-columns: 1fr; }
+
   .hero-inner { padding: 54px 20px 82px; }
   main { padding-inline: 16px; }
   section { padding: 24px 20px; }
@@ -687,6 +864,13 @@ footer {
   .print-button { display: none; }
   .hero-meta { display: grid; }
   .step-body { padding: 17px; }
+  .debug-pair { grid-template-columns: 1fr; }
+  .hose-substeps { padding: 0 12px 12px; }
+  .target-marker {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
   h1 { font-size: clamp(35px, 11vw, 48px); }
 }
 
@@ -695,6 +879,7 @@ footer {
   .topbar,
   .video-frame,
   .official-link,
+  .video-jump,
   .dialog-close { display: none !important; }
   .hero { color: #111; background: #fff; }
   .hero::after { display: none; }

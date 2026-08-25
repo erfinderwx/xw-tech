@@ -137,8 +137,8 @@
       <p class="lead">请在开始工作前完整观看视频。视频画面包含中英文字幕，下面的图文步骤可用于现场逐项核对。</p>
       <div class="video-panel">
         <div class="video-frame">
-          <video controls playsinline preload="metadata" poster="assets/images/video-poster.jpg">
-            <source src="assets/video/cc1-pro-water-out-component-replacement.mp4" type="video/mp4">
+          <video id="service-video" controls playsinline preload="metadata" poster="assets/images/video-poster.jpg">
+            <source src="assets/video/cc1-pro-water-out-component-replacement.mp4?v=20260825" type="video/mp4">
           </video>
         </div>
         <aside class="video-copy">
@@ -161,37 +161,42 @@
         <p class="lead">完成排水、支撑和推杆位置调整后，再进入机械拆卸。</p>
       </div>
       <div class="steps-grid">
-        <article class="step-card prep-step">
-          <button class="step-image" type="button" aria-label="放大图片">
-            <img src="assets/images/01-tools.jpg" width="1280" height="720" loading="lazy" alt="Official PUDU video title and required hexagon wrench">
-          </button>
+        <article class="step-card prep-step text-only-step">
           <div class="step-body">
             <span class="step-number">1</span>
             <h3>准备工具和新组件</h3>
-            <p class="step-copy">准备内六角扳手、扭矩工具、泡沫垫、吸水布和匹配的新下水组件。视频未注明内六角尺寸，应按现场螺丝规格选择。</p>
-            <figcaption>官方视频：工具与下水组件外观。</figcaption>
+            <p class="step-copy">准备内六角扳手、扭矩工具、泡沫垫、吸水布、防护手套和匹配的新下水组件。视频未注明内六角尺寸，应按现场螺丝规格选择。</p>
+            <button class="video-jump" type="button" data-time="0"><span class="jump-label">查看视频</span><time>00:00</time></button>
           </div>
         </article>
-        <article class="step-card prep-step">
-          <button class="step-image" type="button" aria-label="放大图片">
-            <img src="assets/images/02-preparation.jpg" width="1280" height="720" loading="lazy" alt="Official PUDU video safety notes">
-          </button>
+        <article class="step-card prep-step text-only-step">
           <div class="step-body">
             <span class="step-number">2</span>
             <h3>排空水箱并放倒机器人</h3>
             <p class="step-copy">排空清水箱和污水箱。在稳定地面铺设泡沫垫，两人配合按官方视频方向轻放机器人，避免损伤外壳和传感器。</p>
-            <figcaption>官方视频：排水和泡沫垫注意事项。</figcaption>
+            <button class="video-jump" type="button" data-time="6"><span class="jump-label">查看视频</span><time>00:06</time></button>
           </div>
         </article>
         <article class="step-card prep-step">
-          <button class="step-image" type="button" aria-label="放大图片">
-            <img src="assets/images/03-push-rods.jpg" width="1280" height="720" loading="lazy" alt="PUDU Business Debugging screen for lowering the push rods">
-          </button>
+          <div class="debug-pair">
+            <figure>
+              <button class="step-image debug-image" type="button" aria-label="放大中文调试界面">
+                <img src="assets/images/03-debug-zh.jpg" width="880" height="1100" loading="lazy" alt="中文业务调试界面中已框出的尘推和滚刷推杆电机开关">
+              </button>
+              <figcaption>中文界面：打开框内两个绿色开关。</figcaption>
+            </figure>
+            <figure>
+              <button class="step-image debug-image" type="button" aria-label="放大英文调试界面">
+                <img src="assets/images/03-debug-en.jpg" width="880" height="1100" loading="lazy" alt="English Business Debugging screen with the dust-mop and roller-brush actuator switches boxed">
+              </button>
+              <figcaption>英文界面：打开框内两个绿色开关。</figcaption>
+            </figure>
+          </div>
           <div class="step-body">
             <span class="step-number">3</span>
             <h3>放下前、后推杆</h3>
-            <p class="step-copy">按视频要求保持开机，进入“设置 → 业务调试 → 业务调试”，放下前推杆和后推杆。调整结束后停止运行；插拔线束前完全关机并确认断电。</p>
-            <figcaption>官方视频：业务调试中的前、后推杆控制。</figcaption>
+            <p class="step-copy">按视频要求保持开机，进入“设置 → 业务调试 → 业务调试”，打开图中框出的“尘推推杆电机”和“滚刷推杆电机”两个开关。推杆放下后停止运行；插拔线束前完全关机并确认断电。</p>
+            <button class="video-jump" type="button" data-time="12"><span class="jump-label">查看视频</span><time>00:12</time></button>
           </div>
         </article>
       </div>
@@ -204,59 +209,80 @@
         <p class="lead">先松开固定螺丝，再依次断开清水箱端水管、滚刷仓端水管和线束。</p>
       </div>
       <div class="steps-grid">
-        <article class="step-card removal-step">
-          <button class="step-image" type="button" aria-label="放大图片">
-            <img src="assets/images/04-remove-screws.jpg" width="1280" height="720" loading="lazy" alt="Removing the five water-out assembly screws">
-          </button>
+        <article class="step-card removal-step text-only-step">
           <div class="step-body">
             <span class="step-number">4</span>
             <h3>拆下五颗固定螺丝</h3>
-            <p class="step-copy">使用内六角扳手拆下安装区域的五颗固定螺丝。妥善保存螺丝，防止掉入机身。</p>
-            <figcaption>官方视频：拆下 5 颗固定螺丝。</figcaption>
+            <p class="step-copy">官方视频用连续镜头逐颗拆卸，但没有一帧同时清楚显示全部五颗螺丝。请从 00:18 开始跟随视频逐颗确认，不要根据单张图片猜测位置；拆下后妥善保存螺丝，防止掉入机身。</p>
+            <button class="video-jump" type="button" data-time="18"><span class="jump-label">查看视频</span><time>00:18</time></button>
           </div>
         </article>
         <article class="step-card removal-step">
-          <button class="step-image" type="button" aria-label="放大图片">
-            <img src="assets/images/05-tank-hose.jpg" width="1280" height="720" loading="lazy" alt="Disconnecting the hose at the clean-water tank outlet">
-          </button>
+          <figure class="annotated-figure">
+            <div class="annotated-media">
+              <button class="step-image" type="button" aria-label="放大清水箱出水管接头图片">
+                <img src="assets/images/05-tank-hose.jpg" width="1280" height="720" loading="lazy" alt="已拔出的水管接头、蓝色锁紧环和银色清水箱出水口">
+              </button>
+              <span class="target-marker" style="--x: 60%; --y: 26%;">1</span>
+              <span class="target-marker" style="--x: 64%; --y: 48%;">2</span>
+            </div>
+            <div class="marker-legend"><span><b>1</b><span class="marker-label">已拔出的水管接头（蓝色锁紧环）</span></span><span><b>2</b><span class="marker-label">清水箱出水口（银色接口）</span></span></div>
+            <figcaption>00:51：接头、蓝色锁紧环和水管端部均可清楚辨认。</figcaption>
+          </figure>
           <div class="step-body">
             <span class="step-number">5</span>
             <h3>断开清水箱出水管</h3>
             <p class="step-copy">按住或松开接头锁紧结构，平直拔出清水箱出水口水管。不要强拉、折弯或扭转水管，并立即擦干残水。</p>
-            <figcaption>官方视频：取出清水箱一侧的下水管。</figcaption>
+            <button class="video-jump" type="button" data-time="48"><span class="jump-label">查看视频</span><time>00:48</time></button>
           </div>
         </article>
         <article class="step-card removal-step">
-          <button class="step-image" type="button" aria-label="放大图片">
-            <img src="assets/images/06-brush-hose.jpg" width="1280" height="720" loading="lazy" alt="Disconnecting the water hose from the roller-brush compartment">
-          </button>
+          <figure class="annotated-figure">
+            <div class="annotated-media">
+              <button class="step-image" type="button" aria-label="放大滚刷仓水管图片">
+                <img src="assets/images/06-brush-hose.jpg" width="1280" height="720" loading="lazy" alt="滚刷仓水管、黑色接头和蓝色锁紧环">
+              </button>
+              <span class="target-marker" style="--x: 31%; --y: 48%;">1</span>
+              <span class="target-marker" style="--x: 62%; --y: 39%;">2</span>
+            </div>
+            <div class="marker-legend"><span><b>1</b><span class="marker-label">滚刷仓接头（蓝色锁紧环）</span></span><span><b>2</b><span class="marker-label">透明水管</span></span></div>
+            <figcaption>00:57：标记位置为滚刷仓端接头与对应水管。</figcaption>
+          </figure>
           <div class="step-body">
             <span class="step-number">6</span>
             <h3>断开滚刷仓水管</h3>
             <p class="step-copy">从滚刷仓一侧找到另一根水管，按接头结构将其断开。保留拆卸前照片，避免重新安装时两端接错。</p>
-            <figcaption>官方视频：从滚刷仓一侧取下管道。</figcaption>
+            <button class="video-jump" type="button" data-time="56"><span class="jump-label">查看视频</span><time>00:56</time></button>
           </div>
         </article>
         <article class="step-card removal-step">
-          <button class="step-image" type="button" aria-label="放大图片">
-            <img src="assets/images/07-remove-assembly.jpg" width="1280" height="720" loading="lazy" alt="Taking the old water-out assembly from the robot">
-          </button>
+          <figure class="annotated-figure">
+            <div class="annotated-media">
+              <button class="step-image" type="button" aria-label="放大旧下水组件图片">
+                <img src="assets/images/07-remove-assembly.jpg" width="1280" height="720" loading="lazy" alt="从机器人中取出的透明下水组件">
+              </button>
+              <span class="target-marker" style="--x: 63%; --y: 50%;">1</span>
+            </div>
+            <div class="marker-legend"><span><b>1</b><span class="marker-label">下水组件</span></span></div>
+            <figcaption>01:09：透明外壳整体为需要更换的下水组件。</figcaption>
+          </figure>
           <div class="step-body">
             <span class="step-number">7</span>
             <h3>取出旧下水组件</h3>
             <p class="step-copy">确认两端水管已断开后，小心将组件从安装位置取出。不要拉扯线束，也不要碰撞相邻部件。</p>
-            <figcaption>官方视频：从安装位置取出下水组件。</figcaption>
+            <button class="video-jump" type="button" data-time="65"><span class="jump-label">查看视频</span><time>01:05</time></button>
           </div>
         </article>
         <article class="step-card removal-step">
           <button class="step-image" type="button" aria-label="放大图片">
-            <img src="assets/images/08-unplug-cable.jpg" width="1280" height="720" loading="lazy" alt="Unplugging the water-out assembly cable">
+            <img src="assets/images/08-unplug-cable.jpg" width="1280" height="720" loading="lazy" alt="拔下水组件线束插头">
           </button>
+          <figcaption class="standalone-caption">01:13：线束插头和卡扣均已露出。</figcaption>
           <div class="step-body">
             <span class="step-number">8</span>
             <h3>断电后拔下线束</h3>
             <p class="step-copy">确认机器人已经完全断电，按住插头卡扣拔下线束，不要拉拽电线。检查插头、针脚、卡扣和延长线缆是否进水、腐蚀或破损。</p>
-            <figcaption>官方视频：拔除下水组件连接线。</figcaption>
+            <button class="video-jump" type="button" data-time="72"><span class="jump-label">查看视频</span><time>01:12</time></button>
           </div>
         </article>
       </div>
@@ -270,56 +296,100 @@
       </div>
       <div class="steps-grid">
         <article class="step-card install-step">
-          <button class="step-image" type="button" aria-label="放大图片">
-            <img src="assets/images/09-connect-cable.jpg" width="1280" height="720" loading="lazy" alt="Connecting the new water-out assembly cable">
-          </button>
+          <figure class="annotated-figure">
+            <div class="annotated-media">
+              <button class="step-image" type="button" aria-label="放大新组件接线图片">
+                <img src="assets/images/09-connect-cable.jpg" width="1280" height="720" loading="lazy" alt="连接新下水组件的对应线束插头">
+              </button>
+              <span class="target-marker" style="--x: 69%; --y: 37%;">1</span>
+            </div>
+            <div class="marker-legend"><span><b>1</b><span class="marker-label">对应线束插头</span></span></div>
+            <figcaption>01:27：按原配对连接两个插头并确认卡扣锁紧。</figcaption>
+          </figure>
           <div class="step-body">
             <span class="step-number">9</span>
             <h3>核对新旧组件并连接线束</h3>
             <p class="step-copy">确认接口数量、方向、固定孔和线束长度一致。按原插头配对连接新组件，推入到位并确认卡扣锁紧。</p>
-            <figcaption>官方视频：更换新组件并接好线缆。</figcaption>
+            <button class="video-jump" type="button" data-time="82"><span class="jump-label">查看视频</span><time>01:22</time></button>
           </div>
         </article>
         <article class="step-card install-step">
-          <button class="step-image" type="button" aria-label="放大图片">
-            <img src="assets/images/10-install-assembly.jpg" width="1280" height="720" loading="lazy" alt="Positioning the new water-out assembly">
-          </button>
+          <figure class="annotated-figure">
+            <div class="annotated-media">
+              <button class="step-image" type="button" aria-label="放大新组件安装位置图片">
+                <img src="assets/images/10-install-assembly.jpg" width="1280" height="720" loading="lazy" alt="新下水组件放回机器人原安装位置">
+              </button>
+              <span class="target-marker" style="--x: 68%; --y: 40%;">1</span>
+            </div>
+            <div class="marker-legend"><span><b>1</b><span class="marker-label">新下水组件</span></span></div>
+            <figcaption>01:44：将组件放入原位置，同时整理水管和线束。</figcaption>
+          </figure>
           <div class="step-body">
             <span class="step-number">10</span>
             <h3>将新组件放回安装位置</h3>
             <p class="step-copy">把组件放入原位置并整理好水管和线束。确认没有折弯、挤压、夹线或与运动部件干涉。</p>
-            <figcaption>官方视频：将新下水组件装回原位。</figcaption>
+            <button class="video-jump" type="button" data-time="96"><span class="jump-label">查看视频</span><time>01:36</time></button>
           </div>
         </article>
         <article class="step-card install-step torque-card">
           <button class="step-image" type="button" aria-label="放大图片">
-            <img src="assets/images/11-torque.jpg" width="1280" height="720" loading="lazy" alt="Tightening five M4 screws to the specified torque">
+            <img src="assets/images/11-torque.jpg" width="1280" height="720" loading="lazy" alt="五颗 M4 螺丝的规定扭矩画面">
           </button>
+          <figcaption class="standalone-caption">02:12：画面清楚显示 M4 螺丝规定扭矩。</figcaption>
           <div class="step-body">
             <span class="step-number">11</span>
             <h3>安装五颗 M4 固定螺丝</h3>
             <p class="step-copy">先将五颗螺丝全部预紧，再按交叉顺序均匀拧紧。</p>
             <span class="torque-value">15 ± 1 kgf·cm ≈ 1.47 ± 0.10 N·m</span>
-            <figcaption>官方视频规定的 M4 螺丝扭矩。</figcaption>
+            <button class="video-jump" type="button" data-time="119"><span class="jump-label">查看视频</span><time>01:59</time></button>
           </div>
         </article>
-        <article class="step-card install-step">
-          <button class="step-image" type="button" aria-label="放大图片">
-            <img src="assets/images/12-connect-hoses.jpg" width="1280" height="720" loading="lazy" alt="Reconnecting the clean-water tank and roller-brush compartment hoses">
-          </button>
+        <article class="step-card install-step hose-card">
           <div class="step-body">
             <span class="step-number">12</span>
             <h3>连接两端水管</h3>
             <p class="step-copy">分别接好清水箱出水口水管和滚刷仓一侧水管。确认插到底、接头锁紧、方向正确且无弯折。</p>
-            <figcaption>官方视频：分别连接清水箱出口和滚刷仓水管。</figcaption>
+          </div>
+          <div class="hose-substeps">
+            <section class="hose-substep">
+              <h4>12A · 连接清水箱出水管</h4>
+              <p>对准清水箱出口接头，将透明水管插到底，并确认蓝色锁紧环回位。</p>
+              <figure class="annotated-figure">
+                <div class="annotated-media">
+                  <button class="step-image" type="button" aria-label="放大清水箱水管安装图片">
+                    <img src="assets/images/12a-tank-hose.jpg" width="1280" height="720" loading="lazy" alt="清水箱出口接头和蓝色锁紧环安装位置">
+                  </button>
+                  <span class="target-marker" style="--x: 42%; --y: 40%;">1</span>
+                </div>
+                <div class="marker-legend"><span><b>1</b><span class="marker-label">清水箱出口接头与蓝色锁紧环</span></span></div>
+                <figcaption>02:35：清水箱出口接头安装位置。</figcaption>
+              </figure>
+              <button class="video-jump" type="button" data-time="150"><span class="jump-label">查看视频</span><time>02:30</time></button>
+            </section>
+            <section class="hose-substep">
+              <h4>12B · 连接滚刷仓水管</h4>
+              <p>将另一端透明水管接回滚刷仓接头，确认接头锁紧且水管没有折弯。</p>
+              <figure class="annotated-figure">
+                <div class="annotated-media">
+                  <button class="step-image" type="button" aria-label="放大滚刷仓水管安装图片">
+                    <img src="assets/images/12b-brush-hose.jpg" width="1280" height="720" loading="lazy" alt="滚刷仓接头、蓝色锁紧环和透明水管安装后的状态">
+                  </button>
+                  <span class="target-marker" style="--x: 27%; --y: 31%;">1</span>
+                  <span class="target-marker" style="--x: 78%; --y: 34%;">2</span>
+                </div>
+                <div class="marker-legend"><span><b>1</b><span class="marker-label">滚刷仓接头</span></span><span><b>2</b><span class="marker-label">透明水管</span></span></div>
+                <figcaption>02:47：滚刷仓端水管安装后的状态。</figcaption>
+              </figure>
+              <button class="video-jump" type="button" data-time="160"><span class="jump-label">查看视频</span><time>02:40</time></button>
+            </section>
           </div>
         </article>
-        <article class="step-card install-step">
+        <article class="step-card install-step text-only-step">
           <div class="step-body">
             <span class="step-number">13</span>
             <h3>完成静态复查</h3>
             <p class="step-copy">确认五颗螺丝、所有插头和两根水管均已安装到位，机身内部没有遗留工具或螺丝，电气区域无残水。</p>
-            <figcaption>完成检查后再将机器人恢复直立。</figcaption>
+            <button class="video-jump" type="button" data-time="167"><span class="jump-label">查看视频</span><time>02:47</time></button>
           </div>
         </article>
       </div>
@@ -382,7 +452,10 @@
 
   <dialog class="image-dialog" aria-label="放大的维修步骤图片">
     <button class="dialog-close" type="button" aria-label="关闭图片">×</button>
-    <img src="assets/images/01-tools.jpg" alt="放大的维修步骤图片">
+    <div class="dialog-media">
+      <img src="assets/images/05-tank-hose.jpg" alt="放大的维修步骤图片">
+      <div class="dialog-markers" aria-hidden="true"></div>
+    </div>
   </dialog>
 
   <script>
@@ -512,14 +585,14 @@
             de: ["Werkzeuge und neue Baugruppe vorbereiten", "Tanks entleeren und Roboter ablegen", "Vordere und hintere Hubstange absenken"]
           },
           "#preparation .prep-step .step-copy": {
-            zh: ["准备内六角扳手、扭矩工具、泡沫垫、吸水布和匹配的新下水组件。视频未注明内六角尺寸，应按现场螺丝规格选择。", "排空清水箱和污水箱。在稳定地面铺设泡沫垫，两人配合按官方视频方向轻放机器人，避免损伤外壳和传感器。", "按视频要求保持开机，进入“设置 → 业务调试 → 业务调试”，放下前推杆和后推杆。调整结束后停止运行；插拔线束前完全关机并确认断电。"],
-            en: ["Prepare a hexagon wrench, torque tool, foam pad, absorbent cloth and a compatible new assembly. The video does not specify the hexagon size; select it from the screws on site.", "Drain both tanks. Place a foam pad on a stable floor and, with two people, lay the robot down in the direction shown in the official video to protect the housing and sensors.", "As instructed in the video, keep the robot powered on, open Settings → Business Debugging → Business Debugging and lower both push rods. Stop operation afterward; fully power off before handling wiring."],
-            de: ["Innensechskantschlüssel, Drehmomentwerkzeug, Schaumstoffunterlage, Saugtuch und passende neue Baugruppe bereitlegen. Das Video nennt keine Schlüsselgröße; diese anhand der Schrauben vor Ort wählen.", "Beide Tanks entleeren. Schaumstoffunterlage auf einen stabilen Boden legen und Roboter zu zweit in der im Video gezeigten Richtung ablegen, damit Gehäuse und Sensoren geschützt sind.", "Wie im Video vorgegeben eingeschaltet lassen, Einstellungen → Business Debugging → Business Debugging öffnen und beide Hubstangen absenken. Danach Betrieb stoppen; vor Arbeiten an Leitungen vollständig ausschalten."]
+            zh: ["准备内六角扳手、扭矩工具、泡沫垫、吸水布、防护手套和匹配的新下水组件。视频未注明内六角尺寸，应按现场螺丝规格选择。", "排空清水箱和污水箱。在稳定地面铺设泡沫垫，两人配合按官方视频方向轻放机器人，避免损伤外壳和传感器。", "按视频要求保持开机，进入“设置 → 业务调试 → 业务调试”，打开图中框出的“尘推推杆电机”和“滚刷推杆电机”两个开关。推杆放下后停止运行；插拔线束前完全关机并确认断电。"],
+            en: ["Prepare a hexagon wrench, torque tool, foam pad, absorbent cloth, protective gloves and a compatible new assembly. The video does not specify the hexagon size; select it from the screws on site.", "Drain both tanks. Place a foam pad on a stable floor and, with two people, lay the robot down in the direction shown in the official video to protect the housing and sensors.", "Keep the robot powered on as instructed, open Settings → Business Debugging → Business Debugging and enable the two boxed controls for the dust-mop and roller-brush actuators. Stop operation once both actuators are lowered; fully power off before handling wiring."],
+            de: ["Innensechskantschlüssel, Drehmomentwerkzeug, Schaumstoffunterlage, Saugtuch, Schutzhandschuhe und passende neue Baugruppe bereitlegen. Das Video nennt keine Schlüsselgröße; diese anhand der Schrauben vor Ort wählen.", "Beide Tanks entleeren. Schaumstoffunterlage auf einen stabilen Boden legen und Roboter zu zweit in der im Video gezeigten Richtung ablegen, damit Gehäuse und Sensoren geschützt sind.", "Wie im Video vorgegeben eingeschaltet lassen, Einstellungen → Business Debugging → Business Debugging öffnen und die beiden markierten Schalter für Staubmopp- und Walzenbürsten-Hubmotor aktivieren. Nach dem Absenken Betrieb stoppen; vor Arbeiten an Leitungen vollständig ausschalten."]
           },
           "#preparation .prep-step figcaption": {
-            zh: ["官方视频：工具与下水组件外观。", "官方视频：排水和泡沫垫注意事项。", "官方视频：业务调试中的前、后推杆控制。"],
-            en: ["Official video: tools and assembly appearance.", "Official video: tank draining and foam-pad notes.", "Official video: front and rear push-rod controls in Business Debugging."],
-            de: ["Offizielles Video: Werkzeuge und Baugruppe.", "Offizielles Video: Tankentleerung und Schaumstoffunterlage.", "Offizielles Video: Steuerung der vorderen und hinteren Hubstange in Business Debugging."]
+            zh: ["中文界面：打开框内两个绿色开关。", "英文界面：打开框内两个绿色开关。"],
+            en: ["Chinese interface: enable the two green switches in the box.", "English interface: enable the two green switches in the box."],
+            de: ["Chinesische Oberfläche: die beiden grünen Schalter im Rahmen aktivieren.", "Englische Oberfläche: die beiden grünen Schalter im Rahmen aktivieren."]
           },
           "#removal .removal-step h3": {
             zh: ["拆下五颗固定螺丝", "断开清水箱出水管", "断开滚刷仓水管", "取出旧下水组件", "断电后拔下线束"],
@@ -527,14 +600,14 @@
             de: ["Fünf Befestigungsschrauben entfernen", "Schlauch am Frischwassertank trennen", "Schlauch am Walzenbürstenfach trennen", "Alte Wasserauslass-Baugruppe herausnehmen", "Leitung nach dem Ausschalten trennen"]
           },
           "#removal .removal-step .step-copy": {
-            zh: ["使用内六角扳手拆下安装区域的五颗固定螺丝。妥善保存螺丝，防止掉入机身。", "按住或松开接头锁紧结构，平直拔出清水箱出水口水管。不要强拉、折弯或扭转水管，并立即擦干残水。", "从滚刷仓一侧找到另一根水管，按接头结构将其断开。保留拆卸前照片，避免重新安装时两端接错。", "确认两端水管已断开后，小心将组件从安装位置取出。不要拉扯线束，也不要碰撞相邻部件。", "确认机器人已经完全断电，按住插头卡扣拔下线束，不要拉拽电线。检查插头、针脚、卡扣和延长线缆是否进水、腐蚀或破损。"],
-            en: ["Use the hexagon wrench to remove the five mounting screws. Keep them safely so none falls into the robot.", "Release the connector lock and pull the clean-water outlet hose straight out. Do not pull hard, bend or twist it; absorb residual water immediately.", "Locate the second hose at the roller-brush chamber and disconnect it according to the fitting design. Retain the pre-removal photo to prevent swapping the two ends.", "After both hoses are disconnected, carefully lift the assembly from its mounting position. Do not pull the wiring or strike nearby components.", "Verify that the robot is fully powered off, press the connector latch and disconnect the wiring without pulling the wires. Inspect connector, pins, latch and extension cable for water, corrosion or damage."],
-            de: ["Mit dem Innensechskantschlüssel die fünf Befestigungsschrauben entfernen. Schrauben sicher aufbewahren, damit keine in den Roboter fällt.", "Verriegelung des Anschlusses lösen und Schlauch am Frischwasserauslass gerade herausziehen. Nicht kräftig ziehen, knicken oder verdrehen; Restwasser sofort aufnehmen.", "Zweiten Schlauch am Walzenbürstenfach lokalisieren und entsprechend der Anschlusskonstruktion trennen. Vorheriges Foto aufbewahren, damit beide Enden nicht vertauscht werden.", "Nach dem Trennen beider Schläuche die Baugruppe vorsichtig aus ihrer Position nehmen. Nicht an Leitungen ziehen und benachbarte Bauteile nicht anstoßen.", "Vollständige Abschaltung prüfen, Verriegelung drücken und Stecker ohne Zug an den Kabeln trennen. Stecker, Pins, Verriegelung und Verlängerungskabel auf Wasser, Korrosion oder Schäden prüfen."]
+            zh: ["官方视频用连续镜头逐颗拆卸，但没有一帧同时清楚显示全部五颗螺丝。请从 00:18 开始跟随视频逐颗确认，不要根据单张图片猜测位置；拆下后妥善保存螺丝，防止掉入机身。", "按住或松开接头锁紧结构，平直拔出清水箱出水口水管。不要强拉、折弯或扭转水管，并立即擦干残水。", "从滚刷仓一侧找到另一根水管，按接头结构将其断开。保留拆卸前照片，避免重新安装时两端接错。", "确认两端水管已断开后，小心将组件从安装位置取出。不要拉扯线束，也不要碰撞相邻部件。", "确认机器人已经完全断电，按住插头卡扣拔下线束，不要拉拽电线。检查插头、针脚、卡扣和延长线缆是否进水、腐蚀或破损。"],
+            en: ["The official video removes the five screws in a continuous sequence, but no single frame clearly shows all five locations. Start at 00:18 and identify each screw from the moving sequence rather than guessing from a still image. Store the removed screws safely.", "Release the connector lock and pull the clean-water outlet hose straight out. Do not pull hard, bend or twist it; absorb residual water immediately.", "Locate the second hose at the roller-brush chamber and disconnect it according to the fitting design. Retain the pre-removal photo to prevent swapping the two ends.", "After both hoses are disconnected, carefully lift the assembly from its mounting position. Do not pull the wiring or strike nearby components.", "Verify that the robot is fully powered off, press the connector latch and disconnect the wiring without pulling the wires. Inspect connector, pins, latch and extension cable for water, corrosion or damage."],
+            de: ["Im offiziellen Video werden die fünf Schrauben nacheinander in einer durchgehenden Sequenz entfernt; kein Einzelbild zeigt alle fünf Positionen deutlich. Ab 00:18 jede Schraube anhand der bewegten Aufnahme identifizieren und nicht aus einem Standbild erraten. Entfernte Schrauben sicher aufbewahren.", "Verriegelung des Anschlusses lösen und Schlauch am Frischwasserauslass gerade herausziehen. Nicht kräftig ziehen, knicken oder verdrehen; Restwasser sofort aufnehmen.", "Zweiten Schlauch am Walzenbürstenfach lokalisieren und entsprechend der Anschlusskonstruktion trennen. Vorheriges Foto aufbewahren, damit beide Enden nicht vertauscht werden.", "Nach dem Trennen beider Schläuche die Baugruppe vorsichtig aus ihrer Position nehmen. Nicht an Leitungen ziehen und benachbarte Bauteile nicht anstoßen.", "Vollständige Abschaltung prüfen, Verriegelung drücken und Stecker ohne Zug an den Kabeln trennen. Stecker, Pins, Verriegelung und Verlängerungskabel auf Wasser, Korrosion oder Schäden prüfen."]
           },
           "#removal .removal-step figcaption": {
-            zh: ["官方视频：拆下 5 颗固定螺丝。", "官方视频：取出清水箱一侧的下水管。", "官方视频：从滚刷仓一侧取下管道。", "官方视频：从安装位置取出下水组件。", "官方视频：拔除下水组件连接线。"],
-            en: ["Official video: remove five mounting screws.", "Official video: remove the hose at the clean-water tank.", "Official video: remove the hose at the roller-brush chamber.", "Official video: take the assembly from its mounting position.", "Official video: unplug the assembly wiring."],
-            de: ["Offizielles Video: fünf Befestigungsschrauben entfernen.", "Offizielles Video: Schlauch am Frischwassertank abziehen.", "Offizielles Video: Schlauch am Walzenbürstenfach abziehen.", "Offizielles Video: Baugruppe aus der Einbauposition nehmen.", "Offizielles Video: Anschlussleitung der Baugruppe trennen."]
+            zh: ["00:51：接头、蓝色锁紧环和水管端部均可清楚辨认。", "00:57：标记位置为滚刷仓端接头与对应水管。", "01:09：透明外壳整体为需要更换的下水组件。", "01:13：线束插头和卡扣均已露出。"],
+            en: ["00:51: the fitting, blue locking ring and hose end are clearly visible.", "00:57: the markers identify the roller-chamber fitting and matching hose.", "01:09: the complete transparent housing is the water-out assembly.", "01:13: the wiring connector and latch are fully visible."],
+            de: ["00:51: Anschluss, blauer Verriegelungsring und Schlauchende sind deutlich sichtbar.", "00:57: Die Markierungen kennzeichnen Anschluss und Schlauch am Walzenbürstenfach.", "01:09: Das vollständige transparente Gehäuse ist die Wasserauslass-Baugruppe.", "01:13: Leitungsstecker und Verriegelung sind vollständig sichtbar."]
           },
           "#installation .install-step h3": {
             zh: ["核对新旧组件并连接线束", "将新组件放回安装位置", "安装五颗 M4 固定螺丝", "连接两端水管", "完成静态复查"],
@@ -547,9 +620,29 @@
             de: ["Anzahl und Richtung der Anschlüsse, Befestigungsbohrungen und Leitungslänge vergleichen. Stecker wie zuvor zuordnen, vollständig einsetzen und Verriegelung prüfen.", "Baugruppe in Originalposition einsetzen und Schläuche sowie Leitungen ordnen. Nichts darf geknickt, gequetscht oder an beweglichen Teilen eingeklemmt sein.", "Alle fünf Schrauben zunächst ansetzen und anschließend über Kreuz gleichmäßig anziehen.", "Schlauch am Frischwassertank-Auslass und Schlauch am Walzenbürstenfach anschließen. Vollständiges Einstecken, verriegelte Anschlüsse, korrekte Führung und knickfreien Verlauf prüfen.", "Fünf Schrauben, alle Stecker und beide Schläuche prüfen; keine Werkzeuge oder Schrauben im Gerät zurücklassen und elektrische Bereiche trocken halten."]
           },
           "#installation .install-step figcaption": {
-            zh: ["官方视频：更换新组件并接好线缆。", "官方视频：将新下水组件装回原位。", "官方视频规定的 M4 螺丝扭矩。", "官方视频：分别连接清水箱出口和滚刷仓水管。", "完成检查后再将机器人恢复直立。"],
-            en: ["Official video: replace the assembly and reconnect wiring.", "Official video: install the new assembly in its original position.", "M4 screw torque specified in the official video.", "Official video: connect the clean-water-tank and roller-chamber hoses.", "Return the robot upright only after completing the inspection."],
-            de: ["Offizielles Video: neue Baugruppe einsetzen und Leitung anschließen.", "Offizielles Video: neue Baugruppe in Originalposition einsetzen.", "Im offiziellen Video vorgegebenes Drehmoment der M4-Schrauben.", "Offizielles Video: Schläuche an Frischwassertank und Walzenbürstenfach anschließen.", "Roboter erst nach Abschluss der Prüfung wieder aufrichten."]
+            zh: ["01:27：按原配对连接两个插头并确认卡扣锁紧。", "01:44：将组件放入原位置，同时整理水管和线束。", "02:12：画面清楚显示 M4 螺丝规定扭矩。", "02:35：清水箱出口接头安装位置。", "02:47：滚刷仓端水管安装后的状态。"],
+            en: ["01:27: match the two connectors as before and verify that the latches lock.", "01:44: place the assembly in its original position while routing hoses and wiring.", "02:12: the specified M4 screw torque is clearly shown.", "02:35: installation position at the clean-water-tank outlet.", "02:47: installed state of the roller-chamber hose."],
+            de: ["01:27: Beide Stecker wie zuvor zuordnen und verriegelte Rastnasen prüfen.", "01:44: Baugruppe in Originalposition einsetzen und dabei Schläuche sowie Leitungen ordnen.", "02:12: Das vorgegebene Drehmoment der M4-Schrauben ist deutlich sichtbar.", "02:35: Einbauposition am Frischwassertank-Auslass.", "02:47: Eingebauter Zustand des Schlauchs am Walzenbürstenfach."]
+          },
+          ".hose-substep h4": {
+            zh: ["12A · 连接清水箱出水管", "12B · 连接滚刷仓水管"],
+            en: ["12A · Connect the clean-water-tank hose", "12B · Connect the roller-chamber hose"],
+            de: ["12A · Schlauch am Frischwassertank anschließen", "12B · Schlauch am Walzenbürstenfach anschließen"]
+          },
+          ".hose-substep > p": {
+            zh: ["对准清水箱出口接头，将透明水管插到底，并确认蓝色锁紧环回位。", "将另一端透明水管接回滚刷仓接头，确认接头锁紧且水管没有折弯。"],
+            en: ["Align the transparent hose with the clean-water outlet, insert it fully and verify that the blue locking ring returns to position.", "Reconnect the other transparent hose to the roller-chamber fitting; verify that it locks and is not kinked."],
+            de: ["Transparenten Schlauch am Frischwasserauslass ausrichten, vollständig einstecken und Rückkehr des blauen Verriegelungsrings prüfen.", "Anderen transparenten Schlauch am Anschluss des Walzenbürstenfachs einstecken; Verriegelung und knickfreien Verlauf prüfen."]
+          },
+          ".marker-label": {
+            zh: ["已拔出的水管接头（蓝色锁紧环）", "清水箱出水口（银色接口）", "滚刷仓接头（蓝色锁紧环）", "透明水管", "下水组件", "对应线束插头", "新下水组件", "清水箱出口接头与蓝色锁紧环", "滚刷仓接头", "透明水管"],
+            en: ["Disconnected hose fitting (blue locking ring)", "Clean-water outlet (silver port)", "Roller-chamber fitting (blue locking ring)", "Transparent hose", "Water-out assembly", "Matching wiring connectors", "New water-out assembly", "Clean-water outlet fitting and blue locking ring", "Roller-chamber fitting", "Transparent hose"],
+            de: ["Abgezogener Schlauchanschluss (blauer Verriegelungsring)", "Frischwasserauslass (silberner Anschluss)", "Anschluss am Walzenbürstenfach (blauer Verriegelungsring)", "Transparenter Schlauch", "Wasserauslass-Baugruppe", "Zugehörige Leitungsstecker", "Neue Wasserauslass-Baugruppe", "Frischwasserauslass und blauer Verriegelungsring", "Anschluss am Walzenbürstenfach", "Transparenter Schlauch"]
+          },
+          ".jump-label": {
+            zh: ["查看视频", "查看视频", "查看视频", "查看视频", "查看视频", "查看视频", "查看视频", "查看视频", "查看视频", "查看视频", "查看视频", "查看视频", "查看视频", "查看视频"],
+            en: ["Watch video", "Watch video", "Watch video", "Watch video", "Watch video", "Watch video", "Watch video", "Watch video", "Watch video", "Watch video", "Watch video", "Watch video", "Watch video", "Watch video"],
+            de: ["Video ansehen", "Video ansehen", "Video ansehen", "Video ansehen", "Video ansehen", "Video ansehen", "Video ansehen", "Video ansehen", "Video ansehen", "Video ansehen", "Video ansehen", "Video ansehen", "Video ansehen", "Video ansehen"]
           },
           "#verification .verify-card h3": {
             zh: ["测试步骤", "通过条件"],
@@ -589,13 +682,41 @@
   <script>
     (() => {
       const dialog = document.querySelector(".image-dialog");
-      const dialogImage = dialog.querySelector("img");
+      const dialogImage = dialog.querySelector(".dialog-media img");
+      const dialogMarkers = dialog.querySelector(".dialog-markers");
+      const video = document.querySelector("#service-video");
       document.querySelectorAll(".step-image").forEach((button) => {
         button.addEventListener("click", () => {
           const image = button.querySelector("img");
           dialogImage.src = image.src;
           dialogImage.alt = image.alt;
+          dialogMarkers.replaceChildren();
+          const annotatedMedia = button.closest(".annotated-media");
+          if (annotatedMedia) {
+            annotatedMedia.querySelectorAll(".target-marker").forEach((marker) => {
+              dialogMarkers.append(marker.cloneNode(true));
+            });
+          }
           dialog.showModal();
+        });
+      });
+      document.querySelectorAll(".video-jump").forEach((button) => {
+        button.addEventListener("click", () => {
+          const targetTime = Number(button.dataset.time || 0);
+          const startPlayback = () => video.play().catch(() => {});
+          const seekAndPlay = () => {
+            video.currentTime = targetTime;
+            video.addEventListener("seeked", startPlayback, { once: true });
+            video.addEventListener("canplay", startPlayback, { once: true });
+            startPlayback();
+          };
+          video.scrollIntoView({ behavior: "smooth", block: "center" });
+          if (video.readyState === 0) {
+            video.addEventListener("loadedmetadata", seekAndPlay, { once: true });
+            video.load();
+          } else {
+            seekAndPlay();
+          }
         });
       });
       dialog.querySelector(".dialog-close").addEventListener("click", () => dialog.close());
