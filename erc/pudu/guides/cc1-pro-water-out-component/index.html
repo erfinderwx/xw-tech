@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="referrer" content="no-referrer">
+  <meta name="description" content="PUDU CC1 Pro 下水组件更换：技术人员图文步骤、官方视频、扭矩要求和安装后验证">
+  <title>PUDU CC1 Pro · 下水组件更换教程</title>
+  <link rel="icon" href="../../../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../../../assets/i18n.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="cc1waterout">
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">CC1</span>
+      <span class="brand-copy">PUDU CC1 Pro · 下水组件更换</span>
+    </div>
+    <div class="top-actions">
+      <button class="print-button" type="button">打印 / 保存 PDF</button>
+      <div class="xw-language-switcher" role="group" aria-label="Language">
+        <button type="button" data-lang-switch="zh" aria-pressed="true">中文</button>
+        <button type="button" data-lang-switch="en" aria-pressed="false">EN</button>
+        <button type="button" data-lang-switch="de" aria-pressed="false">DE</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="hero-inner">
+      <span class="eyebrow">CC1 PRO · 技术人员维修说明</span>
+      <h1>下水组件更换教程</h1>
+      <p class="subtitle">用于完成基础水路排查后，更换隔膜泵、流量计和电磁阀组成的下水组件。</p>
+      <div class="hero-meta">
+        <span>适用：PUDU CC1 / CC1 Pro</span>
+        <span>拆装：13 个步骤</span>
+        <span>官方视频：2:49</span>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <div class="scope-grid" id="scope">
+      <article class="scope-card scope-main">
+        <strong>技术人员专用</strong>
+        <p>本页涉及放倒机器人、拆卸水管和插拔线束，只能由接受过培训或获得授权的维修人员操作。</p>
+      </article>
+      <article class="scope-card scope-limit">
+        <strong>不是客户日常维护</strong>
+        <p>普通客户仅应清洁滤芯、分水模块和滚刷仓小孔，不应自行拆卸下水组件、延长线缆或 CT2 板卡。</p>
+      </article>
+    </div>
+
+    <section id="safety">
+      <p class="section-kicker">开始之前</p>
+      <h2>安全准备</h2>
+      <p class="lead">先排空水箱、保护机身和工作区域，再进行任何拆装。</p>
+      <ul class="safety-list">
+        <li>停止清洁任务，准备泡沫垫、吸水布、防护手套、内六角扳手和扭矩工具。</li>
+        <li>完全排空清水箱和污水箱，擦干可能流出的残水。</li>
+        <li>两人配合将机器人按官方视频方向轻放在泡沫垫上。</li>
+        <li>不要让水进入插头、线束、板卡或其他电气区域。</li>
+        <li>拆卸前拍照记录两根水管和线束的原始位置、方向与走向。</li>
+        <li>如发现插头进水、腐蚀、烧蚀或线缆破损，停止安装并进一步检查。</li>
+      </ul>
+      <div class="power-note">
+        <h3>专项视频中的供电步骤</h3>
+        <p>官方视频要求机器人放倒后保持开机，并进入“设置 → 业务调试 → 业务调试”放下前、后推杆。完成位置调整后，在插拔任何线束前必须完全关机并确认断电；普渡故障排查手册明确要求所有线缆插拔操作在完全断电后进行。</p>
+      </div>
+      <div class="stop-note">本教程不授权带电插拔、带水拆装或跳过安全检查。</div>
+    </section>
+
+    <section id="system">
+      <p class="section-kicker">系统位置</p>
+      <h2>先确认故障位于清水下水链路</h2>
+      <p class="lead">普渡技术手册给出的清水路径如下。下水组件内部包含隔膜泵、流量计和电磁阀。</p>
+      <div class="system-flow" aria-label="清水路径">
+        <article>清水箱</article>
+        <article>金属滤芯</article>
+        <article>下水组件</article>
+        <article>分水模块</article>
+        <article>滚刷仓</article>
+      </div>
+      <p class="system-note">只有在滤芯、分水模块和滚刷仓出水孔已清洁，Debug 下水测试仍失败，并已排除简单堵塞后，才进入本页的组件更换流程。</p>
+    </section>
+
+    <section id="parts">
+      <p class="section-kicker">备件核对</p>
+      <h2>四个候选故障部件</h2>
+      <p class="lead">现场备件清单包含以下四项。本页只执行下水组件更换，其他部件必须根据独立诊断结果决定是否使用。</p>
+      <div class="parts-wrap">
+        <table class="parts-table">
+          <thead>
+            <tr>
+              <th>物料编号</th>
+              <th>部件</th>
+              <th>本次用途</th>
+              <th>信息来源</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>19999-002102</code></td>
+              <td class="part-name">下水组件</td>
+              <td class="part-use">本教程的主要更换部件</td>
+              <td class="part-source">现场备件清单</td>
+            </tr>
+            <tr>
+              <td><code>19999-002117</code></td>
+              <td class="part-name">下水组件延长线缆</td>
+              <td class="part-use">仅在线缆或插头损坏时更换</td>
+              <td class="part-source">现场备件清单</td>
+            </tr>
+            <tr>
+              <td><code>19999-002095</code></td>
+              <td class="part-name">CT2</td>
+              <td class="part-use">控制板故障需另行诊断</td>
+              <td class="part-source">现场备件清单</td>
+            </tr>
+            <tr>
+              <td><code>19888-000051</code></td>
+              <td class="part-name">清水箱金属滤芯</td>
+              <td class="part-use">堵塞、清洁无效或损坏时更换</td>
+              <td class="part-source">现场备件清单</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="parts-footnote">普渡学院视频未显示物料编号。安装前必须根据机器人型号、序列号、原部件接口和备件标签再次确认兼容性。</p>
+    </section>
+
+    <section id="video">
+      <p class="section-kicker">官方拆装视频</p>
+      <h2>更换下水组件</h2>
+      <p class="lead">请在开始工作前完整观看视频。视频画面包含中英文字幕，下面的图文步骤可用于现场逐项核对。</p>
+      <div class="video-panel">
+        <div class="video-frame">
+          <video controls playsinline preload="metadata" poster="assets/images/video-poster.jpg">
+            <source src="assets/video/cc1-pro-water-out-component-replacement.mp4" type="video/mp4">
+          </video>
+        </div>
+        <aside class="video-copy">
+          <h3>PUDU CC1 &amp; CC1 Pro</h3>
+          <p>来源：PUDU Academy“CC1 Pro &amp; CC1 2025 拆装机视频”中的“更换下水组件”。</p>
+          <div class="video-meta">
+            <span>时长 2:49</span>
+            <span>720p 网页版</span>
+            <span>中英字幕</span>
+          </div>
+          <a class="official-link" href="https://academy.pudutech.com/zh/docs/CC1-Pro-chai-zhuang-ji-shi-pin" target="_blank" rel="noopener noreferrer">在 PUDU Academy 打开官方页面 ↗</a>
+        </aside>
+      </div>
+    </section>
+
+    <section id="preparation">
+      <div class="phase-intro">
+        <p class="phase-label">阶段一</p>
+        <h2>准备机器人</h2>
+        <p class="lead">完成排水、支撑和推杆位置调整后，再进入机械拆卸。</p>
+      </div>
+      <div class="steps-grid">
+        <article class="step-card prep-step">
+          <button class="step-image" type="button" aria-label="放大图片">
+            <img src="assets/images/01-tools.jpg" width="1280" height="720" loading="lazy" alt="Official PUDU video title and required hexagon wrench">
+          </button>
+          <div class="step-body">
+            <span class="step-number">1</span>
+            <h3>准备工具和新组件</h3>
+            <p class="step-copy">准备内六角扳手、扭矩工具、泡沫垫、吸水布和匹配的新下水组件。视频未注明内六角尺寸，应按现场螺丝规格选择。</p>
+            <figcaption>官方视频：工具与下水组件外观。</figcaption>
+          </div>
+        </article>
+        <article class="step-card prep-step">
+          <button class="step-image" type="button" aria-label="放大图片">
+            <img src="assets/images/02-preparation.jpg" width="1280" height="720" loading="lazy" alt="Official PUDU video safety notes">
+          </button>
+          <div class="step-body">
+            <span class="step-number">2</span>
+            <h3>排空水箱并放倒机器人</h3>
+            <p class="step-copy">排空清水箱和污水箱。在稳定地面铺设泡沫垫，两人配合按官方视频方向轻放机器人，避免损伤外壳和传感器。</p>
+            <figcaption>官方视频：排水和泡沫垫注意事项。</figcaption>
+          </div>
+        </article>
+        <article class="step-card prep-step">
+          <button class="step-image" type="button" aria-label="放大图片">
+            <img src="assets/images/03-push-rods.jpg" width="1280" height="720" loading="lazy" alt="PUDU Business Debugging screen for lowering the push rods">
+          </button>
+          <div class="step-body">
+            <span class="step-number">3</span>
+            <h3>放下前、后推杆</h3>
+            <p class="step-copy">按视频要求保持开机，进入“设置 → 业务调试 → 业务调试”，放下前推杆和后推杆。调整结束后停止运行；插拔线束前完全关机并确认断电。</p>
+            <figcaption>官方视频：业务调试中的前、后推杆控制。</figcaption>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="removal">
+      <div class="phase-intro">
+        <p class="phase-label">阶段二</p>
+        <h2>拆下旧下水组件</h2>
+        <p class="lead">先松开固定螺丝，再依次断开清水箱端水管、滚刷仓端水管和线束。</p>
+      </div>
+      <div class="steps-grid">
+        <article class="step-card removal-step">
+          <button class="step-image" type="button" aria-label="放大图片">
+            <img src="assets/images/04-remove-screws.jpg" width="1280" height="720" loading="lazy" alt="Removing the five water-out assembly screws">
+          </button>
+          <div class="step-body">
+            <span class="step-number">4</span>
+            <h3>拆下五颗固定螺丝</h3>
+            <p class="step-copy">使用内六角扳手拆下安装区域的五颗固定螺丝。妥善保存螺丝，防止掉入机身。</p>
+            <figcaption>官方视频：拆下 5 颗固定螺丝。</figcaption>
+          </div>
+        </article>
+        <article class="step-card removal-step">
+          <button class="step-image" type="button" aria-label="放大图片">
+            <img src="assets/images/05-tank-hose.jpg" width="1280" height="720" loading="lazy" alt="Disconnecting the hose at the clean-water tank outlet">
+          </button>
+          <div class="step-body">
+            <span class="step-number">5</span>
+            <h3>断开清水箱出水管</h3>
+            <p class="step-copy">按住或松开接头锁紧结构，平直拔出清水箱出水口水管。不要强拉、折弯或扭转水管，并立即擦干残水。</p>
+            <figcaption>官方视频：取出清水箱一侧的下水管。</figcaption>
+          </div>
+        </article>
+        <article class="step-card removal-step">
+          <button class="step-image" type="button" aria-label="放大图片">
+            <img src="assets/images/06-brush-hose.jpg" width="1280" height="720" loading="lazy" alt="Disconnecting the water hose from the roller-brush compartment">
+          </button>
+          <div class="step-body">
+            <span class="step-number">6</span>
+            <h3>断开滚刷仓水管</h3>
+            <p class="step-copy">从滚刷仓一侧找到另一根水管，按接头结构将其断开。保留拆卸前照片，避免重新安装时两端接错。</p>
+            <figcaption>官方视频：从滚刷仓一侧取下管道。</figcaption>
+          </div>
+        </article>
+        <article class="step-card removal-step">
+          <button class="step-image" type="button" aria-label="放大图片">
+            <img src="assets/images/07-remove-assembly.jpg" width="1280" height="720" loading="lazy" alt="Taking the old water-out assembly from the robot">
+          </button>
+          <div class="step-body">
+            <span class="step-number">7</span>
+            <h3>取出旧下水组件</h3>
+            <p class="step-copy">确认两端水管已断开后，小心将组件从安装位置取出。不要拉扯线束，也不要碰撞相邻部件。</p>
+            <figcaption>官方视频：从安装位置取出下水组件。</figcaption>
+          </div>
+        </article>
+        <article class="step-card removal-step">
+          <button class="step-image" type="button" aria-label="放大图片">
+            <img src="assets/images/08-unplug-cable.jpg" width="1280" height="720" loading="lazy" alt="Unplugging the water-out assembly cable">
+          </button>
+          <div class="step-body">
+            <span class="step-number">8</span>
+            <h3>断电后拔下线束</h3>
+            <p class="step-copy">确认机器人已经完全断电，按住插头卡扣拔下线束，不要拉拽电线。检查插头、针脚、卡扣和延长线缆是否进水、腐蚀或破损。</p>
+            <figcaption>官方视频：拔除下水组件连接线。</figcaption>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="installation">
+      <div class="phase-intro">
+        <p class="phase-label">阶段三</p>
+        <h2>安装新下水组件</h2>
+        <p class="lead">先核对部件和接口，再接线、定位、按规定扭矩紧固，最后连接两端水管。</p>
+      </div>
+      <div class="steps-grid">
+        <article class="step-card install-step">
+          <button class="step-image" type="button" aria-label="放大图片">
+            <img src="assets/images/09-connect-cable.jpg" width="1280" height="720" loading="lazy" alt="Connecting the new water-out assembly cable">
+          </button>
+          <div class="step-body">
+            <span class="step-number">9</span>
+            <h3>核对新旧组件并连接线束</h3>
+            <p class="step-copy">确认接口数量、方向、固定孔和线束长度一致。按原插头配对连接新组件，推入到位并确认卡扣锁紧。</p>
+            <figcaption>官方视频：更换新组件并接好线缆。</figcaption>
+          </div>
+        </article>
+        <article class="step-card install-step">
+          <button class="step-image" type="button" aria-label="放大图片">
+            <img src="assets/images/10-install-assembly.jpg" width="1280" height="720" loading="lazy" alt="Positioning the new water-out assembly">
+          </button>
+          <div class="step-body">
+            <span class="step-number">10</span>
+            <h3>将新组件放回安装位置</h3>
+            <p class="step-copy">把组件放入原位置并整理好水管和线束。确认没有折弯、挤压、夹线或与运动部件干涉。</p>
+            <figcaption>官方视频：将新下水组件装回原位。</figcaption>
+          </div>
+        </article>
+        <article class="step-card install-step torque-card">
+          <button class="step-image" type="button" aria-label="放大图片">
+            <img src="assets/images/11-torque.jpg" width="1280" height="720" loading="lazy" alt="Tightening five M4 screws to the specified torque">
+          </button>
+          <div class="step-body">
+            <span class="step-number">11</span>
+            <h3>安装五颗 M4 固定螺丝</h3>
+            <p class="step-copy">先将五颗螺丝全部预紧，再按交叉顺序均匀拧紧。</p>
+            <span class="torque-value">15 ± 1 kgf·cm ≈ 1.47 ± 0.10 N·m</span>
+            <figcaption>官方视频规定的 M4 螺丝扭矩。</figcaption>
+          </div>
+        </article>
+        <article class="step-card install-step">
+          <button class="step-image" type="button" aria-label="放大图片">
+            <img src="assets/images/12-connect-hoses.jpg" width="1280" height="720" loading="lazy" alt="Reconnecting the clean-water tank and roller-brush compartment hoses">
+          </button>
+          <div class="step-body">
+            <span class="step-number">12</span>
+            <h3>连接两端水管</h3>
+            <p class="step-copy">分别接好清水箱出水口水管和滚刷仓一侧水管。确认插到底、接头锁紧、方向正确且无弯折。</p>
+            <figcaption>官方视频：分别连接清水箱出口和滚刷仓水管。</figcaption>
+          </div>
+        </article>
+        <article class="step-card install-step">
+          <div class="step-body">
+            <span class="step-number">13</span>
+            <h3>完成静态复查</h3>
+            <p class="step-copy">确认五颗螺丝、所有插头和两根水管均已安装到位，机身内部没有遗留工具或螺丝，电气区域无残水。</p>
+            <figcaption>完成检查后再将机器人恢复直立。</figcaption>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="verification">
+      <p class="section-kicker">安装后验收</p>
+      <h2>通水测试与结果判断</h2>
+      <p class="lead">确认无泄漏和无机械干涉后，再进行短时间通水测试。</p>
+      <div class="verify-grid">
+        <article class="verify-card">
+          <h3>测试步骤</h3>
+          <ul class="check-list">
+            <li>将机器人恢复直立，加入少量清水。</li>
+            <li>开机进入 Debug 下水测试。</li>
+            <li>观察滚刷仓是否稳定、均匀出水。</li>
+            <li>检查组件、水管和接头周围是否漏水。</li>
+            <li>启动短时间手动洗地，确认无异常声音或提示。</li>
+          </ul>
+        </article>
+        <article class="verify-card">
+          <h3>通过条件</h3>
+          <ul class="check-list">
+            <li>清水能够到达滚刷仓并均匀分布。</li>
+            <li>所有接头和组件周围保持干燥。</li>
+            <li>线束和水管无挤压、摩擦或干涉。</li>
+            <li>不再出现流量计无反馈或闭环失败报错。</li>
+            <li>机器人可完成短时间手动洗地测试。</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="decision-grid">
+        <article class="decision-card">
+          <h3>仍然不下水</h3>
+          <p>重新检查滤芯、分水模块、滚刷仓小孔、水管方向与插入深度、插头卡扣和延长线缆。不要立即更换 CT2。</p>
+        </article>
+        <article class="decision-card stop">
+          <h3>发现漏水或电气异常</h3>
+          <p>立即停止测试并断电。处理进水、腐蚀、烧蚀、线缆破损或备件不匹配后，才能再次通电。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="source-panel" id="sources">
+      <p class="section-kicker">官方资料</p>
+      <h2>技术依据</h2>
+      <p>页面步骤根据 PUDU Academy 的专项拆装视频、CC1 系列技术手册和故障排查手册整理。</p>
+      <ul class="source-list">
+        <li><a href="https://academy.pudutech.com/zh/docs/CC1-Pro-chai-zhuang-ji-shi-pin" target="_blank" rel="noopener noreferrer">CC1 Pro &amp; CC1 2025 拆装机视频——更换下水组件 ↗</a></li>
+        <li><a href="https://academy.pudutech.com/zh/docs/CC1-xi-lie-ji-shu-shou-ce" target="_blank" rel="noopener noreferrer">CC1 系列技术手册 ↗</a></li>
+        <li><a href="https://academy.pudutech.com/zh/docs/CC1-xi-lie-gu-zhang-pai-cha-shou-ce-dbgg" target="_blank" rel="noopener noreferrer">CC1 系列故障排查手册 ↗</a></li>
+        <li><a href="https://academy.pudutech.com/zh/docs/PUDU-CC1-Pro-cao-zuo-zhi-nan" target="_blank" rel="noopener noreferrer">PUDU CC1 Pro 操作指南 ↗</a></li>
+      </ul>
+      <p class="source-note">PUDU 图片与视频只用于必要的维修说明并已标明来源。本页不能替代 PUDU 授权培训、内部维修规程或现场安全要求。</p>
+    </section>
+  </main>
+
+  <footer>PUDU CC1 Pro · 下水组件更换 · 技术人员专用 · 本页面不包含客户数据</footer>
+
+  <dialog class="image-dialog" aria-label="放大的维修步骤图片">
+    <button class="dialog-close" type="button" aria-label="关闭图片">×</button>
+    <img src="assets/images/01-tools.jpg" alt="放大的维修步骤图片">
+  </dialog>
+
+  <script>
+    (() => {
+      const tr = (zh, en, de) => ({ zh, en, de });
+      window.xwPageI18n = {
+        title: tr(
+          "PUDU CC1 Pro · 下水组件更换教程",
+          "PUDU CC1 Pro · Water-out Assembly Replacement",
+          "PUDU CC1 Pro · Wasserauslass-Baugruppe ersetzen"
+        ),
+        html: {
+          ".brand-copy": tr("PUDU CC1 Pro · 下水组件更换", "PUDU CC1 Pro · Water-out assembly", "PUDU CC1 Pro · Wasserauslass-Baugruppe"),
+          ".print-button": tr("打印 / 保存 PDF", "Print / Save PDF", "Drucken / PDF speichern"),
+          ".hero .eyebrow": tr("CC1 PRO · 技术人员维修说明", "CC1 PRO · TECHNICIAN SERVICE GUIDE", "CC1 PRO · SERVICEANLEITUNG FÜR TECHNIKER"),
+          ".hero h1": tr("下水组件更换教程", "Water-out Assembly Replacement", "Wasserauslass-Baugruppe ersetzen"),
+          ".hero .subtitle": tr(
+            "用于完成基础水路排查后，更换隔膜泵、流量计和电磁阀组成的下水组件。",
+            "Replacement of the water-out assembly containing the diaphragm pump, flow meter and solenoid valve after basic water-path diagnostics are complete.",
+            "Austausch der aus Membranpumpe, Durchflussmesser und Magnetventil bestehenden Wasserauslass-Baugruppe nach abgeschlossener Grunddiagnose des Wasserwegs."
+          ),
+          "#scope .scope-main strong": tr("技术人员专用", "Technicians only", "Nur für Techniker"),
+          "#scope .scope-main p": tr(
+            "本页涉及放倒机器人、拆卸水管和插拔线束，只能由接受过培训或获得授权的维修人员操作。",
+            "This guide involves laying the robot on its side, removing water hoses and disconnecting wiring. Only trained or authorized service personnel may perform it.",
+            "Diese Anleitung umfasst das Ablegen des Roboters, das Lösen von Wasserschläuchen und das Trennen von Leitungen. Die Arbeiten dürfen nur von geschultem oder autorisiertem Servicepersonal ausgeführt werden."
+          ),
+          "#scope .scope-limit strong": tr("不是客户日常维护", "Not routine customer maintenance", "Keine normale Kundenwartung"),
+          "#scope .scope-limit p": tr(
+            "普通客户仅应清洁滤芯、分水模块和滚刷仓小孔，不应自行拆卸下水组件、延长线缆或 CT2 板卡。",
+            "Customers should only clean the filter, distribution module and roller-chamber openings. They must not remove the water-out assembly, extension cable or CT2 board themselves.",
+            "Kunden dürfen nur Filter, Wasserverteilmodul und Öffnungen im Walzenbürstenfach reinigen. Wasserauslass-Baugruppe, Verlängerungskabel und CT2-Platine dürfen nicht selbst ausgebaut werden."
+          ),
+          "#safety .section-kicker": tr("开始之前", "Before you begin", "Vor Arbeitsbeginn"),
+          "#safety h2": tr("安全准备", "Safety preparation", "Sicherheitsvorbereitung"),
+          "#safety .lead": tr("先排空水箱、保护机身和工作区域，再进行任何拆装。", "Drain the tanks and protect the robot and work area before disassembly.", "Vor der Demontage Tanks entleeren sowie Roboter und Arbeitsbereich schützen."),
+          "#safety .power-note h3": tr("专项视频中的供电步骤", "Power-state step in the service video", "Stromzustand im Servicevideo"),
+          "#safety .power-note p": tr(
+            "官方视频要求机器人放倒后保持开机，并进入“设置 → 业务调试 → 业务调试”放下前、后推杆。完成位置调整后，在插拔任何线束前必须完全关机并确认断电；普渡故障排查手册明确要求所有线缆插拔操作在完全断电后进行。",
+            "The official video requires the robot to remain powered on after it is laid down so the front and rear push rods can be lowered under Settings → Business Debugging → Business Debugging. After positioning, fully power off and verify de-energization before disconnecting or reconnecting any cable; the PUDU troubleshooting manual requires complete power-off for all cable operations.",
+            "Laut offiziellem Video muss der Roboter nach dem Ablegen eingeschaltet bleiben, damit unter Einstellungen → Business Debugging → Business Debugging die vordere und hintere Hubstange abgesenkt werden können. Nach der Positionierung den Roboter vollständig ausschalten und Spannungsfreiheit prüfen, bevor Leitungen getrennt oder verbunden werden; das PUDU-Fehlerhandbuch verlangt für alle Steckarbeiten vollständige Abschaltung."
+          ),
+          "#safety .stop-note": tr("本教程不授权带电插拔、带水拆装或跳过安全检查。", "This guide does not authorize live connector work, disassembly with water present, or bypassing safety checks.", "Diese Anleitung erlaubt weder Steckarbeiten unter Spannung noch Demontage bei vorhandenem Wasser oder das Überspringen von Sicherheitsprüfungen."),
+          "#system .section-kicker": tr("系统位置", "System position", "Position im System"),
+          "#system h2": tr("先确认故障位于清水下水链路", "Confirm the fault is in the fresh-water delivery path", "Fehler im Frischwasserweg bestätigen"),
+          "#system .lead": tr("普渡技术手册给出的清水路径如下。下水组件内部包含隔膜泵、流量计和电磁阀。", "The PUDU technical manual defines the following fresh-water path. The water-out assembly contains a diaphragm pump, flow meter and solenoid valve.", "Das PUDU-Technikhandbuch beschreibt den folgenden Frischwasserweg. Die Wasserauslass-Baugruppe enthält Membranpumpe, Durchflussmesser und Magnetventil."),
+          "#system .system-note": tr(
+            "只有在滤芯、分水模块和滚刷仓出水孔已清洁，Debug 下水测试仍失败，并已排除简单堵塞后，才进入本页的组件更换流程。",
+            "Proceed with replacement only after the filter, distribution module and roller-chamber outlets have been cleaned, the Debug water test still fails and a simple blockage has been ruled out.",
+            "Mit dem Austausch erst beginnen, wenn Filter, Wasserverteilmodul und Auslassöffnungen im Walzenbürstenfach gereinigt wurden, der Debug-Wassertest weiterhin fehlschlägt und eine einfache Verstopfung ausgeschlossen ist."
+          ),
+          "#parts .section-kicker": tr("备件核对", "Parts check", "Ersatzteilprüfung"),
+          "#parts h2": tr("四个候选故障部件", "Four candidate fault components", "Vier mögliche Fehlerkomponenten"),
+          "#parts .lead": tr("现场备件清单包含以下四项。本页只执行下水组件更换，其他部件必须根据独立诊断结果决定是否使用。", "The on-site parts list contains the following four items. This guide replaces only the water-out assembly; use the other parts only when supported by a separate diagnosis.", "Die Ersatzteilliste vor Ort enthält die folgenden vier Positionen. Diese Anleitung behandelt nur den Austausch der Wasserauslass-Baugruppe; andere Teile dürfen nur aufgrund einer gesonderten Diagnose verwendet werden."),
+          "#parts .parts-footnote": tr(
+            "普渡学院视频未显示物料编号。安装前必须根据机器人型号、序列号、原部件接口和备件标签再次确认兼容性。",
+            "The PUDU Academy video does not show part numbers. Before installation, reconfirm compatibility using the robot model, serial number, original connectors and spare-part label.",
+            "Das PUDU-Academy-Video zeigt keine Teilenummern. Vor der Montage die Kompatibilität anhand von Robotermodell, Seriennummer, Originalanschlüssen und Ersatzteiletikett erneut prüfen."
+          ),
+          "#video .section-kicker": tr("官方拆装视频", "Official service video", "Offizielles Servicevideo"),
+          "#video h2": tr("更换下水组件", "Replace the water-out assembly", "Wasserauslass-Baugruppe ersetzen"),
+          "#video .lead": tr("请在开始工作前完整观看视频。视频画面包含中英文字幕，下面的图文步骤可用于现场逐项核对。", "Watch the complete video before starting. It contains Chinese and English captions; use the illustrated steps below as an on-site checklist.", "Sehen Sie das vollständige Video vor Arbeitsbeginn an. Es enthält chinesische und englische Untertitel; die bebilderten Schritte unten dienen als Checkliste vor Ort."),
+          "#video .video-copy p": tr("来源：PUDU Academy“CC1 Pro & CC1 2025 拆装机视频”中的“更换下水组件”。", "Source: “Replace the Water-out Components” in the PUDU Academy “CC1 Pro & CC1 2025 Service Videos”.", "Quelle: „Wasserauslass-Baugruppe ersetzen“ in den PUDU-Academy-Servicevideos für CC1 Pro und CC1 2025."),
+          "#video .official-link": tr("在 PUDU Academy 打开官方页面 ↗", "Open the official page at PUDU Academy ↗", "Offizielle Seite in der PUDU Academy öffnen ↗"),
+          "#preparation .phase-label": tr("阶段一", "Phase one", "Phase eins"),
+          "#preparation h2": tr("准备机器人", "Prepare the robot", "Roboter vorbereiten"),
+          "#preparation .lead": tr("完成排水、支撑和推杆位置调整后，再进入机械拆卸。", "Drain, support and position the push rods before mechanical disassembly.", "Vor der mechanischen Demontage Wasser ablassen, Roboter abstützen und Hubstangen positionieren."),
+          "#removal .phase-label": tr("阶段二", "Phase two", "Phase zwei"),
+          "#removal h2": tr("拆下旧下水组件", "Remove the old water-out assembly", "Alte Wasserauslass-Baugruppe ausbauen"),
+          "#removal .lead": tr("先松开固定螺丝，再依次断开清水箱端水管、滚刷仓端水管和线束。", "Remove the mounting screws, then disconnect the clean-water-tank hose, roller-chamber hose and wiring in sequence.", "Zuerst Befestigungsschrauben lösen, dann nacheinander Schlauch am Frischwassertank, Schlauch am Walzenbürstenfach und Leitungen trennen."),
+          "#installation .phase-label": tr("阶段三", "Phase three", "Phase drei"),
+          "#installation h2": tr("安装新下水组件", "Install the new water-out assembly", "Neue Wasserauslass-Baugruppe einbauen"),
+          "#installation .lead": tr("先核对部件和接口，再接线、定位、按规定扭矩紧固，最后连接两端水管。", "Verify the part and connectors, reconnect wiring, position and torque the assembly, then connect both water hoses.", "Bauteil und Anschlüsse prüfen, Leitungen verbinden, Baugruppe positionieren und mit Soll-Drehmoment befestigen, danach beide Wasserschläuche anschließen."),
+          "#verification .section-kicker": tr("安装后验收", "Post-installation verification", "Prüfung nach dem Einbau"),
+          "#verification h2": tr("通水测试与结果判断", "Water-flow test and result", "Wasserprüfung und Ergebnis"),
+          "#verification .lead": tr("确认无泄漏和无机械干涉后，再进行短时间通水测试。", "Run a short water-flow test only after confirming there is no leakage or mechanical interference.", "Erst nach Prüfung auf Dichtheit und mechanische Kollision einen kurzen Wassertest durchführen."),
+          "#sources .section-kicker": tr("官方资料", "Official sources", "Offizielle Quellen"),
+          "#sources h2": tr("技术依据", "Technical basis", "Technische Grundlage"),
+          "#sources > p:not(.source-note):not(.section-kicker)": tr("页面步骤根据 PUDU Academy 的专项拆装视频、CC1 系列技术手册和故障排查手册整理。", "The procedure is based on the PUDU Academy service video, CC1 Series Technical Manual and Troubleshooting Manual.", "Die Schritte basieren auf dem PUDU-Academy-Servicevideo, dem Technikhandbuch und dem Fehlerhandbuch der CC1-Serie."),
+          "#sources .source-note": tr("PUDU 图片与视频只用于必要的维修说明并已标明来源。本页不能替代 PUDU 授权培训、内部维修规程或现场安全要求。", "PUDU images and video are used only as necessary service extracts with attribution. This page does not replace authorized PUDU training, internal service procedures or on-site safety requirements.", "PUDU-Bilder und -Video werden nur als notwendige Serviceauszüge mit Quellenangabe verwendet. Diese Seite ersetzt weder autorisierte PUDU-Schulung noch interne Servicevorgaben oder Sicherheitsanforderungen vor Ort."),
+          "footer": tr("PUDU CC1 Pro · 下水组件更换 · 技术人员专用 · 本页面不包含客户数据", "PUDU CC1 Pro · Water-out assembly replacement · Technicians only · No customer data on this page", "PUDU CC1 Pro · Austausch der Wasserauslass-Baugruppe · Nur für Techniker · Keine Kundendaten auf dieser Seite")
+        },
+        groups: {
+          ".hero-meta span": {
+            zh: ["适用：PUDU CC1 / CC1 Pro", "拆装：13 个步骤", "官方视频：2:49"],
+            en: ["Applies to: PUDU CC1 / CC1 Pro", "Procedure: 13 steps", "Official video: 2:49"],
+            de: ["Gilt für: PUDU CC1 / CC1 Pro", "Ablauf: 13 Schritte", "Offizielles Video: 2:49"]
+          },
+          "#safety .safety-list li": {
+            zh: ["停止清洁任务，准备泡沫垫、吸水布、防护手套、内六角扳手和扭矩工具。", "完全排空清水箱和污水箱，擦干可能流出的残水。", "两人配合将机器人按官方视频方向轻放在泡沫垫上。", "不要让水进入插头、线束、板卡或其他电气区域。", "拆卸前拍照记录两根水管和线束的原始位置、方向与走向。", "如发现插头进水、腐蚀、烧蚀或线缆破损，停止安装并进一步检查。"],
+            en: ["Stop the cleaning task and prepare a foam pad, absorbent cloth, protective gloves, hexagon wrench and torque tool.", "Completely drain the clean-water and wastewater tanks and dry any residual water.", "With two people, carefully lay the robot on the foam pad in the direction shown in the official video.", "Do not allow water to enter connectors, wiring, circuit boards or other electrical areas.", "Before removal, photograph the original positions, orientations and routing of both hoses and the wiring.", "Stop installation and investigate if a connector is wet, corroded or burnt, or if a cable is damaged."],
+            de: ["Reinigungsaufgabe beenden und Schaumstoffunterlage, Saugtuch, Schutzhandschuhe, Innensechskantschlüssel und Drehmomentwerkzeug bereitlegen.", "Frischwasser- und Schmutzwassertank vollständig entleeren und Restwasser aufnehmen.", "Roboter zu zweit in der im offiziellen Video gezeigten Richtung vorsichtig auf die Schaumstoffunterlage legen.", "Kein Wasser in Steckverbinder, Leitungen, Platinen oder andere elektrische Bereiche gelangen lassen.", "Vor dem Ausbau ursprüngliche Position, Richtung und Verlegung beider Schläuche und Leitungen fotografieren.", "Montage stoppen und weiter prüfen, wenn ein Stecker nass, korrodiert oder verschmort ist oder ein Kabel beschädigt ist."]
+          },
+          "#system .system-flow article": {
+            zh: ["清水箱", "金属滤芯", "下水组件", "分水模块", "滚刷仓"],
+            en: ["Clean-water tank", "Metal filter", "Water-out assembly", "Distribution module", "Roller-brush chamber"],
+            de: ["Frischwassertank", "Metallfilter", "Wasserauslass-Baugruppe", "Wasserverteilmodul", "Walzenbürstenfach"]
+          },
+          "#parts th": {
+            zh: ["物料编号", "部件", "本次用途", "信息来源"],
+            en: ["Part number", "Component", "Use in this repair", "Information source"],
+            de: ["Teilenummer", "Bauteil", "Verwendung bei dieser Reparatur", "Informationsquelle"]
+          },
+          "#parts .part-name": {
+            zh: ["下水组件", "下水组件延长线缆", "CT2", "清水箱金属滤芯"],
+            en: ["Water-out assembly", "Water-out assembly extension cable", "CT2", "Clean-water tank metal filter"],
+            de: ["Wasserauslass-Baugruppe", "Verlängerungskabel der Wasserauslass-Baugruppe", "CT2", "Metallfilter des Frischwassertanks"]
+          },
+          "#parts .part-use": {
+            zh: ["本教程的主要更换部件", "仅在线缆或插头损坏时更换", "控制板故障需另行诊断", "堵塞、清洁无效或损坏时更换"],
+            en: ["Main replacement component in this guide", "Replace only if the cable or connector is damaged", "Requires a separate control-board diagnosis", "Replace if clogged beyond cleaning or damaged"],
+            de: ["Hauptbauteil dieser Austauschanleitung", "Nur bei beschädigtem Kabel oder Stecker ersetzen", "Separate Diagnose der Steuerplatine erforderlich", "Bei nicht mehr reinigbarer Verstopfung oder Beschädigung ersetzen"]
+          },
+          "#parts .part-source": {
+            zh: ["现场备件清单", "现场备件清单", "现场备件清单", "现场备件清单"],
+            en: ["On-site parts list", "On-site parts list", "On-site parts list", "On-site parts list"],
+            de: ["Ersatzteilliste vor Ort", "Ersatzteilliste vor Ort", "Ersatzteilliste vor Ort", "Ersatzteilliste vor Ort"]
+          },
+          "#video .video-meta span": {
+            zh: ["时长 2:49", "720p 网页版", "中英字幕"],
+            en: ["Duration 2:49", "720p web version", "Chinese/English captions"],
+            de: ["Dauer 2:49", "720p-Webversion", "Chinesische/englische Untertitel"]
+          },
+          "#preparation .prep-step h3": {
+            zh: ["准备工具和新组件", "排空水箱并放倒机器人", "放下前、后推杆"],
+            en: ["Prepare tools and the new assembly", "Drain the tanks and lay the robot down", "Lower the front and rear push rods"],
+            de: ["Werkzeuge und neue Baugruppe vorbereiten", "Tanks entleeren und Roboter ablegen", "Vordere und hintere Hubstange absenken"]
+          },
+          "#preparation .prep-step .step-copy": {
+            zh: ["准备内六角扳手、扭矩工具、泡沫垫、吸水布和匹配的新下水组件。视频未注明内六角尺寸，应按现场螺丝规格选择。", "排空清水箱和污水箱。在稳定地面铺设泡沫垫，两人配合按官方视频方向轻放机器人，避免损伤外壳和传感器。", "按视频要求保持开机，进入“设置 → 业务调试 → 业务调试”，放下前推杆和后推杆。调整结束后停止运行；插拔线束前完全关机并确认断电。"],
+            en: ["Prepare a hexagon wrench, torque tool, foam pad, absorbent cloth and a compatible new assembly. The video does not specify the hexagon size; select it from the screws on site.", "Drain both tanks. Place a foam pad on a stable floor and, with two people, lay the robot down in the direction shown in the official video to protect the housing and sensors.", "As instructed in the video, keep the robot powered on, open Settings → Business Debugging → Business Debugging and lower both push rods. Stop operation afterward; fully power off before handling wiring."],
+            de: ["Innensechskantschlüssel, Drehmomentwerkzeug, Schaumstoffunterlage, Saugtuch und passende neue Baugruppe bereitlegen. Das Video nennt keine Schlüsselgröße; diese anhand der Schrauben vor Ort wählen.", "Beide Tanks entleeren. Schaumstoffunterlage auf einen stabilen Boden legen und Roboter zu zweit in der im Video gezeigten Richtung ablegen, damit Gehäuse und Sensoren geschützt sind.", "Wie im Video vorgegeben eingeschaltet lassen, Einstellungen → Business Debugging → Business Debugging öffnen und beide Hubstangen absenken. Danach Betrieb stoppen; vor Arbeiten an Leitungen vollständig ausschalten."]
+          },
+          "#preparation .prep-step figcaption": {
+            zh: ["官方视频：工具与下水组件外观。", "官方视频：排水和泡沫垫注意事项。", "官方视频：业务调试中的前、后推杆控制。"],
+            en: ["Official video: tools and assembly appearance.", "Official video: tank draining and foam-pad notes.", "Official video: front and rear push-rod controls in Business Debugging."],
+            de: ["Offizielles Video: Werkzeuge und Baugruppe.", "Offizielles Video: Tankentleerung und Schaumstoffunterlage.", "Offizielles Video: Steuerung der vorderen und hinteren Hubstange in Business Debugging."]
+          },
+          "#removal .removal-step h3": {
+            zh: ["拆下五颗固定螺丝", "断开清水箱出水管", "断开滚刷仓水管", "取出旧下水组件", "断电后拔下线束"],
+            en: ["Remove the five mounting screws", "Disconnect the clean-water-tank hose", "Disconnect the roller-chamber hose", "Remove the old water-out assembly", "Disconnect the wiring after power-off"],
+            de: ["Fünf Befestigungsschrauben entfernen", "Schlauch am Frischwassertank trennen", "Schlauch am Walzenbürstenfach trennen", "Alte Wasserauslass-Baugruppe herausnehmen", "Leitung nach dem Ausschalten trennen"]
+          },
+          "#removal .removal-step .step-copy": {
+            zh: ["使用内六角扳手拆下安装区域的五颗固定螺丝。妥善保存螺丝，防止掉入机身。", "按住或松开接头锁紧结构，平直拔出清水箱出水口水管。不要强拉、折弯或扭转水管，并立即擦干残水。", "从滚刷仓一侧找到另一根水管，按接头结构将其断开。保留拆卸前照片，避免重新安装时两端接错。", "确认两端水管已断开后，小心将组件从安装位置取出。不要拉扯线束，也不要碰撞相邻部件。", "确认机器人已经完全断电，按住插头卡扣拔下线束，不要拉拽电线。检查插头、针脚、卡扣和延长线缆是否进水、腐蚀或破损。"],
+            en: ["Use the hexagon wrench to remove the five mounting screws. Keep them safely so none falls into the robot.", "Release the connector lock and pull the clean-water outlet hose straight out. Do not pull hard, bend or twist it; absorb residual water immediately.", "Locate the second hose at the roller-brush chamber and disconnect it according to the fitting design. Retain the pre-removal photo to prevent swapping the two ends.", "After both hoses are disconnected, carefully lift the assembly from its mounting position. Do not pull the wiring or strike nearby components.", "Verify that the robot is fully powered off, press the connector latch and disconnect the wiring without pulling the wires. Inspect connector, pins, latch and extension cable for water, corrosion or damage."],
+            de: ["Mit dem Innensechskantschlüssel die fünf Befestigungsschrauben entfernen. Schrauben sicher aufbewahren, damit keine in den Roboter fällt.", "Verriegelung des Anschlusses lösen und Schlauch am Frischwasserauslass gerade herausziehen. Nicht kräftig ziehen, knicken oder verdrehen; Restwasser sofort aufnehmen.", "Zweiten Schlauch am Walzenbürstenfach lokalisieren und entsprechend der Anschlusskonstruktion trennen. Vorheriges Foto aufbewahren, damit beide Enden nicht vertauscht werden.", "Nach dem Trennen beider Schläuche die Baugruppe vorsichtig aus ihrer Position nehmen. Nicht an Leitungen ziehen und benachbarte Bauteile nicht anstoßen.", "Vollständige Abschaltung prüfen, Verriegelung drücken und Stecker ohne Zug an den Kabeln trennen. Stecker, Pins, Verriegelung und Verlängerungskabel auf Wasser, Korrosion oder Schäden prüfen."]
+          },
+          "#removal .removal-step figcaption": {
+            zh: ["官方视频：拆下 5 颗固定螺丝。", "官方视频：取出清水箱一侧的下水管。", "官方视频：从滚刷仓一侧取下管道。", "官方视频：从安装位置取出下水组件。", "官方视频：拔除下水组件连接线。"],
+            en: ["Official video: remove five mounting screws.", "Official video: remove the hose at the clean-water tank.", "Official video: remove the hose at the roller-brush chamber.", "Official video: take the assembly from its mounting position.", "Official video: unplug the assembly wiring."],
+            de: ["Offizielles Video: fünf Befestigungsschrauben entfernen.", "Offizielles Video: Schlauch am Frischwassertank abziehen.", "Offizielles Video: Schlauch am Walzenbürstenfach abziehen.", "Offizielles Video: Baugruppe aus der Einbauposition nehmen.", "Offizielles Video: Anschlussleitung der Baugruppe trennen."]
+          },
+          "#installation .install-step h3": {
+            zh: ["核对新旧组件并连接线束", "将新组件放回安装位置", "安装五颗 M4 固定螺丝", "连接两端水管", "完成静态复查"],
+            en: ["Compare assemblies and connect wiring", "Position the new assembly", "Install five M4 mounting screws", "Connect both water hoses", "Complete the static inspection"],
+            de: ["Baugruppen vergleichen und Leitung anschließen", "Neue Baugruppe positionieren", "Fünf M4-Befestigungsschrauben montieren", "Beide Wasserschläuche anschließen", "Statische Abschlussprüfung durchführen"]
+          },
+          "#installation .install-step .step-copy": {
+            zh: ["确认接口数量、方向、固定孔和线束长度一致。按原插头配对连接新组件，推入到位并确认卡扣锁紧。", "把组件放入原位置并整理好水管和线束。确认没有折弯、挤压、夹线或与运动部件干涉。", "先将五颗螺丝全部预紧，再按交叉顺序均匀拧紧。", "分别接好清水箱出水口水管和滚刷仓一侧水管。确认插到底、接头锁紧、方向正确且无弯折。", "确认五颗螺丝、所有插头和两根水管均已安装到位，机身内部没有遗留工具或螺丝，电气区域无残水。"],
+            en: ["Verify connector count and orientation, mounting holes and harness length. Match the original plugs, seat them fully and confirm the latches lock.", "Place the assembly in its original position and arrange hoses and wiring. Ensure nothing is bent, pinched or interfering with moving parts.", "Start all five screws by hand, then tighten evenly in a cross pattern.", "Reconnect the hose at the clean-water-tank outlet and the hose at the roller-brush chamber. Confirm full insertion, locked fittings, correct routing and no kinks.", "Confirm all five screws, connectors and both hoses are installed, no tools or screws remain inside and the electrical area is dry."],
+            de: ["Anzahl und Richtung der Anschlüsse, Befestigungsbohrungen und Leitungslänge vergleichen. Stecker wie zuvor zuordnen, vollständig einsetzen und Verriegelung prüfen.", "Baugruppe in Originalposition einsetzen und Schläuche sowie Leitungen ordnen. Nichts darf geknickt, gequetscht oder an beweglichen Teilen eingeklemmt sein.", "Alle fünf Schrauben zunächst ansetzen und anschließend über Kreuz gleichmäßig anziehen.", "Schlauch am Frischwassertank-Auslass und Schlauch am Walzenbürstenfach anschließen. Vollständiges Einstecken, verriegelte Anschlüsse, korrekte Führung und knickfreien Verlauf prüfen.", "Fünf Schrauben, alle Stecker und beide Schläuche prüfen; keine Werkzeuge oder Schrauben im Gerät zurücklassen und elektrische Bereiche trocken halten."]
+          },
+          "#installation .install-step figcaption": {
+            zh: ["官方视频：更换新组件并接好线缆。", "官方视频：将新下水组件装回原位。", "官方视频规定的 M4 螺丝扭矩。", "官方视频：分别连接清水箱出口和滚刷仓水管。", "完成检查后再将机器人恢复直立。"],
+            en: ["Official video: replace the assembly and reconnect wiring.", "Official video: install the new assembly in its original position.", "M4 screw torque specified in the official video.", "Official video: connect the clean-water-tank and roller-chamber hoses.", "Return the robot upright only after completing the inspection."],
+            de: ["Offizielles Video: neue Baugruppe einsetzen und Leitung anschließen.", "Offizielles Video: neue Baugruppe in Originalposition einsetzen.", "Im offiziellen Video vorgegebenes Drehmoment der M4-Schrauben.", "Offizielles Video: Schläuche an Frischwassertank und Walzenbürstenfach anschließen.", "Roboter erst nach Abschluss der Prüfung wieder aufrichten."]
+          },
+          "#verification .verify-card h3": {
+            zh: ["测试步骤", "通过条件"],
+            en: ["Test procedure", "Pass criteria"],
+            de: ["Prüfablauf", "Bestanden, wenn"]
+          },
+          "#verification .verify-card:first-child li": {
+            zh: ["将机器人恢复直立，加入少量清水。", "开机进入 Debug 下水测试。", "观察滚刷仓是否稳定、均匀出水。", "检查组件、水管和接头周围是否漏水。", "启动短时间手动洗地，确认无异常声音或提示。"],
+            en: ["Return the robot upright and add a small amount of clean water.", "Power on and open the Debug water test.", "Check for stable, even water delivery in the roller-brush chamber.", "Inspect the assembly, hoses and fittings for leakage.", "Run a short manual scrubbing test and confirm there is no abnormal sound or warning."],
+            de: ["Roboter aufrichten und eine kleine Menge Frischwasser einfüllen.", "Einschalten und Debug-Wassertest öffnen.", "Stabilen, gleichmäßigen Wasseraustritt im Walzenbürstenfach prüfen.", "Baugruppe, Schläuche und Anschlüsse auf Leckage prüfen.", "Kurzen manuellen Schrubbtest durchführen und auf ungewöhnliche Geräusche oder Meldungen achten."]
+          },
+          "#verification .verify-card:nth-child(2) li": {
+            zh: ["清水能够到达滚刷仓并均匀分布。", "所有接头和组件周围保持干燥。", "线束和水管无挤压、摩擦或干涉。", "不再出现流量计无反馈或闭环失败报错。", "机器人可完成短时间手动洗地测试。"],
+            en: ["Clean water reaches the roller-brush chamber evenly.", "All fittings and the assembly remain dry.", "Wiring and hoses are not pinched, rubbing or interfering.", "No flow-meter-no-feedback or closed-loop-failure error remains.", "The robot completes a short manual scrubbing test."],
+            de: ["Frischwasser erreicht das Walzenbürstenfach und wird gleichmäßig verteilt.", "Alle Anschlüsse und die Baugruppe bleiben trocken.", "Leitungen und Schläuche sind nicht gequetscht, scheuern nicht und kollidieren nicht.", "Keine Meldung zu fehlender Durchflussrückmeldung oder Regelkreisfehler mehr vorhanden.", "Der Roboter besteht einen kurzen manuellen Schrubbtest."]
+          },
+          "#verification .decision-card h3": {
+            zh: ["仍然不下水", "发现漏水或电气异常"],
+            en: ["Still no water output", "Leakage or electrical abnormality found"],
+            de: ["Weiterhin kein Wasseraustritt", "Leckage oder elektrische Auffälligkeit"]
+          },
+          "#verification .decision-card p": {
+            zh: ["重新检查滤芯、分水模块、滚刷仓小孔、水管方向与插入深度、插头卡扣和延长线缆。不要立即更换 CT2。", "立即停止测试并断电。处理进水、腐蚀、烧蚀、线缆破损或备件不匹配后，才能再次通电。"],
+            en: ["Recheck the filter, distribution module, roller-chamber openings, hose routing and insertion depth, connector latches and extension cable. Do not replace CT2 immediately.", "Stop testing and power off immediately. Do not restore power until water ingress, corrosion, burning, cable damage or part mismatch has been corrected."],
+            de: ["Filter, Wasserverteilmodul, Öffnungen im Walzenbürstenfach, Schlauchführung und Einstecktiefe, Stecker-Verriegelungen und Verlängerungskabel erneut prüfen. CT2 nicht sofort ersetzen.", "Test sofort stoppen und ausschalten. Erst nach Behebung von Wassereintritt, Korrosion, Verschmorung, Kabelschaden oder unpassendem Ersatzteil wieder einschalten."]
+          },
+          "#sources .source-list a": {
+            zh: ["CC1 Pro & CC1 2025 拆装机视频——更换下水组件 ↗", "CC1 系列技术手册 ↗", "CC1 系列故障排查手册 ↗", "PUDU CC1 Pro 操作指南 ↗"],
+            en: ["CC1 Pro & CC1 2025 Service Videos — Replace the Water-out Assembly ↗", "CC1 Series Technical Manual ↗", "CC1 Series Troubleshooting Manual ↗", "PUDU CC1 Pro Operation Guide ↗"],
+            de: ["CC1 Pro & CC1 2025 Servicevideos — Wasserauslass-Baugruppe ersetzen ↗", "Technikhandbuch der CC1-Serie ↗", "Fehlerhandbuch der CC1-Serie ↗", "PUDU CC1 Pro Bedienungsanleitung ↗"]
+          }
+        }
+      };
+    })();
+  </script>
+  <script src="../../../../assets/i18n.js"></script>
+  <script>
+    (() => {
+      const dialog = document.querySelector(".image-dialog");
+      const dialogImage = dialog.querySelector("img");
+      document.querySelectorAll(".step-image").forEach((button) => {
+        button.addEventListener("click", () => {
+          const image = button.querySelector("img");
+          dialogImage.src = image.src;
+          dialogImage.alt = image.alt;
+          dialog.showModal();
+        });
+      });
+      dialog.querySelector(".dialog-close").addEventListener("click", () => dialog.close());
+      dialog.addEventListener("click", (event) => {
+        if (event.target === dialog) dialog.close();
+      });
+      document.querySelector(".print-button").addEventListener("click", () => window.print());
+    })();
+  </script>
+</body>
+</html>

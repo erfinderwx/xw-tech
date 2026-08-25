@@ -42,7 +42,7 @@
           "Delivery and service robot documentation",
           "Dokumentation für Liefer- und Serviceroboter"
         ),
-        ".pudu .status": tr("已有 6 份资料 →", "6 documents available →", "6 Dokumente verfügbar →"),
+        ".pudu .status": tr("已有 7 份资料 →", "7 documents available →", "7 Dokumente verfügbar →"),
         ".card:not(.pudu):not(.orion) p": tr(
           "商用清洁机器人资料",
           "Commercial cleaning robot documentation",
@@ -120,6 +120,21 @@
           "面向获得授权的维修人员，包含部件更换、参数配置和操作验证。",
           "For authorized service personnel, covering component replacement, parameter configuration and operational verification.",
           "Für autorisiertes Servicepersonal: Bauteiltausch, Parameterkonfiguration und Funktionsprüfung."
+        ),
+        ".water-out-guide .tag": tr(
+          "CC1 Pro · 技术维修 · 图文 + 视频",
+          "CC1 Pro · Technical Service · Images + Video",
+          "CC1 Pro · Technischer Service · Bilder + Video"
+        ),
+        ".water-out-guide h3": tr(
+          "下水组件更换教程",
+          "Water-out Assembly Replacement",
+          "Wasserauslass-Baugruppe ersetzen"
+        ),
+        ".water-out-guide > div > p": tr(
+          "排空水箱、放下推杆、拆装水管与线束，更换下水组件并按规定扭矩完成验收。",
+          "Drain the tanks, lower the push rods, disconnect hoses and wiring, replace the water-out assembly and verify it at the specified torque.",
+          "Tanks entleeren, Hubstangen absenken, Schläuche und Leitungen trennen, Wasserauslass-Baugruppe ersetzen und mit Soll-Drehmoment prüfen."
         ),
         ".chassis-motor-guide .tag": tr(
           "BellaBot · 维修配置 · 图文 + 视频",
@@ -214,6 +229,11 @@
           zh: ["CC1 Pro", "维护 + 诊断", "中文 / EN / DE", "德语 DOCX"],
           en: ["CC1 Pro", "Maintenance + diagnostics", "中文 / EN / DE", "German DOCX"],
           de: ["CC1 Pro", "Wartung + Diagnose", "中文 / EN / DE", "Deutsche DOCX"]
+        },
+        ".water-out-guide .meta span": {
+          zh: ["CC1 Pro", "13 个步骤", "中文 / EN / DE", "视频 2:49"],
+          en: ["CC1 Pro", "13 steps", "中文 / EN / DE", "Video 2:49"],
+          de: ["CC1 Pro", "13 Schritte", "中文 / EN / DE", "Video 2:49"]
         },
         ".chassis-motor-guide .meta span": {
           zh: ["BellaBot", "字段 13", "中文 / EN / DE", "视频 4:09"],
