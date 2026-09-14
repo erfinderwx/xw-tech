@@ -42,7 +42,7 @@
           "Delivery and service robot documentation",
           "Dokumentation für Liefer- und Serviceroboter"
         ),
-        ".pudu .status": tr("已有 7 份资料 →", "7 documents available →", "7 Dokumente verfügbar →"),
+        ".pudu .status": tr("已有 8 份资料 →", "8 documents available →", "8 Dokumente verfügbar →"),
         ".card:not(.pudu):not(.orion) p": tr(
           "商用清洁机器人资料",
           "Commercial cleaning robot documentation",
@@ -203,6 +203,21 @@
           "A three-page A4 guide for on-site staff covering daily checks, map changes, task selection, accessory setup and maintenance access.",
           "Dreiseitige A4-Anleitung für Mitarbeitende vor Ort: tägliche Prüfung, Kartenwechsel, Aufgabenauswahl, Zubehör und Wartungszugang."
         ),
+        ".cc1-kwa-konstanz-guide .tag": tr(
+          "CC1 Pro · KWA Konstanz 客户专用 · 德语",
+          "CC1 Pro · Specific to KWA Konstanz · German",
+          "CC1 Pro · Kundenspezifisch für KWA Konstanz · Deutsch"
+        ),
+        ".cc1-kwa-konstanz-guide h3": tr(
+          "KWA Konstanz · 地毯与湿清洁（德语）",
+          "KWA Konstanz · Carpet and Wet Cleaning (DE)",
+          "KWA Konstanz · Teppich- und Nassreinigung (DE)"
+        ),
+        ".cc1-kwa-konstanz-guide > div > p": tr(
+          "面向 KWA Konstanz 操作人员的五页图文指南，包含每日启动检查、楼层任务、干湿切换、日常清洁和按需维护。",
+          "A five-page illustrated guide for operators at KWA Konstanz covering daily start checks, floor tasks, wet-to-dry changeover, daily cleaning and maintenance as needed.",
+          "Fünfseitige bebilderte Anleitung für das Bedienpersonal bei KWA Konstanz: tägliche Startprüfung, Etagenaufgaben, Nass-Trocken-Wechsel, tägliche Reinigung und Wartung bei Bedarf."
+        ),
         ".empty": tr(
           "说明书、PDF 与其他交付资料将在这里发布。",
           "Manuals, PDF files and other customer documents will be published here.",
@@ -254,6 +269,11 @@
           zh: ["CC1 Pro", "3 页", "德语", "A4 打印"],
           en: ["CC1 Pro", "3 pages", "German", "A4 print"],
           de: ["CC1 Pro", "3 Seiten", "Deutsch", "A4-Druck"]
+        },
+        ".cc1-kwa-konstanz-guide .meta span": {
+          zh: ["CC1 Pro", "5 页", "德语", "PDF 下载"],
+          en: ["CC1 Pro", "5 pages", "German", "PDF download"],
+          de: ["CC1 Pro", "5 Seiten", "Deutsch", "PDF-Download"]
         }
       }
     },
