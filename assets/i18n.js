@@ -48,7 +48,7 @@
           "Commercial cleaning robot documentation",
           "Dokumentation für gewerbliche Reinigungsroboter"
         ),
-        ".card:not(.pudu):not(.orion) .status": tr("资料准备中 →", "Documents in preparation →", "Dokumente in Vorbereitung →"),
+        ".card:not(.pudu):not(.orion) .status": tr("已有 1 份资料 →", "1 document available →", "1 Dokument verfügbar →"),
         ".orion p": tr(
           "猎户星空 · 智能服务机器人资料",
           "Intelligent service robot documentation",
