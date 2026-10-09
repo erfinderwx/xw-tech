@@ -11,12 +11,43 @@ const context = {
   document:{getElementById:id => id === 'app' ? appElement : {focus(){}},addEventListener(){}}
 };
 vm.createContext(context);
-['catalog.js','app.js'].forEach(name => vm.runInContext(fs.readFileSync(path.join(root,'rj','support',name),'utf8'),context,{filename:name}));
+['catalog.js','content.js','app.js'].forEach(name => vm.runInContext(fs.readFileSync(path.join(root,'rj','support',name),'utf8'),context,{filename:name}));
 const C = context.window.RJSupportCatalog;
 const UI = context.window.RJSupportUI;
 const unique = (items,label) => assert.equal(new Set(items.map(x=>x.id)).size,items.length,label + ' IDs must be unique');
-['audiences','products','sections','topics'].forEach(key=>unique(C[key],key));
-assert.equal(C.resources.length,0,'Preview must not contain fabricated or restricted files');
+['audiences','products','sections','topics','resources'].forEach(key=>unique(C[key],key));
+assert(C.resources.length>0,'Published customer materials must be available');
+const baseline = process.argv[2] ? JSON.parse(fs.readFileSync(process.argv[2],'utf8')) : null;
+const knownPaths = new Set((baseline?.tree || []).map(x=>x.path));
+const localAsset = url => {
+  if (!url || /^(?:https?:|mailto:|#)/.test(url)) return;
+  assert(!/^(?:javascript|data):/i.test(url),'Executable data must not be a resource URL');
+  const local=path.resolve(root,'rj','support',url.split(/[?#]/)[0]);
+  const relative=path.relative(root,local).split(path.sep).join('/');
+  assert(!relative.startsWith('../'),'Assets stay in the repository');
+  assert(fs.existsSync(local) || knownPaths.has(relative),'Material file exists: '+relative);
+};
+for(const r of C.resources) {
+  const p=C.products.find(p=>p.id===r.productId);
+  assert(p && p.topicIds.includes(r.topicId),'Resource belongs to its product');
+  assert.equal(r.visibility,'public','Only customer-safe material enters the public payload');
+  assert.equal(r.status,'published','Public payload must contain published records');
+  assert(r.audiences.every(id=>C.audiences.some(a=>a.id===id)),'Audience is registered');
+  assert((r.modelIds || []).every(id=>p.modelOptions.some(x=>x.id===id)),'Known model scope');
+  assert((r.seatIds || []).every(id=>p.seatOptions.some(x=>x.id===id)),'Known seat scope');
+  for(const a of r.assets) {localAsset(a.url);localAsset(a.poster);localAsset(a.captions);localAsset(a.guideUrl);}
+  for(const s of r.sourceRefs) localAsset(s.url);
+  for(const s of r.content) for(const b of s.blocks) {
+    localAsset(b.src);localAsset(b.url);
+    if(b.overlays?.length) {
+      assert.equal(new Set(b.overlays.map(o=>o.label)).size,b.overlays.length,'Diagram labels are unique');
+      assert.equal(new Set(b.overlays.map(o=>o.x+','+o.y)).size,b.overlays.length,'Each label identifies a different source position');
+      assert(b.overlays.every(o=>o.x>=0 && o.x<=100 && o.y>=0 && o.y<=100),'Diagram labels stay on the source image');
+    }
+  }
+}
+const restrictedFiles=fs.readdirSync(path.join(root,'rj','support','files'));
+assert(!restrictedFiles.some(x=>/certificate|internal|cop|type.approval|pricing|sensor/i.test(x)),'Private certificates and internal files stay outside the public repository');
 for (const p of C.products) {
   for (const [audience,sections] of Object.entries(p.sectionIds)) {
     assert(C.audiences.some(a=>a.id===audience),'Registered audience');
@@ -67,6 +98,22 @@ for(const p of C.products) {
 assert.equal(UI.searchTopics('证书','users').topics.length,0,'User search cannot surface dealer topics');
 assert(UI.searchTopics('证书','dealers').topics.length>0,'Dealer search includes certificates');
 assert(UI.searchTopics('跟随','users').topics.some(x=>x.product.id==='steinadler-pro'),'Customer-facing feature topic exists');
+const steinadler=C.products.find(x=>x.id==='steinadler-pro');
+const rangeTopic=C.topics.find(x=>x.id==='range-extender');
+assert.equal(UI.resourcesFor(steinadler,rangeTopic,'users',{model:'l7e'}).length,0,'Offroad range-extender information cannot be applied to L7e');
+assert(UI.resourcesFor(steinadler,rangeTopic,'users',{model:'offroad'}).length>0,'Matching Offroad information is available');
+const seatTopic=C.topics.find(x=>x.id==='seat-footrest');
+assert(!UI.resourcesFor(steinadler,seatTopic,'users',{seat:'ss'}).some(r=>r.type==='video'),'Double-seat videos are excluded from single-seat instructions');
+assert(UI.resourcesFor(steinadler,seatTopic,'users',{seat:'ds'}).some(r=>r.type==='video'),'Matching installation videos are available');
+assert(!UI.publishedResources(null,'users').some(r=>r.id.startsWith('service-video-')),'Qualified-service videos stay in dealer classification');
+assert.equal(UI.searchTopics('底部护板','users').resources.length,0,'Service video is excluded from customer search');
+assert(UI.searchTopics('底部护板','dealers').resources.length>0,'Dealer search can find the service video');
+const emptyProduct=UI.pageFor(UI.parseRoute('#/product/luchs-a')).html;
+assert(!emptyProduct.includes('resource-panel'),'Other products cannot inherit Steinadler materials');
+const english=UI.pageFor(UI.parseRoute('#/library?audience=users&language=en&type=document')).html;
+assert(english.includes('Steinadler Pro L7e 使用手册'),'English document filter finds an actual manual');
+assert(!english.includes('遥控车辆原说明 · 中文'),'Language filter excludes Chinese original files');
+assert.equal(UI.topicStatus(steinadler,C.topics.find(x=>x.id==='follow'),'users'),'配置咨询','Following is not presented as a released operation tutorial');
 const attack='<img src=x onerror=alert(1)>';
 const attacked=UI.pageFor(UI.parseRoute(UI.href('search',{q:attack}))).html;
 assert(!attacked.includes(attack),'Query text must be escaped');
@@ -88,4 +135,4 @@ for(const [,assetUrl] of index.matchAll(/(?:src|href)="\.\/([^"#]+)"/g)) {
 }
 assert(appElement.innerHTML.includes('使用与支持'),'Initial render runs');
 assert(fs.readFileSync(path.join(root,'rj','support','styles.css'),'utf8').includes('@media'),'Responsive styles exist');
-console.log(`Passed: ${routes.size} page states, ${linkCount} internal navigation links, role scope, escaping, and new-product reuse.`);
+console.log(`Passed: ${routes.size} page states, ${linkCount} internal navigation links, ${C.resources.length} resource records, model/seat/language filters, source assets, role scope, escaping, and new-product reuse.`);

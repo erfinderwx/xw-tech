@@ -69,6 +69,49 @@
   }
   function productHref(product, audience, extra) { return href('product/' + product.id, {audience, ...(extra || {})}); }
   function topicHref(product, topic, audience, extra) { return href(`product/${product.id}/topic/${topic.id}`, {audience, ...(extra || {})}); }
+  const languageName = id => ({'zh-CN':'中文','en':'English','de-DE':'Deutsch'}[id] || id);
+  function publishedResources(product, audience) {
+    return C.resources.filter(r => r.status === 'published' && r.visibility === 'public' && r.audiences.includes(audience) && (!product || r.productId === product.id));
+  }
+  function matchesConfig(resource, q) {
+    return (!q.model || !resource.modelIds?.length || resource.modelIds.includes(q.model)) && (!q.seat || !resource.seatIds?.length || resource.seatIds.includes(q.seat));
+  }
+  function resourcesFor(product, topic, audience, q) {
+    return publishedResources(product,audience).filter(r => matchesConfig(r,q || {}) && (topic.id === 'manuals' ? r.type === 'document' : topic.id === 'videos' ? r.type === 'video' : r.topicId === topic.id || r.relatedTopicIds?.includes(topic.id)));
+  }
+  function topicStatus(product, topic, audience, q) {
+    const all = resourcesFor(product,topic,audience,{});
+    const matching = all.filter(r => matchesConfig(r,q || {}));
+    if (!matching.length) return all.length ? '其他配置资料' : '尚未发布';
+    const available = matching.find(r => !r.displayStatus);
+    return available ? '可查看' : matching[0].displayStatus;
+  }
+  function resourceScope(resource, product) {
+    const config = [ ...(resource.modelIds || []).map(id => product.modelOptions.find(x=>x.id === id)?.name), ...(resource.seatIds || []).map(id => product.seatOptions.find(x=>x.id === id)?.name) ].filter(Boolean);
+    return config.join(' / ') || '按交付配置使用';
+  }
+  function fileOriginLabel(asset) {
+    return ({original:'原始文件',derived:'整理生成图示',reference:'官网参考文件'})[asset.origin] || '下载文件';
+  }
+  function assetButtons(resource) {
+    return (resource.assets || []).map(a => a.kind === 'file' ? `<a class="button-secondary" href="${e(a.url)}" target="_blank" rel="noopener noreferrer" download>${icon('file')} ${e(a.label || '下载')} · ${e(a.format)} · ${e(fileOriginLabel(a))}</a>` : a.guideUrl ? `<a class="text-link" href="${e(a.guideUrl)}" target="_blank" rel="noopener noreferrer">查看完整阶段说明 ${icon('external')}</a>` : '').join('');
+  }
+  function renderBlock(block) {
+    if (block.type === 'p') return `<p>${e(block.text)}</p>`;
+    if (block.type === 'note') return `<div class="content-note">${icon('info')}<p>${e(block.text)}</p></div>`;
+    if (block.type === 'list' || block.type === 'steps') { const tag = block.type === 'steps' ? 'ol' : 'ul'; return `<${tag} class="${block.type === 'steps' ? 'content-steps' : 'content-list'}">${block.items.map(x=>`<li>${e(x)}</li>`).join('')}</${tag}>`; }
+    if (block.type === 'table') return `<div class="content-table"><table><thead><tr>${block.headers.map(x=>`<th>${e(x)}</th>`).join('')}</tr></thead><tbody>${block.rows.map(row=>`<tr>${row.map(x=>`<td>${e(x)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+    if (block.type === 'image') return `<figure class="content-figure"><div class="figure-image"><img src="${e(block.src)}" alt="${e(block.caption)}" loading="lazy">${block.overlays?.length ? `<svg class="figure-overlay" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${block.overlays.map(o=>`<ellipse cx="${e(o.x)}" cy="${e(o.y)}" rx="${e(o.r)}" ry="${e(o.r*727/534)}"/><text x="${e(o.x)}" y="${e(o.y)}">${e(o.label)}</text>`).join('')}</svg>` : ''}</div><figcaption>${e(block.caption)}</figcaption></figure>`;
+    if (block.type === 'link') return `<p><a class="button-secondary" href="${e(block.url)}" target="_blank" rel="noopener noreferrer">${e(block.title)} ${icon('external')}</a></p>`;
+    return '';
+  }
+  function resourceBody(resource, product, selected) {
+    return `<section class="resource-panel${selected === resource.id ? ' selected' : ''}" id="resource-${e(resource.id)}"><div class="resource-head"><div><span class="badge dark">${e(resourceScope(resource,product))}</span><h2>${e(resource.title)}</h2></div><span class="resource-language">${e(languageName(resource.language))}</span></div>${resource.scope ? `<p class="resource-scope">${e(resource.scope)}</p>` : ''}${resource.content.map(s=>`<section class="content-section"><h3>${e(s.title)}</h3>${s.blocks.map(renderBlock).join('')}</section>`).join('')}${resource.assets.filter(a=>a.kind === 'video').map(a=>`<div class="content-video"><video controls playsinline preload="none" ${a.poster ? `poster="${e(a.poster)}"` : ''} aria-label="${e(resource.title)}"><source src="${e(a.url)}" type="video/mp4">${a.captions ? `<track kind="captions" src="${e(a.captions)}" srclang="zh" label="中文 / English" default>` : ''}浏览器无法播放视频，请使用下方链接打开。</video><div class="video-meta"><span>${e(a.duration)} · ${e(a.audio)}</span><a class="text-link" href="${e(a.url)}" target="_blank" rel="noopener noreferrer">打开视频 ${icon('external')}</a></div></div>`).join('')}<div class="resource-actions">${assetButtons(resource)}</div>${resource.sourceRefs?.length ? `<details class="resource-sources"><summary>相关原资料</summary>${resource.sourceRefs.map(s=>s.url ? `<a href="${e(s.url)}" target="_blank" rel="noopener noreferrer">${e(s.title)} ${icon('external')}</a>` : `<span>${e(s.title)}</span>`).join('')}</details>` : ''}</section>`;
+  }
+  function resourceCard(resource, audience) {
+    const product = productOf(resource.productId), topic = topicOf(resource.topicId);
+    return `<article class="result-card resource-card">${icon(resource.type === 'video' ? 'play' : resource.type === 'document' ? 'file' : topic.icon)}<div><a class="result-title" href="${e(topicHref(product,topic,audience,{resource:resource.id}))}"><h3>${e(resource.title)}</h3></a><p>${e(resource.scope || product.name)}</p><div class="result-meta">${e(product.name)} · ${e(typeName(resource.type))} · ${e(languageName(resource.language))}${resource.type === 'document' ? ' · ' + e(resource.revision) : ''}</div><div class="resource-card-actions">${assetButtons(resource)}</div></div></article>`;
+  }
   function crumb(items) {
     return `<nav class="breadcrumb" aria-label="当前位置"><a href="#/">支持首页</a>${items.map(x => icon('chevron') + (x.url ? `<a href="${e(x.url)}">${e(x.label)}</a>` : `<span aria-current="page">${e(x.label)}</span>`)).join('')}</nav>`;
   }
@@ -87,7 +130,7 @@
     <dialog class="search-dialog" id="search-dialog" aria-labelledby="search-dialog-title"><div class="dialog-top"><span id="search-dialog-title">搜索${role === 'dealers' ? '代理商' : '用户'}资料主题</span><button data-action="close-search" aria-label="关闭搜索">${icon('close')}</button></div>${searchForm(role === 'dealers' ? 'dealers' : 'users', '', true)}<p>可搜索产品型号、操作、配件及维护相关主题。</p></dialog>`;
   }
   function productsGrid(audience) {
-    return `<div class="product-grid">${C.products.map(p => `<a class="product-card" href="${e(audience === 'developers' ? href('developers',{product:p.id}) : productHref(p,audience))}"><div class="product-visual" aria-hidden="true"><small>${e(p.family.toUpperCase())}</small><span class="product-code">${e(p.code)}</span><span class="badge${p.status === 'reserved' ? ' gray' : ' red'}">资料准备中</span></div><div class="product-body"><h3>${e(p.name)}</h3><p>${e(p.description)}</p><div class="card-footer"><span>${e(p.label)}</span>${icon('arrow')}</div></div></a>`).join('')}</div>`;
+    return `<div class="product-grid">${C.products.map(p => {const ready = audience !== 'developers' && publishedResources(p,audience).length; return `<a class="product-card" href="${e(audience === 'developers' ? href('developers',{product:p.id}) : productHref(p,audience))}"><div class="product-visual" aria-hidden="true"><small>${e(p.family.toUpperCase())}</small><span class="product-code">${e(p.code)}</span><span class="badge${ready ? ' red' : ' gray'}">${ready ? '查看资料' : '资料准备中'}</span></div><div class="product-body"><h3>${e(p.name)}</h3><p>${e(p.description)}</p><div class="card-footer"><span>${e(p.label)}</span>${icon('arrow')}</div></div></a>`;}).join('')}</div>`;
   }
   function quickLinks(audience) {
     const p = C.products[0];
@@ -129,19 +172,23 @@
     return `<aside class="${doc ? 'doc-nav' : 'side-nav'}" aria-label="产品主题目录"><p class="side-label">${e(product.name.toUpperCase())}</p><a class="side-item${!active ? ' active' : ''}" href="${e(productHref(product,audience,q))}">${icon('grid')}全部主题</a>${(product.sectionIds[audience] || []).map(id => {const s = sectionOf(id);return `<a class="side-item${active === id ? ' active' : ''}" href="${e(productHref(product,audience,{...q,section:id}))}">${icon(s.icon)}${e(s.title)}</a>`;}).join('')}<p class="side-note">选择您需要了解的操作、配件或维护主题。</p></aside>`;
   }
   function productPage(product, route) {
-    const audience = roleOf(route);
-    const q = validConfig(product,route);
-    const selected = route.params.get('section');
-    const all = product.sectionIds[audience] || [];
+    const audience = roleOf(route), q = validConfig(product,route);
+    const selected = route.params.get('section'), all = product.sectionIds[audience] || [];
     const sections = (all.includes(selected) ? [selected] : all).map(sectionOf);
-    return `<div class="wrap">${crumb([{label:audienceName(audience),url:href(audience)},{label:product.name}])}<section class="page-head"><div class="head-row"><div><p class="eyebrow">${e(product.family)} / ${audience === 'dealers' ? 'DEALER RESOURCES' : 'USER SUPPORT'}</p><h1>${e(product.name)}</h1><p class="lede">${audience === 'dealers' ? '查找本产品的认证资料、安装交付说明、维修备件与技术培训。' : '选择您的车型和配置，查找操作、配件、功能与维护相关资料。'}</p></div>${roleSwitch(product,audience,route)}</div></section>${configBar(product,route)}<div class="product-layout">${sideNav(product,audience,route)}<div><div class="empty-note">${icon('info')}<p><strong>本产品资料正在准备中。</strong> 目前暂无公开说明。如需具体说明，请通过品牌官网联系 RJ Tech。</p></div><div class="section-grid">${sections.map(s => {const topics = topicsFor(product,audience,s.id);return `<section class="section-card"><div class="section-card-head">${icon(s.icon)}<div><h3>${e(s.title)}</h3><p>${e(s.description)}</p></div></div><div class="topic-list">${topics.length ? topics.map(t => `<a class="topic-item" href="${e(topicHref(product,t,audience,q))}">${icon(t.icon)}<span>${e(t.title)}</span><span class="mini">尚未发布</span>${icon('chevron')}</a>`).join('') : '<p class="design-note" style="padding:8px 7px;margin:0">此分类暂无公开资料。</p>'}</div></section>`;}).join('')}</div></div></div></div>`;
+    const ready = publishedResources(product,audience).some(r=>matchesConfig(r,q));
+    return `<div class="wrap">${crumb([{label:audienceName(audience),url:href(audience)},{label:product.name}])}<section class="page-head"><div class="head-row"><div><p class="eyebrow">${e(product.family)} / ${audience === 'dealers' ? 'DEALER RESOURCES' : 'USER SUPPORT'}</p><h1>${e(product.name)}</h1><p class="lede">${audience === 'dealers' ? '查找本产品的认证资料、安装交付说明、维修备件与技术培训。' : '选择您的车型和配置，查找操作、配件、功能与维护相关资料。'}</p></div>${roleSwitch(product,audience,route)}</div></section>${configBar(product,route)}<div class="product-layout">${sideNav(product,audience,route)}<div>${ready ? `<div class="catalog-note">${icon('info')}<p>选择车型与座位配置后，页面只显示适用资料。安装套件、遥控器和充电器仍需与交付设备核对。</p></div>` : `<div class="empty-note">${icon('info')}<p><strong>本产品资料正在准备中。</strong> 如需具体说明，请联系 RJ Tech。</p></div>`}<div class="section-grid">${sections.map(s => {const topics = topicsFor(product,audience,s.id);return `<section class="section-card"><div class="section-card-head">${icon(s.icon)}<div><h3>${e(s.title)}</h3><p>${e(s.description)}</p></div></div><div class="topic-list">${topics.length ? topics.map(t => `<a class="topic-item" href="${e(topicHref(product,t,audience,q))}">${icon(t.icon)}<span>${e(t.title)}</span><span class="mini${resourcesFor(product,t,audience,q).length ? ' available' : ''}">${e(topicStatus(product,t,audience,q))}</span>${icon('chevron')}</a>`).join('') : '<p class="design-note" style="padding:8px 7px;margin:0">此分类暂无公开资料。</p>'}</div></section>`;}).join('')}</div></div></div></div>`;
   }
   function topicPage(product, topic, route) {
-    const audience = roleOf(route);
-    const q = validConfig(product,route);
-    const names = [product.name, ...(q.model ? [product.modelOptions.find(x => x.id === q.model).name] : []), ...(q.seat ? [product.seatOptions.find(x => x.id === q.seat).name] : [])];
-    const cert = topic.kind === 'certificate';
-    return `<div class="wrap">${crumb([{label:audienceName(audience),url:href(audience)},{label:product.name,url:productHref(product,audience,q)},{label:topic.title}])}<div class="doc-layout">${sideNav(product,audience,route,topic)}<article class="doc-content"><p class="doc-kicker">${e(product.name)} / ${e(typeName(topic.kind))}</p><h1>${e(topic.title)}</h1><p class="doc-description">${e(topic.summary)}</p><div class="metadata">${names.map(n => `<span class="badge dark">${e(n)}</span>`).join('')}<span class="badge gray">${cert ? '按需获取' : '尚未发布'}</span></div><section class="doc-slot"><h2>${cert ? '获取认证资料' : '本主题说明暂未发布'}</h2><p>${cert ? '如需产品认证证书，请联系 RJ Tech，并说明产品型号、车型、座位配置和所需证书。' : '如需本主题的使用说明，请通过品牌官网联系 RJ Tech，并说明您的产品型号和车辆配置。'}</p><a class="button-secondary" href="https://www.rjtech-offroad.com/" target="_blank" rel="noopener noreferrer">联系 RJ Tech ${icon('external')}</a></section></article><aside class="doc-aside" aria-label="相关资料">${!cert ? '<section class="aside-box"><h3>操作视频</h3><p>本主题暂无公开操作视频。</p></section>' : ''}<section class="aside-box"><h3>${cert ? '证书文件' : '手册与说明'}</h3><p>${cert ? '证书按产品和车型提供。请联系 RJ Tech 获取相关资料。' : '本主题暂无可下载文件。'}</p></section><section class="aside-box"><h3>继续查找</h3><a class="text-link" href="${e(productHref(product,audience,q))}">返回产品资料 ${icon('arrow')}</a></section></aside></div></div>`;
+    const audience = roleOf(route), q = validConfig(product,route);
+    const resources = resourcesFor(product,topic,audience,q);
+    const otherConfig = resourcesFor(product,topic,audience,{}).length && !resources.length;
+    const chosen = route.params.get('resource');
+    resources.sort((a,b) => (b.id === chosen) - (a.id === chosen) || ({guide:0,accessory:0,function:0,service:0,training:0,certificate:0,video:1,document:2}[a.type] || 0) - ({guide:0,accessory:0,function:0,service:0,training:0,certificate:0,video:1,document:2}[b.type] || 0));
+    const names = [product.name, ...(q.model ? [product.modelOptions.find(x=>x.id===q.model).name] : []), ...(q.seat ? [product.seatOptions.find(x=>x.id===q.seat).name] : [])];
+    const files = resources.filter(r=>r.assets.some(a=>a.kind === 'file'));
+    const videos = resources.filter(r=>r.type === 'video');
+    const contact = `<a class="button-secondary" href="mailto:sales@rjtech-offroad.com">联系 RJ Tech ${icon('external')}</a>`;
+    return `<div class="wrap">${crumb([{label:audienceName(audience),url:href(audience)},{label:product.name,url:productHref(product,audience,q)},{label:topic.title}])}${configBar(product,route)}<div class="doc-layout">${sideNav(product,audience,route,topic)}<article class="doc-content"><p class="doc-kicker">${e(product.name)} / ${e(typeName(topic.kind))}</p><h1>${e(topic.title)}</h1><p class="doc-description">${e(topic.summary)}</p><div class="metadata">${names.map(n=>`<span class="badge dark">${e(n)}</span>`).join('')}<span class="badge${resources.length ? ' red' : ' gray'}">${e(topicStatus(product,topic,audience,q))}</span></div>${resources.length ? resources.map(r=>resourceBody(r,product,chosen)).join('') : `<section class="doc-slot"><h2>${otherConfig ? '此资料适用于其他配置' : '本主题说明暂未发布'}</h2><p>${otherConfig ? '请调整上方车型或座位筛选，查看对应资料。当前配置的安装与操作要求请向交付代理商确认。' : '如需本主题的使用说明，请联系 RJ Tech，并说明产品型号和车辆配置。'}</p>${otherConfig ? `<a class="button-secondary" href="${e(topicHref(product,topic,audience))}">查看全部配置 ${icon('arrow')}</a>` : contact}</section>`}</article><aside class="doc-aside" aria-label="相关资料"><section class="aside-box"><h3>本主题资料</h3>${resources.length ? `<p>${resources.filter(r=>r.content.length).length} 项在线说明 · ${videos.length} 段视频 · ${files.length} 份文件</p><ul class="aside-index">${resources.map(r=>`<li><a href="${e(topicHref(product,topic,audience,{...q,resource:r.id}))}">${e(r.title)}</a></li>`).join('')}</ul>` : '<p>请根据车辆配置查看资料或联系支持。</p>'}</section>${files.length ? `<section class="aside-box"><h3>下载文件</h3>${files.map(r=>`<a class="aside-file" href="${e(r.assets.find(a=>a.kind==='file').url)}" target="_blank" rel="noopener noreferrer">${icon('file')}<span>${e(r.title)}<small>${e(languageName(r.language))} · ${e(r.assets.find(a=>a.kind==='file').format)} · ${e(fileOriginLabel(r.assets.find(a=>a.kind==='file')))}</small></span></a>`).join('')}</section>` : ''}<section class="aside-box"><h3>需要帮助</h3><p>请提供产品型号、VIN 和配件照片，便于核对适用配置。</p><a class="text-link" href="mailto:sales@rjtech-offroad.com">联系 RJ Tech ${icon('external')}</a></section><section class="aside-box"><h3>继续查找</h3><a class="text-link" href="${e(productHref(product,audience,q))}">返回产品资料 ${icon('arrow')}</a></section></aside></div></div>`;
   }
   function developerPage(route) {
     const selected = productOf(route.params.get('product'));
@@ -151,30 +198,30 @@
     return `<div class="filter-group"><label for="filter-${e(name)}">${e(label)}</label><select id="filter-${e(name)}" name="${e(name)}" data-route-filter>${options(items,chosen)}</select></div>`;
   }
   function libraryPage(route) {
-    const audience = roleOf(route);
-    const product = productOf(route.params.get('product'));
-    const type = route.params.get('type');
+    const audience = roleOf(route), product = productOf(route.params.get('product'));
+    const type = route.params.get('type'), language = route.params.get('language');
     const allowedTypes = C.resourceTypes.filter(t => audience === 'dealers' || !['certificate','service','training'].includes(t.id));
-    const topics = C.topics.filter(t => t.audiences.includes(audience) && (product ? product.topicIds.includes(t.id) : C.products.some(p => p.topicIds.includes(t.id))) && (!type || type === 'all' || t.kind === type));
-    const resources = C.resources.filter(r => r.status === 'published' && r.audiences.includes(audience) && (!product || r.productId === product.id) && (!type || type === 'all' || r.type === type) && (!route.params.get('language') || r.language === route.params.get('language')));
-    return `<div class="wrap">${crumb([{label:'视频与下载'}])}<section class="page-head"><div class="head-row"><div><p class="eyebrow">VIDEOS & DOWNLOADS</p><h1>视频与下载</h1><p class="lede">按产品、资料类型和语言查找操作视频与说明文件。</p></div><span class="badge gray">资料准备中</span></div></section><div class="filter-panel">${filterSelect('audience','资料分类',[{id:'users',name:'用户支持'},{id:'dealers',name:'代理商专区'}],audience).replace('<option value="all">全部</option>','')}${filterSelect('product','产品',C.products.map(p => ({id:p.id,name:p.name})),product?.id)}${filterSelect('type','资料类型',allowedTypes,type)}${filterSelect('language','语言',[{id:'zh-CN',name:'中文'},{id:'de-DE',name:'Deutsch'},{id:'en',name:'English'}],route.params.get('language'))}</div><div class="results-bar"><span>${e(audienceName(audience))} ${product ? ' / ' + e(product.name) : '/ 全部产品'}</span><span>${resources.length} 份已发布资料</span></div>${resources.length ? `<div class="topic-results">${resources.map(r => {const p = productOf(r.productId);const t = topicOf(r.topicId);return `<a class="result-card" href="${e(topicHref(p,t,audience))}">${icon('file')}<div><h3>${e(r.title || t.title)}</h3><p>${e(p.name)}</p><div class="result-meta">${e(r.language)} · ${e(r.revision)}</div></div></a>`;}).join('')}</div>` : `<div class="empty-state">${icon('folder')}<h2>暂无可下载的资料</h2><p>当前没有可下载文件或公开操作视频。如需产品资料，请通过品牌官网联系 RJ Tech。</p></div>`}<section class="section"><div class="section-header"><div><h2>按主题查找</h2><p>选择您需要了解的操作、配件或维护主题。</p></div></div><div class="topic-results">${topics.map(t => {const p = product || C.products.find(p => p.topicIds.includes(t.id));return `<a class="result-card" href="${e(topicHref(p,t,audience))}">${icon(t.icon)}<div><h3>${e(t.title)}</h3><p>${e(t.summary)}</p><div class="result-meta">${e(p.name)} · ${e(typeName(t.kind))} · 尚未发布</div></div></a>`;}).join('') || '<p class="design-note">没有符合这些筛选条件的主题。</p>'}</div></section></div>`;
+    const topics = C.topics.filter(t=>t.audiences.includes(audience) && (product ? product.topicIds.includes(t.id) : C.products.some(p=>p.topicIds.includes(t.id))) && (!type || type === 'all' || t.kind === type));
+    const resources = publishedResources(product,audience).filter(r=>(!type || type === 'all' || r.type === type) && (!language || language === 'all' || r.language === language));
+    const files = resources.filter(r=>r.type === 'document').length, videos = resources.filter(r=>r.type === 'video').length;
+    return `<div class="wrap">${crumb([{label:'视频与下载'}])}<section class="page-head"><div class="head-row"><div><p class="eyebrow">VIDEOS & DOWNLOADS</p><h1>视频与下载</h1><p class="lede">按产品、资料类型和语言查找操作视频、下载文件和在线说明。</p></div></div></section><div class="filter-panel">${filterSelect('audience','资料分类',[{id:'users',name:'用户支持'},{id:'dealers',name:'代理商专区'}],audience).replace('<option value="all">全部</option>','')}${filterSelect('product','产品',C.products.map(p=>({id:p.id,name:p.name})),product?.id)}${filterSelect('type','资料类型',allowedTypes,type)}${filterSelect('language','语言',[{id:'zh-CN',name:'中文'},{id:'de-DE',name:'Deutsch'},{id:'en',name:'English'}],language)}</div><div class="results-bar"><span>${e(audienceName(audience))} ${product ? ' / ' + e(product.name) : '/ 全部产品'}</span><span>${resources.length} 项资料 · ${videos} 段视频 · ${files} 份文件</span></div>${resources.length ? `<div class="topic-results">${resources.map(r=>resourceCard(r,audience)).join('')}</div>` : `<div class="empty-state">${icon('folder')}<h2>没有符合筛选条件的资料</h2><p>请调整产品、资料类型或语言。尚未发布的资料可联系 RJ Tech 获取帮助。</p></div>`}<section class="section"><div class="section-header"><div><h2>按主题查找</h2><p>选择您需要了解的操作、配件或维护主题。</p></div></div><div class="topic-results">${topics.map(t=>{const p=product || C.products.find(p=>p.topicIds.includes(t.id));return `<a class="result-card" href="${e(topicHref(p,t,audience))}">${icon(t.icon)}<div><h3>${e(t.title)}</h3><p>${e(t.summary)}</p><div class="result-meta">${e(p.name)} · ${e(typeName(t.kind))} · ${e(topicStatus(p,t,audience))}</div></div></a>`;}).join('') || '<p class="design-note">没有符合这些筛选条件的主题。</p>'}</div></section></div>`;
   }
   function searchTopics(query, audience) {
     const normalized = String(query || '').trim().toLocaleLowerCase();
-    if (!normalized) return {products:[],topics:[]};
+    if (!normalized) return {products:[],topics:[],resources:[]};
     const words = normalized.split(/\s+/);
-    const matches = value => words.every(w => value.toLocaleLowerCase().includes(w));
+    const matches = value => words.every(w=>value.toLocaleLowerCase().includes(w));
     return {
-      products:C.products.filter(p => matches(`${p.name} ${p.family} ${p.code}`)),
-      topics:C.products.flatMap(p => C.topics.filter(t => p.topicIds.includes(t.id) && t.audiences.includes(audience) && matches(`${p.name} ${t.title} ${t.summary} ${typeName(t.kind)}`)).map(t => ({product:p,topic:t})))
+      products:C.products.filter(p=>matches(`${p.name} ${p.family} ${p.code}`)),
+      topics:C.products.flatMap(p=>C.topics.filter(t=>p.topicIds.includes(t.id) && t.audiences.includes(audience) && matches(`${p.name} ${t.title} ${t.summary} ${typeName(t.kind)}`)).map(t=>({product:p,topic:t}))),
+      resources:publishedResources(null,audience).filter(r=>matches(`${productOf(r.productId).name} ${r.title} ${r.scope} ${typeName(r.type)} ${JSON.stringify(r.content)}`))
     };
   }
   function searchPage(route) {
-    const audience = roleOf(route);
-    const query = (route.params.get('q') || '').slice(0,200);
+    const audience = roleOf(route), query = (route.params.get('q') || '').slice(0,200);
     const results = searchTopics(query,audience);
-    const count = results.products.length + results.topics.length;
-    return `<div class="wrap">${crumb([{label:'搜索'}])}<section class="page-head"><p class="eyebrow">SEARCH SUPPORT</p><h1>搜索产品与资料主题</h1><p class="lede">在${e(audienceName(audience))}中搜索产品、操作、配件及维护相关主题。</p>${searchForm(audience,query)}</section><div class="results-bar"><span>${query.trim() ? '关键词：' + e(query) : '输入关键词开始查找'}</span><span>${count} 项产品或主题</span></div>${count ? `<div class="topic-results">${results.products.map(p => `<a class="result-card" href="${e(productHref(p,audience))}">${icon('grid')}<div><h3>${e(p.name)}</h3><p>${e(p.description)}</p><div class="result-meta">产品目录</div></div></a>`).join('')}${results.topics.map(({product:p,topic:t}) => `<a class="result-card" href="${e(topicHref(p,t,audience))}">${icon(t.icon)}<div><h3>${e(t.title)}</h3><p>${e(t.summary)}</p><div class="result-meta">${e(p.name)} · ${e(typeName(t.kind))} · 尚未发布</div></div></a>`).join('')}</div>` : `<div class="empty-state">${icon('search')}<h2>${query.trim() ? '没有找到匹配的产品或主题' : '试试产品名、充电、配件或跟随'}</h2><p>也可以直接进入产品目录浏览。</p><a class="button-secondary" href="${e(href(audience))}">浏览${e(audienceName(audience))} ${icon('arrow')}</a></div>`}<div style="height:42px"></div></div>`;
+    const count = results.products.length + results.topics.length + results.resources.length;
+    return `<div class="wrap">${crumb([{label:'搜索'}])}<section class="page-head"><p class="eyebrow">SEARCH SUPPORT</p><h1>搜索产品与资料主题</h1><p class="lede">在${e(audienceName(audience))}中搜索产品、操作、配件及维护相关主题。</p>${searchForm(audience,query)}</section><div class="results-bar"><span>${query.trim() ? '关键词：' + e(query) : '输入关键词开始查找'}</span><span>${count} 项资料、产品或主题</span></div>${count ? `<div class="topic-results">${results.resources.map(r=>resourceCard(r,audience)).join('')}${results.products.map(p=>`<a class="result-card" href="${e(productHref(p,audience))}">${icon('grid')}<div><h3>${e(p.name)}</h3><p>${e(p.description)}</p><div class="result-meta">产品目录</div></div></a>`).join('')}${results.topics.map(({product:p,topic:t})=>`<a class="result-card" href="${e(topicHref(p,t,audience))}">${icon(t.icon)}<div><h3>${e(t.title)}</h3><p>${e(t.summary)}</p><div class="result-meta">${e(p.name)} · ${e(typeName(t.kind))} · ${e(topicStatus(p,t,audience))}</div></div></a>`).join('')}</div>` : `<div class="empty-state">${icon('search')}<h2>${query.trim() ? '没有找到匹配的资料、产品或主题' : '试试产品名、充电、配件或跟随'}</h2><p>也可以直接进入产品目录浏览。</p><a class="button-secondary" href="${e(href(audience))}">浏览${e(audienceName(audience))} ${icon('arrow')}</a></div>`}<div style="height:42px"></div></div>`;
   }
   function notFound() { return `<div class="wrap"><section class="section"><div class="empty-state">${icon('folder')}<h1 style="font-size:26px">未找到该页面</h1><p>请返回支持首页，选择您的产品或使用主题。</p><a class="button-secondary" href="#/">返回首页 ${icon('arrow')}</a></div></section></div>`; }
   function pageFor(route) {
@@ -238,6 +285,6 @@
     if (!dialog.open) { event.preventDefault();dialog.showModal();document.getElementById('dialog-search').focus(); }
   });
   window.addEventListener('hashchange', () => render(true));
-  window.RJSupportUI = {parseRoute,href,pageFor,shell,searchTopics,topicsFor};
+  window.RJSupportUI = {parseRoute,href,pageFor,shell,searchTopics,topicsFor,publishedResources,resourcesFor,matchesConfig,topicStatus};
   render(false);
 })();

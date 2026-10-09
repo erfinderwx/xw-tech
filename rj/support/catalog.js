@@ -1,9 +1,9 @@
 (function () {
   'use strict';
-  // The product registry, taxonomy and eventual resources are independent of page layout.
-  // Only approved material will enter resources. An empty collection is intentional in this preview.
+  // Product taxonomy and customer resources are independent of page layout.
+  // Customer resources are loaded from content.js before app.js.
   window.RJSupportCatalog = {
-    site: { name: 'RJ Tech', title: '使用与支持', stage: 'content-pending', version: '0.2', language: 'zh-CN' },
+    site: { name: 'RJ Tech', title: '使用与支持', stage: 'published', version: '1.0', language: 'zh-CN' },
     audiences: [
       { id: 'users', name: '用户支持', en: 'USER SUPPORT', icon: 'user', status: 'active', title: '车辆使用与维护支持', summary: '整车操作、配件使用、维护排障与操作视频。' },
       { id: 'dealers', name: '代理商专区', en: 'DEALER RESOURCES', icon: 'briefcase', status: 'active', title: '安装、交付与售后支持', summary: '产品证书、安装交付、服务说明与技术培训。' },
@@ -36,10 +36,10 @@
       {id:'storage',title:'停放与长期存放',sectionId:'operation',audiences:['users','dealers'],icon:'box',kind:'guide',summary:'停放、存放与恢复使用说明。'},
       {id:'seat-footrest',title:'座椅与脚踏安装',sectionId:'accessories',audiences:['users','dealers'],icon:'layers',kind:'accessory',summary:'适配范围、图示步骤与安装视频。'},
       {id:'trailer',title:'拖车与拖挂配件',sectionId:'accessories',audiences:['users','dealers'],icon:'link',kind:'accessory',summary:'拖挂配件的连接、检查与使用。'},
-      {id:'range-extender',title:'增程器使用说明',sectionId:'accessories',audiences:['users','dealers'],icon:'battery',kind:'accessory',summary:'增程器的安装与使用说明。'},
-      {id:'remote',title:'遥控操作',sectionId:'functions',audiences:['users','dealers'],icon:'control',kind:'function',summary:'配对、模式切换、退出和异常恢复。'},
+      {id:'range-extender',title:'增程器使用说明',sectionId:'accessories',audiences:['users','dealers'],icon:'battery',kind:'accessory',summary:'匹配 Offroad 套件的增程器控制与使用说明。'},
+      {id:'remote',title:'遥控操作',sectionId:'functions',audiences:['users','dealers'],icon:'control',kind:'function',summary:'已配对套件的基本操作、模式切换与停止方式。'},
       {id:'fpv',title:'图传使用',sectionId:'functions',audiences:['users','dealers'],icon:'monitor',kind:'function',summary:'连接、显示与对应版本的使用说明。'},
-      {id:'follow',title:'跟随功能',sectionId:'functions',audiences:['users','dealers'],icon:'signal',kind:'function',summary:'跟随功能的使用方法、适用条件与常见问题。'},
+      {id:'follow',title:'跟随功能',sectionId:'functions',audiences:['users','dealers'],icon:'signal',kind:'function',summary:'咨询跟随功能的车辆配置与适配范围。'},
       {id:'maintenance',title:'日常维护与保养',sectionId:'care',audiences:['users','dealers'],icon:'tool',kind:'guide',summary:'保养项目、检查方法与相关视频。'},
       {id:'troubleshooting',title:'常见问题与排障',sectionId:'care',audiences:['users','dealers'],icon:'help',kind:'guide',summary:'常见故障现象、检查方法与处理建议。'},
       {id:'videos',title:'操作视频',sectionId:'media',audiences:['users','dealers'],icon:'play',kind:'video',summary:'车辆操作、配件安装与维护相关视频。'},
@@ -59,7 +59,7 @@
       {id:'models',title:'模型与工程资料',description:'适用于集成的模型、尺寸和图纸',icon:'layers'},
       {id:'releases',title:'版本与兼容',description:'修订记录、依赖与适配说明',icon:'history'}
     ],
-    resourceTypes: [{id:'guide',name:'操作说明'},{id:'accessory',name:'配件说明'},{id:'function',name:'功能说明'},{id:'video',name:'视频'},{id:'document',name:'手册 / PDF'},{id:'certificate',name:'证书'},{id:'service',name:'技术服务'},{id:'training',name:'培训'}],
+    resourceTypes: [{id:'guide',name:'操作说明'},{id:'accessory',name:'配件说明'},{id:'function',name:'功能说明'},{id:'video',name:'视频'},{id:'document',name:'手册 / 文件'},{id:'certificate',name:'证书'},{id:'service',name:'技术服务'},{id:'training',name:'培训'}],
     resourceSchema: ['id','productId','topicId','audiences','variantIds','type','title','language','revision','publishedAt','status','visibility','content','assets','sourceRefs'],
     resources: []
   };
