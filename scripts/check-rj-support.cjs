@@ -11,12 +11,22 @@ const context = {
   document:{getElementById:id => id === 'app' ? appElement : {focus(){}},addEventListener(){}}
 };
 vm.createContext(context);
-['catalog.js','content.js','app.js'].forEach(name => vm.runInContext(fs.readFileSync(path.join(root,'rj','support',name),'utf8'),context,{filename:name}));
+['catalog.js','content.js','content-en.js','app.js'].forEach(name => vm.runInContext(fs.readFileSync(path.join(root,'rj','support',name),'utf8'),context,{filename:name}));
 const C = context.window.RJSupportCatalog;
 const UI = context.window.RJSupportUI;
 const unique = (items,label) => assert.equal(new Set(items.map(x=>x.id)).size,items.length,label + ' IDs must be unique');
 ['audiences','products','sections','topics','resources'].forEach(key=>unique(C[key],key));
 assert(C.resources.length>0,'Published customer materials must be available');
+assert.equal(C.resources.length,40,'All source records are retained');
+assert.equal(C.site.language,'en','Architecture is English');
+assert.equal(JSON.stringify(C.site.visibleResourceLanguages),'["en"]','Only English resources are displayed');
+const sourceRecords = JSON.stringify(C.resources);
+for(const audience of ['users','dealers']) {
+  const visible = UI.publishedResources(null,audience);
+  assert.equal(visible.length,6,'Six existing English documents are visible');
+  assert(visible.every(r=>r.language==='en' && r.type==='document'),'Chinese records and videos are hidden');
+  assert(visible.every(r=>!/[\u3400-\u9fff]/.test(JSON.stringify([r.title,r.scope,r.revision,r.assets]))),'Visible file metadata is English');
+}
 const baseline = process.argv[2] ? JSON.parse(fs.readFileSync(process.argv[2],'utf8')) : null;
 const knownPaths = new Set((baseline?.tree || []).map(x=>x.path));
 const localAsset = url => {
@@ -59,7 +69,7 @@ for (const t of C.topics) {
   assert(C.sections.some(s=>s.id===t.sectionId),'Topic section exists');
   assert(C.resourceTypes.some(k=>k.id===t.kind),'Topic type exists');
 }
-const routes = new Set(['#/','#/users','#/dealers','#/developers','#/library','#/library?audience=dealers','#/search?q=充电','#/search?q=Steinadler','#/search?q=证书&audience=dealers','#/search?q=nonexistent']);
+const routes = new Set(['#/','#/users','#/dealers','#/developers','#/library','#/library?audience=dealers','#/search?q=charging','#/search?q=Steinadler','#/search?q=certificate&audience=dealers','#/search?q=nonexistent']);
 for(const p of C.products) {
   for(const audience of ['users','dealers']) {
     routes.add(UI.href('product/'+p.id,{audience}));
@@ -77,15 +87,17 @@ let linkCount = 0;
 for(const routeString of routes) {
   const route=UI.parseRoute(routeString);
   const page=UI.pageFor(route);
-  assert.notEqual(page.title,'目录未找到','Known route must render: '+routeString);
+  assert.notEqual(page.title,'Page not found','Known route must render: '+routeString);
   const html=UI.shell(page.html,route);
+  assert(!/[\u3400-\u9fff]/.test(html),'Customer page is English: '+routeString);
+  assert(!/<video\b/.test(html),'Hidden Chinese videos do not render: '+routeString);
   assert.equal((html.match(/<main\b/g)||[]).length,1,'One main landmark');
   assert.equal((html.match(/<h1\b/g)||[]).length,1,'One page title');
   assert(!/undefined|NaN/.test(html),'No unresolved values');
   for(const [,raw] of html.matchAll(/href="([^"\n]+)"/g)) {
     const url=raw.replace(/&amp;/g,'&');
     if(url.startsWith('#/')) {
-      assert.notEqual(UI.pageFor(UI.parseRoute(url)).title,'目录未找到','Emitted route must resolve: '+url);
+      assert.notEqual(UI.pageFor(UI.parseRoute(url)).title,'Page not found','Emitted route must resolve: '+url);
       linkCount++;
     }
   }
@@ -93,36 +105,56 @@ for(const routeString of routes) {
 for(const p of C.products) {
   const userPage=UI.pageFor(UI.parseRoute(UI.href('product/'+p.id,{audience:'users'}))).html;
   assert(!userPage.includes('/topic/certificates'),'User product page must not list dealer certificates');
-  assert.equal(UI.pageFor(UI.parseRoute(UI.href(`product/${p.id}/topic/certificates`,{audience:'users'}))).title,'目录未找到','Dealer-only topic rejected in user view');
+  assert.equal(UI.pageFor(UI.parseRoute(UI.href(`product/${p.id}/topic/certificates`,{audience:'users'}))).title,'Page not found','Dealer-only topic rejected in user view');
 }
-assert.equal(UI.searchTopics('证书','users').topics.length,0,'User search cannot surface dealer topics');
-assert(UI.searchTopics('证书','dealers').topics.length>0,'Dealer search includes certificates');
-assert(UI.searchTopics('跟随','users').topics.some(x=>x.product.id==='steinadler-pro'),'Customer-facing feature topic exists');
+assert.equal(UI.searchTopics('certificate','users').topics.length,0,'User search cannot surface dealer topics');
+assert(UI.searchTopics('certificate','dealers').topics.length>0,'Dealer search includes certificates');
+assert(UI.searchTopics('following','users').topics.some(x=>x.product.id==='steinadler-pro'),'Customer-facing feature topic exists');
+for(const r of C.resources.filter(r=>r.language==='zh-CN')) {
+  for(const audience of r.audiences) {
+    const direct = UI.pageFor(UI.parseRoute(UI.href(`product/${r.productId}/topic/${r.topicId}`,{audience,resource:r.id}))).html;
+    assert(!direct.includes('id="resource-'+r.id+'"'),'Old direct links cannot reveal hidden Chinese records');
+    assert(!UI.searchTopics(r.title,audience).resources.some(x=>x.id===r.id),'Search cannot reveal hidden Chinese records');
+  }
+}
+const hiddenLanguage = UI.pageFor(UI.parseRoute('#/library?audience=dealers&language=zh-CN')).html;
+assert(!hiddenLanguage.includes('resource-card'),'Language query cannot restore hidden Chinese records');
+assert(!hiddenLanguage.includes('value="zh-CN"'),'Hidden language has no selectable option');
 const steinadler=C.products.find(x=>x.id==='steinadler-pro');
 const rangeTopic=C.topics.find(x=>x.id==='range-extender');
 assert.equal(UI.resourcesFor(steinadler,rangeTopic,'users',{model:'l7e'}).length,0,'Offroad range-extender information cannot be applied to L7e');
 assert(UI.resourcesFor(steinadler,rangeTopic,'users',{model:'offroad'}).length>0,'Matching Offroad information is available');
 const seatTopic=C.topics.find(x=>x.id==='seat-footrest');
+assert(!UI.resourcesFor(steinadler,seatTopic,'users',{seat:'ss'}).some(r=>r.id==='manual-seat-footrest'),'Dual-seat English diagrams are excluded from single-seat scope');
+assert(UI.resourcesFor(steinadler,seatTopic,'users',{seat:'ds'}).some(r=>r.id==='manual-seat-footrest'),'Dual-seat English diagrams remain available');
+// Check the retained Chinese records still respect configuration and audience scope when restored.
+C.site.visibleResourceLanguages = ['en','zh-CN'];
 assert(!UI.resourcesFor(steinadler,seatTopic,'users',{seat:'ss'}).some(r=>r.type==='video'),'Double-seat videos are excluded from single-seat instructions');
 assert(UI.resourcesFor(steinadler,seatTopic,'users',{seat:'ds'}).some(r=>r.type==='video'),'Matching installation videos are available');
 assert(!UI.publishedResources(null,'users').some(r=>r.id.startsWith('service-video-')),'Qualified-service videos stay in dealer classification');
 assert.equal(UI.searchTopics('底部护板','users').resources.length,0,'Service video is excluded from customer search');
 assert(UI.searchTopics('底部护板','dealers').resources.length>0,'Dealer search can find the service video');
+C.site.visibleResourceLanguages = ['en'];
+assert.equal(UI.searchTopics('底部护板','dealers').resources.length,0,'Retained Chinese service videos are hidden again');
+assert.equal(JSON.stringify(C.resources),sourceRecords,'English display metadata never changes the original records');
 const emptyProduct=UI.pageFor(UI.parseRoute('#/product/luchs-a')).html;
 assert(!emptyProduct.includes('resource-panel'),'Other products cannot inherit Steinadler materials');
 const english=UI.pageFor(UI.parseRoute('#/library?audience=users&language=en&type=document')).html;
-assert(english.includes('Steinadler Pro L7e 使用手册'),'English document filter finds an actual manual');
+assert(english.includes('Steinadler Pro L7e user manual'),'English document filter finds an actual manual');
 assert(!english.includes('遥控车辆原说明 · 中文'),'Language filter excludes Chinese original files');
-assert.equal(UI.topicStatus(steinadler,C.topics.find(x=>x.id==='follow'),'users'),'配置咨询','Following is not presented as a released operation tutorial');
+assert.equal(UI.topicStatus(steinadler,C.topics.find(x=>x.id==='follow'),'users'),'Configuration enquiry','Following is not presented as a released operation tutorial');
+assert.equal(UI.topicStatus(steinadler,C.topics.find(x=>x.id==='certificates'),'dealers'),'Available on request','Private certificates remain available by enquiry');
+assert.equal(UI.topicStatus(steinadler,C.topics.find(x=>x.id==='spares'),'dealers'),'Parts enquiry','Spare-parts enquiry remains available');
+assert.equal(UI.topicStatus(C.products.find(x=>x.id==='luchs-a'),C.topics.find(x=>x.id==='follow'),'users'),'Not yet available','Other products cannot inherit consultation availability');
 const attack='<img src=x onerror=alert(1)>';
 const attacked=UI.pageFor(UI.parseRoute(UI.href('search',{q:attack}))).html;
 assert(!attacked.includes(attack),'Query text must be escaped');
 assert(attacked.includes('&lt;img'),'Escaped query remains readable');
 const badConfig=UI.pageFor(UI.parseRoute('#/product/steinadler-pro/topic/charging?model='+encodeURIComponent(attack))).html;
 assert(!badConfig.includes(attack),'Unknown config must not render');
-assert.equal(UI.pageFor(UI.parseRoute('#/missing')).title,'目录未找到','Unknown route has recovery page');
+assert.equal(UI.pageFor(UI.parseRoute('#/missing')).title,'Page not found','Unknown route has recovery page');
 // Verify a fourth product can reuse all page templates without adding route code.
-C.products.push({id:'extension-check',name:'Extension Check',code:'EC',family:'Check',label:'产品支持目录',description:'产品扩展检查',status:'reserved',modelOptions:[],seatOptions:[],sectionIds:{users:['start'],dealers:['shared']},topicIds:['first-use']});
+C.products.push({id:'extension-check',name:'Extension Check',code:'EC',family:'Check',label:'Product support',description:'Product extension check',status:'reserved',modelOptions:[],seatOptions:[],sectionIds:{users:['start'],dealers:['shared']},topicIds:['first-use']});
 assert(UI.pageFor(UI.parseRoute('#/users')).html.includes('Extension Check'),'New product appears in audience catalog');
 assert.equal(UI.pageFor(UI.parseRoute('#/product/extension-check')).title,'Extension Check','New product route is data-driven');
 assert(UI.pageFor(UI.parseRoute('#/product/extension-check?audience=dealers')).html.includes('/topic/first-use'),'Shared topic uses same topic record');
@@ -133,6 +165,7 @@ for(const [,assetUrl] of index.matchAll(/(?:src|href)="\.\/([^"#]+)"/g)) {
   const asset=assetUrl.split('?')[0];
   assert(fs.existsSync(path.join(root,'rj','support',asset)),'Static asset exists: '+assetUrl);
 }
-assert(appElement.innerHTML.includes('使用与支持'),'Initial render runs');
+assert(index.includes('<html lang="en">'),'Document language is English');
+assert(appElement.innerHTML.includes('Product support'),'Initial render runs');
 assert(fs.readFileSync(path.join(root,'rj','support','styles.css'),'utf8').includes('@media'),'Responsive styles exist');
-console.log(`Passed: ${routes.size} page states, ${linkCount} internal navigation links, ${C.resources.length} resource records, model/seat/language filters, source assets, role scope, escaping, and new-product reuse.`);
+console.log(`Passed: ${routes.size} English page states, ${linkCount} internal navigation links, ${C.resources.length} retained source records, 6 visible English documents, hidden Chinese routes/search/language, model/seat filters, role scope, escaping, and new-product reuse.`);

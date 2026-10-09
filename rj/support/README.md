@@ -1,50 +1,45 @@
-# RJ Tech 使用与支持
+# RJ Tech product support
 
-访问入口：https://xw-tech.de/rj/support/
-原服务指南：https://xw-tech.de/rj/
+Support centre: https://xw-tech.de/rj/support/
+Existing service guide: https://xw-tech.de/rj/
 
-客户入口为用户支持、代理商专区和开发者资料。已录入 Steinadler Pro 的使用说明、配件安装、维护和遥控/图传资料。跟随功能提供配置咨询，开发者资料暂未开放。
+The existing User support, Dealer resources and Developer resources architecture uses English navigation, topics, filters, search, statuses and help text. The black, white and red design and product expansion model are unchanged. Following remains a configuration enquiry; developer resources are not yet available.
 
-## 文件组织
+## Files and content languages
 
-- `index.html`：页面入口。
-- `catalog.js`：身份、产品、车型配置和主题目录。
-- `content.js`：40 份资料记录，含 23 份在线说明/咨询、8 份下载文件及 9 段视频。
-- `app.js`：页面模板、导航、搜索和筛选。
-- `styles.css`：黑白红视觉与响应式布局。
-- `files/`：可公开的原始手册、遥控/图传文件及根据原图整理的双座/脚踏安装图示。
-- `assets/`：说明图片和 2 段配件安装视频。另 7 段专业服务视频复用原服务指南资源。
+- `index.html`: entry point, English document language and cache versions.
+- `catalog.js`: audiences, products, model/seat options and topics. `site.visibleResourceLanguages: ['en']` controls which resource languages appear throughout the support centre.
+- `content.js`: all 40 original resource records, comprising 23 online guides/enquiries, 8 downloads and 9 videos. The original Chinese text, configuration scopes, sources and asset URLs are retained unchanged.
+- `content-en.js`: English titles, scopes and revision labels for the six existing English downloads. This display metadata does not alter the original records or the files.
+- `app.js`: shared page templates, navigation, search and filters. The language policy applies before topic, directory and search results are built. Old direct links to Chinese records cannot reveal them in the support centre.
+- `styles.css`: responsive layout and existing visual design.
+- `files/`: public manuals, remote/FPV instructions and prepared dual-seat/footrest installation diagrams.
+- `assets/`: original instruction images and two accessory installation videos. Seven service videos reuse the existing service guide assets.
 
-新增产品时在产品目录登记名称、车型、配置和适用分类，复用同一套页面。说明、视频与 PDF 按同一主题关联；用户和代理商共用的说明只维护一份。
+Only the six English downloads currently appear. The Chinese online text, two Chinese downloads and all nine Chinese-language video records remain in the repository but are hidden from the support centre's directory, search and topic pages. This is a display preference, not access control; public asset URLs and the existing service guide remain unchanged. To restore Chinese resources later, update the central language policy and provide the intended language presentation. Adding a product still requires only catalogue data and scoped resource records, without new page templates.
 
-## 资料架构与文案规则
+## Customer copy and scope
 
-入口 → 产品与配置 → 使用主题 → 说明、视频和文件。
+The structure is support area → product and configuration → topic → guides, videos and files.
 
-- 用户支持：首次使用、日常操作、配件与加装、功能使用、维护排障、视频与手册。
-- 代理商专区：认证资料、安装交付、维修备件、技术培训及用户使用说明。
-- 开发者资料：产品接口、通信协议、SDK/API、集成示例、模型与工程资料、版本兼容；当前暂未开放。
-- 每份正式资料登记产品、适用配置、读者、语言、版本、发布时间、来源和公开范围。
-- 下载资源的 `origin` 区分 `original`（原始文件）、`derived`（整理生成图示）和 `reference`（官网参考文件）；未标注时显示“下载文件”，不能默认宣称是原件。
-- 客户页面写清用户要完成的操作和资料的实际状态。建站规划、模板位置、资料录入要求和维护规则仅在仓库文档中说明。
-- 未发布主题不展示空白操作步骤、假视频播放器、假文件下载或未确认的版本信息。
-- 证书独立汇编，代理商按需获取。客户页面保留证书获取说明。
+- User support covers first use, everyday operation, accessories, functions, care, videos and manuals.
+- Dealer resources covers certification, installation/delivery, technical service, training and shared user instructions.
+- Developer resources reserves interfaces, protocols, SDK/API, examples, engineering files and compatibility. No internal development material is published.
+- Keep product, model, seat, audience, language, revision, date, source and visibility on each record. Do not combine unconfirmed configuration-specific parameters.
+- File `origin` values distinguish `original` (Original file), `derived` (Prepared diagrams) and `reference` (Website reference). Unknown origins use the neutral Download files label.
+- Do not invent missing steps, videos, files, version data or following instructions. Following is a configuration enquiry, parts are identified by enquiry, and certificates are available on request.
+- The separately compiled private certificate file stays outside the public repository and public Git history. Internal review notes, research and unconfirmed drafts are not customer resources.
 
-## 发布与检查
+## Deployment and checks
 
-继续使用 xw-tech 仓库现有 GitHub Pages 自动部署，推送到 main 后发布。`rj/index.html` 保留原有服务指南与资源路径，并链接本资料中心。
+The existing GitHub Pages workflow deploys `main`. Preserve unrelated projects, concurrent changes and the original `rj/index.html` service guide.
 
 ```sh
 node --check rj/support/catalog.js
 node --check rj/support/content.js
+node --check rj/support/content-en.js
 node --check rj/support/app.js
 node scripts/check-rj-support.cjs
 ```
 
-检查覆盖目录引用、页面路由、车型/座位/语言筛选、角色适用范围、文件存在、安装图编号、查询转义与新增产品复用。资源地址带版本参数，发布后可加载当前内容。
-
-## 资料边界
-
-网站公开可访问。入口切换只表示资料分类，不提供账号权限控制。资料以收到的最新原件为主、官网资料为补充，每份说明保留适用范围和来源。官网 Offroad 手册标为参考原件；未确认的参数不合并为统一规格。跟随资料尚缺完整操作与故障恢复说明，因此仅提供配置咨询。
-
-代理商证书汇编单独提供，未上传至公开仓库。不能将受限文件上传至公开 Git 历史，再用前端隐藏冒充访问控制。研发会议记录、内部审查清单和待确认草稿未作为客户说明发布。
+Checks cover English page output, retained source records, the language policy on direct routes/search/filters, configuration and audience scope, source files, escaped queries and adding another product. After deployment verify the live English navigation, English downloads, hidden Chinese records, responsive layout and original service guide entry.
