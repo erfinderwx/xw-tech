@@ -12,3 +12,34 @@
 .download-filter-panel{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media(max-width:760px){.download-filter-panel{grid-template-columns:1fr 1fr}}
 @media(max-width:420px){.download-filter-panel{grid-template-columns:1fr}}
+
+/* Product photographs use the same frame and keep the complete vehicle visible. */
+.product-visual{height:224px}
+.has-product-image .product-visual{height:224px;padding:44px 22px 20px;background:radial-gradient(ellipse at 50% 44%,#fff 12%,#f5f6f8 100%)}
+.has-product-image .product-visual:before{display:none}
+.product-image{display:block;position:relative;width:100%;height:100%;object-fit:contain;object-position:center;transform:scale(var(--product-image-scale,1));transition:transform .2s ease;filter:drop-shadow(0 9px 7px #17191d0d)}
+.has-product-image .product-visual>small,.has-product-image .product-visual>.badge{z-index:1}
+.has-product-image:hover .product-image{transform:scale(calc(var(--product-image-scale,1) * 1.025))}
+@media(max-width:760px){
+  .product-card{grid-template-columns:200px 1fr}
+  .product-visual{height:auto;min-height:195px}
+  .has-product-image .product-visual{height:195px;min-height:195px;padding:35px 15px 37px}
+  .has-product-image .product-visual>small{font-size:8px;top:13px;left:13px}
+  .has-product-image .product-visual>.badge{font-size:8px;bottom:13px;left:13px;right:auto;top:auto}
+}
+@media(max-width:540px){
+  .product-card{grid-template-columns:1fr}
+  .product-visual{height:206px;min-height:0;border-right:0;border-bottom:1px solid var(--line)}
+  .has-product-image .product-visual{height:206px;min-height:0;padding:42px 24px 17px;border-right:0;border-bottom:1px solid var(--line)}
+  .has-product-image .product-visual>small{font-size:9px;top:15px;left:17px}
+  .has-product-image .product-visual>.badge{font-size:9px;top:13px;right:13px;bottom:auto;left:auto}
+}
+
+.audience-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.version-switch{display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin-top:24px;font-size:11px;color:var(--muted)}
+.version-switch>a{display:inline-flex;align-items:center;justify-content:center;min-width:42px;padding:8px 14px;border:1px solid var(--line);border-radius:4px;font-weight:700;color:var(--ink)}
+.version-switch>a.active{border-color:var(--red);background:var(--red);color:#fff}
+.version-switch>span:first-child{margin-right:5px}
+.module-link{display:flex;margin-top:13px}
+.video-meta{flex-wrap:wrap;gap:12px}
+@media(max-width:900px){.audience-grid{grid-template-columns:1fr}.role-switch{flex-wrap:wrap}}

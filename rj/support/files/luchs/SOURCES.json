@@ -1,0 +1,258 @@
+{
+  "package": "Luchs_Family_External_20261009.zip",
+  "providedAt": "2026-10-10",
+  "files": [
+    {
+      "url": "./files/luchs/a/Luchs_A_Brochure_EN_v2.3_20261005.pdf",
+      "source": "Luchs_A/Luchs_A_Brochure_EN_v2.3_20261005.pdf",
+      "bytes": 3031307,
+      "sha256": "86c352483fac36c085184966df6b888e969832d853e7518d79d22682eac35dc7",
+      "sourceSha256": "86c352483fac36c085184966df6b888e969832d853e7518d79d22682eac35dc7",
+      "origin": "original",
+      "note": ""
+    },
+    {
+      "url": "./files/luchs/a/Luchs_A_DataSheet_EN_v1.0_20261005.pdf",
+      "source": "Luchs_A/Luchs_A_DataSheet_EN_v1.0_20261005.pdf",
+      "bytes": 1425989,
+      "sha256": "3df1527f3b34a45712d5d526e57c823a28d8234a91db3bc7b165266820c841e7",
+      "sourceSha256": "3df1527f3b34a45712d5d526e57c823a28d8234a91db3bc7b165266820c841e7",
+      "origin": "original",
+      "note": ""
+    },
+    {
+      "url": "./files/luchs/a/Luchs_A_User_Manual_EN_v1.4_20261005.pdf",
+      "source": "Luchs_A/Luchs_A_User_Manual_EN_v1.4_20261005.pdf",
+      "bytes": 3522149,
+      "sha256": "2c38a06662a692cc1f604f4e8be910701a2fc7cd3d744148e63ce34166fe9eb7",
+      "sourceSha256": "2c38a06662a692cc1f604f4e8be910701a2fc7cd3d744148e63ce34166fe9eb7",
+      "origin": "original",
+      "note": ""
+    },
+    {
+      "url": "./files/luchs/a/Luchs_A_Product_Page_EN_v2.3_20261005.html",
+      "source": "Luchs_A/Luchs_A_Product_Page_EN_v2.3_20261005.html",
+      "bytes": 2941791,
+      "sha256": "0a46024a1bb9ce66e94df4eab0ce89ba2cf93597ca945758ea9175d0ce64c0d3",
+      "sourceSha256": "f0cf474843071bb3ce341f0ca72834bc5fe74480b989ea8053adf63d12f146d3",
+      "origin": "reference",
+      "note": "Only the embedded video filename was corrected to the supplied versioned file. No document text or technical values changed."
+    },
+    {
+      "url": "./files/luchs/a/Luchs_A_DataSheet_EN_v1.0_20261005.html",
+      "source": "Luchs_A/Luchs_A_DataSheet_EN_v1.0_20261005.html",
+      "bytes": 867758,
+      "sha256": "465ee799b37a772a0749c2c33e7c05174c6dfaa3271f496bc6e5e7aa88224d59",
+      "sourceSha256": "465ee799b37a772a0749c2c33e7c05174c6dfaa3271f496bc6e5e7aa88224d59",
+      "origin": "original",
+      "note": ""
+    },
+    {
+      "url": "./files/luchs/a/Luchs_A_User_Manual_EN_v1.4_20261005.html",
+      "source": "Luchs_A/Luchs_A_User_Manual_EN_v1.4_20261005.html",
+      "bytes": 3791743,
+      "sha256": "56bb40bdd9887fa6f180c035efe39d40b7d2169c81c0d56ebb534535b8500494",
+      "sourceSha256": "56bb40bdd9887fa6f180c035efe39d40b7d2169c81c0d56ebb534535b8500494",
+      "origin": "original",
+      "note": ""
+    },
+    {
+      "url": "./files/luchs/a/Luchs_A_Promo_EN_1080p_v2.0_20261005.mp4",
+      "source": "Luchs_A/Luchs_A_Promo_EN_1080p_v2.0_20261005.mp4",
+      "bytes": 27322654,
+      "sha256": "aa0b2fb54d72de6fac0df66adf967118e844aa19c7d2b6b0ca118ce2633cc57e",
+      "sourceSha256": "aa0b2fb54d72de6fac0df66adf967118e844aa19c7d2b6b0ca118ce2633cc57e",
+      "origin": "original",
+      "note": ""
+    },
+    {
+      "url": "./files/luchs/a/Luchs_A_Promo_EN_720p_v2.0_20261005.mp4",
+      "source": "Luchs_A/Luchs_A_Promo_EN_720p_v2.0_20261005.mp4",
+      "bytes": 18050680,
+      "sha256": "9763a781cc4c0ae1d5dfa42a51a290772db40b98346dc79880676ea9d7f753b5",
+      "sourceSha256": "9763a781cc4c0ae1d5dfa42a51a290772db40b98346dc79880676ea9d7f753b5",
+      "origin": "original",
+      "note": ""
+    },
+    {
+      "url": "./files/luchs/b/Luchs_B_Brochure_EN_v2.7_20261005.pdf",
+      "source": "Luchs_B/Luchs_B_Brochure_EN_v2.7_20261005.pdf",
+      "bytes": 9812930,
+      "sha256": "ad3ce7e841f4d05e70e491570735753cc6d08f1438bcabf39ede340c6d049cb6",
+      "sourceSha256": "ad3ce7e841f4d05e70e491570735753cc6d08f1438bcabf39ede340c6d049cb6",
+      "origin": "original",
+      "note": ""
+    },
+    {
+      "url": "./files/luchs/b/Luchs_B_DataSheet_EN_v1.4_20261005.pdf",
+      "source": "Luchs_B/Luchs_B_DataSheet_EN_v1.4_20261005.pdf",
+      "bytes": 993458,
+      "sha256": "f15bd6724c6f7684d386ddb4f3f95d6720aad3504bbd1884786c4ac377edbf51",
+      "sourceSha256": "f15bd6724c6f7684d386ddb4f3f95d6720aad3504bbd1884786c4ac377edbf51",
+      "origin": "original",
+      "note": ""
+    },
+    {
+      "url": "./files/luchs/b/Luchs_B_User_Manual_EN_v0.9.5_20261005.pdf",
+      "source": "Luchs_B/Luchs_B_User_Manual_EN_v0.9.5_20261005.pdf",
+      "bytes": 5288492,
+      "sha256": "a8b8e84741b5533539a027e9951c468f36a24914c301ad764833bd26cf865886",
+      "sourceSha256": "a8b8e84741b5533539a027e9951c468f36a24914c301ad764833bd26cf865886",
+      "origin": "original",
+      "note": ""
+    },
+    {
+      "url": "./files/luchs/b/Luchs_B_Product_Page_EN_v2.7_20261005.html",
+      "source": "Luchs_B/Luchs_B_Product_Page_EN_v2.7_20261005.html",
+      "bytes": 10670469,
+      "sha256": "11873b9f977b145b85b26ffcc61b2a09897f4ea6857a73232bcf7bff9bdd7c44",
+      "sourceSha256": "11873b9f977b145b85b26ffcc61b2a09897f4ea6857a73232bcf7bff9bdd7c44",
+      "origin": "original",
+      "note": ""
+    },
+    {
+      "url": "./files/luchs/b/Luchs_B_DataSheet_EN_v1.4_20261005.html",
+      "source": "Luchs_B/Luchs_B_DataSheet_EN_v1.4_20261005.html",
+      "bytes": 1427962,
+      "sha256": "4904c20c887cd2f69b73e78df033feabb53b4ac83dae3413392f134e58f407e3",
+      "sourceSha256": "4904c20c887cd2f69b73e78df033feabb53b4ac83dae3413392f134e58f407e3",
+      "origin": "original",
+      "note": ""
+    },
+    {
+      "url": "./files/luchs/b/Luchs_B_User_Manual_EN_v0.9.5_20261005.html",
+      "source": "Luchs_B/Luchs_B_User_Manual_EN_v0.9.5_20261005.html",
+      "bytes": 4119006,
+      "sha256": "e1500fcb3ce16877b36bb63dbcad036366442f30ce3dc326886de33d625dc515",
+      "sourceSha256": "e1500fcb3ce16877b36bb63dbcad036366442f30ce3dc326886de33d625dc515",
+      "origin": "original",
+      "note": ""
+    },
+    {
+      "url": "./files/luchs/b/Luchs_B_Promo_EN_1080p_v3.2_20261005.mp4",
+      "source": "Luchs_B/Luchs_B_Promo_EN_1080p_v3.2_20261005.mp4",
+      "bytes": 24051010,
+      "sha256": "1d67ebc25f30ab9f7d3a5d5c1fdda1e755dfa6728e55d9cbb4e12822d5816afd",
+      "sourceSha256": "1d67ebc25f30ab9f7d3a5d5c1fdda1e755dfa6728e55d9cbb4e12822d5816afd",
+      "origin": "original",
+      "note": ""
+    },
+    {
+      "url": "./files/luchs/b/Luchs_B_Promo_EN_720p_v3.2_20261005.mp4",
+      "source": "Luchs_B/Luchs_B_Promo_EN_720p_v3.2_20261005.mp4",
+      "bytes": 15905927,
+      "sha256": "b35610c6864da5f2223b9c57a5dd3432dd59a7e495963adedaae188fcb902c63",
+      "sourceSha256": "b35610c6864da5f2223b9c57a5dd3432dd59a7e495963adedaae188fcb902c63",
+      "origin": "original",
+      "note": ""
+    },
+    {
+      "url": "./files/luchs/a/dev/Luchs_A_CAN_Protocol_v1.1.xlsx",
+      "source": "Luchs_A/dev/Luchs_A_CAN_Protocol_v1.1.xlsx",
+      "bytes": 15115,
+      "sha256": "785e07cef63eae76271b33530c775b586a7b22bd9345f63f16e88c0ada50777a",
+      "sourceSha256": "785e07cef63eae76271b33530c775b586a7b22bd9345f63f16e88c0ada50777a",
+      "origin": "original",
+      "note": ""
+    },
+    {
+      "url": "./files/luchs/a/dev/Luchs_A_CAN_v1.1.dbc",
+      "source": "Luchs_A/dev/Luchs_A_CAN_v1.1.dbc",
+      "bytes": 5356,
+      "sha256": "7967dad3a62a09df05f93160ed1ccbc6dcd90f184ca273e0769559f42cad15b3",
+      "sourceSha256": "7967dad3a62a09df05f93160ed1ccbc6dcd90f184ca273e0769559f42cad15b3",
+      "origin": "original",
+      "note": ""
+    },
+    {
+      "url": "./files/luchs/a/dev/Luchs_A_CAN_v1.1_lamp_cmd.dbc",
+      "source": "Luchs_A/dev/Luchs_A_CAN_v1.1_lamp_cmd.dbc",
+      "bytes": 993,
+      "sha256": "18f79c796080ddd74bafa4b499983802237280ee025a4233be459328478f5d67",
+      "sourceSha256": "18f79c796080ddd74bafa4b499983802237280ee025a4233be459328478f5d67",
+      "origin": "original",
+      "note": ""
+    },
+    {
+      "url": "./files/luchs/a/dev/Luchs_A_Serial_Protocol_v1.0.xlsx",
+      "source": "Luchs_A/dev/Luchs_A_Serial_Protocol_v1.0.xlsx",
+      "bytes": 16166,
+      "sha256": "9f5cc64fca468287f3ff21b0d0ced00d0748c9d78b3ca3c40a180fc06a671910",
+      "sourceSha256": "9f5cc64fca468287f3ff21b0d0ced00d0748c9d78b3ca3c40a180fc06a671910",
+      "origin": "original",
+      "note": ""
+    },
+    {
+      "url": "./files/luchs/a/dev/Luchs_A-4WS_IP54_STEP.zip",
+      "source": "Luchs_A/dev/Luchs_A-4WS_IP54_STEP.zip",
+      "bytes": 11039499,
+      "sha256": "b6429c5378eccf661d13e8ead1aaf58d29d365cc60a31c870effddb43855f47b",
+      "sourceSha256": "b6429c5378eccf661d13e8ead1aaf58d29d365cc60a31c870effddb43855f47b",
+      "origin": "original",
+      "note": ""
+    },
+    {
+      "url": "./files/luchs/a/dev/Luchs_A-4WS_IP54.glb",
+      "source": "Luchs_A/dev/Luchs_A-4WS_IP54.glb",
+      "bytes": 7294116,
+      "sha256": "a43b8be432c41b945a4fb48a83788d4192944849d2f962f73d3a0a89fe5ee7ac",
+      "sourceSha256": "a43b8be432c41b945a4fb48a83788d4192944849d2f962f73d3a0a89fe5ee7ac",
+      "origin": "original",
+      "note": ""
+    },
+    {
+      "url": "./files/luchs/b/dev/Luchs_B_CAN_Protocol_LCI_v1.0_draft.xlsx",
+      "source": "Luchs_B/dev/Luchs_B_CAN_Protocol_LCI_v1.0_draft.xlsx",
+      "bytes": 16698,
+      "sha256": "be11174d19830231bee09750254ea05839b2eaf926e14607d6f2871ef2d46867",
+      "sourceSha256": "be11174d19830231bee09750254ea05839b2eaf926e14607d6f2871ef2d46867",
+      "origin": "original",
+      "note": ""
+    },
+    {
+      "url": "./files/luchs/b/dev/Luchs_B_CAN_LCI_v1.0_draft.dbc",
+      "source": "Luchs_B/dev/Luchs_B_CAN_LCI_v1.0_draft.dbc",
+      "bytes": 13817,
+      "sha256": "306ffedb5816ba7630e80fedf268163c9b45b5828299d1622b22cc7e43ada842",
+      "sourceSha256": "306ffedb5816ba7630e80fedf268163c9b45b5828299d1622b22cc7e43ada842",
+      "origin": "original",
+      "note": ""
+    },
+    {
+      "url": "./files/luchs/b/dev/Luchs_B_CAN_Protocol_VCU_V2.6.xlsx",
+      "source": "Luchs_B/dev/Luchs_B_CAN_Protocol_VCU_V2.6.xlsx",
+      "bytes": 8582,
+      "sha256": "68053801780c25f76e62c91d1c6747239f689fb77a7f29477fdeb93fe698d4bc",
+      "sourceSha256": "68053801780c25f76e62c91d1c6747239f689fb77a7f29477fdeb93fe698d4bc",
+      "origin": "original",
+      "note": ""
+    },
+    {
+      "url": "./files/luchs/b/dev/Luchs_B_CAN_VCU_V2.6.dbc",
+      "source": "Luchs_B/dev/Luchs_B_CAN_VCU_V2.6.dbc",
+      "bytes": 2560,
+      "sha256": "8a5c546d8d42ef4c4bab3fc295648eaa8ba3c7b31b17425a1c33f5eb07865e50",
+      "sourceSha256": "8a5c546d8d42ef4c4bab3fc295648eaa8ba3c7b31b17425a1c33f5eb07865e50",
+      "origin": "original",
+      "note": ""
+    },
+    {
+      "url": "./files/luchs/shared/luchs_ros2_v1.1.0.zip",
+      "source": "Luchs_A/dev/luchs_ros2_v1.1.0.zip",
+      "bytes": 1203685,
+      "sha256": "6b943f876c31bea7a985ce63aaaf41e2491b93f79d988f3651f490a169f523f1",
+      "sourceSha256": "6b943f876c31bea7a985ce63aaaf41e2491b93f79d988f3651f490a169f523f1",
+      "origin": "original",
+      "note": ""
+    },
+    {
+      "url": "./files/luchs/shared/luchs_ros1_v1.1.0.zip",
+      "source": "Luchs_A/dev/luchs_ros1_v1.1.0.zip",
+      "bytes": 1181500,
+      "sha256": "3af8ddc1b12e221f6a6ff1971133ede3fa9d96a2dee3ab4c5a231b7696e3f80c",
+      "sourceSha256": "3af8ddc1b12e221f6a6ff1971133ede3fa9d96a2dee3ab4c5a231b7696e3f80c",
+      "origin": "original",
+      "note": ""
+    }
+  ]
+}

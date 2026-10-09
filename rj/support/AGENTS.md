@@ -19,3 +19,11 @@ These instructions apply to `rj/support/`. Follow the human user's explicit scop
 - Keep the English interface and customer copy, original source records and files, video audio and existing service guide. The Chinese interface stays hidden; Chinese source materials remain reference records.
 - Following stays a configuration enquiry until approved source material is supplied. Do not invent tutorials or parameters.
 - Private certificates are supplied separately on request. Do not publish them or internal development material to the website or public Git history.
+
+## Luchs family public resources
+
+- Luchs A and B are hardware versions of one family. Preserve both existing entrances and routes, the A/B version links and separate technical/document scope. Do not restore Steinadler model/seat filters.
+- `luchs.js` holds native English records from the owner-supplied external family package. User and dealer information stays separate from integration-only developer files. Shared ROS records use `productIds` and one canonical source file.
+- Preserve Preliminary labels for B documents and Draft labels for LCI. Do not merge LCI with the separate VCU V2.6 interface or imply unverified firmware compatibility.
+- Website, document, software and firmware versions are independent. Preserve original source revisions and the file hashes in `files/luchs/SOURCES.json`.
+- Include `luchs.js` in syntax checks. Downloads and topic sidebars remain file-only for all three support areas. Missing service instructions, B STEP files and private certificates are not supplied by this release.

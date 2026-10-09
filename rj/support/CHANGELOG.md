@@ -8,6 +8,19 @@ Website versions use `V<major>.<minor>` and are separate from document revisions
 - Add new entries at the top. Retain released entries and identify each published version by its Git commit and deployment record. After verification, freeze its commit in a snapshot branch named `rj-support-v<major>.<minor>`; never change an older snapshot. Main remains the deployment branch. A rollback reuses the recorded version and commit.
 - The owner establishes the existing L7e edition as V1.0 on 2026-10-09. Earlier unnumbered work is not a separate numbered release.
 
+## V2.0 — 2026-10-10
+
+Publish the external Luchs family materials and activate developer resources within the existing three support areas.
+
+Version snapshot: [rj-support-v2.0](https://github.com/erfinderwx/xw-tech/tree/rj-support-v2.0/rj/support).
+
+- Show the official Steinadler Pro vehicle image, the supplied Luchs A-4WS render and the official Luchs B image in consistent, responsive card frames. Keep the complete products visible and use compact local WebP assets.
+- Treat Luchs A and B as versions of one family. Retain their existing entrances and URLs, add an A/B version switch, and use matching product-information and support topics. Keep product presentations distinct from operation instructions.
+- Add each version's original English PDF brochure, data sheet and user manual, the corresponding web documents, and a product film with 1080p and 720p sources. Preserve document revisions and B's preliminary status. Correct only an outdated video filename in the supplied Luchs A web product page.
+- Activate public developer categories for interfaces, protocols, SDK/software, examples, models and compatibility. Publish the supplied CAN/serial references and A-4WS IP54 models. Keep LCI drafts distinct from the B VCU V2.6 interface; share the identical ROS 1/ROS 2 packages between A and B.
+- Keep Downloads and topic sidebars file-only. Add developer support-area filtering; keep online documents and films in product topics and search. Keep the 40 Steinadler source records, 34 active Steinadler resources, five Steinadler downloads, nine videos, seven caption tracks, L7e scope and original service guide unchanged.
+- Record source-file hashes and image provenance. Synchronise the website version, rendered footer and cache identifiers to V2.0. Certificates, unsupported service procedures, unprovided models and unconfirmed functionality are not added.
+
 ## V1.2 — 2026-10-09
 
 Make the top-level resource entry a file-only Downloads page.
