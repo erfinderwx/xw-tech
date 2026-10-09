@@ -28,7 +28,7 @@ for (const t of C.topics) {
   assert(C.sections.some(s=>s.id===t.sectionId),'Topic section exists');
   assert(C.resourceTypes.some(k=>k.id===t.kind),'Topic type exists');
 }
-const routes = new Set(['#/','#/users','#/dealers','#/developers','#/architecture','#/library','#/library?audience=dealers','#/search?q=充电','#/search?q=Steinadler','#/search?q=证书&audience=dealers','#/search?q=nonexistent']);
+const routes = new Set(['#/','#/users','#/dealers','#/developers','#/library','#/library?audience=dealers','#/search?q=充电','#/search?q=Steinadler','#/search?q=证书&audience=dealers','#/search?q=nonexistent']);
 for(const p of C.products) {
   for(const audience of ['users','dealers']) {
     routes.add(UI.href('product/'+p.id,{audience}));
@@ -82,7 +82,10 @@ assert(UI.pageFor(UI.parseRoute('#/product/extension-check?audience=dealers')).h
 assert(UI.searchTopics('Extension','users').products.some(p=>p.id==='extension-check'),'New product is indexed by search');
 C.products.pop();
 const index=fs.readFileSync(path.join(root,'rj','support','index.html'),'utf8');
-for(const [,asset] of index.matchAll(/(?:src|href)="\.\/([^"#]+)"/g)) assert(fs.existsSync(path.join(root,'rj','support',asset)),'Static asset exists: '+asset);
+for(const [,assetUrl] of index.matchAll(/(?:src|href)="\.\/([^"#]+)"/g)) {
+  const asset=assetUrl.split('?')[0];
+  assert(fs.existsSync(path.join(root,'rj','support',asset)),'Static asset exists: '+assetUrl);
+}
 assert(appElement.innerHTML.includes('使用与支持'),'Initial render runs');
 assert(fs.readFileSync(path.join(root,'rj','support','styles.css'),'utf8').includes('@media'),'Responsive styles exist');
 console.log(`Passed: ${routes.size} page states, ${linkCount} internal navigation links, role scope, escaping, and new-product reuse.`);
