@@ -24,10 +24,57 @@ const sourceRecords = JSON.stringify(C.resources);
 for(const audience of ['users','dealers']) {
   const visible = UI.publishedResources(null,audience);
   assert.equal(visible.length,C.resources.filter(r=>r.audiences.includes(audience)).length,'All public resources remain visible to their audience');
-  const english = visible.filter(r=>r.language==='en');
+  const english = visible.filter(r=>r.type==='document' && r.language==='en');
   assert.equal(english.length,6,'Six existing English documents remain visible');
   assert(english.every(r=>!/[\u3400-\u9fff]/.test(JSON.stringify([r.title,r.scope,r.revision,r.assets]))),'English file metadata stays translated');
   assert.equal(visible.filter(r=>r.type==='document' && r.language==='zh-CN').length,2,'Both Chinese downloads are visible');
+  assert(visible.every(r=>!/\p{Script=Han}/u.test(JSON.stringify(r))),'All displayed resource copy is English');
+  assert(visible.filter(r=>!['document','video'].includes(r.type)).every(r=>r.language==='en'),'Online guides are English translations');
+}
+const englishCopy=context.window.RJSupportEnglishMetadata;
+assert.equal(Object.keys(englishCopy).length,C.resources.length,'English copy covers every original resource');
+const projected=UI.publishedResources(null,'dealers');
+function compareContent(original,translated,label) {
+  if(typeof original==='string') {
+    // Source numerical values and page references must survive translation.
+    assert.deepEqual((translated.match(/\d+(?:\.\d+)?/g)||[]).sort(),(original.match(/\d+(?:\.\d+)?/g)||[]).sort(),label+' numerical values');
+    return;
+  }
+  if(Array.isArray(original)) {
+    assert.equal(translated.length,original.length,label+' item count');
+    original.forEach((v,i)=>compareContent(v,translated[i],label+'['+i+']'));
+  } else if(original && typeof original==='object') {
+    for(const key of Object.keys(original)) {
+      if(['type','src','url'].includes(key))assert.equal(translated[key],original[key],label+' '+key);
+      else compareContent(original[key],translated[key],label+'.'+key);
+    }
+  } else assert.equal(translated,original,label);
+}
+for(const source of C.resources) {
+  const resource=projected.find(r=>r.id===source.id);
+  assert(resource && englishCopy[source.id],'Every source record has an English display record');
+  for(const key of ['id','productId','topicId','relatedTopicIds','audiences','modelIds','seatIds','type','publishedAt','status','visibility'])assert.equal(JSON.stringify(resource[key]),JSON.stringify(source[key]),key+' scope is preserved for '+source.id);
+  assert.equal(resource.sourceLanguage,source.language,'Original source language is retained');
+  compareContent(source.content,resource.content,source.id+'.content');
+  compareContent(source.sourceRefs,resource.sourceRefs,source.id+'.sources');
+  assert.equal(resource.assets.length,source.assets.length,'Original attachment count');
+  resource.assets.forEach((a,i)=>{
+    for(const key of ['kind','url','poster','format','origin','duration','guideUrl'])assert.equal(a[key],source.assets[i][key],source.id+' original asset '+key);
+    localProjectedAsset(a.captions);
+    if(source.assets[i].captions) {
+      assert.equal(a.captionLanguage,'en','Support captions default to English');
+      const subtitle=fs.readFileSync(path.resolve(root,'rj/support',a.captions),'utf8');
+      const originalSubtitle=fs.readFileSync(path.resolve(root,'rj/support',source.assets[i].captions),'utf8');
+      assert(!/\p{Script=Han}/u.test(subtitle),'English subtitles have no Chinese lines');
+      const cues=s=>s.match(/^\d\d:\d\d:\d\d\.\d{3} --> .*$/gm)||[];
+      assert.deepEqual(cues(subtitle),cues(originalSubtitle),'Original caption timings are preserved');
+      const payload=s=>s.replace(/\r/g,'').split('\n').filter(line=>line && !/^(?:WEBVTT|NOTE|\d+$|\d\d:\d\d)/.test(line) && !/\p{Script=Han}/u.test(line));
+      assert.deepEqual(payload(subtitle),payload(originalSubtitle),'Existing English caption text is preserved');
+    }
+  });
+}
+function localProjectedAsset(url) {
+  if(url)assert(fs.existsSync(path.resolve(root,'rj/support',url)),'Translated display asset exists: '+url);
 }
 assert(!/[\u3400-\u9fff]/.test(JSON.stringify([C.site,C.audiences,C.products,C.sections,C.topics,C.developerModules,C.resourceTypes])),'Architecture metadata is English');
 assert(!/[\u3400-\u9fff]/.test(fs.readFileSync(path.join(root,'rj/support/app.js'),'utf8')),'Interface templates are English');
@@ -87,12 +134,15 @@ for(const p of C.products) {
 }
 routes.add('#/product/steinadler-pro?audience=users&model=l7e&seat=ss');
 routes.add('#/product/steinadler-pro/topic/follow?audience=users&model=offroad&seat=ds');
+for(const r of C.resources)for(const audience of r.audiences)routes.add(UI.href(`product/${r.productId}/topic/${r.topicId}`,{audience,resource:r.id}));
+for(const audience of ['users','dealers'])for(const language of ['en','zh-CN'])for(const type of ['document','video','guide'])routes.add(UI.href('library',{audience,language,type}));
 let linkCount = 0;
 for(const routeString of routes) {
   const route=UI.parseRoute(routeString);
   const page=UI.pageFor(route);
   assert.notEqual(page.title,'Page not found','Known route must render: '+routeString);
   const html=UI.shell(page.html,route);
+  assert(!/\p{Script=Han}/u.test(html),'Every rendered heading, paragraph, table, caption and source label is English: '+routeString);
   assert(!/[\u3400-\u9fff]/.test(page.title),'Page title remains English: '+routeString);
   assert(!/[\u3400-\u9fff]/.test(UI.shell('',route)),'Navigation and footer remain English: '+routeString);
   for(const [,text] of html.matchAll(/<(?:label|option)\b[^>]*>([^<]*)</g)) assert(!/[\u3400-\u9fff]/.test(text),'Filter controls remain English');
@@ -115,11 +165,11 @@ for(const p of C.products) {
 assert.equal(UI.searchTopics('certificate','users').topics.length,0,'User search cannot surface dealer topics');
 assert(UI.searchTopics('certificate','dealers').topics.length>0,'Dealer search includes certificates');
 assert(UI.searchTopics('following','users').topics.some(x=>x.product.id==='steinadler-pro'),'Customer-facing feature topic exists');
-for(const r of C.resources.filter(r=>r.language==='zh-CN')) {
+for(const r of projected) {
   for(const audience of r.audiences) {
     const direct = UI.pageFor(UI.parseRoute(UI.href(`product/${r.productId}/topic/${r.topicId}`,{audience,resource:r.id}))).html;
-    assert(direct.includes('id="resource-'+r.id+'"'),'Direct links show Chinese resources under the English interface');
-    assert(UI.searchTopics(r.title,audience).resources.some(x=>x.id===r.id),'Search can find original Chinese resources');
+    assert(direct.includes('id="resource-'+r.id+'"'),'Direct links show every translated resource');
+    assert(UI.searchTopics(r.title,audience).resources.some(x=>x.id===r.id),'Search can find resources by their English titles');
   }
 }
 const chineseFiles = UI.pageFor(UI.parseRoute('#/library?audience=dealers&language=zh-CN&type=document')).html;
@@ -139,15 +189,15 @@ assert(UI.resourcesFor(steinadler,seatTopic,'users',{seat:'ds'}).some(r=>r.id===
 assert(!UI.resourcesFor(steinadler,seatTopic,'users',{seat:'ss'}).some(r=>r.type==='video'),'Double-seat videos are excluded from single-seat instructions');
 assert(UI.resourcesFor(steinadler,seatTopic,'users',{seat:'ds'}).some(r=>r.type==='video'),'Matching installation videos are available');
 assert(!UI.publishedResources(null,'users').some(r=>r.id.startsWith('service-video-')),'Qualified-service videos stay in dealer classification');
-assert.equal(UI.searchTopics('底部护板','users').resources.length,0,'Service video is excluded from customer search');
-assert(UI.searchTopics('底部护板','dealers').resources.length>0,'Dealer search can find the service video');
+assert.equal(UI.searchTopics('underbody protection','users').resources.length,0,'Service video is excluded from customer search');
+assert(UI.searchTopics('underbody protection','dealers').resources.length>0,'English dealer search can find the service video');
 assert.equal(UI.publishedResources(null,'dealers').filter(r=>r.type==='video').length,9,'All nine Chinese-audio videos are available to dealers');
 assert.equal(JSON.stringify(C.resources),sourceRecords,'English display metadata never changes the original records');
 const emptyProduct=UI.pageFor(UI.parseRoute('#/product/luchs-a')).html;
 assert(!emptyProduct.includes('resource-panel'),'Other products cannot inherit Steinadler materials');
 const english=UI.pageFor(UI.parseRoute('#/library?audience=users&language=en&type=document')).html;
 assert(english.includes('Steinadler Pro L7e user manual'),'English document filter finds an actual manual');
-assert(!english.includes('遥控车辆原说明 · 中文'),'Language filter excludes Chinese original files');
+assert(!english.includes('remote-control-manual-zh.docx'),'Language filter excludes Chinese original files');
 assert.equal(UI.topicStatus(steinadler,C.topics.find(x=>x.id==='follow'),'users'),'Configuration enquiry','Following is not presented as a released operation tutorial');
 assert.equal(UI.topicStatus(steinadler,C.topics.find(x=>x.id==='certificates'),'dealers'),'Available on request','Private certificates remain available by enquiry');
 assert.equal(UI.topicStatus(steinadler,C.topics.find(x=>x.id==='spares'),'dealers'),'Parts enquiry','Spare-parts enquiry remains available');
@@ -178,4 +228,4 @@ for(const [,assetUrl] of index.matchAll(/(?:src|href)="\.\/([^"#]+)"/g)) {
 assert(index.includes('<html lang="en">'),'Document language is English');
 assert(appElement.innerHTML.includes('Product support'),'Initial render runs');
 assert(fs.readFileSync(path.join(root,'rj','support','styles.css'),'utf8').includes('@media'),'Responsive styles exist');
-console.log(`Passed: ${routes.size} page states with English architecture, ${linkCount} internal navigation links, ${C.resources.length} public resources, 8 downloads including 2 Chinese files, 9 Chinese-audio videos, model/seat/language filters, role scope, escaping, and new-product reuse.`);
+console.log(`Passed: ${routes.size} fully English page states, ${linkCount} internal navigation links, ${C.resources.length} translated public resources with unchanged configuration/numerical values/sources, 8 original downloads including 2 Chinese files, 9 Chinese-audio videos, 7 English caption tracks, filters, role scope, escaping, and new-product reuse.`);
