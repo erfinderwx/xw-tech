@@ -14,6 +14,17 @@ vm.createContext(context);
 ['catalog.js','content.js','content-en.js','app.js'].forEach(name => vm.runInContext(fs.readFileSync(path.join(root,'rj','support',name),'utf8'),context,{filename:name}));
 const C = context.window.RJSupportCatalog;
 const UI = context.window.RJSupportUI;
+const websiteVersion=fs.readFileSync(path.join(root,'rj/support/VERSION'),'utf8').trim();
+assert(/^[1-9]\d*\.\d+$/.test(websiteVersion),'Website version uses major.minor, starting at 1.0');
+assert.equal(C.site.version,websiteVersion,'Catalogue and release record use the same website version');
+const changelog=fs.readFileSync(path.join(root,'rj/support/CHANGELOG.md'),'utf8');
+const releaseEntries=Array.from(changelog.matchAll(/^## V(\d+\.\d+) — (\d{4}-\d{2}-\d{2})$/gm),match=>match[1]);
+assert.equal(releaseEntries[0],websiteVersion,'Latest dated changelog entry matches the current website version');
+assert.equal(new Set(releaseEntries).size,releaseEntries.length,'Released website versions are not duplicated');
+for(let i=1;i<releaseEntries.length;i++) {
+  const [major,minor]=releaseEntries[i-1].split('.').map(Number), [olderMajor,olderMinor]=releaseEntries[i].split('.').map(Number);
+  assert(major>olderMajor || (major===olderMajor && minor>olderMinor),'Release history is ordered newest first');
+}
 const unique = (items,label) => assert.equal(new Set(items.map(x=>x.id)).size,items.length,label + ' IDs must be unique');
 ['audiences','products','sections','topics','resources'].forEach(key=>unique(C[key],key));
 assert(C.resources.length>0,'Published customer materials must be available');
@@ -150,6 +161,7 @@ for(const routeString of routes) {
   const page=UI.pageFor(route);
   assert.notEqual(page.title,'Page not found','Known route must render: '+routeString);
   const html=UI.shell(page.html,route);
+  assert(html.includes('Website V'+websiteVersion),'Every page displays the recorded website version: '+routeString);
   assert(excludedFiles.every(file=>!html.includes(file)),'No old-manual or Chinese-file link is emitted in topics, sources, sidebars, search or legacy direct routes: '+routeString);
   assert(withdrawnGuides.every(id=>!html.includes('id="resource-'+id+'"')),'Withdrawn Offroad guides cannot reappear through direct links: '+routeString);
   assert(!/<select\b[^>]*\bname="(?:model|seat)"/.test(html),'Model and seat selectors are absent: '+routeString);
@@ -254,9 +266,11 @@ C.products.pop();
 const index=fs.readFileSync(path.join(root,'rj','support','index.html'),'utf8');
 for(const [,assetUrl] of index.matchAll(/(?:src|href)="\.\/([^"#]+)"/g)) {
   const asset=assetUrl.split('?')[0];
+  assert.equal(new URLSearchParams(assetUrl.split('?')[1]).get('v'),websiteVersion,'Static asset cache version matches the release: '+assetUrl);
   assert(fs.existsSync(path.join(root,'rj','support',asset)),'Static asset exists: '+assetUrl);
 }
 assert(index.includes('<html lang="en">'),'Document language is English');
 assert(appElement.innerHTML.includes('Product support'),'Initial render runs');
 assert(fs.readFileSync(path.join(root,'rj','support','styles.css'),'utf8').includes('@media'),'Responsive styles exist');
+console.log(`Version checks passed: Website V${websiteVersion}, release record, dated changelog, every page footer and all local asset cache versions agree.`);
 console.log(`Passed: ${routes.size} fully English page states and their legacy-configuration variants, ${linkCount} internal navigation links, all product entrances, 40 retained original records, ${projected.length} active resources, 5 English downloads including the L7e range extender and V06 as the only current vehicle manual, no model/seat selectors or obsolete source links, preserved original records and technical values, 9 original videos, 7 English caption tracks, audience scope, remaining library filters, escaping, and new-product reuse.`);

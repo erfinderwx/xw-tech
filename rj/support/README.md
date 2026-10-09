@@ -3,6 +3,14 @@
 Support centre: https://xw-tech.de/rj/support/
 Existing service guide: https://xw-tech.de/rj/
 
+## Website version management
+
+The current recorded website release is **V1.0**. `VERSION` is the release record; `catalog.js` site.version, the rendered Website version and the asset cache versions in `index.html` must match. Release history and the V1.0 content baseline are recorded in `CHANGELOG.md`. Website versions are independent of document revisions such as user manual V06.
+
+Each public content, copy, file, small interface update or fix increments the minor version (V1.1, V1.2, etc.). Major architecture, navigation or resource-organisation changes increment the major version and reset the minor version (V2.0, V3.0, etc.). Synchronise the version locations and prepend a dated changelog entry before publishing; preserve older entries. Record each release's Git commit and successful Pages deployment, and verify the live version. Internal maintenance with no public website change does not require a new website version. The initial V1.0 labelling and records are part of this baseline release.
+
+Each verified release has a frozen snapshot branch, `rj-support-v<major>.<minor>`, pointing at its recorded commit. Preserve existing snapshots; publish updates through `main`. The [V1.0 snapshot](https://github.com/erfinderwx/xw-tech/tree/rj-support-v1.0/rj/support) provides the versioned code and records for review or rollback.
+
 The existing User support, Dealer resources and Developer resources architecture and all on-page resource copy are in English, including instructions, tables, scopes, image captions, video titles and source labels. The black, white and red design and product expansion model are unchanged. Following remains a configuration enquiry; developer resources are not yet available.
 
 ## Files and content languages
