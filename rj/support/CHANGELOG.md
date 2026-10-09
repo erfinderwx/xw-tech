@@ -8,6 +8,17 @@ Website versions use `V<major>.<minor>` and are separate from document revisions
 - Add new entries at the top. Retain released entries and identify each published version by its Git commit and deployment record. After verification, freeze its commit in a snapshot branch named `rj-support-v<major>.<minor>`; never change an older snapshot. Main remains the deployment branch. A rollback reuses the recorded version and commit.
 - The owner establishes the existing L7e edition as V1.0 on 2026-10-09. Earlier unnumbered work is not a separate numbered release.
 
+## V1.1 — 2026-10-09
+
+Simplify the topic-page resource card to downloadable files only.
+
+Version snapshot: [rj-support-v1.1](https://github.com/erfinderwx/xw-tech/tree/rj-support-v1.1/rj/support).
+
+- Remove the duplicate sidebar index of online guides and videos, together with its resource counts.
+- Keep one Download files card for the files available in that topic; omit it when the topic has no downloadable files. File links support direct downloads.
+- Retain all main-page guides, nine videos, five English downloads, help and product-navigation cards, the original service guide, and all source records.
+- Update the release record, on-page Website V1.1 label and local asset cache versions together.
+
 ## V1.0 — 2026-10-09
 
 Initial recorded version, based on the deployed [L7e content baseline](https://github.com/erfinderwx/xw-tech/commit/d8d52dd2b0cec477c163b6aefb061d176366ae95).
