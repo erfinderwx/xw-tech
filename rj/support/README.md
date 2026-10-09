@@ -8,15 +8,15 @@ The existing User support, Dealer resources and Developer resources architecture
 ## Files and content languages
 
 - `index.html`: entry point, English document language and cache versions.
-- `catalog.js`: audiences, products, model/seat options and topics. `site.visibleResourceLanguages: ['en']` controls which resource languages appear throughout the support centre.
+- `catalog.js`: audiences, products, model/seat options and topics. `site.language: 'en'` selects the interface language; `site.visibleResourceLanguages: ['en','zh-CN']` independently lists the available resource languages.
 - `content.js`: all 40 original resource records, comprising 23 online guides/enquiries, 8 downloads and 9 videos. The original Chinese text, configuration scopes, sources and asset URLs are retained unchanged.
 - `content-en.js`: English titles, scopes and revision labels for the six existing English downloads. This display metadata does not alter the original records or the files.
-- `app.js`: shared page templates, navigation, search and filters. The language policy applies before topic, directory and search results are built. Old direct links to Chinese records cannot reveal them in the support centre.
+- `app.js`: shared page templates, navigation, search and filters. English interface labels are independent of resource language. Chinese records are available in topic pages, directory results, search and direct links under the original model, seat and audience scope.
 - `styles.css`: responsive layout and existing visual design.
 - `files/`: public manuals, remote/FPV instructions and prepared dual-seat/footrest installation diagrams.
 - `assets/`: original instruction images and two accessory installation videos. Seven service videos reuse the existing service guide assets.
 
-Only the six English downloads currently appear. The Chinese online text, two Chinese downloads and all nine Chinese-language video records remain in the repository but are hidden from the support centre's directory, search and topic pages. This is a display preference, not access control; public asset URLs and the existing service guide remain unchanged. To restore Chinese resources later, update the central language policy and provide the intended language presentation. Adding a product still requires only catalogue data and scoped resource records, without new page templates.
+The support centre currently exposes its English interface only. There is no Chinese interface switch or separate Chinese site version. The Language filter selects resource language and does not change navigation, topic names or controls. All 40 public resource records are available within their audience and configuration scope: 23 online guides/enquiries, 8 downloads (6 English and 2 Chinese), and 9 Chinese-audio videos. Chinese source text and files remain in their original language. Resource language never determines whether a Chinese interface version is exposed. Adding a product still requires only catalogue data and scoped resource records, without new page templates.
 
 ## Customer copy and scope
 
@@ -42,4 +42,4 @@ node --check rj/support/app.js
 node scripts/check-rj-support.cjs
 ```
 
-Checks cover English page output, retained source records, the language policy on direct routes/search/filters, configuration and audience scope, source files, escaped queries and adding another product. After deployment verify the live English navigation, English downloads, hidden Chinese records, responsive layout and original service guide entry.
+Checks cover the English interface, original Chinese and English resources, direct routes/search/language filters, configuration and audience scope, source files, escaped queries and adding another product. After deployment verify English navigation and controls, both Chinese downloads, Chinese-audio video playback and the original service guide entry.
