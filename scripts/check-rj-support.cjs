@@ -207,7 +207,7 @@ assert.equal((chineseFiles.match(/class="result-card resource-card"/g)||[]).leng
 assert(excludedFiles.every(file=>!chineseFiles.includes(file)),'Legacy language filters never restore excluded documents');
 assert(!chineseFiles.includes('value="zh-CN"'),'Download language control offers only currently available English files');
 const chineseVideos=UI.pageFor(UI.parseRoute('#/library?audience=dealers&language=zh-CN&type=video')).html;
-assert.equal((chineseVideos.match(/class="result-card resource-card"/g)||[]).length,9,'English-only downloads do not remove Chinese-audio videos');
+assert.equal((chineseVideos.match(/class="result-card resource-card"/g)||[]).length,5,'A legacy video-filter URL recovers to file downloads without restoring video listings');
 const steinadler=C.products.find(x=>x.id==='steinadler-pro');
 const rangeTopic=C.topics.find(x=>x.id==='range-extender');
 assert.equal(UI.resourcesFor(steinadler,rangeTopic,'users').length,2,'L7e range extender retains its operation guide and English PDF');
