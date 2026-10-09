@@ -216,13 +216,13 @@ footer a { margin-left: auto; color: #79dfaa; }
   .final-check { display: block; }
 }
     @media print{.embedded-note{display:none}}
-  </style>
+  .topbar-links { display:flex; align-items:center; gap:clamp(12px,2vw,24px); }\n.topbar-links .topbar-link { white-space:nowrap; }\n@media (max-width:480px) { .topbar { padding:0 14px; } .topbar-links { gap:12px; } .topbar-links .topbar-link { font-size:.7rem; } .brand { font-size:.72rem; letter-spacing:.1em; } }\n</style>
 </head>
 <body>
 <main>
   <header class="topbar">
     <a class="brand" href="#top" aria-label="RJ Tech guide home">RJ TECH <span>SERVICE</span></a>
-    <a class="topbar-link" href="#procedures">View procedures</a>
+    <nav class="topbar-links" aria-label="Guide navigation"><a class="topbar-link" href="./support/">Support center</a><a class="topbar-link" href="#procedures">Procedures</a></nav>
   </header>
   <section class="hero" id="top">
     <div class="hero-copy">
