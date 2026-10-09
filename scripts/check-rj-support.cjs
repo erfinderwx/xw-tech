@@ -22,7 +22,8 @@ assert.equal(C.site.language,'en','Architecture is English');
 assert.equal(JSON.stringify(C.site.visibleResourceLanguages),'["en","zh-CN"]','Resource languages are independent of the English interface');
 assert.equal(JSON.stringify(C.site.downloadLanguages),'["en"]','Downloads on the English website use English files');
 const sourceRecords = JSON.stringify(C.resources);
-const excludedIds=['manual-offroad','manual-remote-zh','manual-fpv-zh'];
+const withdrawnGuides=['first-use-offroad','daily-use-offroad','charging-offroad-indicators'];
+const excludedIds=['manual-offroad','manual-remote-zh','manual-fpv-zh',...withdrawnGuides];
 const excludedFiles=['steinadler-pro-offroad-manual-en.pdf','remote-control-manual-zh.docx','fpv-manual-zh.docx'];
 for(const audience of ['users','dealers']) {
   const visible = UI.publishedResources(null,audience);
@@ -31,18 +32,20 @@ for(const audience of ['users','dealers']) {
   assert.equal(english.length,5,'Five English documents remain in current downloads');
   assert(english.every(r=>!/[\u3400-\u9fff]/.test(JSON.stringify([r.title,r.scope,r.revision,r.assets]))),'English file metadata stays translated');
   assert.equal(visible.filter(r=>r.type==='document' && r.language==='zh-CN').length,0,'Chinese language duplicates are not displayed');
-  assert(!visible.some(r=>excludedIds.includes(r.id)),'Old manual and Chinese duplicates are excluded from all published listings');
+  assert(!visible.some(r=>excludedIds.includes(r.id)),'Old manual, withdrawn guides and Chinese duplicates are excluded from all published listings');
+  assert(visible.every(r=>!(/Offroad/i.test(JSON.stringify([r.title,r.scope,r.content])))),'Active customer copy uses the L7e scope without an Offroad version definition');
   assert(visible.every(r=>!/\p{Script=Han}/u.test(JSON.stringify(r))),'All displayed resource copy is English');
   assert(visible.filter(r=>!['document','video'].includes(r.type)).every(r=>r.language==='en'),'Online guides are English translations');
 }
 const englishCopy=context.window.RJSupportEnglishMetadata;
 assert.equal(Object.keys(englishCopy).length,C.resources.length,'English copy covers every original resource');
 const projected=UI.publishedResources(null,'dealers');
-assert.equal(projected.length,37,'Forty source records produce thirty-seven active resources');
+assert.equal(projected.length,34,'Forty source records produce thirty-four active resources');
 function compareContent(original,translated,label) {
   if(typeof original==='string') {
     // Source numerical values and page references must survive translation.
-    assert.deepEqual((translated.match(/\d+(?:\.\d+)?/g)||[]).sort(),(original.match(/\d+(?:\.\d+)?/g)||[]).sort(),label+' numerical values');
+    const numbers=text=>(text.replace(/L7e(?:-A1)?/gi,'').match(/\d+(?:\.\d+)?/g)||[]).sort();
+    assert.deepEqual(numbers(translated),numbers(original),label+' technical numerical values');
     return;
   }
   if(Array.isArray(original)) {
@@ -148,6 +151,14 @@ for(const routeString of routes) {
   assert.notEqual(page.title,'Page not found','Known route must render: '+routeString);
   const html=UI.shell(page.html,route);
   assert(excludedFiles.every(file=>!html.includes(file)),'No old-manual or Chinese-file link is emitted in topics, sources, sidebars, search or legacy direct routes: '+routeString);
+  assert(withdrawnGuides.every(id=>!html.includes('id="resource-'+id+'"')),'Withdrawn Offroad guides cannot reappear through direct links: '+routeString);
+  assert(!/<select\b[^>]*\bname="(?:model|seat)"/.test(html),'Model and seat selectors are absent: '+routeString);
+  assert(!/Select your vehicle configuration|Other configurations|View all configurations|Model and seat filters/.test(html),'Obsolete filter instructions are absent: '+routeString);
+  const legacyParams=new URLSearchParams(route.params);
+  legacyParams.set('model','offroad');legacyParams.set('seat','ss');
+  const legacyPage=UI.pageFor(UI.parseRoute('#/'+route.path+'?'+legacyParams.toString()));
+  assert.equal(legacyPage.html,page.html,'Old model/seat parameters do not hide accessories or restore withdrawn guides: '+routeString);
+  assert.equal(legacyPage.title,page.title,'Old configuration parameters leave the current page title unchanged');
   assert(!/\p{Script=Han}/u.test(html),'Every rendered heading, paragraph, table, caption and source label is English: '+routeString);
   assert(!/[\u3400-\u9fff]/.test(page.title),'Page title remains English: '+routeString);
   assert(!/[\u3400-\u9fff]/.test(UI.shell('',route)),'Navigation and footer remain English: '+routeString);
@@ -158,6 +169,7 @@ for(const routeString of routes) {
   for(const [,raw] of html.matchAll(/href="([^"\n]+)"/g)) {
     const url=raw.replace(/&amp;/g,'&');
     if(url.startsWith('#/')) {
+      assert(!/[?&](?:model|seat)=/.test(url),'Navigation does not propagate removed configuration filters: '+url);
       assert.notEqual(UI.pageFor(UI.parseRoute(url)).title,'Page not found','Emitted route must resolve: '+url);
       linkCount++;
     }
@@ -186,14 +198,13 @@ const chineseVideos=UI.pageFor(UI.parseRoute('#/library?audience=dealers&languag
 assert.equal((chineseVideos.match(/class="result-card resource-card"/g)||[]).length,9,'English-only downloads do not remove Chinese-audio videos');
 const steinadler=C.products.find(x=>x.id==='steinadler-pro');
 const rangeTopic=C.topics.find(x=>x.id==='range-extender');
-assert.equal(UI.resourcesFor(steinadler,rangeTopic,'users',{model:'l7e'}).length,0,'Offroad range-extender information cannot be applied to L7e');
-assert(UI.resourcesFor(steinadler,rangeTopic,'users',{model:'offroad'}).length>0,'Matching Offroad information is available');
+assert.equal(UI.resourcesFor(steinadler,rangeTopic,'users').length,2,'L7e range extender retains its operation guide and English PDF');
+assert(UI.resourcesFor(steinadler,rangeTopic,'users').every(r=>/L7e/.test(r.scope)),'Range extender is displayed as optional L7e equipment');
 const seatTopic=C.topics.find(x=>x.id==='seat-footrest');
-assert(!UI.resourcesFor(steinadler,seatTopic,'users',{seat:'ss'}).some(r=>r.id==='manual-seat-footrest'),'Dual-seat English diagrams are excluded from single-seat scope');
-assert(UI.resourcesFor(steinadler,seatTopic,'users',{seat:'ds'}).some(r=>r.id==='manual-seat-footrest'),'Dual-seat English diagrams remain available');
-// Chinese resources retain their original configuration and audience scope.
-assert(!UI.resourcesFor(steinadler,seatTopic,'users',{seat:'ss'}).some(r=>r.type==='video'),'Double-seat videos are excluded from single-seat instructions');
-assert(UI.resourcesFor(steinadler,seatTopic,'users',{seat:'ds'}).some(r=>r.type==='video'),'Matching installation videos are available');
+assert(UI.resourcesFor(steinadler,seatTopic,'users').some(r=>r.id==='manual-seat-footrest'),'Dual-seat English diagrams remain available without a seat filter');
+assert.equal(UI.resourcesFor(steinadler,seatTopic,'users').filter(r=>r.type==='video').length,2,'Both original accessory installation videos remain available');
+assert(UI.resourcesFor(steinadler,seatTopic,'users').some(r=>/Single seat/.test(r.title)),'Single-seat instructions remain as actual installation information');
+assert(UI.resourcesFor(steinadler,seatTopic,'users').some(r=>/Dual-seat/.test(r.title)),'Dual-seat instructions remain as actual installation information');
 assert(!UI.publishedResources(null,'users').some(r=>r.id.startsWith('service-video-')),'Qualified-service videos stay in dealer classification');
 assert.equal(UI.searchTopics('underbody protection','users').resources.length,0,'Service video is excluded from customer search');
 assert(UI.searchTopics('underbody protection','dealers').resources.length>0,'English dealer search can find the service video');
@@ -207,10 +218,17 @@ assert(!english.includes('remote-control-manual-zh.docx'),'Language filter exclu
 assert.equal(projected.filter(r=>/^manual-(?:l7e|offroad)$/.test(r.id)).length,1,'Only the newer V06 vehicle manual is offered');
 for(const audience of ['users','dealers'])for(const id of excludedIds)assert(!UI.searchTopics(englishCopy[id].title,audience).resources.some(r=>r.id===id),'Search cannot offer archived or duplicate documents');
 const offroadFirstUse=UI.resourcesFor(steinadler,C.topics.find(x=>x.id==='first-use'),'users',{model:'offroad'});
-assert(offroadFirstUse.some(r=>r.id==='first-use-offroad'),'Offroad online instructions remain available');
-assert(!offroadFirstUse.some(r=>r.id==='manual-l7e'),'The newer L7e manual is not applied to Offroad vehicles');
-const archivedReferences=offroadFirstUse.find(r=>r.id==='first-use-offroad').sourceRefs;
-assert(archivedReferences.some(ref=>ref.title.includes('Archived reference') && !ref.url),'Archived source provenance remains as a citation without an obsolete download link');
+assert(!offroadFirstUse.some(r=>r.id==='first-use-offroad'),'Withdrawn first-use instructions are excluded even with a legacy Offroad filter');
+assert(offroadFirstUse.some(r=>r.id==='manual-l7e'),'Legacy configuration links recover to the current L7e V06 manual');
+assert(projected.every(r=>!r.sourceRefs.some(ref=>/Offroad|Archived reference/i.test(ref.title))),'Old manual citations are not used as customer references');
+for(const route of ['#/','#/users','#/dealers','#/developers']) {
+  const html=UI.pageFor(UI.parseRoute(route)).html;
+  for(const product of C.products)assert(html.includes('<h3>'+product.name+'</h3>'),'All product entrances remain visible: '+route+' / '+product.name);
+}
+for(const model of ['l7e','offroad','invalid'])for(const seat of ['ss','ds','invalid']) {
+  const base='#/product/steinadler-pro/topic/seat-footrest?audience=users';
+  assert.equal(UI.pageFor(UI.parseRoute(base+'&model='+model+'&seat='+seat)).html,UI.pageFor(UI.parseRoute(base)).html,'Every old model/seat combination shows the same current installation resources');
+}
 assert.equal(UI.topicStatus(steinadler,C.topics.find(x=>x.id==='follow'),'users'),'Configuration enquiry','Following is not presented as a released operation tutorial');
 assert.equal(UI.topicStatus(steinadler,C.topics.find(x=>x.id==='certificates'),'dealers'),'Available on request','Private certificates remain available by enquiry');
 assert.equal(UI.topicStatus(steinadler,C.topics.find(x=>x.id==='spares'),'dealers'),'Parts enquiry','Spare-parts enquiry remains available');
@@ -241,4 +259,4 @@ for(const [,assetUrl] of index.matchAll(/(?:src|href)="\.\/([^"#]+)"/g)) {
 assert(index.includes('<html lang="en">'),'Document language is English');
 assert(appElement.innerHTML.includes('Product support'),'Initial render runs');
 assert(fs.readFileSync(path.join(root,'rj','support','styles.css'),'utf8').includes('@media'),'Responsive styles exist');
-console.log(`Passed: ${routes.size} fully English page states, ${linkCount} internal navigation links, 40 retained original records, ${projected.length} active resources, 5 English downloads with V06 as the only current vehicle manual, no old/Chinese-file links across rendered states, preserved configuration/numerical values/provenance, 9 original-audio videos, 7 English caption tracks, filters, escaping, and new-product reuse.`);
+console.log(`Passed: ${routes.size} fully English page states and their legacy-configuration variants, ${linkCount} internal navigation links, all product entrances, 40 retained original records, ${projected.length} active resources, 5 English downloads including the L7e range extender and V06 as the only current vehicle manual, no model/seat selectors or obsolete source links, preserved original records and technical values, 9 original videos, 7 English caption tracks, audience scope, remaining library filters, escaping, and new-product reuse.`);

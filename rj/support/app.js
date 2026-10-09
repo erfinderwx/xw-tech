@@ -38,7 +38,7 @@
   function icon(name, cls) { return `<svg ${cls ? `class="${e(cls)}" ` : ''}viewBox="0 0 24 24" aria-hidden="true" focusable="false">${paths[name] || paths.file}</svg>`; }
   function href(path, query) {
     const qs = new URLSearchParams();
-    Object.entries(query || {}).forEach(([key, value]) => { if (value && value !== 'all') qs.set(key, value); });
+    Object.entries(query || {}).forEach(([key, value]) => { if (value && value !== 'all' && !['model','seat'].includes(key)) qs.set(key, value); });
     return '#/' + path.replace(/^\//, '') + (qs.size ? '?' + qs.toString() : '');
   }
   function parseRoute(hash) {
@@ -46,7 +46,14 @@
     const split = raw.indexOf('?');
     const path = split < 0 ? raw : raw.slice(0, split);
     const params = new URLSearchParams(split < 0 ? '' : raw.slice(split + 1));
+    params.delete('model');
+    params.delete('seat');
     return {path, parts:path.split('/').filter(Boolean), params};
+  }
+  function supportUrl(url) {
+    if (!String(url || '').startsWith('#/')) return url;
+    const route = parseRoute(url);
+    return href(route.path,Object.fromEntries(route.params));
   }
   function roleOf(route) {
     if (route.parts[0] === 'dealers') return 'dealers';
@@ -58,15 +65,6 @@
   const sectionOf = id => C.sections.find(s => s.id === id);
   const audienceName = id => (C.audiences.find(a => a.id === id) || C.audiences[0]).name;
   const typeName = id => (C.resourceTypes.find(t => t.id === id) || {}).name || 'Resource';
-  function queryFor(route, audience) {
-    return {audience:audience || roleOf(route), model:route.params.get('model'), seat:route.params.get('seat')};
-  }
-  function validConfig(product, route) {
-    const q = queryFor(route);
-    q.model = product.modelOptions.some(x => x.id === q.model) ? q.model : null;
-    q.seat = product.seatOptions.some(x => x.id === q.seat) ? q.seat : null;
-    return q;
-  }
   function productHref(product, audience, extra) { return href('product/' + product.id, {audience, ...(extra || {})}); }
   function topicHref(product, topic, audience, extra) { return href(`product/${product.id}/topic/${topic.id}`, {audience, ...(extra || {})}); }
   const languageName = id => ({'zh-CN':'Chinese','en':'English','de-DE':'German'}[id] || id);
@@ -87,26 +85,22 @@
       return {...displayed,sourceRefs:(displayed.sourceRefs || []).flatMap(ref=>{
         const excluded = excludedFiles.get(fileKey(ref.url));
         if (excluded === 'language') return [];
-        if (excluded === 'archived') return [{title:ref.title + ' · Archived reference'}];
-        return [ref];
+        if (excluded === 'archived') return [];
+        return [{...ref,url:supportUrl(ref.url)}];
       })};
     });
   }
-  function matchesConfig(resource, q) {
-    return (!q.model || !resource.modelIds?.length || resource.modelIds.includes(q.model)) && (!q.seat || !resource.seatIds?.length || resource.seatIds.includes(q.seat));
+  function resourcesFor(product, topic, audience) {
+    return publishedResources(product,audience).filter(r => topic.id === 'manuals' ? r.type === 'document' : topic.id === 'videos' ? r.type === 'video' : r.topicId === topic.id || r.relatedTopicIds?.includes(topic.id));
   }
-  function resourcesFor(product, topic, audience, q) {
-    return publishedResources(product,audience).filter(r => matchesConfig(r,q || {}) && (topic.id === 'manuals' ? r.type === 'document' : topic.id === 'videos' ? r.type === 'video' : r.topicId === topic.id || r.relatedTopicIds?.includes(topic.id)));
-  }
-  function topicStatus(product, topic, audience, q) {
-    const all = resourcesFor(product,topic,audience,{});
-    const matching = all.filter(r => matchesConfig(r,q || {}));
-    if (!matching.length) return all.length ? 'Other configurations' : product.topicStatuses?.[topic.id] || 'Not yet available';
-    const available = matching.find(r => !r.displayStatus);
-    return available ? 'Available' : product.topicStatuses?.[topic.id] || matching[0].displayStatus;
+  function topicStatus(product, topic, audience) {
+    const resources = resourcesFor(product,topic,audience);
+    if (!resources.length) return product.topicStatuses?.[topic.id] || 'Not yet available';
+    const available = resources.find(r => !r.displayStatus);
+    return available ? 'Available' : product.topicStatuses?.[topic.id] || resources[0].displayStatus;
   }
   function resourceScope(resource, product) {
-    const config = [ ...(resource.modelIds || []).map(id => product.modelOptions.find(x=>x.id === id)?.name), ...(resource.seatIds || []).map(id => product.seatOptions.find(x=>x.id === id)?.name) ].filter(Boolean);
+    const config = [product.supportScope, ...(resource.seatIds || []).map(id => product.seatOptions.find(x=>x.id === id)?.name)].filter(Boolean);
     return config.join(' / ') || 'Check delivered configuration';
   }
   function fileOriginLabel(asset) {
@@ -124,7 +118,7 @@
     if (block.type === 'list' || block.type === 'steps') { const tag = block.type === 'steps' ? 'ol' : 'ul'; return `<${tag} class="${block.type === 'steps' ? 'content-steps' : 'content-list'}">${block.items.map(x=>`<li>${e(x)}</li>`).join('')}</${tag}>`; }
     if (block.type === 'table') return `<div class="content-table"><table><thead><tr>${block.headers.map(x=>`<th>${e(x)}</th>`).join('')}</tr></thead><tbody>${block.rows.map(row=>`<tr>${row.map(x=>`<td>${e(x)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
     if (block.type === 'image') return `<figure class="content-figure"><div class="figure-image"><img src="${e(block.src)}" alt="${e(block.caption)}" loading="lazy">${block.overlays?.length ? `<svg class="figure-overlay" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${block.overlays.map(o=>`<ellipse cx="${e(o.x)}" cy="${e(o.y)}" rx="${e(o.r)}" ry="${e(o.r*727/534)}"/><text x="${e(o.x)}" y="${e(o.y)}">${e(o.label)}</text>`).join('')}</svg>` : ''}</div><figcaption>${e(block.caption)}</figcaption></figure>`;
-    if (block.type === 'link') return `<p><a class="button-secondary" href="${e(block.url)}" target="_blank" rel="noopener noreferrer">${e(block.title)} ${icon('external')}</a></p>`;
+    if (block.type === 'link') return `<p><a class="button-secondary" href="${e(supportUrl(block.url))}" target="_blank" rel="noopener noreferrer">${e(block.title)} ${icon('external')}</a></p>`;
     return '';
   }
   function resourceBody(resource, product, selected) {
@@ -174,44 +168,35 @@
     <section class="section"><div class="wrap"><div class="section-header"><div><h2>Select a product</h2><p>Select the product you need help with.</p></div></div>${productsGrid(audience)}</div></section>
     <section class="section tint"><div class="wrap"><div class="section-header"><div><h2>${dealer ? 'Common dealer resources' : 'Start with common topics'}</h2><p>${dealer ? 'Certification, installation, delivery, service and technical training.' : 'First use, charging, accessory installation and vehicle functions.'}</p></div><a class="text-link" href="${e(href('library',{audience}))}">Videos and downloads ${icon('arrow')}</a></div>${dealer ? `<div class="dealer-modules">${modules.map(s => `<a class="module-card" href="${e(productHref(C.products[0],audience,{section:s.id}))}">${icon(s.icon)}<h3>${e(s.title)}</h3><p>${e(s.description)}</p><span class="text-link">Browse topics ${icon('arrow')}</span></a>`).join('')}</div><div class="certificate-panel"><div class="certificate-icon">${icon('shield')}</div><div><h3>Request product certification</h3><p>Contact RJ Tech with the product model, vehicle configuration and certificate you need.</p></div><a class="button-secondary" href="${e(topicHref(C.products[0],topicOf('certificates'),'dealers'))}">How to request certificates ${icon('arrow')}</a></div>` : quickLinks(audience)}</div></section>`;
   }
-  function roleSwitch(product, audience, route) {
-    const q = validConfig(product,route);
-    return `<nav class="role-switch" aria-label="Choose a support area"><span>Support area</span>${['users','dealers'].map(id => `<a class="${id === audience ? 'active' : ''}" href="${e(productHref(product,id,{model:q.model,seat:q.seat}))}" ${id === audience ? 'aria-current="page"' : ''}>${audienceName(id)}</a>`).join('')}</nav>`;
+  function roleSwitch(product, audience) {
+    return `<nav class="role-switch" aria-label="Choose a support area"><span>Support area</span>${['users','dealers'].map(id => `<a class="${id === audience ? 'active' : ''}" href="${e(productHref(product,id))}" ${id === audience ? 'aria-current="page"' : ''}>${audienceName(id)}</a>`).join('')}</nav>`;
   }
   function options(items, chosen, allLabel) { return `<option value="all">${e(allLabel || 'All')}</option>${items.map(x => `<option value="${e(x.id)}"${chosen === x.id ? ' selected' : ''}>${e(x.name)}</option>`).join('')}`; }
-  function configBar(product, route) {
-    const q = validConfig(product,route);
-    if (!product.modelOptions.length && !product.seatOptions.length) return '';
-    const parts = `${product.modelOptions.length ? `<div class="form-group"><label for="model-choice">Vehicle model</label><select id="model-choice" name="model" data-route-filter>${options(product.modelOptions,q.model,'All models')}</select></div>` : ''}${product.seatOptions.length ? `<div class="form-group"><label for="seat-choice">Seat configuration</label><select id="seat-choice" name="seat" data-route-filter>${options(product.seatOptions,q.seat,'All seats')}</select></div>` : ''}`;
-    return `<div class="config-bar">${parts}<span class="badge gray">Select your vehicle configuration</span></div>`;
-  }
   function topicsFor(product, audience, sectionId) {
     return C.topics.filter(t => product.topicIds.includes(t.id) && t.audiences.includes(audience) && (sectionId === 'shared' ? t.audiences.includes('users') : t.sectionId === sectionId));
   }
   function sideNav(product, audience, route, doc) {
-    const q = validConfig(product,route);
     const active = doc ? (doc.audiences.includes('users') && audience === 'dealers' ? 'shared' : doc.sectionId) : route.params.get('section');
-    return `<aside class="${doc ? 'doc-nav' : 'side-nav'}" aria-label="Product support topics"><p class="side-label">${e(product.name.toUpperCase())}</p><a class="side-item${!active ? ' active' : ''}" href="${e(productHref(product,audience,q))}">${icon('grid')}All topics</a>${(product.sectionIds[audience] || []).map(id => {const s = sectionOf(id);return `<a class="side-item${active === id ? ' active' : ''}" href="${e(productHref(product,audience,{...q,section:id}))}">${icon(s.icon)}${e(s.title)}</a>`;}).join('')}<p class="side-note">Choose an operation, accessory or maintenance topic.</p></aside>`;
+    return `<aside class="${doc ? 'doc-nav' : 'side-nav'}" aria-label="Product support topics"><p class="side-label">${e(product.name.toUpperCase())}</p><a class="side-item${!active ? ' active' : ''}" href="${e(productHref(product,audience))}">${icon('grid')}All topics</a>${(product.sectionIds[audience] || []).map(id => {const s = sectionOf(id);return `<a class="side-item${active === id ? ' active' : ''}" href="${e(productHref(product,audience,{section:id}))}">${icon(s.icon)}${e(s.title)}</a>`;}).join('')}<p class="side-note">Choose an operation, accessory or maintenance topic.</p></aside>`;
   }
   function productPage(product, route) {
-    const audience = roleOf(route), q = validConfig(product,route);
+    const audience = roleOf(route);
     const selected = route.params.get('section'), all = product.sectionIds[audience] || [];
     const sections = (all.includes(selected) ? [selected] : all).map(sectionOf);
-    const ready = publishedResources(product,audience).some(r=>matchesConfig(r,q));
-    return `<div class="wrap">${crumb([{label:audienceName(audience),url:href(audience)},{label:product.name}])}<section class="page-head"><div class="head-row"><div><p class="eyebrow">${e(product.family)} / ${audience === 'dealers' ? 'DEALER RESOURCES' : 'USER SUPPORT'}</p><h1>${e(product.name)}</h1><p class="lede">${audience === 'dealers' ? 'Find certification, installation, delivery, service, parts and training resources for this product.' : 'Select your model and configuration to find operation, accessory, function and maintenance resources.'}</p></div>${roleSwitch(product,audience,route)}</div></section>${configBar(product,route)}<div class="product-layout">${sideNav(product,audience,route)}<div>${ready ? `<div class="catalog-note">${icon('info')}<p>Model and seat filters show matching resources. Check installation kits, remote controls and chargers against the equipment supplied with your vehicle.</p></div>` : `<div class="empty-note">${icon('info')}<p><strong>Resources for this product are being prepared.</strong> Contact RJ Tech for specific instructions.</p></div>`}<div class="section-grid">${sections.map(s => {const topics = topicsFor(product,audience,s.id);return `<section class="section-card"><div class="section-card-head">${icon(s.icon)}<div><h3>${e(s.title)}</h3><p>${e(s.description)}</p></div></div><div class="topic-list">${topics.length ? topics.map(t => `<a class="topic-item" href="${e(topicHref(product,t,audience,q))}">${icon(t.icon)}<span>${e(t.title)}</span><span class="mini${resourcesFor(product,t,audience,q).length ? ' available' : ''}">${e(topicStatus(product,t,audience,q))}</span>${icon('chevron')}</a>`).join('') : '<p class="design-note" style="padding:8px 7px;margin:0">No public resources in this category yet.</p>'}</div></section>`;}).join('')}</div></div></div></div>`;
+    const ready = publishedResources(product,audience).length > 0;
+    return `<div class="wrap">${crumb([{label:audienceName(audience),url:href(audience)},{label:product.name}])}<section class="page-head"><div class="head-row"><div><p class="eyebrow">${e(product.family)} / ${audience === 'dealers' ? 'DEALER RESOURCES' : 'USER SUPPORT'}</p><h1>${e(product.name)}</h1><p class="lede">${audience === 'dealers' ? 'Find certification, installation, delivery, service, parts and training resources for this product.' : 'Find operation, accessory, function and maintenance resources for your product.'}</p></div>${roleSwitch(product,audience)}</div></section><div class="product-layout">${sideNav(product,audience,route)}<div>${ready ? `<div class="catalog-note">${icon('info')}<p>Check installation kits, remote controls and chargers against the equipment supplied with your vehicle.</p></div>` : `<div class="empty-note">${icon('info')}<p><strong>Resources for this product are being prepared.</strong> Contact RJ Tech for specific instructions.</p></div>`}<div class="section-grid">${sections.map(s => {const topics = topicsFor(product,audience,s.id);return `<section class="section-card"><div class="section-card-head">${icon(s.icon)}<div><h3>${e(s.title)}</h3><p>${e(s.description)}</p></div></div><div class="topic-list">${topics.length ? topics.map(t => `<a class="topic-item" href="${e(topicHref(product,t,audience))}">${icon(t.icon)}<span>${e(t.title)}</span><span class="mini${resourcesFor(product,t,audience).length ? ' available' : ''}">${e(topicStatus(product,t,audience))}</span>${icon('chevron')}</a>`).join('') : '<p class="design-note" style="padding:8px 7px;margin:0">No public resources in this category yet.</p>'}</div></section>`;}).join('')}</div></div></div></div>`;
   }
   function topicPage(product, topic, route) {
-    const audience = roleOf(route), q = validConfig(product,route);
-    const resources = resourcesFor(product,topic,audience,q);
-    const otherConfig = resourcesFor(product,topic,audience,{}).length && !resources.length;
+    const audience = roleOf(route);
+    const resources = resourcesFor(product,topic,audience);
     const chosen = route.params.get('resource');
     const enquiry = !resources.length && product.topicStatuses?.[topic.id];
     resources.sort((a,b) => (b.id === chosen) - (a.id === chosen) || ({guide:0,accessory:0,function:0,service:0,training:0,certificate:0,video:1,document:2}[a.type] || 0) - ({guide:0,accessory:0,function:0,service:0,training:0,certificate:0,video:1,document:2}[b.type] || 0));
-    const names = [product.name, ...(q.model ? [product.modelOptions.find(x=>x.id===q.model).name] : []), ...(q.seat ? [product.seatOptions.find(x=>x.id===q.seat).name] : [])];
+    const names = [product.name,product.supportScope].filter(Boolean);
     const files = resources.filter(r=>r.assets.some(a=>a.kind === 'file'));
     const videos = resources.filter(r=>r.type === 'video');
     const contact = `<a class="button-secondary" href="mailto:sales@rjtech-offroad.com">Contact RJ Tech ${icon('external')}</a>`;
-    return `<div class="wrap">${crumb([{label:audienceName(audience),url:href(audience)},{label:product.name,url:productHref(product,audience,q)},{label:topic.title}])}${configBar(product,route)}<div class="doc-layout">${sideNav(product,audience,route,topic)}<article class="doc-content"><p class="doc-kicker">${e(product.name)} / ${e(typeName(topic.kind))}</p><h1>${e(topic.title)}</h1><p class="doc-description">${e(topic.summary)}</p><div class="metadata">${names.map(n=>`<span class="badge dark">${e(n)}</span>`).join('')}<span class="badge${resources.length ? ' red' : ' gray'}">${e(topicStatus(product,topic,audience,q))}</span></div>${resources.length ? resources.map(r=>resourceBody(r,product,chosen)).join('') : `<section class="doc-slot"><h2>${otherConfig ? 'Resources for other configurations' : enquiry || 'No resources available yet'}</h2><p>${otherConfig ? 'Adjust the model or seat filter to see matching resources. Confirm installation and operation requirements for your configuration with the supplying dealer.' : 'Contact RJ Tech with your product model and vehicle configuration for help with this topic.'}</p>${otherConfig ? `<a class="button-secondary" href="${e(topicHref(product,topic,audience))}">View all configurations ${icon('arrow')}</a>` : contact}</section>`}</article><aside class="doc-aside" aria-label="Related resources"><section class="aside-box"><h3>Topic resources</h3>${resources.length ? `<p>${resources.filter(r=>r.content.length).length} online guides · ${videos.length} videos · ${files.length} files</p><ul class="aside-index">${resources.map(r=>`<li><a href="${e(topicHref(product,topic,audience,{...q,resource:r.id}))}">${e(r.title)}</a></li>`).join('')}</ul>` : '<p>Select your vehicle configuration or contact support.</p>'}</section>${files.length ? `<section class="aside-box"><h3>Download files</h3>${files.map(r=>`<a class="aside-file" href="${e(r.assets.find(a=>a.kind==='file').url)}" target="_blank" rel="noopener noreferrer">${icon('file')}<span>${e(r.title)}<small>${e(languageName(r.language))} · ${e(r.assets.find(a=>a.kind==='file').format)} · ${e(fileOriginLabel(r.assets.find(a=>a.kind==='file')))}</small></span></a>`).join('')}</section>` : ''}<section class="aside-box"><h3>Need help?</h3><p>Provide your product model, VIN and accessory photos so we can confirm the configuration.</p><a class="text-link" href="mailto:sales@rjtech-offroad.com">Contact RJ Tech ${icon('external')}</a></section><section class="aside-box"><h3>Keep browsing</h3><a class="text-link" href="${e(productHref(product,audience,q))}">Back to product resources ${icon('arrow')}</a></section></aside></div></div>`;
+    return `<div class="wrap">${crumb([{label:audienceName(audience),url:href(audience)},{label:product.name,url:productHref(product,audience)},{label:topic.title}])}<div class="doc-layout">${sideNav(product,audience,route,topic)}<article class="doc-content"><p class="doc-kicker">${e(product.name)} / ${e(typeName(topic.kind))}</p><h1>${e(topic.title)}</h1><p class="doc-description">${e(topic.summary)}</p><div class="metadata">${names.map(n=>`<span class="badge dark">${e(n)}</span>`).join('')}<span class="badge${resources.length ? ' red' : ' gray'}">${e(topicStatus(product,topic,audience))}</span></div>${resources.length ? resources.map(r=>resourceBody(r,product,chosen)).join('') : `<section class="doc-slot"><h2>${enquiry || 'No resources available yet'}</h2><p>Contact RJ Tech with your product model and vehicle details for help with this topic.</p>${contact}</section>`}</article><aside class="doc-aside" aria-label="Related resources"><section class="aside-box"><h3>Topic resources</h3>${resources.length ? `<p>${resources.filter(r=>r.content.length).length} online guides · ${videos.length} videos · ${files.length} files</p><ul class="aside-index">${resources.map(r=>`<li><a href="${e(topicHref(product,topic,audience,{resource:r.id}))}">${e(r.title)}</a></li>`).join('')}</ul>` : '<p>Contact support for instructions for this product.</p>'}</section>${files.length ? `<section class="aside-box"><h3>Download files</h3>${files.map(r=>`<a class="aside-file" href="${e(r.assets.find(a=>a.kind==='file').url)}" target="_blank" rel="noopener noreferrer">${icon('file')}<span>${e(r.title)}<small>${e(languageName(r.language))} · ${e(r.assets.find(a=>a.kind==='file').format)} · ${e(fileOriginLabel(r.assets.find(a=>a.kind==='file')))}</small></span></a>`).join('')}</section>` : ''}<section class="aside-box"><h3>Need help?</h3><p>Provide your product model, VIN and accessory photos so we can confirm the configuration.</p><a class="text-link" href="mailto:sales@rjtech-offroad.com">Contact RJ Tech ${icon('external')}</a></section><section class="aside-box"><h3>Keep browsing</h3><a class="text-link" href="${e(productHref(product,audience))}">Back to product resources ${icon('arrow')}</a></section></aside></div></div>`;
   }
   function developerPage(route) {
     const selected = productOf(route.params.get('product'));
@@ -230,7 +215,7 @@
     const language = availableLanguages.includes(requestedLanguage) ? requestedLanguage : null;
     const resources = matchingType.filter(r=>!language || r.language === language);
     const files = resources.filter(r=>r.type === 'document').length, videos = resources.filter(r=>r.type === 'video').length;
-    return `<div class="wrap">${crumb([{label:'Videos and downloads'}])}<section class="page-head"><div class="head-row"><div><p class="eyebrow">VIDEOS & DOWNLOADS</p><h1>Videos and downloads</h1><p class="lede">Online guides and downloads are in English. Use the vehicle scope to choose matching files; videos retain their original audio language.</p></div></div></section><div class="filter-panel">${filterSelect('audience','Support area',[{id:'users',name:'User support'},{id:'dealers',name:'Dealer resources'}],audience).replace('<option value="all">All</option>','')}${filterSelect('product','Product',C.products.map(p=>({id:p.id,name:p.name})),product?.id)}${filterSelect('type','Resource type',allowedTypes,type)}${filterSelect('language','Language',availableLanguages.map(id=>({id,name:languageName(id)})),language)}</div><div class="results-bar"><span>${e(audienceName(audience))} ${product ? ' / ' + e(product.name) : '/ All products'}</span><span>${resources.length} resources · ${videos} videos · ${files} files</span></div>${resources.length ? `<div class="topic-results">${resources.map(r=>resourceCard(r,audience)).join('')}</div>` : `<div class="empty-state">${icon('folder')}<h2>No resources match these filters</h2><p>Adjust the product, resource type or language filter. Contact RJ Tech if the resources you need are not yet available.</p></div>`}<section class="section"><div class="section-header"><div><h2>Browse by topic</h2><p>Choose an operation, accessory or maintenance topic.</p></div></div><div class="topic-results">${topics.map(t=>{const p=product || C.products.find(p=>p.topicIds.includes(t.id));return `<a class="result-card" href="${e(topicHref(p,t,audience))}">${icon(t.icon)}<div><h3>${e(t.title)}</h3><p>${e(t.summary)}</p><div class="result-meta">${e(p.name)} · ${e(typeName(t.kind))} · ${e(topicStatus(p,t,audience))}</div></div></a>`;}).join('') || '<p class="design-note">No topics match these filters.</p>'}</div></section></div>`;
+    return `<div class="wrap">${crumb([{label:'Videos and downloads'}])}<section class="page-head"><div class="head-row"><div><p class="eyebrow">VIDEOS & DOWNLOADS</p><h1>Videos and downloads</h1><p class="lede">Online guides and downloads are in English. Check the accessory and installation details in each file; videos retain their original audio language.</p></div></div></section><div class="filter-panel">${filterSelect('audience','Support area',[{id:'users',name:'User support'},{id:'dealers',name:'Dealer resources'}],audience).replace('<option value="all">All</option>','')}${filterSelect('product','Product',C.products.map(p=>({id:p.id,name:p.name})),product?.id)}${filterSelect('type','Resource type',allowedTypes,type)}${filterSelect('language','Language',availableLanguages.map(id=>({id,name:languageName(id)})),language)}</div><div class="results-bar"><span>${e(audienceName(audience))} ${product ? ' / ' + e(product.name) : '/ All products'}</span><span>${resources.length} resources · ${videos} videos · ${files} files</span></div>${resources.length ? `<div class="topic-results">${resources.map(r=>resourceCard(r,audience)).join('')}</div>` : `<div class="empty-state">${icon('folder')}<h2>No resources match these filters</h2><p>Adjust the product, resource type or language filter. Contact RJ Tech if the resources you need are not yet available.</p></div>`}<section class="section"><div class="section-header"><div><h2>Browse by topic</h2><p>Choose an operation, accessory or maintenance topic.</p></div></div><div class="topic-results">${topics.map(t=>{const p=product || C.products.find(p=>p.topicIds.includes(t.id));return `<a class="result-card" href="${e(topicHref(p,t,audience))}">${icon(t.icon)}<div><h3>${e(t.title)}</h3><p>${e(t.summary)}</p><div class="result-meta">${e(p.name)} · ${e(typeName(t.kind))} · ${e(topicStatus(p,t,audience))}</div></div></a>`;}).join('') || '<p class="design-note">No topics match these filters.</p>'}</div></section></div>`;
   }
   function searchTopics(query, audience) {
     const normalized = String(query || '').trim().toLocaleLowerCase();
@@ -311,6 +296,6 @@
     if (!dialog.open) { event.preventDefault();dialog.showModal();document.getElementById('dialog-search').focus(); }
   });
   window.addEventListener('hashchange', () => render(true));
-  window.RJSupportUI = {parseRoute,href,pageFor,shell,searchTopics,topicsFor,publishedResources,resourcesFor,matchesConfig,topicStatus};
+  window.RJSupportUI = {parseRoute,href,pageFor,shell,searchTopics,topicsFor,publishedResources,resourcesFor,topicStatus};
   render(false);
 })();

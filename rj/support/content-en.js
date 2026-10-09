@@ -3,8 +3,8 @@
   // Complete English display copy. Original records, files and media remain in content.js.
   window.RJSupportEnglishMetadata = {
   "first-use-l7e": {
-    "title": "L7e road version: first use and checks",
-    "scope": "L7e road version; check the supplied configuration before use",
+    "title": "L7e: first use and checks",
+    "scope": "Steinadler Pro L7e; check the supplied equipment before use",
     "language": "en",
     "sourceLanguage": "zh-CN",
     "revision": "1.0",
@@ -14,7 +14,7 @@
         "blocks": [
           {
             "type": "p",
-            "text": "Check the vehicle identification plate and VIN against the supplied documents for the model, seat configuration and optional accessories. Use the instructions that match your single-seat or dual-seat vehicle and its road or Offroad version."
+            "text": "Check the vehicle identification plate and VIN against the supplied documents for your L7e vehicle, seat configuration and optional accessories. Use the instructions for the seats and equipment fitted to your vehicle."
           },
           {
             "type": "p",
@@ -171,7 +171,7 @@
     ]
   },
   "daily-use-l7e": {
-    "title": "L7e road version: power-on, driving and parking",
+    "title": "L7e: power-on, driving and parking",
     "scope": "",
     "language": "en",
     "sourceLanguage": "zh-CN",
@@ -705,11 +705,11 @@
         "blocks": [
           {
             "type": "p",
-            "text": "Confirm that the vehicle has the applicable towing equipment, and check the trailer model and available connectors. For the road version, confirm the permitted towing configuration against the supplied CoC and approved equipment."
+            "text": "Confirm that the vehicle has the applicable towing equipment, and check the trailer model and available connectors. For the L7e vehicle, confirm the permitted towing configuration against the supplied CoC and approved equipment."
           },
           {
             "type": "note",
-            "text": "Load or speed information for an Offroad powered trailer cannot be applied directly to road towing equipment. Use the instructions for the specific vehicle and trailer combination."
+            "text": "Use only the towing equipment approved for your L7e vehicle. Follow the supplied instructions for the specific vehicle and trailer combination."
           }
         ]
       },
@@ -749,8 +749,8 @@
     ]
   },
   "range-extender-offroad": {
-    "title": "Offroad range extender: controls and use",
-    "scope": "Offroad configuration with the matching range extender",
+    "title": "L7e range extender: controls and use",
+    "scope": "Optional range extender for Steinadler Pro L7e",
     "language": "en",
     "sourceLanguage": "zh-CN",
     "revision": "1.0",
@@ -760,11 +760,11 @@
         "blocks": [
           {
             "type": "p",
-            "text": "For Offroad vehicles and their matching trailers equipped with the corresponding range extender. Check its model, mounting and electrical connections before starting. Prepare the fuel, oil and maintenance items as required by the supplied equipment instructions."
+            "text": "For L7e vehicles fitted with the matching range extender, including the applicable trailer installation. Check its model, mounting and electrical connections before starting. Prepare the fuel, oil and maintenance items as required by the supplied equipment instructions."
           },
           {
             "type": "note",
-            "text": "These instructions apply only to the matching Offroad configuration. Installation on the road version requires separate confirmation of suitability for that model."
+            "text": "The range extender is optional equipment. Follow the supplied installation instructions for its mounting and electrical connections."
           }
         ]
       },
@@ -1233,7 +1233,7 @@
   },
   "manual-range-extender": {
     "title": "Range extender original operating instructions",
-    "scope": "For the Offroad range extender configuration shown in the source instructions.",
+    "scope": "Operating instructions for the optional L7e range extender shown in the source material.",
     "language": "en",
     "sourceLanguage": "en",
     "revision": "Revision not specified",
@@ -1752,7 +1752,7 @@
           {
             "type": "list",
             "items": [
-              "Product model, road or Offroad configuration, single or dual seat, and vehicle VIN if delivered.",
+              "Product model, L7e vehicle details, single or dual seat, and vehicle VIN if delivered.",
               "Required certificate category, target market and intended purpose.",
               "Dealer name, contact person and recipient email address."
             ]
