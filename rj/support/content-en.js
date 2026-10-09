@@ -1196,8 +1196,8 @@
     ]
   },
   "manual-l7e": {
-    "title": "Steinadler Pro L7e user manual",
-    "scope": "Read the sections matching your vehicle. Confirm seat, charger, tyre pressure and long-term storage requirements against the supplied configuration.",
+    "title": "Steinadler Pro L7e-A1 user manual · V06",
+    "scope": "User manual V06 for Steinadler Pro L7e-A1. Read the sections matching your delivered vehicle. Confirm seats, charger, tyre pressure and storage requirements against its supplied configuration.",
     "language": "en",
     "sourceLanguage": "en",
     "revision": "V06",

@@ -20,20 +20,25 @@ assert(C.resources.length>0,'Published customer materials must be available');
 assert.equal(C.resources.length,40,'All source records are retained');
 assert.equal(C.site.language,'en','Architecture is English');
 assert.equal(JSON.stringify(C.site.visibleResourceLanguages),'["en","zh-CN"]','Resource languages are independent of the English interface');
+assert.equal(JSON.stringify(C.site.downloadLanguages),'["en"]','Downloads on the English website use English files');
 const sourceRecords = JSON.stringify(C.resources);
+const excludedIds=['manual-offroad','manual-remote-zh','manual-fpv-zh'];
+const excludedFiles=['steinadler-pro-offroad-manual-en.pdf','remote-control-manual-zh.docx','fpv-manual-zh.docx'];
 for(const audience of ['users','dealers']) {
   const visible = UI.publishedResources(null,audience);
-  assert.equal(visible.length,C.resources.filter(r=>r.audiences.includes(audience)).length,'All public resources remain visible to their audience');
+  assert.equal(visible.length,C.resources.filter(r=>r.audiences.includes(audience) && !excludedIds.includes(r.id)).length,'Active resources retain their audience scope');
   const english = visible.filter(r=>r.type==='document' && r.language==='en');
-  assert.equal(english.length,6,'Six existing English documents remain visible');
+  assert.equal(english.length,5,'Five English documents remain in current downloads');
   assert(english.every(r=>!/[\u3400-\u9fff]/.test(JSON.stringify([r.title,r.scope,r.revision,r.assets]))),'English file metadata stays translated');
-  assert.equal(visible.filter(r=>r.type==='document' && r.language==='zh-CN').length,2,'Both Chinese downloads are visible');
+  assert.equal(visible.filter(r=>r.type==='document' && r.language==='zh-CN').length,0,'Chinese language duplicates are not displayed');
+  assert(!visible.some(r=>excludedIds.includes(r.id)),'Old manual and Chinese duplicates are excluded from all published listings');
   assert(visible.every(r=>!/\p{Script=Han}/u.test(JSON.stringify(r))),'All displayed resource copy is English');
   assert(visible.filter(r=>!['document','video'].includes(r.type)).every(r=>r.language==='en'),'Online guides are English translations');
 }
 const englishCopy=context.window.RJSupportEnglishMetadata;
 assert.equal(Object.keys(englishCopy).length,C.resources.length,'English copy covers every original resource');
 const projected=UI.publishedResources(null,'dealers');
+assert.equal(projected.length,37,'Forty source records produce thirty-seven active resources');
 function compareContent(original,translated,label) {
   if(typeof original==='string') {
     // Source numerical values and page references must survive translation.
@@ -51,8 +56,8 @@ function compareContent(original,translated,label) {
   } else assert.equal(translated,original,label);
 }
 for(const source of C.resources) {
-  const resource=projected.find(r=>r.id===source.id);
-  assert(resource && englishCopy[source.id],'Every source record has an English display record');
+  const resource={...source,...englishCopy[source.id]};
+  assert(englishCopy[source.id],'Every source record retains its complete English translation');
   for(const key of ['id','productId','topicId','relatedTopicIds','audiences','modelIds','seatIds','type','publishedAt','status','visibility'])assert.equal(JSON.stringify(resource[key]),JSON.stringify(source[key]),key+' scope is preserved for '+source.id);
   assert.equal(resource.sourceLanguage,source.language,'Original source language is retained');
   compareContent(source.content,resource.content,source.id+'.content');
@@ -142,6 +147,7 @@ for(const routeString of routes) {
   const page=UI.pageFor(route);
   assert.notEqual(page.title,'Page not found','Known route must render: '+routeString);
   const html=UI.shell(page.html,route);
+  assert(excludedFiles.every(file=>!html.includes(file)),'No old-manual or Chinese-file link is emitted in topics, sources, sidebars, search or legacy direct routes: '+routeString);
   assert(!/\p{Script=Han}/u.test(html),'Every rendered heading, paragraph, table, caption and source label is English: '+routeString);
   assert(!/[\u3400-\u9fff]/.test(page.title),'Page title remains English: '+routeString);
   assert(!/[\u3400-\u9fff]/.test(UI.shell('',route)),'Navigation and footer remain English: '+routeString);
@@ -173,11 +179,11 @@ for(const r of projected) {
   }
 }
 const chineseFiles = UI.pageFor(UI.parseRoute('#/library?audience=dealers&language=zh-CN&type=document')).html;
-assert.equal((chineseFiles.match(/class="result-card resource-card"/g)||[]).length,2,'Chinese file filter exposes both existing files');
-assert(chineseFiles.includes('remote-control-manual-zh.docx') && chineseFiles.includes('fpv-manual-zh.docx'),'Chinese download URLs are available');
-assert(chineseFiles.includes('value="zh-CN"') && chineseFiles.includes('>Chinese</option>'),'Resource language filter offers Chinese');
-assert(chineseFiles.includes('<h1>Videos and downloads</h1>') && chineseFiles.includes('Download · DOCX'),'Chinese file filter keeps English architecture and download buttons');
-assert(!chineseFiles.includes('下载 ·'),'Chinese file buttons use the English interface label');
+assert.equal((chineseFiles.match(/class="result-card resource-card"/g)||[]).length,5,'An old Chinese-download filter falls back to the current English downloads');
+assert(excludedFiles.every(file=>!chineseFiles.includes(file)),'Legacy language filters never restore excluded documents');
+assert(!chineseFiles.includes('value="zh-CN"'),'Download language control offers only currently available English files');
+const chineseVideos=UI.pageFor(UI.parseRoute('#/library?audience=dealers&language=zh-CN&type=video')).html;
+assert.equal((chineseVideos.match(/class="result-card resource-card"/g)||[]).length,9,'English-only downloads do not remove Chinese-audio videos');
 const steinadler=C.products.find(x=>x.id==='steinadler-pro');
 const rangeTopic=C.topics.find(x=>x.id==='range-extender');
 assert.equal(UI.resourcesFor(steinadler,rangeTopic,'users',{model:'l7e'}).length,0,'Offroad range-extender information cannot be applied to L7e');
@@ -196,8 +202,15 @@ assert.equal(JSON.stringify(C.resources),sourceRecords,'English display metadata
 const emptyProduct=UI.pageFor(UI.parseRoute('#/product/luchs-a')).html;
 assert(!emptyProduct.includes('resource-panel'),'Other products cannot inherit Steinadler materials');
 const english=UI.pageFor(UI.parseRoute('#/library?audience=users&language=en&type=document')).html;
-assert(english.includes('Steinadler Pro L7e user manual'),'English document filter finds an actual manual');
+assert(english.includes('Steinadler Pro L7e-A1 user manual · V06'),'Current user manual is clearly identified as L7e-A1 V06');
 assert(!english.includes('remote-control-manual-zh.docx'),'Language filter excludes Chinese original files');
+assert.equal(projected.filter(r=>/^manual-(?:l7e|offroad)$/.test(r.id)).length,1,'Only the newer V06 vehicle manual is offered');
+for(const audience of ['users','dealers'])for(const id of excludedIds)assert(!UI.searchTopics(englishCopy[id].title,audience).resources.some(r=>r.id===id),'Search cannot offer archived or duplicate documents');
+const offroadFirstUse=UI.resourcesFor(steinadler,C.topics.find(x=>x.id==='first-use'),'users',{model:'offroad'});
+assert(offroadFirstUse.some(r=>r.id==='first-use-offroad'),'Offroad online instructions remain available');
+assert(!offroadFirstUse.some(r=>r.id==='manual-l7e'),'The newer L7e manual is not applied to Offroad vehicles');
+const archivedReferences=offroadFirstUse.find(r=>r.id==='first-use-offroad').sourceRefs;
+assert(archivedReferences.some(ref=>ref.title.includes('Archived reference') && !ref.url),'Archived source provenance remains as a citation without an obsolete download link');
 assert.equal(UI.topicStatus(steinadler,C.topics.find(x=>x.id==='follow'),'users'),'Configuration enquiry','Following is not presented as a released operation tutorial');
 assert.equal(UI.topicStatus(steinadler,C.topics.find(x=>x.id==='certificates'),'dealers'),'Available on request','Private certificates remain available by enquiry');
 assert.equal(UI.topicStatus(steinadler,C.topics.find(x=>x.id==='spares'),'dealers'),'Parts enquiry','Spare-parts enquiry remains available');
@@ -228,4 +241,4 @@ for(const [,assetUrl] of index.matchAll(/(?:src|href)="\.\/([^"#]+)"/g)) {
 assert(index.includes('<html lang="en">'),'Document language is English');
 assert(appElement.innerHTML.includes('Product support'),'Initial render runs');
 assert(fs.readFileSync(path.join(root,'rj','support','styles.css'),'utf8').includes('@media'),'Responsive styles exist');
-console.log(`Passed: ${routes.size} fully English page states, ${linkCount} internal navigation links, ${C.resources.length} translated public resources with unchanged configuration/numerical values/sources, 8 original downloads including 2 Chinese files, 9 Chinese-audio videos, 7 English caption tracks, filters, role scope, escaping, and new-product reuse.`);
+console.log(`Passed: ${routes.size} fully English page states, ${linkCount} internal navigation links, 40 retained original records, ${projected.length} active resources, 5 English downloads with V06 as the only current vehicle manual, no old/Chinese-file links across rendered states, preserved configuration/numerical values/provenance, 9 original-audio videos, 7 English caption tracks, filters, escaping, and new-product reuse.`);

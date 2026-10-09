@@ -77,9 +77,19 @@
   }
   function publishedResources(product, audience) {
     const languages = C.site.visibleResourceLanguages || [C.site.language];
-    return C.resources.filter(r => languages.includes(r.language) && r.status === 'published' && r.visibility === 'public' && r.audiences.includes(audience) && (!product || r.productId === product.id)).map(r => {
+    const archived = r => C.site.archivedResourceIds?.includes(r.id);
+    const allowedDownload = r => r.type !== 'document' || !C.site.downloadLanguages || C.site.downloadLanguages.includes(r.language);
+    const fileKey = url => String(url || '').split('#')[0].replace(/^\.\//,'');
+    const excludedFiles = new Map(C.resources.filter(r=>r.type === 'document' && (archived(r) || !allowedDownload(r))).flatMap(r=>r.assets.filter(a=>a.kind === 'file').map(a=>[fileKey(a.url),archived(r) ? 'archived' : 'language'])));
+    return C.resources.filter(r => languages.includes(r.language) && !archived(r) && allowedDownload(r) && r.status === 'published' && r.visibility === 'public' && r.audiences.includes(audience) && (!product || r.productId === product.id)).map(r => {
       const metadata = C.site.language === 'en' ? window.RJSupportEnglishMetadata?.[r.id] : null;
-      return metadata ? {...r,...metadata} : r;
+      const displayed = metadata ? {...r,...metadata} : r;
+      return {...displayed,sourceRefs:(displayed.sourceRefs || []).flatMap(ref=>{
+        const excluded = excludedFiles.get(fileKey(ref.url));
+        if (excluded === 'language') return [];
+        if (excluded === 'archived') return [{title:ref.title + ' · Archived reference'}];
+        return [ref];
+      })};
     });
   }
   function matchesConfig(resource, q) {
@@ -212,12 +222,15 @@
   }
   function libraryPage(route) {
     const audience = roleOf(route), product = productOf(route.params.get('product'));
-    const type = route.params.get('type'), language = route.params.get('language');
+    const type = route.params.get('type'), requestedLanguage = route.params.get('language');
     const allowedTypes = C.resourceTypes.filter(t => audience === 'dealers' || !['certificate','service','training'].includes(t.id));
     const topics = C.topics.filter(t=>t.audiences.includes(audience) && (product ? product.topicIds.includes(t.id) : C.products.some(p=>p.topicIds.includes(t.id))) && (!type || type === 'all' || t.kind === type));
-    const resources = publishedResources(product,audience).filter(r=>(!type || type === 'all' || r.type === type) && (!language || language === 'all' || r.language === language));
+    const matchingType = publishedResources(product,audience).filter(r=>!type || type === 'all' || r.type === type);
+    const availableLanguages = (C.site.visibleResourceLanguages || [C.site.language]).filter(id=>matchingType.some(r=>r.language === id));
+    const language = availableLanguages.includes(requestedLanguage) ? requestedLanguage : null;
+    const resources = matchingType.filter(r=>!language || r.language === language);
     const files = resources.filter(r=>r.type === 'document').length, videos = resources.filter(r=>r.type === 'video').length;
-    return `<div class="wrap">${crumb([{label:'Videos and downloads'}])}<section class="page-head"><div class="head-row"><div><p class="eyebrow">VIDEOS & DOWNLOADS</p><h1>Videos and downloads</h1><p class="lede">Online guides are in English. Filter downloads by file language and videos by their original audio language.</p></div></div></section><div class="filter-panel">${filterSelect('audience','Support area',[{id:'users',name:'User support'},{id:'dealers',name:'Dealer resources'}],audience).replace('<option value="all">All</option>','')}${filterSelect('product','Product',C.products.map(p=>({id:p.id,name:p.name})),product?.id)}${filterSelect('type','Resource type',allowedTypes,type)}${filterSelect('language','Language',(C.site.visibleResourceLanguages || [C.site.language]).map(id=>({id,name:languageName(id)})),language)}</div><div class="results-bar"><span>${e(audienceName(audience))} ${product ? ' / ' + e(product.name) : '/ All products'}</span><span>${resources.length} resources · ${videos} videos · ${files} files</span></div>${resources.length ? `<div class="topic-results">${resources.map(r=>resourceCard(r,audience)).join('')}</div>` : `<div class="empty-state">${icon('folder')}<h2>No resources match these filters</h2><p>Adjust the product, resource type or language filter. Contact RJ Tech if the resources you need are not yet available.</p></div>`}<section class="section"><div class="section-header"><div><h2>Browse by topic</h2><p>Choose an operation, accessory or maintenance topic.</p></div></div><div class="topic-results">${topics.map(t=>{const p=product || C.products.find(p=>p.topicIds.includes(t.id));return `<a class="result-card" href="${e(topicHref(p,t,audience))}">${icon(t.icon)}<div><h3>${e(t.title)}</h3><p>${e(t.summary)}</p><div class="result-meta">${e(p.name)} · ${e(typeName(t.kind))} · ${e(topicStatus(p,t,audience))}</div></div></a>`;}).join('') || '<p class="design-note">No topics match these filters.</p>'}</div></section></div>`;
+    return `<div class="wrap">${crumb([{label:'Videos and downloads'}])}<section class="page-head"><div class="head-row"><div><p class="eyebrow">VIDEOS & DOWNLOADS</p><h1>Videos and downloads</h1><p class="lede">Online guides and downloads are in English. Use the vehicle scope to choose matching files; videos retain their original audio language.</p></div></div></section><div class="filter-panel">${filterSelect('audience','Support area',[{id:'users',name:'User support'},{id:'dealers',name:'Dealer resources'}],audience).replace('<option value="all">All</option>','')}${filterSelect('product','Product',C.products.map(p=>({id:p.id,name:p.name})),product?.id)}${filterSelect('type','Resource type',allowedTypes,type)}${filterSelect('language','Language',availableLanguages.map(id=>({id,name:languageName(id)})),language)}</div><div class="results-bar"><span>${e(audienceName(audience))} ${product ? ' / ' + e(product.name) : '/ All products'}</span><span>${resources.length} resources · ${videos} videos · ${files} files</span></div>${resources.length ? `<div class="topic-results">${resources.map(r=>resourceCard(r,audience)).join('')}</div>` : `<div class="empty-state">${icon('folder')}<h2>No resources match these filters</h2><p>Adjust the product, resource type or language filter. Contact RJ Tech if the resources you need are not yet available.</p></div>`}<section class="section"><div class="section-header"><div><h2>Browse by topic</h2><p>Choose an operation, accessory or maintenance topic.</p></div></div><div class="topic-results">${topics.map(t=>{const p=product || C.products.find(p=>p.topicIds.includes(t.id));return `<a class="result-card" href="${e(topicHref(p,t,audience))}">${icon(t.icon)}<div><h3>${e(t.title)}</h3><p>${e(t.summary)}</p><div class="result-meta">${e(p.name)} · ${e(typeName(t.kind))} · ${e(topicStatus(p,t,audience))}</div></div></a>`;}).join('') || '<p class="design-note">No topics match these filters.</p>'}</div></section></div>`;
   }
   function searchTopics(query, audience) {
     const normalized = String(query || '').trim().toLocaleLowerCase();

@@ -3,7 +3,7 @@
   // Product taxonomy and customer resources are independent of page layout.
   // Customer resources are loaded from content.js before app.js.
   window.RJSupportCatalog = {
-    site: { name: 'RJ Tech', title: 'Product support', stage: 'published', version: '1.1', language: 'en', visibleResourceLanguages: ['en','zh-CN'] },
+    site: { name: 'RJ Tech', title: 'Product support', stage: 'published', version: '1.1', language: 'en', visibleResourceLanguages: ['en','zh-CN'], downloadLanguages: ['en'], archivedResourceIds: ['manual-offroad'] },
     audiences: [
       { id: 'users', name: 'User support', en: 'USER SUPPORT', icon: 'user', status: 'active', title: 'Vehicle use and maintenance', summary: 'Vehicle operation, accessories, maintenance and troubleshooting.' },
       { id: 'dealers', name: 'Dealer resources', en: 'DEALER RESOURCES', icon: 'briefcase', status: 'active', title: 'Installation, delivery and service', summary: 'Product certification, installation, delivery and technical service.' },
