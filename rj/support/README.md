@@ -5,7 +5,7 @@ Existing service guide: https://xw-tech.de/rj/
 
 ## Website version management
 
-The current recorded website release is **V2.2**. `VERSION` is the release record; `catalog.js` site.version, the rendered Website version and the asset cache versions in `index.html` must match. Release history and the V1.0 content baseline are recorded in `CHANGELOG.md`. Website versions are independent of document revisions such as user manual V06.
+The current recorded website release is **V2.3**. `VERSION` is the release record; `catalog.js` site.version, the rendered Website version and the asset cache versions in `index.html` must match. Release history and the V1.0 content baseline are recorded in `CHANGELOG.md`. Website versions are independent of document revisions such as user manual V06.
 
 Each public content, copy, file, small interface update or fix increments the minor version (V1.1, V1.2, etc.). Major architecture, navigation or resource-organisation changes increment the major version and reset the minor version (V2.0, V3.0, etc.). Synchronise the version locations and prepend a dated changelog entry before publishing; preserve older entries. Record each release's Git commit and successful Pages deployment, and verify the live version. Internal maintenance with no public website change does not require a new website version. The initial V1.0 labelling and records are part of this baseline release.
 
@@ -47,8 +47,10 @@ node --check rj/support/catalog.js
 node --check rj/support/content.js
 node --check rj/support/content-en.js
 node --check rj/support/luchs.js
+node --check rj/support/luchs-developer-guides.js
 node --check rj/support/app.js
 node scripts/check-rj-support.cjs
+node scripts/check-rj-luchs-developer-guides.cjs
 ```
 
 Checks cover all rendered English copy, preserved original records, source technical values and media, all product entrances, 34 active resources, five current English downloads including the optional L7e range extender, removal of configuration selectors and obsolete source links, old direct/filter routes, English subtitle text and timings, audience scope, escaped queries and adding another product. After deployment verify the five-file download list, V06 manual, L7e range extender, remote/FPV English downloads, original video playback and service guide entry.
@@ -74,3 +76,9 @@ The operating topics contain independent A/B extracts for first use, remote cont
 Developer-only interface extracts cover mounting, connectors and host connection. Protocol records distinguish A serial-only operating codes, VCU fault categories and LCI draft severity. B payload voltage/rating and steering-angle conflicts are explicitly unresolved. Planned B maintenance recovery, status lights and LCI functionality are not presented as current operation.
 
 `assets/luchs/SOURCES.json` records provenance and hashes for eleven extracted figures. Original embedded images are only resized and compressed; B SVG control diagrams are extracted unchanged. No original source document or package hash changes. Missing material notes for the owner are delivered separately and are not public website resources.
+
+## Prepared developer reading guides
+
+`luchs-developer-guides.js` adds seven English developer-only records without changing the forty existing Luchs records. The subjects are ROS 2 installation/simulation, CAN/SocketCAN setup, ROS topics and state, sensor/odometry integration, communication diagnostics, A protocol reading, and separate B VCU/draft-LCI reading. Each record has a prepared PDF, guide edition V0.1 and source software v1.1.0. User and dealer Downloads remain at eleven files; Developer Downloads contain the existing eighteen files plus seven prepared PDFs.
+
+The guides are adapted from files already in the public ROS 2 archive. Original README/protocol documents and source trees are not uploaded again. `files/luchs/guides/SOURCES.json` records prepared-file hashes and source-member hashes; `LICENSE.txt` preserves the source Apache-2.0 licence. Firmware, geometry, B harness and planned-feature limitations remain explicit. Simulator examples do not claim real-vehicle validation; workshop repair and maintenance-reset procedures are not added. Private all-materials archives, internal evaluations, questionnaires, part mappings and earlier communications stay outside the repository.

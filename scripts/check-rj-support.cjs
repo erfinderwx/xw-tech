@@ -11,7 +11,7 @@ const context = {
   document:{getElementById:id => id === 'app' ? appElement : {focus(){}},addEventListener(){}}
 };
 vm.createContext(context);
-['catalog.js','content.js','content-en.js','luchs.js','app.js'].forEach(name => vm.runInContext(fs.readFileSync(path.join(root,'rj','support',name),'utf8'),context,{filename:name}));
+['catalog.js','content.js','content-en.js','luchs.js','luchs-developer-guides.js','app.js'].forEach(name => vm.runInContext(fs.readFileSync(path.join(root,'rj','support',name),'utf8'),context,{filename:name}));
 const C = context.window.RJSupportCatalog;
 const UI = context.window.RJSupportUI;
 const websiteVersion=fs.readFileSync(path.join(root,'rj/support/VERSION'),'utf8').trim();
@@ -31,7 +31,7 @@ assert(C.resources.length>0,'Published customer materials must be available');
 const originalResources=C.resources.filter(r=>r.productId==='steinadler-pro');
 const luchsResources=C.resources.filter(r=>r.productId!=='steinadler-pro');
 assert.equal(originalResources.length,40,'All original Steinadler source records are retained');
-assert.equal(luchsResources.length,40,'External Luchs records and extracted topic guides are registered');
+assert.equal(luchsResources.length,47,'Forty existing Luchs records and seven additional developer guides are registered');
 assert.equal(C.site.language,'en','Architecture is English');
 assert.equal(JSON.stringify(C.site.visibleResourceLanguages),'["en","zh-CN"]','Resource languages are independent of the English interface');
 assert.equal(JSON.stringify(C.site.downloadLanguages),'["en"]','Downloads on the English website use English files');

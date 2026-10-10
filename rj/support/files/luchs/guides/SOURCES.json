@@ -1,0 +1,153 @@
+{
+  "edition": "0.1",
+  "publishedAt": "2026-10-11",
+  "scope": "Prepared developer reading guides only",
+  "sourceArchive": "./files/luchs/shared/luchs_ros2_v1.1.0.zip",
+  "sourceSoftware": "1.1.0",
+  "sourceArchiveSha256": "6b943f876c31bea7a985ce63aaaf41e2491b93f79d988f3651f490a169f523f1",
+  "files": [
+    {
+      "file": "Luchs_Developer_ros2_quick_start_EN_v0.1_20261011.pdf",
+      "resourceId": "luchs-dev-ros2-quick-start",
+      "bytes": 99692,
+      "sha256": "502ad872afcdf605c014630800737281cdb6c11d57a7e6639f3ec6069fbf7b4e",
+      "sourceFiles": [
+        {
+          "file": "README.md",
+          "sha256": "73097b68ae55b462c9020d1525635006feba03ba3891f5addb0786ea833cae92"
+        },
+        {
+          "file": "luchs_bringup/launch/luchs_a.launch.py",
+          "sha256": "1af8915447736ac790bb84efb978bfb267fdabc9ea716f66958d6eda84216166"
+        },
+        {
+          "file": "luchs_bringup/launch/luchs_b.launch.py",
+          "sha256": "2b77158ef904b616c2269c019ca3428d0e13b3902ee3422d17acdd0c6ad62446"
+        }
+      ],
+      "pages": 2
+    },
+    {
+      "file": "Luchs_Developer_can_connection_EN_v0.1_20261011.pdf",
+      "resourceId": "luchs-dev-can-connection",
+      "bytes": 100015,
+      "sha256": "579a436ddeae1be941aa74bb23ab62eaa5b3ec8e7b8ad9b22de7417c62c5fda3",
+      "sourceFiles": [
+        {
+          "file": "docs/can_setup.md",
+          "sha256": "f91de8b35af6fd0681945fa09feef49adebbc13c246950c7af0c7914225f9178"
+        },
+        {
+          "file": "luchs_bringup/scripts/setup_can.sh",
+          "sha256": "6ffb908bc18773cc79e997ecef14ff2c5fca42100f52df942680028966be0d6f"
+        }
+      ],
+      "pages": 2
+    },
+    {
+      "file": "Luchs_Developer_ros_interfaces_EN_v0.1_20261011.pdf",
+      "resourceId": "luchs-dev-ros-interfaces",
+      "bytes": 100269,
+      "sha256": "d88891a21836d603e58fae975c0918005e4d3a703c2f9cead04f6346a74bedc1",
+      "sourceFiles": [
+        {
+          "file": "README.md",
+          "sha256": "73097b68ae55b462c9020d1525635006feba03ba3891f5addb0786ea833cae92"
+        },
+        {
+          "file": "luchs_driver/README.md",
+          "sha256": "3bf9d8b9ecd31fcb3227c1fbafd98ca361ef3497ce625c256970b8e0363776af"
+        }
+      ],
+      "pages": 2
+    },
+    {
+      "file": "Luchs_Developer_sensor_integration_EN_v0.1_20261011.pdf",
+      "resourceId": "luchs-dev-sensor-integration",
+      "bytes": 99843,
+      "sha256": "ca30ae7d1337a1b2f5b6da92ab8f0d469825a09a0b02180a37d0e409a6d4128e",
+      "sourceFiles": [
+        {
+          "file": "docs/integration.md",
+          "sha256": "d0dc064f90ccb46d99f4e5d42c8a37a6ce4819b70dd253f48bf5b847651c9b38"
+        },
+        {
+          "file": "README.md",
+          "sha256": "73097b68ae55b462c9020d1525635006feba03ba3891f5addb0786ea833cae92"
+        },
+        {
+          "file": "luchs_description/README.md",
+          "sha256": "a3208446efe8d9a3b75514482b46a986b6490588162e384faf1a73a3e8eb74f5"
+        }
+      ],
+      "pages": 2
+    },
+    {
+      "file": "Luchs_Developer_connection_diagnostics_EN_v0.1_20261011.pdf",
+      "resourceId": "luchs-dev-connection-diagnostics",
+      "bytes": 99987,
+      "sha256": "3e6b6187e125f3f264d8fe9270472eae10de15c94cf39378e777028f3520cc50",
+      "sourceFiles": [
+        {
+          "file": "docs/troubleshooting.md",
+          "sha256": "150d2b462c6f9b63548b8568abfac3926262cd76e2458d37b684395b3dca4283"
+        },
+        {
+          "file": "docs/can_setup.md",
+          "sha256": "f91de8b35af6fd0681945fa09feef49adebbc13c246950c7af0c7914225f9178"
+        },
+        {
+          "file": "luchs_driver/README.md",
+          "sha256": "3bf9d8b9ecd31fcb3227c1fbafd98ca361ef3497ce625c256970b8e0363776af"
+        }
+      ],
+      "pages": 2
+    },
+    {
+      "file": "Luchs_Developer_a_protocol_reading_EN_v0.1_20261011.pdf",
+      "resourceId": "luchs-dev-a-protocol-reading",
+      "bytes": 100494,
+      "sha256": "e6893d81709a48898c0b95f5af180d25fb6e092bfaef351153fec832916fa054",
+      "sourceFiles": [
+        {
+          "file": "docs/protocol_luchs_a.md",
+          "sha256": "7ac2f0c0cd94e4250f8f0ecd821de24d922c5b253de6a3841e3fd48fe567ad67"
+        },
+        {
+          "file": "dbc/luchs_a_can_v1.1.dbc",
+          "sha256": "7967dad3a62a09df05f93160ed1ccbc6dcd90f184ca273e0769559f42cad15b3"
+        },
+        {
+          "file": "luchs_driver/README.md",
+          "sha256": "3bf9d8b9ecd31fcb3227c1fbafd98ca361ef3497ce625c256970b8e0363776af"
+        }
+      ],
+      "pages": 2
+    },
+    {
+      "file": "Luchs_Developer_b_interface_reading_EN_v0.1_20261011.pdf",
+      "resourceId": "luchs-dev-b-interface-reading",
+      "bytes": 100547,
+      "sha256": "1c425e473dedfe35c1038643a9d5c18d8e11be725f3fcdf78cf7ffb0f21baf13",
+      "sourceFiles": [
+        {
+          "file": "docs/protocol_luchs_b.md",
+          "sha256": "ffdec3557e6c8c1f6776cc5051f88c811fbe1a5adfaefd1e5902d113fab3b601"
+        },
+        {
+          "file": "dbc/luchs_b_vcu_v2.6.dbc",
+          "sha256": "982067861ac7d795bebf76593620165e9530078ad093c99f8107570654000943"
+        },
+        {
+          "file": "dbc/luchs_lci_v1.0_draft_r3.dbc",
+          "sha256": "306ffedb5816ba7630e80fedf268163c9b45b5828299d1622b22cc7e43ada842"
+        }
+      ],
+      "pages": 2
+    }
+  ],
+  "licence": {
+    "file": "LICENSE.txt",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+  }
+}

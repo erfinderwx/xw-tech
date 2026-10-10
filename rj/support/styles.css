@@ -50,3 +50,8 @@
 .resource-provenance{font-size:12px;color:var(--muted);margin:0 0 22px}
 .topic-item .mini{white-space:normal;text-align:right;max-width:165px;line-height:1.45}
 @media(max-width:600px){.topic-item .mini{max-width:116px;font-size:10px}.resource-head{gap:8px}}
+
+/* Readable, copyable examples in the additional developer guides. */
+.content-code{white-space:pre-wrap;overflow-wrap:anywhere;max-width:100%;padding:14px;background:#f4f5f7;border:1px solid var(--line);border-radius:4px;font:12px/1.75 Consolas,monospace;margin:14px 0;color:var(--ink)}
+.content-code code{font:inherit}
+.resource-provenance{overflow-wrap:anywhere}

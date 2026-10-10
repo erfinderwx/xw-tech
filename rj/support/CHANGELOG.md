@@ -8,6 +8,17 @@ Website versions use `V<major>.<minor>` and are separate from document revisions
 - Add new entries at the top. Retain released entries and identify each published version by its Git commit and deployment record. After verification, freeze its commit in a snapshot branch named `rj-support-v<major>.<minor>`; never change an older snapshot. Main remains the deployment branch. A rollback reuses the recorded version and commit.
 - The owner establishes the existing L7e edition as V1.0 on 2026-10-09. Earlier unnumbered work is not a separate numbered release.
 
+## V2.3 — 2026-10-11
+
+Add prepared developer reading guides from the existing public ROS 2 v1.1.0 package.
+
+Version snapshot: [rj-support-v2.3](https://github.com/erfinderwx/xw-tech/tree/rj-support-v2.3/rj/support).
+
+- Add seven developer-only topics covering ROS 2 setup, CAN connection, ROS interfaces, sensor integration, communication diagnostics, A protocol reading and separate B VCU/draft-LCI reading. Supply a prepared PDF for each topic, with its own guide edition V0.1, source software version, source-file references and Apache-2.0 attribution.
+- Reorganise the public source into explanations, passive decoding examples and software-only simulator examples. Keep B firmware, harness, geometry and planned-feature limitations explicit; do not turn a driver default or simulated behaviour into a delivered-vehicle claim.
+- Keep all existing resource records, manuals, protocol files, software archives, product images, operating pages and user/dealer downloads unchanged. Add seven prepared PDFs to Developer Downloads; do not upload raw source documents or any internal, review or communication package.
+- Synchronise the website release and cache labels to V2.3. Preserve the original manual/software revisions and earlier release snapshots.
+
 ## V2.2 — 2026-10-11
 
 Unify the three product entrances with complete rendered product views.
