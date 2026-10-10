@@ -8,6 +8,18 @@ Website versions use `V<major>.<minor>` and are separate from document revisions
 - Add new entries at the top. Retain released entries and identify each published version by its Git commit and deployment record. After verification, freeze its commit in a snapshot branch named `rj-support-v<major>.<minor>`; never change an older snapshot. Main remains the deployment branch. A rollback reuses the recorded version and commit.
 - The owner establishes the existing L7e edition as V1.0 on 2026-10-09. Earlier unnumbered work is not a separate numbered release.
 
+## V2.2 — 2026-10-11
+
+Unify the three product entrances with complete rendered product views.
+
+Version snapshot: [rj-support-v2.2](https://github.com/erfinderwx/xw-tech/tree/rj-support-v2.2/rj/support).
+
+- Use the official Steinadler Pro L7e three-quarter render facing right. Retain the existing owner-supplied Luchs A render and replace the previous Luchs B image with a render from the owner-confirmed chassis model. Show all three products in matching transparent 3:2 frames with proportional resizing and a shared baseline.
+- Give Luchs B a visibly larger image footprint than Luchs A to reflect its larger chassis. These separately framed product cards are illustrative, not a technical drawing to a common dimensional scale.
+- Preserve B's native exterior dimensions, deck outline, seams and fittings. Use real-product black paint and rubber/metal finishes, with tyre-surface detail and red steering/caliper finishes informed by the existing public product imagery. The B image has no sensors, antennas or product light strip.
+- Keep the private B assembly and render scenes outside the public repository. Publish only the raster product images and record their approved source provenance.
+- Retain the three support areas, all product routes and existing support content. Synchronise the website version, changelog, footer and cache identifiers to V2.2; preserve earlier release snapshots and independent document revisions.
+
 ## V2.1 — 2026-10-10
 
 Fill Luchs operating topics with instructions extracted from the approved external manuals.

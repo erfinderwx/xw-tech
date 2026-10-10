@@ -6,7 +6,7 @@
     "name": "RJ Tech",
     "title": "Product support",
     "stage": "published",
-    "version": "2.1",
+    "version": "2.2",
     "language": "en",
     "visibleResourceLanguages": [
       "en",
@@ -63,9 +63,8 @@
       "supportScope": "L7e",
       "image": {
         "src": "./assets/products/steinadler-pro.webp",
-        "width": 900,
-        "height": 506,
-        "scale": 1.2
+        "width": 1200,
+        "height": 800
       },
       "modelOptions": [
         {
@@ -142,8 +141,8 @@
       "description": "Compact robot chassis: operation, care and integration resources.",
       "image": {
         "src": "./assets/products/luchs-a.webp",
-        "width": 900,
-        "height": 679
+        "width": 1200,
+        "height": 800
       },
       "modelOptions": [],
       "seatOptions": [],
@@ -206,8 +205,8 @@
       "description": "Off-road robot chassis: operation, care and integration resources.",
       "image": {
         "src": "./assets/products/luchs-b.webp",
-        "width": 900,
-        "height": 575
+        "width": 1200,
+        "height": 800
       },
       "modelOptions": [],
       "seatOptions": [],
