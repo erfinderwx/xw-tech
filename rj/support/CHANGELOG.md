@@ -8,6 +8,18 @@ Website versions use `V<major>.<minor>` and are separate from document revisions
 - Add new entries at the top. Retain released entries and identify each published version by its Git commit and deployment record. After verification, freeze its commit in a snapshot branch named `rj-support-v<major>.<minor>`; never change an older snapshot. Main remains the deployment branch. A rollback reuses the recorded version and commit.
 - The owner establishes the existing L7e edition as V1.0 on 2026-10-09. Earlier unnumbered work is not a separate numbered release.
 
+## V2.1 — 2026-10-10
+
+Fill Luchs operating topics with instructions extracted from the approved external manuals.
+
+Version snapshot: [rj-support-v2.1](https://github.com/erfinderwx/xw-tech/tree/rj-support-v2.1/rj/support).
+
+- Add separate A/B guides for first use, remote control, charging, routine care and observable fault checks. Use original control and charging figures. Replace repeated web-manual introductions in operating topics with actual steps and tables.
+- Label all new extracts V0.1, including Basic guide and Partial guide labels where maintenance and diagnosis remain incomplete. Show the source manual revision separately; preserve A manual v1.4, B preliminary manual v0.9.5, Steinadler manual V06 and all original files.
+- Put connector pinouts, mounting geometry, host connections and protocol-specific fault decoding in Developer resources. Keep B LCI drafts separate from VCU V2.6 and identify planned functionality. Flag conflicting B payload-power and steering values rather than inventing a specification.
+- Fill product overview and web data-sheet summaries with version-specific features, values and conditions. Retain the source documents, product films, three support areas, all product entrances and file-only Downloads and topic sidebars.
+- Keep unsupported battery replacement, workshop repairs, calibration and accessory installation instructions pending. Synchronise the website release, changelog, footer and cache identifiers to V2.1; retain earlier snapshots.
+
 ## V2.0 — 2026-10-10
 
 Publish the external Luchs family materials and activate developer resources within the existing three support areas.

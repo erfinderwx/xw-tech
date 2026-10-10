@@ -43,3 +43,10 @@
 .module-link{display:flex;margin-top:13px}
 .video-meta{flex-wrap:wrap;gap:12px}
 @media(max-width:900px){.audience-grid{grid-template-columns:1fr}.role-switch{flex-wrap:wrap}}
+
+/* Extracted guide editions remain separate from original document revisions. */
+.edition-badge{border-color:var(--red);color:var(--red);background:#fff6f6}
+.resource-head .badge{margin:0 6px 8px 0}
+.resource-provenance{font-size:12px;color:var(--muted);margin:0 0 22px}
+.topic-item .mini{white-space:normal;text-align:right;max-width:165px;line-height:1.45}
+@media(max-width:600px){.topic-item .mini{max-width:116px;font-size:10px}.resource-head{gap:8px}}

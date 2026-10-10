@@ -31,7 +31,7 @@ assert(C.resources.length>0,'Published customer materials must be available');
 const originalResources=C.resources.filter(r=>r.productId==='steinadler-pro');
 const luchsResources=C.resources.filter(r=>r.productId!=='steinadler-pro');
 assert.equal(originalResources.length,40,'All original Steinadler source records are retained');
-assert.equal(luchsResources.length,28,'Approved external Luchs resources are registered');
+assert.equal(luchsResources.length,40,'External Luchs records and extracted topic guides are registered');
 assert.equal(C.site.language,'en','Architecture is English');
 assert.equal(JSON.stringify(C.site.visibleResourceLanguages),'["en","zh-CN"]','Resource languages are independent of the English interface');
 assert.equal(JSON.stringify(C.site.downloadLanguages),'["en"]','Downloads on the English website use English files');
@@ -312,6 +312,56 @@ for(const source of provenance.files){
   assert.equal(bytes.length,source.bytes,'Source-file length agrees with provenance');
   assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),source.sha256,'Source-file bytes agree with provenance');
   if(source.origin==='original')assert.equal(source.sha256,source.sourceSha256,'Original files are unmodified');
+}
+// Extracted operating topics must contain different, actionable bodies, with
+// edition versions distinct from both the website and the original manuals.
+const operatingTopics=['first-use','daily-use','charging','maintenance','troubleshooting'];
+for(const product of [luchsA,luchsB]) {
+  const bodies=[];
+  for(const topicId of operatingTopics) {
+    const entries=UI.resourcesFor(product,C.topics.find(t=>t.id===topicId),'users');
+    const extract=entries.find(r=>r.topicId===topicId&&r.editionLabel);
+    assert(extract,'Every Luchs operating topic has its own extracted guide');
+    assert(!entries.some(r=>r.id.endsWith('manual-web')),'A web-manual introduction is not reused as an operating guide');
+    assert(entries.some(r=>r.id.endsWith('-manual')),'The original manual PDF remains available in operating topics');
+    assert.equal(extract.revision,'0.1','New extracted content starts at V0.1');
+    assert(extract.sourceSections.length&&extract.sourceRevision,'An extract identifies its source chapters and revision');
+    const body=JSON.stringify(extract.content);
+    assert(body.length>1100,'Operating topics contain usable instructions rather than a link-only introduction');
+    bodies.push(crypto.createHash('sha256').update(body).digest('hex'));
+    const html=UI.pageFor(UI.parseRoute(UI.href(`product/${product.id}/topic/${topicId}`,{audience:'users'}))).html;
+    assert(html.includes(extract.editionLabel+' V0.1'),'The content edition is visible in the guide');
+    assert(html.includes('Source manual V'+extract.sourceRevision),'The source edition is shown separately');
+    assert(!html.includes('0x5A5')&&!html.includes('Pin 1:')&&!html.includes('Engineering reference'),'Host wiring and CAN command layouts stay out of user operating pages');
+    assert(UI.topicStatus(product,C.topics.find(t=>t.id===topicId),'users').includes('V0.1'),'A manual PDF cannot mask a partial content status as Available');
+    if(topicId==='maintenance')assert.equal(extract.editionLabel,'Basic guide');
+    if(topicId==='troubleshooting')assert.equal(extract.editionLabel,'Partial guide');
+    if(product.id==='luchs-b')assert.equal(extract.displayStatus,'Preliminary','B extracts retain source uncertainty');
+  }
+  assert.equal(new Set(bodies).size,operatingTopics.length,'Luchs operating topic bodies are not duplicates');
+  const sourceManual=C.resources.find(r=>r.id===product.id+'-manual');
+  assert.equal(sourceManual.revision,product===luchsA?'1.4':'0.9.5','Source manuals retain their original editions');
+  const hardware=C.resources.find(r=>r.id===product.id+'-hardware-guide');
+  assert.equal(hardware.audiences.join(','),'developers','Integration references are developer-only');
+  for(const audience of ['users','dealers'])assert(!UI.searchTopics(hardware.title,audience).resources.some(r=>r.id===hardware.id),'User and dealer searches do not surface developer-only guides');
+}
+const extracted=id=>JSON.stringify(C.resources.find(r=>r.id===id).content);
+assert(extracted('luchs-a-charging-guide').includes('Disconnect mains power first'),'A charging preserves the mains-first disconnect order');
+assert(extracted('luchs-b-charging-guide').includes('must remain off'),'B charging explicitly requires the chassis off');
+assert(extracted('luchs-b-first-use-guide').includes('switch F down')&&extracted('luchs-b-first-use-guide').includes('5 m'),'B start-up preserves enable direction and clear zone');
+assert(extracted('luchs-a-daily-use-guide').includes('30%')&&extracted('luchs-a-daily-use-guide').includes('20 cm'),'A remote speed ranges and ultrasonic threshold retain source values');
+assert(extracted('luchs-b-daily-use-guide').includes('0–30 km/h')&&extracted('luchs-b-daily-use-guide').includes('planned'),'B current and planned speed limits stay distinct');
+assert(extracted('luchs-a-troubleshooting-guide').includes('0x00–0x04 appear in the serial protocol only'),'A serial-only fault states preserve their interface scope');
+assert(extracted('luchs-b-troubleshooting-guide').includes('Bit table to be published'),'B fault limitations are visible instead of invented');
+assert(extracted('luchs-b-vcu-protocol').includes('Motor controller fault')&&extracted('luchs-b-vcu-protocol').includes('BMS fault'),'VCU fault categories are preserved');
+assert(extracted('luchs-b-lci-protocol').includes('Derated')&&extracted('luchs-b-lci-protocol').includes('missing motor bits'),'LCI severity remains a separate draft definition');
+assert(extracted('luchs-b-hardware-guide').includes('conflicting')&&extracted('luchs-b-hardware-guide').includes('12 V, 25 A'),'Conflicting B payload-power ratings are explicitly unresolved');
+const figures=JSON.parse(fs.readFileSync(path.join(root,'rj/support/assets/luchs/SOURCES.json'),'utf8'));
+assert.equal(figures.length,11,'Extracted manual figures have recorded provenance');
+for(const figure of figures) {
+  const bytes=fs.readFileSync(path.join(root,'rj/support/assets/luchs',figure.file));
+  assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),figure.sha256,'Derived figure bytes agree with their provenance');
+  assert(fs.existsSync(path.resolve(root,'rj/support/assets/luchs',figure.source)),'Derived figure points to its preserved source manual');
 }
 for(const product of C.products){
   const bytes=fs.readFileSync(path.resolve(root,'rj/support',product.image.src));

@@ -1,0 +1,79 @@
+[
+  {
+    "file": "a-transmitter.webp",
+    "source": "../../files/luchs/a/Luchs_A_User_Manual_EN_v1.4_20261005.html",
+    "caption": "Figure 2-3 · Transmitter controls. SWA–SWD: toggle switches; VRA, VRB: thumbwheels.",
+    "method": "Embedded original figure resized within 1280 by 1600 pixels and converted to WebP. Labels unchanged.",
+    "sha256": "136b3d532397fdb3bda5bc51b6bc7a38a9c9f92e74a49509fd686892c1c2811a"
+  },
+  {
+    "file": "a-charging-port.webp",
+    "source": "../../files/luchs/a/Luchs_A_User_Manual_EN_v1.4_20261005.html",
+    "caption": "Figure 3-1 · Charging port",
+    "method": "Embedded original figure resized within 1280 by 1600 pixels and converted to WebP. Labels unchanged.",
+    "sha256": "eacc274a1a792bb01fa14ed0494ef39575b1446eed816cbfc502bf342e7dd7ba"
+  },
+  {
+    "file": "a-power-button.webp",
+    "source": "../../files/luchs/a/Luchs_A_User_Manual_EN_v1.4_20261005.html",
+    "caption": "Figure 4-1 · Power button",
+    "method": "Embedded original figure resized within 1280 by 1600 pixels and converted to WebP. Labels unchanged.",
+    "sha256": "f0dda4c2a4cc800e7153d293b7e4ccc35370e04033f475e9d05957217c9f47ff"
+  },
+  {
+    "file": "a-emergency-stops.webp",
+    "source": "../../files/luchs/a/Luchs_A_User_Manual_EN_v1.4_20261005.html",
+    "caption": "Figure 4-2 · Emergency stop buttons (top view)",
+    "method": "Embedded original figure resized within 1280 by 1600 pixels and converted to WebP. Labels unchanged.",
+    "sha256": "4aec34e67b110b44b0b93ed0381a6692e9a639fa314edd15fd4e7e85ff7987a0"
+  },
+  {
+    "file": "a-mode-selector.webp",
+    "source": "../../files/luchs/a/Luchs_A_User_Manual_EN_v1.4_20261005.html",
+    "caption": "Figure 4-3 · Mode selector",
+    "method": "Embedded original figure resized within 1280 by 1600 pixels and converted to WebP. Labels unchanged.",
+    "sha256": "6a5000b5de825c3381087d833db3d7d354af8240b7ea871e6dc821e2cc0f2df1"
+  },
+  {
+    "file": "a-parking-release.webp",
+    "source": "../../files/luchs/a/Luchs_A_User_Manual_EN_v1.4_20261005.html",
+    "caption": "Figure 4-4 · Parking brake release",
+    "method": "Embedded original figure resized within 1280 by 1600 pixels and converted to WebP. Labels unchanged.",
+    "sha256": "8dbc47020feafc84b80a12cfa43275f9335dd868eda7d96efce5cf39b13a000c"
+  },
+  {
+    "file": "a-mounting-rails.webp",
+    "source": "../../files/luchs/a/Luchs_A_User_Manual_EN_v1.4_20261005.html",
+    "caption": "Figure 4-5 · Mounting rails: 200 mm centres, 700 mm long. Dimensions in mm.",
+    "method": "Embedded original figure resized within 1280 by 1600 pixels and converted to WebP. Labels unchanged.",
+    "sha256": "994da700121b0687e32b9e1c40638e16dd79769ee994cd3a793acbbe323f244b"
+  },
+  {
+    "file": "b-side-panel.svg",
+    "source": "../../files/luchs/b/Luchs_B_User_Manual_EN_v0.9.5_20261005.html",
+    "caption": "Figure 2-2 · Side control panel",
+    "method": "Original SVG extracted without edits.",
+    "sha256": "57114b420a8cadd5cda97fca8fb01f90d85ba5bb176735d3643e9e95c85167c9"
+  },
+  {
+    "file": "b-transmitter.svg",
+    "source": "../../files/luchs/b/Luchs_B_User_Manual_EN_v0.9.5_20261005.html",
+    "caption": "Figure 2-5 · Transmitter controls used with the Luchs B",
+    "method": "Original SVG extracted without edits.",
+    "sha256": "b1bdeb5f8f98afde087ebccd930decdb4e513bb670b881af2b8ee7439ac159e1"
+  },
+  {
+    "file": "b-dimensions-top.webp",
+    "source": "../../files/luchs/b/Luchs_B_User_Manual_EN_v0.9.5_20261005.html",
+    "caption": "Figure A-1 · Top view",
+    "method": "Embedded original figure resized within 1280 by 1600 pixels and converted to WebP. Labels unchanged.",
+    "sha256": "6f44d32ece4ac2c5fd1cb4d12132051c3cfbe956716d4e503226a1ff3d834468"
+  },
+  {
+    "file": "b-dimensions-side.webp",
+    "source": "../../files/luchs/b/Luchs_B_User_Manual_EN_v0.9.5_20261005.html",
+    "caption": "Figure A-3 · Side view",
+    "method": "Embedded original figure resized within 1280 by 1600 pixels and converted to WebP. Labels unchanged.",
+    "sha256": "13630cfb19469cbf7bb167d673f9fc62e2a83c9c1bd4a8d23365dc497e4f33bf"
+  }
+]
