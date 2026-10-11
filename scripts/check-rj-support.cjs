@@ -11,7 +11,7 @@ const context = {
   document:{getElementById:id => id === 'app' ? appElement : {focus(){}},addEventListener(){}}
 };
 vm.createContext(context);
-['catalog.js','content.js','content-en.js','luchs.js','luchs-developer-guides.js','app.js'].forEach(name => vm.runInContext(fs.readFileSync(path.join(root,'rj','support',name),'utf8'),context,{filename:name}));
+['catalog.js','content.js','content-en.js','luchs.js','luchs-developer-guides.js','product-media.js','app.js'].forEach(name => vm.runInContext(fs.readFileSync(path.join(root,'rj','support',name),'utf8'),context,{filename:name}));
 const C = context.window.RJSupportCatalog;
 const UI = context.window.RJSupportUI;
 const websiteVersion=fs.readFileSync(path.join(root,'rj/support/VERSION'),'utf8').trim();
@@ -148,6 +148,8 @@ const routes = new Set(['#/','#/users','#/dealers','#/developers','#/library','#
 for(const p of C.products) {
   for(const audience of ['users','dealers','developers']) {
     routes.add(UI.href('product/'+p.id,{audience}));
+    routes.add(UI.href('product/'+p.id+'/media',{audience}));
+    routes.add(UI.href('product/'+p.id+'/media',{audience,section:'video'}));
     routes.add(UI.href('library',{audience,product:p.id}));
     for(const section of p.sectionIds[audience] || []) routes.add(UI.href('product/'+p.id,{audience,section}));
     for(const topicId of p.topicIds) {
@@ -400,6 +402,34 @@ for(const product of C.products){
   assert.equal(bytes.toString('ascii',0,4),'RIFF','Product asset is a WebP container');
   assert.equal(bytes.toString('ascii',8,12),'WEBP','Product image format matches its filename');
 }
+
+const media=context.window.RJSupportProductMedia;
+assert.equal(JSON.stringify(Object.keys(media).sort()),JSON.stringify(C.products.map(p=>p.id).sort()),'Presentation media belongs only to the three existing products');
+for(const product of C.products){
+  const entry=media[product.id];
+  for(const photo of entry.photos){
+    localAsset(photo.src);
+    assert(['photo','film-still'].includes(photo.kind),'Photo browser cannot substitute a rendering for real-camera material');
+    assert(photo.caption && photo.configuration,'Presentation images identify their configuration');
+  }
+  localAsset(entry.hero?.src);
+  localAsset(entry.video.url);localAsset(entry.video.alternateUrl);localAsset(entry.video.poster);
+  const html=UI.pageFor(UI.parseRoute(UI.href('product/'+product.id+'/media',{audience:'users'}))).html;
+  assert(html.includes('controls playsinline preload="none"'),'Product film uses explicit controls and no upfront video transfer');
+  assert(!/\bautoplay\b/.test(html),'Presentation film does not automatically start');
+  assert(html.includes(entry.video.url),'Each model uses its own existing video');
+  for(const other of C.products.filter(p=>p.id!==product.id))assert(!html.includes(media[other.id].video.url),'Media page cannot play another model film');
+  assert.equal((html.match(/data-action="open-photo"/g)||[]).length,entry.photos.length,'Every selected real view can be enlarged');
+}
+for(const [folder,key] of [['assets/brand','files'],['assets/products/v25','assets']]){
+  const manifest=JSON.parse(fs.readFileSync(path.join(root,'rj/support',folder,'SOURCES.json'),'utf8'));
+  for(const entry of manifest[key]){
+    const bytes=fs.readFileSync(path.join(root,'rj/support',folder,entry.file));
+    assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),entry.sha256,'New presentation asset agrees with its recorded source hash: '+entry.file);
+  }
+  assert(!/C:\\\\|Users\/|\.private|\.step|\.blend|\.pem/.test(JSON.stringify(manifest)),'Presentation provenance contains no private path, model payload or credential');
+}
+assert(!fs.readFileSync(path.join(root,'rj/support/styles.css'),'utf8').includes('theme-blue-preview'),'Blue theme stays outside the public stylesheet');
 
 // Verify a fourth product can reuse all page templates without adding route code.
 C.products.push({id:'extension-check',name:'Extension Check',code:'EC',family:'Check',label:'Product support',description:'Product extension check',status:'reserved',modelOptions:[],seatOptions:[],sectionIds:{users:['start'],dealers:['shared']},topicIds:['first-use']});

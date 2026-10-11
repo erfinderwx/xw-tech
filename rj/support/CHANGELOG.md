@@ -8,6 +8,18 @@ Website versions use `V<major>.<minor>` and are separate from document revisions
 - Add new entries at the top. Retain released entries and identify each published version by its Git commit and deployment record. After verification, freeze its commit in a snapshot branch named `rj-support-v<major>.<minor>`; never change an older snapshot. Main remains the deployment branch. A rollback reuses the recorded version and commit.
 - The owner establishes the existing L7e edition as V1.0 on 2026-10-09. Earlier unnumbered work is not a separate numbered release.
 
+## V2.5 — 2026-10-11
+
+Unify the Luchs product views, add model-specific real-product media and use the official RJ Tech logo with a temporary secondary TAR wordmark.
+
+Version snapshot: [rj-support-v2.5](https://github.com/erfinderwx/xw-tech/tree/rj-support-v2.5/rj/support).
+
+- Use the previously prepared A and B raster renders with matching camera orientation and proportional display. Preserve their source images, existing card assets and private render/model files; publish only the selected raster outputs.
+- Add photo and video entrances beneath product images, with separate product media pages, photo enlargement, accurate configuration captions and corresponding existing films. Identify film stills and accessory-installation footage explicitly; do not fill a gallery with rendered or repeated photographs.
+- Replace the approximate header mark with the byte-identical official RJ Tech logo, retain its standard colours and add an owner-requested temporary TAR wordmark below it. Use a support-specific favicon without changing other websites' assets.
+- Retain the existing red interface palette. The blue-theme sample is supplied separately for review and is not activated on the public website.
+- Preserve all current manuals, downloads, software preview links, document editions, original media and source hashes. Synchronise the website version and cache labels to V2.5 and preserve previous snapshots.
+
 ## V2.4 — 2026-10-11
 
 Replace the two ROS software main downloads with versioned GitHub development-preview entrances.

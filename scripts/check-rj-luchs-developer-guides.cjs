@@ -12,7 +12,7 @@ function load(previous) {
   const app={innerHTML:''};
   const context={URLSearchParams,window:{location:{hash:'#/'},addEventListener(){},scrollTo(){}},document:{getElementById:id=>id==='app'?app:{focus(){}},addEventListener(){}}};
   vm.createContext(context);
-  const names=['catalog.js','content.js','content-en.js','luchs.js','luchs-developer-guides.js','app.js'];
+  const names=['catalog.js','content.js','content-en.js','luchs.js','luchs-developer-guides.js',...(!previous?['product-media.js']:[]),'app.js'];
   for(const name of names) {
     const text=previous?execFileSync('git',['show',baseline+':rj/support/'+name],{cwd:root,encoding:'utf8'}):fs.readFileSync(path.join(support,name),'utf8');
     vm.runInContext(text,context,{filename:name});
@@ -37,7 +37,9 @@ const currentQuickstart=current.C.resources.find(r=>r.id==='luchs-dev-ros2-quick
 const oldQuickstart=old.C.resources.find(r=>r.id==='luchs-dev-ros2-quick-start');
 const guideChanges=new Set(['revision','editionLabel','scope','displayStatus','sourceSoftware','sourceFiles','content','assets','sourceRefs']);
 for(const key of Object.keys(oldQuickstart))if(!guideChanges.has(key))assert.equal(JSON.stringify(currentQuickstart[key]),JSON.stringify(oldQuickstart[key]),'Quick-start retains existing '+key+' scope');
-for(const key of ['audiences','products','sections','topics','developerModules'])assert.equal(JSON.stringify(current.C[key]),JSON.stringify(old.C[key]),'Existing '+key+' architecture is preserved');
+for(const key of ['audiences','sections','topics','developerModules'])assert.equal(JSON.stringify(current.C[key]),JSON.stringify(old.C[key]),'Existing '+key+' architecture is preserved');
+const productScope=products=>products.map(({image,...rest})=>rest);
+assert.equal(JSON.stringify(productScope(current.C.products)),JSON.stringify(productScope(old.C.products)),'Product identities, configurations and topic scope are preserved; new presentation images are checked separately');
 assert.equal(JSON.stringify(current.C.resourceTypes.filter(t=>t.id!=='repository')),JSON.stringify(old.C.resourceTypes),'Existing resource types remain unchanged');
 assert.equal(JSON.stringify(current.C.resourceTypes.filter(t=>t.id==='repository')),'[{"id":"repository","name":"Software repository"}]','Only the repository display type is added');
 for(const audience of ['users','dealers']) {
