@@ -1,5 +1,5 @@
 {
-  "edition": "0.1",
+  "edition": "0.2",
   "publishedAt": "2026-10-11",
   "scope": "Prepared developer reading guides only",
   "sourceArchive": "./files/luchs/shared/luchs_ros2_v1.1.0.zip",
@@ -144,10 +144,58 @@
         }
       ],
       "pages": 2
+    },
+    {
+      "file": "Luchs_Developer_ros2_quick_start_EN_v0.2_20261011.pdf",
+      "resourceId": "luchs-dev-ros2-quick-start",
+      "edition": "0.2",
+      "sourceSoftware": "1.1.0-preview.1",
+      "bytes": 101081,
+      "sha256": "146d31a5674fa5dbf7f78932b9fd3112310ec3e27ae61dbf4fe4c5471ff695e1",
+      "pages": 2,
+      "sourceRepository": {
+        "url": "https://github.com/erfinderwx/rj-platform-developer",
+        "ref": "luchs-v1.1.0-preview.1",
+        "refType": "branch"
+      },
+      "sourceFiles": [
+        {
+          "file": "ros2/README.md",
+          "sha256": "5e32dd9438df9456a82711a7d847c69253b75fdaf38605e5c7b663d9341c1b3d"
+        },
+        {
+          "file": "ros2/luchs_bringup/launch/luchs_a.launch.py",
+          "sha256": "1af8915447736ac790bb84efb978bfb267fdabc9ea716f66958d6eda84216166"
+        },
+        {
+          "file": "ros2/luchs_bringup/launch/luchs_b.launch.py",
+          "sha256": "87d07606d6f2f462f64b2ac19fe41632e0949801101e4b959295bf340e44db80"
+        },
+        {
+          "file": "docs/luchs-development-manual.md",
+          "sha256": "f5c5af192b0ee3209ee6aeeef0f4f463075e5e0abbbb8c2a594374e84b40fdba"
+        }
+      ],
+      "previousEdition": "Luchs_Developer_ros2_quick_start_EN_v0.1_20261011.pdf"
     }
   ],
   "licence": {
     "file": "LICENSE.txt",
     "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
-  }
+  },
+  "updates": [
+    {
+      "publishedAt": "2026-10-11",
+      "resourceId": "luchs-dev-ros2-quick-start",
+      "edition": "0.2",
+      "previousEdition": "0.1",
+      "change": "Git-based development-preview setup; original archive and seven previous guide editions retained.",
+      "sourceRepository": {
+        "url": "https://github.com/erfinderwx/rj-platform-developer",
+        "ref": "luchs-v1.1.0-preview.1",
+        "refType": "branch"
+      },
+      "developmentManual": "https://github.com/erfinderwx/rj-platform-developer/blob/luchs-v1.1.0-preview.1/docs/luchs-development-manual.md"
+    }
+  ]
 }

@@ -265,9 +265,10 @@ assert.equal(UI.pageFor(UI.parseRoute('#/missing')).title,'Page not found','Unkn
 // The public external package is scoped by role, hardware version and maturity.
 const luchsA=C.products.find(p=>p.id==='luchs-a'),luchsB=C.products.find(p=>p.id==='luchs-b');
 const developerResources=UI.publishedResources(null,'developers');
-assert.equal(developerResources.filter(r=>r.type==='document').length,18,'Developer downloads are six public PDFs and twelve integration files');
-assert.equal(UI.publishedResources(luchsA,'developers').filter(r=>r.type==='document').length,11,'A downloads include the shared ROS packages once');
-assert.equal(UI.publishedResources(luchsB,'developers').filter(r=>r.type==='document').length,9,'B downloads include the shared ROS packages once');
+assert.equal(developerResources.filter(r=>r.type==='document').length,16,'Developer documents retain six public PDFs and ten integration files');
+assert.equal(UI.publishedResources(luchsA,'developers').filter(r=>r.type==='document').length,9,'A document downloads exclude the two repository entrances');
+assert.equal(UI.publishedResources(luchsB,'developers').filter(r=>r.type==='document').length,7,'B document downloads exclude the two repository entrances');
+assert.equal(developerResources.filter(r=>r.assets.some(a=>a.kind==='file')).length,23,'Developer Downloads retain sixteen original files and seven current prepared PDFs');
 for(const r of luchsResources)for(const productId of r.productIds || [r.productId])for(const audience of r.audiences){
   const product=C.products.find(p=>p.id===productId);
   assert(product.topicIds.includes(r.topicId),'Shared resource topic exists for each version');
@@ -285,9 +286,40 @@ assert(protocols.filter(r=>r.id.includes('vcu')).every(r=>r.revision==='2.6'&&!r
 for(const r of luchsResources.filter(r=>r.id.startsWith('luchs-b-')&&['manual','manual-web','datasheet','datasheet-web','brochure','overview'].some(suffix=>r.id==='luchs-b-'+suffix)))assert.equal(r.displayStatus,'Preliminary','B preliminary documents retain source status');
 for(const id of ['luchs-ros1','luchs-ros2']){
   const r=C.resources.find(r=>r.id===id);
-  assert.equal(r.productIds.join(','),'luchs-a,luchs-b','ROS packages belong to both Luchs versions');
-  assert.equal(C.resources.filter(x=>x.id===id).length,1,'Shared ROS package has one canonical record');
-  for(const p of [luchsA,luchsB])assert(UI.resourcesFor(p,C.topics.find(t=>t.id==='sdk'),'developers').some(x=>x.id===id),'Both versions expose the same package');
+  const directory=id==='luchs-ros1'?'ros1':'ros2';
+  const repository='https://github.com/erfinderwx/rj-platform-developer';
+  const ref='luchs-v1.1.0-preview.1';
+  const url=repository+'/tree/'+ref+'/'+directory;
+  const manual=repository+'/blob/'+ref+'/docs/luchs-development-manual.md';
+  assert.equal(r.productIds.join(','),'luchs-a,luchs-b','ROS repository belongs to both Luchs versions');
+  assert.equal(C.resources.filter(x=>x.id===id).length,1,'Shared ROS repository has one canonical record');
+  assert.equal(r.type,'repository','A repository is distinct from a downloadable document');
+  assert.equal(r.displayStatus,'Development preview','Software maturity is explicit');
+  assert.equal(r.revision,'1.1.0-preview.1','Published preview version is distinct from the source package');
+  assert.equal(r.sourceBaseline,'1.1.0','Original software source baseline is retained');
+  assert.equal(r.repositoryRef,ref,'Preview links use the fixed release ref');
+  assert.equal(r.assets.length,1,'Only the repository is the software main asset');
+  assert.equal(r.assets[0].kind,'repository','Repository is never disguised as a file');
+  assert.equal(r.assets[0].url,url,'Each ROS entry selects its own software directory');
+  assert(r.sourceRefs.some(s=>s.url==='./files/luchs/shared/luchs_'+directory+'_v1.1.0.zip'),'The original ZIP remains available as source provenance');
+  assert(JSON.stringify(r.content).includes('not delivered-vehicle validation'),'Preview does not claim vehicle validation');
+  for(const p of [luchsA,luchsB])for(const topicId of ['sdk','models']){
+    assert(UI.resourcesFor(p,C.topics.find(t=>t.id===topicId),'developers').some(x=>x.id===id),'Both versions expose the same repository in existing software topics');
+    const html=UI.pageFor(UI.parseRoute(UI.href('product/'+p.id+'/topic/'+topicId,{audience:'developers',resource:id}))).html;
+    const anchor=Array.from(html.matchAll(/<a\b([^>]*)>[\s\S]*?<\/a>/g)).find(match=>match[1].includes('href="'+url+'"'));
+    assert(anchor && anchor[0].includes('View on GitHub'),'Repository has a clear GitHub action');
+    assert(!/\bdownload(?:\s|=|$)/.test(anchor[1]),'GitHub action has no download attribute');
+    assert(anchor[1].includes('target="_blank"')&&anchor[1].includes('rel="noopener noreferrer"'),'Repository opens safely in a new tab');
+    assert(html.includes('Repository: English'),'Repository is not labelled File: English');
+    assert(html.includes('Source baseline v1.1.0'),'Source baseline is visibly separate from preview version');
+    assert(html.includes('href="'+manual+'"')&&html.includes('Version development manual'),'Each repository links the matching version manual');
+    const aside=html.split('<aside class="doc-aside"')[1] || '';
+    assert(!aside.includes('href="'+url+'"'),'Topic download sidebar remains file-only');
+    assert(!UI.pageFor(UI.parseRoute(UI.href('library',{audience:'developers',product:p.id}))).html.includes(url),'File-only Downloads do not emit repository cards');
+  }
+  const search=UI.pageFor(UI.parseRoute(UI.href('search',{q:r.title,audience:'developers'}))).html;
+  assert(search.includes('href="'+url+'"')&&search.includes('View on GitHub'),'Developer search preserves the repository action');
+  for(const audience of ['users','dealers'])assert(!UI.searchTopics(r.title,audience).resources.some(x=>x.id===id),'Repositories remain developer-only');
 }
 const bExamples=UI.pageFor(UI.parseRoute('#/product/luchs-b/topic/examples?audience=developers')).html;
 assert(bExamples.includes('#/product/luchs-b/topic/sdk?audience=developers'),'Shared example links keep the selected B version');
@@ -386,4 +418,4 @@ assert(index.includes('<html lang="en">'),'Document language is English');
 assert(appElement.innerHTML.includes('Product support'),'Initial render runs');
 assert(fs.readFileSync(path.join(root,'rj','support','styles.css'),'utf8').includes('@media'),'Responsive styles exist');
 console.log(`Version checks passed: Website V${websiteVersion}, release record, dated changelog, every page footer and all local asset cache versions agree.`);
-console.log(`Passed: ${routes.size} fully English page states and their legacy-configuration variants, ${linkCount} internal navigation links, all product entrances, 40 retained original records, ${projected.length} active Steinadler resources, 5 Steinadler downloads plus 6 Luchs PDFs and 12 public developer files including the L7e range extender and V06 as the current Steinadler manual, no model/seat selectors or obsolete source links, preserved original records and technical values, 9 retained original videos plus 2 Luchs films in both resolutions, 7 English caption tracks, audience scope, remaining library filters, escaping, and new-product reuse.`);
+console.log(`Passed: ${routes.size} fully English page states and their legacy-configuration variants, ${linkCount} internal navigation links, all product entrances, 40 retained original records, ${projected.length} active Steinadler resources, unchanged 11 user/dealer downloads, 23 developer downloads plus 2 versioned GitHub previews, original ZIP provenance and source hashes, no model/seat selectors or obsolete source links, preserved original records and technical values, 9 retained original videos plus 2 Luchs films in both resolutions, 7 English caption tracks, audience scope, file-only lists, escaping, and new-product reuse.`);

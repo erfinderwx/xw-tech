@@ -8,6 +8,18 @@ Website versions use `V<major>.<minor>` and are separate from document revisions
 - Add new entries at the top. Retain released entries and identify each published version by its Git commit and deployment record. After verification, freeze its commit in a snapshot branch named `rj-support-v<major>.<minor>`; never change an older snapshot. Main remains the deployment branch. A rollback reuses the recorded version and commit.
 - The owner establishes the existing L7e edition as V1.0 on 2026-10-09. Earlier unnumbered work is not a separate numbered release.
 
+## V2.4 — 2026-10-11
+
+Replace the two ROS software main downloads with versioned GitHub development-preview entrances.
+
+Version snapshot: [rj-support-v2.4](https://github.com/erfinderwx/xw-tech/tree/rj-support-v2.4/rj/support).
+
+- Link the shared A/B ROS 2 Humble/Jazzy and ROS 1 Noetic records to the corresponding folders at `luchs-v1.1.0-preview.1` in `erfinderwx/rj-platform-developer`. Show View on GitHub, repository metadata, Development preview and the original v1.1.0 source baseline, plus the version development manual.
+- Keep the original two ZIP files, source hashes and provenance links available. Repository entrances are not downloadable files; Downloads and topic sidebars remain file-only, with 23 current developer files and unchanged user/dealer file lists.
+- Update only the ROS 2 quick-start reading guide to V0.2 with the versioned Git checkout and workspace layout. Keep its original V0.1 PDF and source record, the six other guides and every original imported file.
+- Keep software-only examples, B dry-run defaults, VCU/draft-LCI separation and pending firmware, geometry and harness questions explicit. The preview does not claim real-vehicle validation.
+- Synchronise the website release and cache labels to V2.4; preserve independent document/software versions and all earlier snapshots.
+
 ## V2.3 — 2026-10-11
 
 Add prepared developer reading guides from the existing public ROS 2 v1.1.0 package.

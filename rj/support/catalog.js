@@ -6,7 +6,7 @@
     "name": "RJ Tech",
     "title": "Product support",
     "stage": "published",
-    "version": "2.3",
+    "version": "2.4",
     "language": "en",
     "visibleResourceLanguages": [
       "en",
@@ -787,6 +787,10 @@
     {
       "id": "developer",
       "name": "Integration guide"
+    },
+    {
+      "id": "repository",
+      "name": "Software repository"
     }
   ],
   "resourceSchema": [

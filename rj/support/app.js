@@ -69,6 +69,7 @@
   function topicHref(product, topic, audience, extra) { return href(`product/${product.id}/topic/${topic.id}`, {audience, ...(extra || {})}); }
   const languageName = id => ({'zh-CN':'Chinese','en':'English','de-DE':'German'}[id] || id);
   function resourceLanguageLabel(resource) {
+    if (resource.type === 'repository') return 'Repository: ' + languageName(resource.language);
     if (resource.type === 'document') return 'File: ' + languageName(resource.language);
     if (resource.type === 'video') return resource.mediaLabel || 'Audio: ' + languageName(resource.sourceLanguage || resource.language);
     return languageName(resource.language);
@@ -112,7 +113,7 @@
     return ({original:'Original file',derived:'Prepared diagrams',reference:'Website reference'})[asset.origin] || 'Download files';
   }
   function assetButtons(resource) {
-    return (resource.assets || []).map(a => a.kind === 'file' ? `<a class="button-secondary" href="${e(a.url)}" target="_blank" rel="noopener noreferrer" download>${icon('file')} Download · ${e(a.format)} · ${e(fileOriginLabel(a))}</a>` : a.guideUrl ? `<a class="text-link" href="${e(a.guideUrl)}" target="_blank" rel="noopener noreferrer">Open the complete service guide ${icon('external')}</a>` : '').join('');
+    return (resource.assets || []).map(a => a.kind === 'file' ? `<a class="button-secondary" href="${e(a.url)}" target="_blank" rel="noopener noreferrer" download>${icon('file')} Download · ${e(a.format)} · ${e(fileOriginLabel(a))}</a>` : a.kind === 'repository' ? `<a class="button-secondary" href="${e(a.url)}" target="_blank" rel="noopener noreferrer">View on GitHub ${icon('external')}</a>` : a.guideUrl ? `<a class="text-link" href="${e(a.guideUrl)}" target="_blank" rel="noopener noreferrer">Open the complete service guide ${icon('external')}</a>` : '').join('');
   }
   function audioLabel(resource, asset) {
     return resource.mediaLabel || ((resource.sourceLanguage || resource.language) === 'zh-CN' ? 'Chinese audio' + (asset.captions ? ' · ' + (asset.captionLanguage === 'en' ? 'English captions' : 'Chinese / English captions') : '') : asset.audio);
@@ -129,7 +130,7 @@
     return '';
   }
   function resourceBody(resource, product, selected) {
-    const provenance = resource.sourceRevision ? `Source manual V${e(resource.sourceRevision)} · sections ${e(resource.sourceSections.join(', '))}` : resource.sourceSoftware ? `Source software v${e(resource.sourceSoftware)} · files ${e(resource.sourceFiles.join(', '))}` : '';
+    const provenance = resource.type === 'repository' ? `Source baseline v${e(resource.sourceBaseline)} · preview v${e(resource.revision)} · ref ${e(resource.repositoryRef)}` : resource.sourceRevision ? `Source manual V${e(resource.sourceRevision)} · sections ${e(resource.sourceSections.join(', '))}` : resource.sourceSoftware ? `Source software v${e(resource.sourceSoftware)} · files ${e(resource.sourceFiles.join(', '))}` : '';
     return `<section class="resource-panel${selected === resource.id ? ' selected' : ''}" id="resource-${e(resource.id)}"><div class="resource-head"><div><span class="badge dark">${e(resourceScope(resource,product))}</span>${resource.editionLabel ? `<span class="badge edition-badge">${e(resourceEdition(resource))}</span>` : ''}${resource.displayStatus ? `<span class="badge gray">${e(resource.displayStatus)}</span>` : ''}<h2>${e(resource.title)}</h2></div><span class="resource-language">${e(resourceLanguageLabel(resource))}</span></div>${resource.scope ? `<p class="resource-scope">${e(resource.scope)}</p>` : ''}${provenance ? `<p class="resource-provenance">${provenance}</p>` : ''}${resource.content.map(s=>`<section class="content-section"><h3>${e(s.title)}</h3>${s.blocks.map(block=>renderBlock(block,product)).join('')}</section>`).join('')}${resource.assets.filter(a=>a.kind === 'video').map(a=>`<div class="content-video"><video controls playsinline preload="none" ${a.poster ? `poster="${e(a.poster)}"` : ''} aria-label="${e(resource.title)}"><source src="${e(a.url)}" type="video/mp4">${a.captions ? `<track kind="captions" src="${e(a.captions)}" srclang="${e(a.captionLanguage || 'zh')}" label="${e(a.captionLabel || 'Chinese / English')}" default>` : ''}Your browser cannot play this video. Use the link below to open it.</video><div class="video-meta"><span>${e(a.duration)} · ${e(audioLabel(resource,a))}</span><a class="text-link" href="${e(a.url)}" target="_blank" rel="noopener noreferrer">Open ${a.alternateUrl ? '1080p ' : ''}video ${icon('external')}</a>${a.alternateUrl ? `<a class="text-link" href="${e(a.alternateUrl)}" target="_blank" rel="noopener noreferrer">Open 720p video ${icon('external')}</a>` : ''}</div></div>`).join('')}<div class="resource-actions">${assetButtons(resource)}</div>${resource.sourceRefs?.length ? `<details class="resource-sources"><summary>Source materials</summary>${resource.sourceRefs.map(s=>s.url ? `<a href="${e(s.url)}" target="_blank" rel="noopener noreferrer">${e(s.title)} ${icon('external')}</a>` : `<span>${e(s.title)}</span>`).join('')}</details>` : ''}</section>`;
   }
   function resourceCard(resource, audience, downloadsOnly, selectedProduct) {
@@ -210,7 +211,7 @@
     const resources = resourcesFor(product,topic,audience);
     const chosen = route.params.get('resource');
     const enquiry = !resources.length && product.topicStatuses?.[topic.id];
-    resources.sort((a,b) => (b.id === chosen) - (a.id === chosen) || ({guide:0,accessory:0,function:0,service:0,training:0,certificate:0,video:1,document:2}[a.type] || 0) - ({guide:0,accessory:0,function:0,service:0,training:0,certificate:0,video:1,document:2}[b.type] || 0));
+    resources.sort((a,b) => (b.id === chosen) - (a.id === chosen) || ({guide:0,accessory:0,function:0,service:0,training:0,certificate:0,video:1,document:2,repository:2}[a.type] || 0) - ({guide:0,accessory:0,function:0,service:0,training:0,certificate:0,video:1,document:2,repository:2}[b.type] || 0));
     const names = [product.name,product.supportScope].filter(Boolean);
     const files = resources.filter(r=>r.assets.some(a=>a.kind === 'file'));
     const contact = `<a class="button-secondary" href="mailto:sales@rjtech-offroad.com">Contact RJ Tech ${icon('external')}</a>`;

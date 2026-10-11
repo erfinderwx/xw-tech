@@ -22,14 +22,14 @@
     "title": "ROS 2 installation and simulator quick start",
     "language": "en",
     "sourceLanguage": "en",
-    "revision": "0.1",
-    "editionLabel": "Developer guide",
+    "revision": "0.2",
+    "editionLabel": "Developer preview guide",
     "publishedAt": "2026-10-11",
     "status": "published",
     "visibility": "public",
-    "scope": "Luchs A and B software setup. Begin without a vehicle; vehicle commissioning requires the matching hardware and firmware.",
-    "displayStatus": "Software reference",
-    "sourceSoftware": "1.1.0",
+    "scope": "Luchs A and B development-preview software setup. Start with a software simulator; delivered-hardware support requires separate validation.",
+    "displayStatus": "Development preview",
+    "sourceSoftware": "1.1.0-preview.1",
     "sourceFiles": [
       "README.md",
       "luchs_bringup/launch/luchs_a.launch.py",
@@ -41,69 +41,64 @@
         "blocks": [
           {
             "type": "p",
-            "text": "The public v1.1.0 package contains a shared C++ SDK, ROS 2 driver, messages, launch files and robot descriptions. ROS 1 is available as a separate existing download. This guide uses ROS 2."
+            "text": "The GitHub development preview contains the shared C++ SDK, ROS 2 driver, messages, launch files and robot descriptions. ROS 1 is in the separate ros1 directory of the same repository. This guide builds only ROS 2."
           },
           {
             "type": "table",
             "headers": [
               "Environment",
-              "Source-supported combination"
+              "Target combination"
             ],
             "rows": [
               [
                 "ROS 2 Jazzy",
-                "Ubuntu 24.04"
+                "Ubuntu 24.04; check the version manual for validation status"
               ],
               [
                 "ROS 2 Humble",
-                "Ubuntu 22.04"
+                "Ubuntu 22.04; check the version manual for validation status"
               ],
               [
                 "ROS 1 Noetic",
-                "Separate ROS 1 package; commands below are for ROS 2"
+                "Separate ros1 workspace; not included in the commands below"
               ]
             ]
           },
           {
             "type": "p",
-            "text": "Use a Linux system with the chosen ROS distribution installed and rosdep initialised. Open Developer resources > SDK / API and download the existing ROS 2 v1.1.0 ZIP. No new software archive is supplied by this guide."
+            "text": "Use Linux with the chosen ROS distribution, Git, rosdep and colcon installed. Initialise rosdep if required. This preview is not a formal vehicle-compatibility release."
           }
         ]
       },
       {
-        "title": "Build from the supplied ZIP",
+        "title": "Get the fixed preview and build ROS 2 only",
         "blocks": [
           {
-            "type": "steps",
-            "items": [
-              "Create a workspace with a src directory.",
-              "Extract the ZIP so its top-level luchs_ros2 directory is directly inside ~/luchs_ws/src/. Do not add an extra directory layer.",
-              "Source the matching ROS distribution, install the declared dependencies and build the workspace.",
-              "Source install/setup.bash in each terminal used for the example."
-            ]
+            "type": "p",
+            "text": "Use fresh paths for ~/luchs_preview and ~/luchs_ws/src/luchs_ros2; choose different names if those paths already contain your work. Clone the frozen preview release branch, then copy only ros2 into the workspace so colcon does not discover ROS 1 packages."
           },
           {
             "type": "code",
-            "text": "source /opt/ros/jazzy/setup.bash\n# Use /opt/ros/humble/setup.bash on Humble.\nmkdir -p ~/luchs_ws/src\n# Extract the downloaded ZIP into ~/luchs_ws/src/ here.\ncd ~/luchs_ws\nrosdep install --from-paths src --ignore-src -y\ncolcon build --symlink-install\nsource install/setup.bash",
-            "language": "bash"
+            "language": "bash",
+            "text": "git clone --branch luchs-v1.1.0-preview.1 --depth 1 \\\n  https://github.com/erfinderwx/rj-platform-developer.git \\\n  ~/luchs_preview\nmkdir -p ~/luchs_ws/src\ncp -a ~/luchs_preview/ros2 ~/luchs_ws/src/luchs_ros2\nsource /opt/ros/jazzy/setup.bash\n# Use /opt/ros/humble/setup.bash on Humble.\ncd ~/luchs_ws\nrosdep install --from-paths src --ignore-src -y\ncolcon build --symlink-install\nsource install/setup.bash"
           },
           {
             "type": "p",
-            "text": "A successful build should make luchs_bringup and luchs_driver visible to ROS. If a package is not found, check the extraction layout and whether this terminal sourced install/setup.bash."
+            "text": "A successful build should make luchs_bringup and luchs_driver visible to ROS. Source install/setup.bash in every terminal used below. If a package is missing, check the workspace layout and terminal environment."
           }
         ]
       },
       {
-        "title": "Start a simulator first",
+        "title": "Start a software simulator first",
         "blocks": [
           {
             "type": "p",
-            "text": "Choose one launch command. dry_run:=true selects the built-in software simulator instead of CAN; no physical chassis is needed."
+            "text": "Choose one command. dry_run:=true selects the built-in simulator instead of physical CAN. No chassis is needed. Keep the adapter disconnected for these examples."
           },
           {
             "type": "code",
-            "text": "ros2 launch luchs_bringup luchs_a.launch.py build:=4ws dry_run:=true\n# Or use the Luchs B draft-LCI simulator:\nros2 launch luchs_bringup luchs_b.launch.py dry_run:=true",
-            "language": "bash"
+            "language": "bash",
+            "text": "ros2 launch luchs_bringup luchs_a.launch.py build:=4ws dry_run:=true\n# Or use the Luchs B draft-LCI simulator:\nros2 launch luchs_bringup luchs_b.launch.py protocol:=lci dry_run:=true"
           },
           {
             "type": "p",
@@ -111,25 +106,50 @@
           },
           {
             "type": "code",
-            "text": "ros2 node list\nros2 topic echo --once /luchs_driver/state\nros2 topic echo --once /diagnostics",
-            "language": "bash"
+            "language": "bash",
+            "text": "ros2 node list\nros2 topic echo --once /luchs_driver/state\nros2 topic echo --once /diagnostics"
           },
           {
             "type": "note",
-            "text": "A successful simulator run confirms software setup only. It does not establish that LCI, IMU feedback, payload switching or other planned functions exist on a delivered B chassis. These examples were checked against source files, not executed on a vehicle for this release."
+            "text": "A simulator run demonstrates software behaviour only. It does not establish LCI, IMU feedback, payload switching or other planned functions on a delivered B chassis. The default launch protocol is not evidence of installed firmware."
           }
         ]
       },
       {
-        "title": "Before connecting a vehicle",
+        "title": "Read the development manual before commissioning",
         "blocks": [
+          {
+            "type": "p",
+            "text": "The version development manual in docs/luchs-development-manual.md records the actual validation results, tests still required and conditions for a formal release. Read it at the same frozen preview release ref as the source."
+          },
+          {
+            "type": "table",
+            "headers": [
+              "Validation area",
+              "Required evidence before a formal compatibility claim"
+            ],
+            "rows": [
+              [
+                "Linux build and simulator",
+                "ROS 2 Humble/Jazzy build, declared dependencies, launch and topic checks"
+              ],
+              [
+                "B protocol and parameters",
+                "Manufacturer confirmation of interface, geometry, bitrate/IDs, steering sign, current encoding and heartbeat behaviour"
+              ],
+              [
+                "Delivered hardware",
+                "Matching firmware/harness, measured feedback, control selection, stop and recovery verification on the identified unit"
+              ]
+            ]
+          },
           {
             "type": "list",
             "items": [
-              "Match the A build or B interface to the delivered unit.",
-              "Use the CAN connection guide to confirm the adapter, harness and bitrate.",
-              "For B, the default launch selects draft LCI. Select legacy_b only for a unit confirmed to use VCU V2.6; neither choice is a firmware update.",
-              "Use the approved operating manual for control selection and emergency-stop checks. Complete commissioning before issuing motion commands."
+              "Match the A build or B interface to the delivered unit; do not treat the software defaults as approved chassis parameters.",
+              "For B, lci refers to the draft interface. Use legacy_b only after VCU V2.6 compatibility is confirmed for that unit; neither selection updates firmware.",
+              "Confirm the adapter, harness and bitrate using the CAN guide and approved unit documentation before connecting.",
+              "Complete the approved commissioning and emergency-stop checks before issuing physical motion commands."
             ]
           }
         ]
@@ -140,7 +160,7 @@
         "kind": "file",
         "format": "PDF",
         "origin": "reference",
-        "url": "./files/luchs/guides/Luchs_Developer_ros2_quick_start_EN_v0.1_20261011.pdf"
+        "url": "./files/luchs/guides/Luchs_Developer_ros2_quick_start_EN_v0.2_20261011.pdf"
       }
     ],
     "sourceRefs": [
@@ -151,8 +171,22 @@
       {
         "title": "Source licence: Apache-2.0; TerraAgent Robotics",
         "url": "./files/luchs/guides/LICENSE.txt"
+      },
+      {
+        "title": "Development preview ROS 2 source - frozen luchs-v1.1.0-preview.1 release snapshot",
+        "url": "https://github.com/erfinderwx/rj-platform-developer/tree/luchs-v1.1.0-preview.1/ros2"
+      },
+      {
+        "title": "Version development manual: tests, open confirmations and formal-release gates",
+        "url": "https://github.com/erfinderwx/rj-platform-developer/blob/luchs-v1.1.0-preview.1/docs/luchs-development-manual.md"
       }
-    ]
+    ],
+    "sourceRepository": {
+      "url": "https://github.com/erfinderwx/rj-platform-developer",
+      "ref": "luchs-v1.1.0-preview.1",
+      "refType": "branch",
+      "directory": "ros2"
+    }
   },
   {
     "id": "luchs-dev-can-connection",

@@ -1492,40 +1492,55 @@
     ],
     "modelIds": [],
     "seatIds": [],
-    "type": "document",
+    "type": "repository",
     "title": "Luchs family ROS 2 Humble / Jazzy software",
     "language": "en",
     "sourceLanguage": "en",
-    "revision": "1.1.0",
-    "publishedAt": "2026-10-05",
+    "revision": "1.1.0-preview.1",
+    "sourceBaseline": "1.1.0",
+    "sourceBaselinePublishedAt": "2026-10-05",
+    "repositoryRef": "luchs-v1.1.0-preview.1",
+    "publishedAt": "2026-10-11",
     "status": "published",
     "visibility": "public",
-    "scope": "Luchs A & B; ROS 2 Humble / Jazzy; shared package v1.1.0.",
-    "displayStatus": "",
+    "scope": "Luchs A & B; ROS 2 Humble / Jazzy; development preview v1.1.0-preview.1; source baseline v1.1.0.",
+    "displayStatus": "Development preview",
     "content": [
       {
-        "title": "One package for A and B",
+        "title": "Shared development preview for A and B",
         "blocks": [
           {
             "type": "p",
-            "text": "Shared Luchs family software v1.1.0 for ROS 2 Humble / Jazzy. Includes the C++ SDK, drivers, robot descriptions, examples and protocol references."
+            "text": "Development preview v1.1.0-preview.1 for ROS 2 Humble / Jazzy, organised from the original shared Luchs family v1.1.0 source. Includes the C++ SDK, drivers, robot descriptions, examples and protocol references."
           },
           {
             "type": "p",
-            "text": "Follow the included README to select the A build or the B interface. Package compatibility does not make the A and B wire protocols interchangeable."
+            "text": "Follow the repository README and the version development manual to select the A build or the B interface. Package compatibility does not make the A and B wire protocols interchangeable."
+          },
+          {
+            "type": "note",
+            "text": "Development preview: software examples and dry-run simulation are not delivered-vehicle validation. Keep B VCU V2.6 separate from draft LCI, confirm the delivered firmware and harness, and resolve pending parameters before live integration."
+          },
+          {
+            "type": "link",
+            "title": "Version development manual",
+            "url": "https://github.com/erfinderwx/rj-platform-developer/blob/luchs-v1.1.0-preview.1/docs/luchs-development-manual.md"
           }
         ]
       }
     ],
     "assets": [
       {
-        "kind": "file",
-        "url": "./files/luchs/shared/luchs_ros2_v1.1.0.zip",
-        "format": "ZIP",
-        "origin": "original"
+        "kind": "repository",
+        "url": "https://github.com/erfinderwx/rj-platform-developer/tree/luchs-v1.1.0-preview.1/ros2"
       }
     ],
-    "sourceRefs": [],
+    "sourceRefs": [
+      {
+        "title": "Original ROS 2 source baseline v1.1.0 ZIP",
+        "url": "./files/luchs/shared/luchs_ros2_v1.1.0.zip"
+      }
+    ],
     "productIds": [
       "luchs-a",
       "luchs-b"
@@ -1543,40 +1558,55 @@
     ],
     "modelIds": [],
     "seatIds": [],
-    "type": "document",
+    "type": "repository",
     "title": "Luchs family ROS 1 Noetic software",
     "language": "en",
     "sourceLanguage": "en",
-    "revision": "1.1.0",
-    "publishedAt": "2026-10-05",
+    "revision": "1.1.0-preview.1",
+    "sourceBaseline": "1.1.0",
+    "sourceBaselinePublishedAt": "2026-10-05",
+    "repositoryRef": "luchs-v1.1.0-preview.1",
+    "publishedAt": "2026-10-11",
     "status": "published",
     "visibility": "public",
-    "scope": "Luchs A & B; ROS 1 Noetic; shared package v1.1.0.",
-    "displayStatus": "",
+    "scope": "Luchs A & B; ROS 1 Noetic; development preview v1.1.0-preview.1; source baseline v1.1.0.",
+    "displayStatus": "Development preview",
     "content": [
       {
-        "title": "One package for A and B",
+        "title": "Shared development preview for A and B",
         "blocks": [
           {
             "type": "p",
-            "text": "Shared Luchs family software v1.1.0 for ROS 1 Noetic. Includes the C++ SDK, drivers, robot descriptions, examples and protocol references."
+            "text": "Development preview v1.1.0-preview.1 for ROS 1 Noetic, organised from the original shared Luchs family v1.1.0 source. Includes the C++ SDK, drivers, robot descriptions, examples and protocol references."
           },
           {
             "type": "p",
-            "text": "Follow the included README to select the A build or the B interface. Package compatibility does not make the A and B wire protocols interchangeable."
+            "text": "Follow the repository README and the version development manual to select the A build or the B interface. Package compatibility does not make the A and B wire protocols interchangeable."
+          },
+          {
+            "type": "note",
+            "text": "Development preview: software examples and dry-run simulation are not delivered-vehicle validation. Keep B VCU V2.6 separate from draft LCI, confirm the delivered firmware and harness, and resolve pending parameters before live integration."
+          },
+          {
+            "type": "link",
+            "title": "Version development manual",
+            "url": "https://github.com/erfinderwx/rj-platform-developer/blob/luchs-v1.1.0-preview.1/docs/luchs-development-manual.md"
           }
         ]
       }
     ],
     "assets": [
       {
-        "kind": "file",
-        "url": "./files/luchs/shared/luchs_ros1_v1.1.0.zip",
-        "format": "ZIP",
-        "origin": "original"
+        "kind": "repository",
+        "url": "https://github.com/erfinderwx/rj-platform-developer/tree/luchs-v1.1.0-preview.1/ros1"
       }
     ],
-    "sourceRefs": [],
+    "sourceRefs": [
+      {
+        "title": "Original ROS 1 source baseline v1.1.0 ZIP",
+        "url": "./files/luchs/shared/luchs_ros1_v1.1.0.zip"
+      }
+    ],
     "productIds": [
       "luchs-a",
       "luchs-b"
