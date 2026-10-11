@@ -146,22 +146,50 @@
   function searchForm(audience, query, dialog) {
     return `<form class="searchbox" data-search-form role="search"><input type="hidden" name="audience" value="${e(audience)}">${icon('search')}<input name="q" type="search" aria-label="Search products or support topics" placeholder="Search products, accessories or topics" value="${e(query || '')}" ${dialog ? 'id="dialog-search"' : ''}><button type="submit">Search</button></form>`;
   }
+  function versionedAsset(url) {
+    const source = String(url || '');
+    if (!source || /^(?:data:|blob:)/i.test(source)) return source;
+    return source + (source.includes('?') ? '&' : '?') + 'v=' + encodeURIComponent(C.site.version);
+  }
+  function brandImages() {
+    return `<span class="brand-stack"><img class="brand-rj-logo" src="${e(versionedAsset('./assets/brand/rj-tech-official-dark.png'))}" alt="RJ Tech" width="147" height="80"><span class="brand-secondary"><img class="brand-tar-logo" src="${e(versionedAsset('./assets/brand/tar-wordmark.svg'))}" alt="TAR" width="110" height="44"><small>SUPPORT CENTER</small></span></span>`;
+  }
+  function mediaOf(product) {
+    return window.RJSupportProductMedia?.[product.id] || {photos:[]};
+  }
+  function mediaHref(product, audience, section) {
+    return href('product/' + product.id + '/media', {audience,section});
+  }
+  function mediaPhotoLabel(media) {
+    if (media.video?.kind === 'accessory-installation-film') return 'Accessory details';
+    if (media.photos?.length && media.photos.every(photo => photo.kind === 'film-still')) return 'Film stills';
+    return 'Real photos';
+  }
+  function mediaEntries(product, audience) {
+    const media = mediaOf(product), photos = media.photos || [];
+    if (!photos.length && !media.video?.url) return '';
+    return `<nav class="product-media-entry" aria-label="${e(product.name)} photos and video">${photos.length ? `<a class="media-entry" href="${e(mediaHref(product,audience,'photos'))}"><img src="${e(versionedAsset(photos[0].src))}" alt="" width="72" height="48" loading="lazy" decoding="async"><span>${icon('image')} ${e(mediaPhotoLabel(media))} <small>${photos.length} ${photos.length === 1 ? 'image' : 'images'}</small></span></a>` : ''}${media.video?.url ? `<a class="media-entry" href="${e(mediaHref(product,audience,'video'))}">${media.video.poster ? `<img src="${e(versionedAsset(media.video.poster))}" alt="" width="72" height="48" loading="lazy" decoding="async">` : ''}<span>${icon('play')} Watch video <small>${e(media.video.title || product.name)}</small></span></a>` : ''}</nav>`;
+  }
   function shell(body, route) {
     const active = route.parts[0] || 'home';
     const role = roleOf(route);
     const links = [['home','Support home',''],['users','User support','users'],['dealers','Dealer resources','dealers'],['developers','Developer resources','developers'],['library','Downloads','library']];
-    return `<header class="site-header"><div class="wrap header-inner"><a class="brand" href="#/" aria-label="RJ Tech support home"><span class="brand-mark"></span><span><strong>RJ TECH</strong><small>SUPPORT CENTER</small></span></a>
+    return `<header class="site-header"><div class="wrap header-inner"><a class="brand" href="#/" aria-label="RJ Tech and TAR support home">${brandImages()}</a>
     <nav class="main-nav" id="main-nav" aria-label="Main navigation">${links.map(([id,name,path]) => `<a class="nav-link${active === id || (active === 'product' && role === id) ? ' active' : ''}" ${active === id ? 'aria-current="page"' : ''} href="${e(href(path, id === 'library' ? {audience:role} : null))}">${name}${id === 'developers' && C.audiences.find(a=>a.id===id).status !== 'active' ? '<em>Not yet available</em>' : ''}</a>`).join('')}</nav>
     <div class="header-actions"><button class="icon-button" data-action="search" aria-label="Open search">${icon('search')}</button><a class="official-link" href="https://www.rjtech-offroad.com/" target="_blank" rel="noopener noreferrer">Brand website ↗</a><button class="icon-button menu-toggle" data-action="menu" aria-controls="main-nav" aria-expanded="false" aria-label="Open navigation">${icon('menu')}</button></div></div></header>
     <main id="main" tabindex="-1">${body}</main>
-    <footer class="footer"><div class="wrap footer-inner"><div><strong>RJ TECH</strong><span>Product use and technical support · Website V${e(C.site.version)}</span></div><nav class="footer-links" aria-label="Footer navigation"><a href="#/users">User support</a><a href="#/dealers">Dealer resources</a><a href="#/developers">Developer resources</a><a href="../">Battery replacement and wiring guide</a></nav></div></footer>
-    <dialog class="search-dialog" id="search-dialog" aria-labelledby="search-dialog-title"><div class="dialog-top"><span id="search-dialog-title">Search ${role === 'developers' ? 'developer' : role === 'dealers' ? 'dealer' : 'user'} resources</span><button data-action="close-search" aria-label="Close search">${icon('close')}</button></div>${searchForm(role, '', true)}<p>Search product models, operation, accessories and maintenance topics.</p></dialog>`;
+    <footer class="footer"><div class="wrap footer-inner"><div class="footer-brand-block"><a class="brand brand-footer" href="#/" aria-label="RJ Tech and TAR support home">${brandImages()}</a><span class="footer-caption">Product use and technical support · Website V${e(C.site.version)}</span></div><nav class="footer-links" aria-label="Footer navigation"><a href="#/users">User support</a><a href="#/dealers">Dealer resources</a><a href="#/developers">Developer resources</a><a href="../">Battery replacement and wiring guide</a></nav></div></footer>
+    <dialog class="search-dialog" id="search-dialog" aria-labelledby="search-dialog-title"><div class="dialog-top"><span id="search-dialog-title">Search ${role === 'developers' ? 'developer' : role === 'dealers' ? 'dealer' : 'user'} resources</span><button data-action="close-search" aria-label="Close search">${icon('close')}</button></div>${searchForm(role, '', true)}<p>Search product models, operation, accessories and maintenance topics.</p></dialog>
+    <dialog class="product-photo-dialog" id="product-photo-dialog" aria-labelledby="product-photo-dialog-title"><div class="photo-dialog-header"><h2 id="product-photo-dialog-title">Product photo</h2><button class="icon-button" data-action="close-photo" aria-label="Close photo">${icon('close')}</button></div><img id="product-photo-image" alt=""><p id="product-photo-caption"></p></dialog>`;
   }
   function productsGrid(audience) {
     return `<div class="product-grid">${C.products.map(p => {
       const ready = publishedResources(p,audience).length;
-      const visual = p.image ? `<img class="product-image" src="${e(p.image.src)}?v=${e(C.site.version)}" width="${e(p.image.width)}" height="${e(p.image.height)}" style="--product-image-scale:${e(p.image.scale || 1)}" alt="" loading="lazy" decoding="async">` : `<span class="product-code">${e(p.code)}</span>`;
-      return `<a class="product-card${p.image ? ' has-product-image' : ''}" href="${e(audience === 'developers' ? href('developers',{product:p.id}) : productHref(p,audience))}"><div class="product-visual" aria-hidden="true"><small>${e(p.family.toUpperCase())}</small>${visual}<span class="badge${ready ? ' red' : ' gray'}">${ready ? 'View resources' : 'Resources pending'}</span></div><div class="product-body"><h3>${e(p.name)}</h3><p>${e(p.description)}</p><div class="card-footer"><span>${e(p.label)}</span>${icon('arrow')}</div></div></a>`;
+      const image = mediaOf(p).hero || p.image;
+      const imageLabel = {'luchs-a':'A-4WS IP54 example','luchs-b':'Base chassis example'}[p.id];
+      const resourceUrl = audience === 'developers' ? href('developers',{product:p.id}) : productHref(p,audience);
+      const visual = image ? `<img class="product-image" src="${e(versionedAsset(image.src))}" width="${e(image.width)}" height="${e(image.height)}" style="--product-image-scale:${e(image.displayScale || image.scale || 1)}" alt="" loading="lazy" decoding="async">` : `<span class="product-code">${e(p.code)}</span>`;
+      return `<article class="product-card${image ? ' has-product-image' : ''}"><a class="product-render-link" href="${e(resourceUrl)}" aria-label="Browse ${e(p.name)} resources${imageLabel ? '; ' + e(imageLabel) : ''}"><div class="product-visual" aria-hidden="true"><small>${e(p.family.toUpperCase())}</small>${visual}${imageLabel ? `<span class="product-image-caption">${e(imageLabel)}</span>` : ''}<span class="badge${ready ? ' red' : ' gray'}">${ready ? 'View resources' : 'Resources pending'}</span></div></a>${mediaEntries(p,audience)}<a class="product-body" href="${e(resourceUrl)}"><h3>${e(p.name)}</h3><p>${e(p.description)}</p><div class="card-footer"><span>${e(p.label)}</span>${icon('arrow')}</div></a></article>`;
     }).join('')}</div>`;
   }
   function quickLinks(audience) {
@@ -187,9 +215,9 @@
   function roleSwitch(product, audience) {
     return `<nav class="role-switch" aria-label="Choose a support area"><span>Support area</span>${C.audiences.filter(a=>product.sectionIds[a.id]).map(a => `<a class="${a.id === audience ? 'active' : ''}" href="${e(productHref(product,a.id))}" ${a.id === audience ? 'aria-current="page"' : ''}>${a.name}</a>`).join('')}</nav>`;
   }
-  function versionSwitch(product, audience, developerIndex) {
+  function versionSwitch(product, audience, developerIndex, mediaPage) {
     if (!product.versionLabel) return '';
-    return `<nav class="version-switch" aria-label="Choose a Luchs version"><span>Luchs version</span>${C.products.filter(p=>p.family===product.family&&p.versionLabel).map(p=>`<a class="${p.id===product.id?'active':''}" href="${e(developerIndex ? href('developers',{product:p.id}) : productHref(p,audience))}" ${p.id===product.id?'aria-current="page"':''}>${e(p.versionLabel)}</a>`).join('')}${product.documentStatus ? `<span class="badge gray">${e(product.documentStatus)} documents</span>` : ''}</nav>`;
+    return `<nav class="version-switch" aria-label="Choose a Luchs version"><span>Luchs version</span>${C.products.filter(p=>p.family===product.family&&p.versionLabel).map(p=>`<a class="${p.id===product.id?'active':''}" href="${e(mediaPage ? mediaHref(p,audience) : developerIndex ? href('developers',{product:p.id}) : productHref(p,audience))}" ${p.id===product.id?'aria-current="page"':''}>${e(p.versionLabel)}</a>`).join('')}${product.documentStatus ? `<span class="badge gray">${e(product.documentStatus)} documents</span>` : ''}</nav>`;
   }
   function options(items, chosen, allLabel) { return `<option value="all">${e(allLabel || 'All')}</option>${items.map(x => `<option value="${e(x.id)}"${chosen === x.id ? ' selected' : ''}>${e(x.name)}</option>`).join('')}`; }
   function topicsFor(product, audience, sectionId) {
@@ -205,6 +233,13 @@
     const sections = (all.includes(selected) ? [selected] : all).map(sectionOf);
     const ready = publishedResources(product,audience).length > 0;
     return `<div class="wrap">${crumb([{label:audienceName(audience),url:href(audience)},{label:product.name}])}<section class="page-head"><div class="head-row"><div><p class="eyebrow">${e(product.family)} / ${e(audienceName(audience).toUpperCase())}</p><h1>${e(product.name)}</h1><p class="lede">${audience === 'developers' ? 'Find chassis interfaces, protocol files, shared software, engineering models and version compatibility.' : audience === 'dealers' ? 'Find product information, installation, delivery, service, parts and training resources for this product.' : 'Find product information, operation, function and maintenance resources for your product.'}</p></div>${roleSwitch(product,audience)}</div>${versionSwitch(product,audience)}</section><div class="product-layout">${sideNav(product,audience,route)}<div>${ready ? `<div class="catalog-note">${icon('info')}<p>${audience === 'developers' ? 'Match the protocol, firmware, chassis build and software version before integration.' : product.versionLabel ? 'Confirm the Luchs version and delivered build before using a manual or specification sheet.' : 'Check installation kits, remote controls and chargers against the equipment supplied with your vehicle.'}</p></div>` : `<div class="empty-note">${icon('info')}<p><strong>Resources for this product are being prepared.</strong> Contact RJ Tech for specific instructions.</p></div>`}<div class="section-grid">${sections.map(s => {const topics = topicsFor(product,audience,s.id);return `<section class="section-card"><div class="section-card-head">${icon(s.icon)}<div><h3>${e(s.title)}</h3><p>${e(s.description)}</p></div></div><div class="topic-list">${topics.length ? topics.map(t => `<a class="topic-item" href="${e(topicHref(product,t,audience))}">${icon(t.icon)}<span>${e(t.title)}</span><span class="mini${resourcesFor(product,t,audience).length ? ' available' : ''}">${e(topicStatus(product,t,audience))}</span>${icon('chevron')}</a>`).join('') : '<p class="design-note" style="padding:8px 7px;margin:0">No public resources in this category yet.</p>'}</div></section>`;}).join('')}</div></div></div></div>`;
+  }
+  function productMediaPage(product, route) {
+    const audience = roleOf(route), media = mediaOf(product), photos = media.photos || [], video = media.video;
+    const photoSection = photos.length ? `<section class="product-media-section" id="product-real-photos"><div class="section-header"><div><h2>${e(media.galleryTitle || mediaPhotoLabel(media))}</h2>${media.galleryIntro ? `<p>${e(media.galleryIntro)}</p>` : ''}<p>${e(product.name)} · ${photos.length} ${photos.length === 1 ? 'image' : 'images'}. Select an image to enlarge it.</p></div></div><div class="product-photo-grid">${photos.map((photo,index)=>`<figure class="product-photo"><button class="product-photo-button" data-action="open-photo" data-product="${e(product.id)}" data-photo="${index}" aria-label="Enlarge ${e(product.name)} photo ${index+1}"><img src="${e(versionedAsset(photo.src))}" alt="${e(photo.alt || photo.caption || product.name)}" loading="lazy" decoding="async">${icon('image')}</button><figcaption>${e(photo.caption || product.name)}${photo.configuration ? `<small class="media-configuration">${e(photo.configuration)}</small>` : ''}</figcaption></figure>`).join('')}</div></section>` : '';
+    const videoSection = video?.url ? `<section class="product-media-section" id="product-video"><div class="section-header"><div><h2>${e(video.title || product.name + ' video')}</h2>${video.caption ? `<p>${e(video.caption)}</p>` : ''}</div></div><div class="content-video product-showcase-video"><video controls playsinline preload="none" ${video.poster ? `poster="${e(versionedAsset(video.poster))}"` : ''} aria-label="${e(video.title || product.name + ' video')}"><source src="${e(video.url)}" type="video/mp4">Your browser cannot play this video. Open the video using the link below.</video><div class="video-meta"><span>${e(video.audio || 'Original audio')}</span><a class="text-link" href="${e(video.url)}" target="_blank" rel="noopener noreferrer">Open video ${icon('external')}</a>${video.alternateUrl ? `<a class="text-link" href="${e(video.alternateUrl)}" target="_blank" rel="noopener noreferrer">Open 720p video ${icon('external')}</a>` : ''}</div></div></section>` : '';
+    const sections = route.params.get('section') === 'video' ? videoSection + photoSection : photoSection + videoSection;
+    return `<div class="wrap product-media-page">${crumb([{label:audienceName(audience),url:href(audience)},{label:product.name,url:productHref(product,audience)},{label:'Photos and video'}])}<section class="page-head"><p class="eyebrow">${e(product.family)} / PRODUCT MEDIA</p><h1>${e(product.name)} photos and video</h1><p class="lede">${e(media.galleryIntro || 'Check the captions for the configuration shown; use the manuals for operation and specifications.')}</p>${versionSwitch(product,audience,false,true)}<div class="product-media-navigation"><a class="button-secondary" href="${e(productHref(product,audience))}">Browse ${e(product.name)} resources ${icon('arrow')}</a>${photos.length ? `<a class="text-link" href="${e(mediaHref(product,audience,'photos'))}">${e(mediaPhotoLabel(media))} ${icon('image')}</a>` : ''}${video?.url ? `<a class="text-link" href="${e(mediaHref(product,audience,'video'))}">Watch video ${icon('play')}</a>` : ''}</div></section>${sections || '<div class="empty-state"><h2>Product media is being prepared</h2><p>Browse the available product resources.</p></div>'}</div>`;
   }
   function topicPage(product, topic, route) {
     const audience = roleOf(route);
@@ -266,6 +301,7 @@
     if (key === 'product') {
       const product = productOf(route.parts[1]);
       if (product && route.parts.length === 2) return {title:product.name,html:productPage(product,route)};
+      if (product && route.parts[2] === 'media' && route.parts.length === 3) return {title:'Photos and video · ' + product.name,html:productMediaPage(product,route)};
       const topic = topicOf(route.parts[3]);
       if (product && route.parts[2] === 'topic' && route.parts.length === 4 && topic && product.topicIds.includes(topic.id) && topic.audiences.includes(roleOf(route))) return {title:topic.title + ' · ' + product.name,html:topicPage(product,topic,route)};
     }
@@ -291,6 +327,20 @@
     if (!action) return;
     if (action.dataset.action === 'search') { document.getElementById('search-dialog').showModal();document.getElementById('dialog-search').focus(); }
     if (action.dataset.action === 'close-search') document.getElementById('search-dialog').close();
+    if (action.dataset.action === 'open-photo') {
+      const product = productOf(action.dataset.product);
+      const index = Number(action.dataset.photo);
+      const photo = product && Number.isInteger(index) && index >= 0 ? (mediaOf(product).photos || [])[index] : null;
+      if (!photo) return;
+      const dialog = document.getElementById('product-photo-dialog');
+      const image = document.getElementById('product-photo-image');
+      image.src = versionedAsset(photo.src);
+      image.alt = photo.alt || photo.caption || product.name;
+      document.getElementById('product-photo-dialog-title').textContent = product.name + ' photo ' + (index+1);
+      document.getElementById('product-photo-caption').textContent = [photo.caption || product.name,photo.configuration].filter(Boolean).join(' · ');
+      dialog.showModal();
+    }
+    if (action.dataset.action === 'close-photo') document.getElementById('product-photo-dialog').close();
     if (action.dataset.action === 'menu') {
       const open = document.querySelector('.site-header').classList.toggle('menu-open');
       action.setAttribute('aria-expanded',String(open));
@@ -312,7 +362,7 @@
     navigate(href(route.path,query));
   });
   document.addEventListener('keydown', event => {
-    if (event.key !== '/' || event.ctrlKey || event.metaKey || event.altKey || event.target.closest('input,textarea,select,[contenteditable]')) return;
+    if (event.key !== '/' || event.ctrlKey || event.metaKey || event.altKey || event.target.closest('input,textarea,select,[contenteditable]') || document.querySelector('dialog[open]')) return;
     const dialog = document.getElementById('search-dialog');
     if (!dialog.open) { event.preventDefault();dialog.showModal();document.getElementById('dialog-search').focus(); }
   });

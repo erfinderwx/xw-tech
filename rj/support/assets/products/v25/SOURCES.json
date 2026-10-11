@@ -1,0 +1,272 @@
+{
+  "edition": "2.5",
+  "preparedAt": "2026-10-11T15:09:45.777664+00:00",
+  "purpose": "Product illustrations, real film stills, and photographs for product-specific media pages.",
+  "publicationRules": [
+    "Only finished approved images and previously public films are included.",
+    "Native product geometry was not mirrored, stretched, or supplemented.",
+    "Photographs are unedited copies; film stills retain the original film overlays.",
+    "Images show the stated example configuration and do not establish delivered equipment or performance.",
+    "Private models, scenes, working audits, and unconfirmed Figma candidates are excluded."
+  ],
+  "assets": [
+    {
+      "file": "luchs-a-hero.webp",
+      "product": "luchs-a",
+      "mediaKind": "native-render",
+      "width": 1200,
+      "height": 800,
+      "bytes": 396520,
+      "sha256": "aa7efd6ff930238ff3916ec4e81e7aac4948719ae0101ef0376746a1bb5a967c",
+      "configuration": "A-4WS IP54 example",
+      "source": {
+        "label": "Approved finished native studio rendering of the A-4WS IP54 example."
+      },
+      "sourceSha256": "fcb99a7032a3ac784013a1e700386830c6a151da2fb08168aa5aebc77d81564e",
+      "modelReference": {
+        "url": "./files/luchs/a/dev/Luchs_A-4WS_IP54.glb",
+        "sha256": "a43b8be432c41b945a4fb48a83788d4192944849d2f962f73d3a0a89fe5ee7ac"
+      },
+      "transformation": "Lossless WebP encoding; decoded RGBA pixels unchanged."
+    },
+    {
+      "file": "luchs-b-hero.webp",
+      "product": "luchs-b",
+      "mediaKind": "native-render",
+      "width": 1200,
+      "height": 800,
+      "bytes": 303212,
+      "sha256": "4f60a39e83cfd8306c659a4cd2e4c0ec8f0db5bba84d3e8a80d93a0520eccd9a",
+      "configuration": "Black base chassis, empty deck",
+      "source": {
+        "label": "Owner-approved finished native studio rendering, retained from the approved product-image work."
+      },
+      "sourceSha256": "0a5cd21831e34f066771598657b79c777bab63980953787800fd954262918eba",
+      "transformation": "Lossless WebP encoding; decoded RGBA pixels unchanged."
+    },
+    {
+      "file": "luchs-b-yard-front.jpg",
+      "product": "luchs-b",
+      "mediaKind": "photograph",
+      "width": 2000,
+      "height": 1125,
+      "bytes": 335981,
+      "sha256": "daa7bf7652c823946563f7238d70150b87d70e78c86a82d17c44cea034fdfa41",
+      "configuration": "Black base chassis, empty deck",
+      "source": {
+        "label": "Owner-supplied public Luchs family materials.",
+        "filename": "Luchs_B_yard_1.jpg"
+      },
+      "sourceSha256": "daa7bf7652c823946563f7238d70150b87d70e78c86a82d17c44cea034fdfa41"
+    },
+    {
+      "file": "luchs-b-yard-side.jpg",
+      "product": "luchs-b",
+      "mediaKind": "photograph",
+      "width": 2000,
+      "height": 1125,
+      "bytes": 360415,
+      "sha256": "8547d7ca2ada55170a7aad74f516fb3997b53d9bfac21ea7a9edb3c7d84568aa",
+      "configuration": "Black base chassis, empty deck",
+      "source": {
+        "label": "Owner-supplied public Luchs family materials.",
+        "filename": "Luchs_B_yard_2.jpg"
+      },
+      "sourceSha256": "8547d7ca2ada55170a7aad74f516fb3997b53d9bfac21ea7a9edb3c7d84568aa"
+    },
+    {
+      "file": "luchs-b-yard-quarter.jpg",
+      "product": "luchs-b",
+      "mediaKind": "photograph",
+      "width": 2000,
+      "height": 1125,
+      "bytes": 339457,
+      "sha256": "a97e61c8b27040315324abb7365ddbf0507d87904478743cceee17ae50f15100",
+      "configuration": "Black base chassis, empty deck",
+      "source": {
+        "label": "Owner-supplied public Luchs family materials.",
+        "filename": "Luchs_B_yard_3.jpg"
+      },
+      "sourceSha256": "a97e61c8b27040315324abb7365ddbf0507d87904478743cceee17ae50f15100"
+    },
+    {
+      "file": "luchs-b-payload-road.jpg",
+      "product": "luchs-b",
+      "mediaKind": "photograph",
+      "width": 2400,
+      "height": 1600,
+      "bytes": 603084,
+      "sha256": "92e1414cd52e0e7443d4c0b6ece495a5eb40dd903f5f0fc2068780b81a669a46",
+      "configuration": "White chassis with deck-mounted equipment; demonstration configuration",
+      "source": {
+        "label": "Owner-supplied public Luchs family materials.",
+        "filename": "Luchs_B_road.jpg"
+      },
+      "sourceSha256": "92e1414cd52e0e7443d4c0b6ece495a5eb40dd903f5f0fc2068780b81a669a46"
+    },
+    {
+      "file": "luchs-b-payload-field.jpg",
+      "product": "luchs-b",
+      "mediaKind": "photograph",
+      "width": 2400,
+      "height": 1350,
+      "bytes": 619877,
+      "sha256": "cbc96b47d1836ebcba5669b814f0742afa0092e1a624e0e7683506970773f0a2",
+      "configuration": "White chassis with deck-mounted equipment; demonstration configuration",
+      "source": {
+        "label": "Owner-supplied public Luchs family materials.",
+        "filename": "Luchs_B_slope.jpg"
+      },
+      "sourceSha256": "cbc96b47d1836ebcba5669b814f0742afa0092e1a624e0e7683506970773f0a2"
+    },
+    {
+      "file": "luchs-a-film-still-04.jpg",
+      "product": "luchs-a",
+      "mediaKind": "film-still",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 168677,
+      "sha256": "7c795f28d14e6f663fec902e36e5c5c6cb6f52225494755f65bbaa747bab1c17",
+      "configuration": "White A-4WS demonstration vehicle",
+      "source": {
+        "label": "Still from the original supplied public Luchs A demonstration film.",
+        "url": "./files/luchs/a/Luchs_A_Promo_EN_1080p_v2.0_20261005.mp4"
+      },
+      "sourceSha256": "aa0b2fb54d72de6fac0df66adf967118e844aa19c7d2b6b0ca118ce2633cc57e",
+      "timestampSeconds": 4,
+      "transformation": "Direct frame extraction; no visual editing."
+    },
+    {
+      "file": "luchs-a-film-still-22.jpg",
+      "product": "luchs-a",
+      "mediaKind": "film-still",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 152647,
+      "sha256": "f60a6a270597ffc40c0806b1f8abad2a6f708492fa2fa06fb53607155923b63c",
+      "configuration": "White A-4WS demonstration vehicle",
+      "source": {
+        "label": "Still from the original supplied public Luchs A demonstration film.",
+        "url": "./files/luchs/a/Luchs_A_Promo_EN_1080p_v2.0_20261005.mp4"
+      },
+      "sourceSha256": "aa0b2fb54d72de6fac0df66adf967118e844aa19c7d2b6b0ca118ce2633cc57e",
+      "timestampSeconds": 22,
+      "transformation": "Direct frame extraction; no visual editing."
+    },
+    {
+      "file": "luchs-a-film-still-28.jpg",
+      "product": "luchs-a",
+      "mediaKind": "film-still",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 255731,
+      "sha256": "48a3e1f1b54f90dd89143385b7a36546e064c907a4ccdfe603ca64bf4b01b5d1",
+      "configuration": "White A-4WS demonstration vehicle",
+      "source": {
+        "label": "Still from the original supplied public Luchs A demonstration film.",
+        "url": "./files/luchs/a/Luchs_A_Promo_EN_1080p_v2.0_20261005.mp4"
+      },
+      "sourceSha256": "aa0b2fb54d72de6fac0df66adf967118e844aa19c7d2b6b0ca118ce2633cc57e",
+      "timestampSeconds": 28,
+      "transformation": "Direct frame extraction; no visual editing."
+    },
+    {
+      "file": "luchs-a-video-poster.jpg",
+      "product": "luchs-a",
+      "mediaKind": "film-still",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 168045,
+      "sha256": "b8b112271bbe19a6929388f8ba7bb230f9e915379170b3d9336187cf60157028",
+      "configuration": "Demonstration configuration",
+      "source": {
+        "label": "Poster frame from the original supplied public demonstration film.",
+        "url": "./files/luchs/a/Luchs_A_Promo_EN_1080p_v2.0_20261005.mp4"
+      },
+      "sourceSha256": "aa0b2fb54d72de6fac0df66adf967118e844aa19c7d2b6b0ca118ce2633cc57e",
+      "timestampSeconds": 25,
+      "extractedFrameSha256": "b8b112271bbe19a6929388f8ba7bb230f9e915379170b3d9336187cf60157028",
+      "transformation": "Direct frame extraction; original film overlay retained."
+    },
+    {
+      "file": "luchs-b-video-poster.jpg",
+      "product": "luchs-b",
+      "mediaKind": "film-still",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 340736,
+      "sha256": "7c41028c5baac63e60b8650c70da7837295e3a2a5177eb45f95904d0736d0eca",
+      "configuration": "Demonstration configuration",
+      "source": {
+        "label": "Poster frame from the original supplied public demonstration film.",
+        "url": "./files/luchs/b/Luchs_B_Promo_EN_1080p_v3.2_20261005.mp4"
+      },
+      "sourceSha256": "1d67ebc25f30ab9f7d3a5d5c1fdda1e755dfa6728e55d9cbb4e12822d5816afd",
+      "timestampSeconds": 37,
+      "extractedFrameSha256": "7c41028c5baac63e60b8650c70da7837295e3a2a5177eb45f95904d0736d0eca",
+      "transformation": "Direct frame extraction; original film overlay retained."
+    },
+    {
+      "file": "steinadler-footboard-detail.jpg",
+      "product": "steinadler-pro",
+      "mediaKind": "photograph",
+      "width": 5616,
+      "height": 3744,
+      "bytes": 3122297,
+      "sha256": "86174129be8c1f4d6ecfa24df04128342ab6ab473467bfce9b81eca004ef4e28",
+      "configuration": "Gold vehicle footboard and foot controls shown on the official L7e page",
+      "source": {
+        "label": "Official RJ Tech L7e product-page photograph.",
+        "url": "https://www.rjtech-offroad.com/Upfile/EditPage/20260522/a968def0-706c-434a-a77a-7f6af1fb6191.jpg"
+      },
+      "sourceSha256": "86174129be8c1f4d6ecfa24df04128342ab6ab473467bfce9b81eca004ef4e28"
+    }
+  ],
+  "linkedVideos": [
+    {
+      "product": "luchs-a",
+      "mediaKind": "demonstration-film",
+      "url": "./files/luchs/a/Luchs_A_Promo_EN_1080p_v2.0_20261005.mp4",
+      "bytes": 27322654,
+      "sha256": "aa0b2fb54d72de6fac0df66adf967118e844aa19c7d2b6b0ca118ce2633cc57e",
+      "durationSeconds": 49.57,
+      "applicability": "Original supplied vehicle footage and integration demonstrations; configurations vary."
+    },
+    {
+      "product": "luchs-a",
+      "mediaKind": "demonstration-film",
+      "url": "./files/luchs/a/Luchs_A_Promo_EN_720p_v2.0_20261005.mp4",
+      "bytes": 18050680,
+      "sha256": "9763a781cc4c0ae1d5dfa42a51a290772db40b98346dc79880676ea9d7f753b5",
+      "durationSeconds": 49.57,
+      "applicability": "Original supplied vehicle footage and integration demonstrations; configurations vary."
+    },
+    {
+      "product": "luchs-b",
+      "mediaKind": "demonstration-film",
+      "url": "./files/luchs/b/Luchs_B_Promo_EN_1080p_v3.2_20261005.mp4",
+      "bytes": 24051010,
+      "sha256": "1d67ebc25f30ab9f7d3a5d5c1fdda1e755dfa6728e55d9cbb4e12822d5816afd",
+      "durationSeconds": 43.87,
+      "applicability": "Original supplied vehicle footage and integration demonstrations; configurations vary."
+    },
+    {
+      "product": "luchs-b",
+      "mediaKind": "demonstration-film",
+      "url": "./files/luchs/b/Luchs_B_Promo_EN_720p_v3.2_20261005.mp4",
+      "bytes": 15905927,
+      "sha256": "b35610c6864da5f2223b9c57a5dd3432dd59a7e495963adedaae188fcb902c63",
+      "durationSeconds": 43.87,
+      "applicability": "Original supplied vehicle footage and integration demonstrations; configurations vary."
+    },
+    {
+      "product": "steinadler-pro",
+      "mediaKind": "accessory-installation-film",
+      "url": "./assets/videos/footrest-installation.mp4",
+      "bytes": 2445860,
+      "sha256": "cfaa5b57212a3fc9c65ab19c65d276188688294e6818a76a2a55aa2007bb7ba6",
+      "durationSeconds": 33.37,
+      "applicability": "Close-up installation of the shown footrest kit; no whole-vehicle footage."
+    }
+  ]
+}
