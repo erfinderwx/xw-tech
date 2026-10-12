@@ -1,25 +1,31 @@
 (function () {
   'use strict';
-  // Approved product-specific presentation media; original resource records remain intact.
+  // Selected product presentation media. Original support resources remain intact.
   window.RJSupportProductMedia = {
   "luchs-a": {
     "hero": {
-      "src": "./assets/products/v25/luchs-a-hero.webp",
-      "alt": "Luchs A 4WS IP54 example in a native front-quarter studio rendering.",
-      "width": 1200,
-      "height": 800,
-      "displayScale": 0.84,
-      "caption": "Native rendering of an A-4WS IP54 example configuration."
+      "src": "./assets/products/v26/luchs-a-showcase.png",
+      "width": 1600,
+      "height": 1067,
+      "displayScale": 1,
+      "alt": "Luchs A-4WS IP54 example product rendering."
     },
-    "galleryTitle": "Real vehicle footage",
-    "galleryIntro": "Three real-camera stills from the supplied Luchs A film. These are film frames, with the original overlays retained.",
+    "galleryTitle": "Product gallery",
+    "galleryIntro": "Product rendering and three stills from the Luchs A demonstration film.",
     "photos": [
+      {
+        "src": "./assets/products/v26/luchs-a-showcase.png",
+        "alt": "Luchs A-4WS IP54 example product rendering.",
+        "caption": "Product rendering · A-4WS IP54 example",
+        "configuration": "A-4WS IP54 example",
+        "kind": "render"
+      },
       {
         "src": "./assets/products/v25/luchs-a-film-still-04.jpg",
         "alt": "Film still at 00:04: Luchs A 4WS side view. Original film overlay retained; demonstration configuration.",
         "caption": "Film still at 00:04: Luchs A 4WS side view. Original film overlay retained; demonstration configuration.",
         "configuration": "A-4WS demonstration configuration",
-        "sourceUrl": "./files/luchs/a/Luchs_A_Promo_EN_1080p_v2.0_20261005.mp4",
+        "sourceUrl": "https://xw-tech.de/rj/support/files/luchs/a/Luchs_A_Promo_EN_1080p_v2.0_20261005.mp4",
         "sourceLabel": "Supplied film, 00:04",
         "kind": "film-still"
       },
@@ -28,7 +34,7 @@
         "alt": "Film still at 00:22: Luchs A 4WS turning demonstration. Original film overlay retained; demonstration configuration.",
         "caption": "Film still at 00:22: Luchs A 4WS turning demonstration. Original film overlay retained; demonstration configuration.",
         "configuration": "A-4WS demonstration configuration",
-        "sourceUrl": "./files/luchs/a/Luchs_A_Promo_EN_1080p_v2.0_20261005.mp4",
+        "sourceUrl": "https://xw-tech.de/rj/support/files/luchs/a/Luchs_A_Promo_EN_1080p_v2.0_20261005.mp4",
         "sourceLabel": "Supplied film, 00:22",
         "kind": "film-still"
       },
@@ -37,33 +43,40 @@
         "alt": "Film still at 00:28: Luchs A 4WS front-quarter view. Original film overlay retained; demonstration configuration.",
         "caption": "Film still at 00:28: Luchs A 4WS front-quarter view. Original film overlay retained; demonstration configuration.",
         "configuration": "A-4WS demonstration configuration",
-        "sourceUrl": "./files/luchs/a/Luchs_A_Promo_EN_1080p_v2.0_20261005.mp4",
+        "sourceUrl": "https://xw-tech.de/rj/support/files/luchs/a/Luchs_A_Promo_EN_1080p_v2.0_20261005.mp4",
         "sourceLabel": "Supplied film, 00:28",
         "kind": "film-still"
       }
     ],
     "video": {
-      "url": "./files/luchs/a/Luchs_A_Promo_EN_1080p_v2.0_20261005.mp4",
-      "alternateUrl": "./files/luchs/a/Luchs_A_Promo_EN_720p_v2.0_20261005.mp4",
-      "poster": "./assets/products/v25/luchs-a-video-poster.jpg",
-      "title": "Luchs A demonstration film",
-      "audio": "Original audio track",
-      "caption": "Original supplied film, including vehicle footage and integration demonstrations. Demonstration equipment may differ from the delivered configuration.",
-      "kind": "demonstration-film"
+      "url": "./assets/products/v26/luchs-a-product-showcase.mp4",
+      "poster": "./assets/products/v26/luchs-a-showcase-poster.jpg",
+      "title": "Luchs A product video",
+      "duration": "00:15",
+      "durationSeconds": 15,
+      "audio": "No audio track · silent preview",
+      "caption": "A white Luchs A 4WS demonstration vehicle driving and turning. Silent excerpts from the supplied film; original captions and framing retained.",
+      "kind": "product-preview-film"
     }
   },
   "luchs-b": {
     "hero": {
-      "src": "./assets/products/v25/luchs-b-hero.webp",
-      "alt": "Luchs B black base chassis with an empty deck in a native front-quarter studio rendering.",
-      "width": 1200,
-      "height": 800,
+      "src": "./assets/products/v26/luchs-b-showcase.png",
+      "width": 1600,
+      "height": 1067,
       "displayScale": 1,
-      "caption": "Native rendering of the black base chassis with an empty deck."
+      "alt": "Luchs B black base chassis with an empty deck, product rendering."
     },
-    "galleryTitle": "Real product photographs",
-    "galleryIntro": "Three photographs show the black chassis with an empty deck. Two show a white demonstration chassis with deck-mounted equipment.",
+    "galleryTitle": "Product gallery",
+    "galleryIntro": "Product rendering and real photographs of the base chassis and example configurations.",
     "photos": [
+      {
+        "src": "./assets/products/v26/luchs-b-showcase.png",
+        "alt": "Luchs B black base chassis with an empty deck, product rendering.",
+        "caption": "Product rendering · Black base chassis, empty deck",
+        "configuration": "Black base chassis, empty deck",
+        "kind": "render"
+      },
       {
         "src": "./assets/products/v25/luchs-b-yard-front.jpg",
         "alt": "Luchs B in the yard: black chassis with an empty deck, front-quarter view.",
@@ -106,19 +119,34 @@
       }
     ],
     "video": {
-      "url": "./files/luchs/b/Luchs_B_Promo_EN_1080p_v3.2_20261005.mp4",
-      "alternateUrl": "./files/luchs/b/Luchs_B_Promo_EN_720p_v3.2_20261005.mp4",
-      "poster": "./assets/products/v25/luchs-b-video-poster.jpg",
-      "title": "Luchs B demonstration film",
-      "audio": "Original audio track",
-      "caption": "Original supplied film, including vehicle footage and integration demonstrations. Demonstration equipment may differ from the delivered configuration.",
-      "kind": "demonstration-film"
+      "url": "./assets/products/v26/luchs-b-product-showcase.mp4",
+      "poster": "./assets/products/v26/luchs-b-showcase-poster.jpg",
+      "title": "Luchs B product video",
+      "duration": "00:10.5",
+      "durationSeconds": 10.5,
+      "audio": "No audio track · silent preview",
+      "caption": "Luchs B driving and steering, including a white demonstration configuration with deck-mounted equipment and the black chassis with an empty deck. Silent excerpts; original captions and framing retained.",
+      "kind": "product-preview-film"
     }
   },
   "steinadler-pro": {
-    "galleryTitle": "Accessory details and installation",
-    "galleryIntro": "An official footboard detail and the existing footrest installation film. These materials show accessory details, rather than a complete-vehicle demonstration.",
+    "hero": {
+      "src": "./assets/products/v26/steinadler-showcase.png",
+      "width": 1536,
+      "height": 1024,
+      "displayScale": 1,
+      "alt": "Steinadler Pro gold backrest-and-mirror configuration, illustrative product rendering."
+    },
+    "galleryTitle": "Product gallery",
+    "galleryIntro": "Illustrative product rendering of the gold backrest-and-mirror configuration, plus a real footboard detail photograph. Check each caption for the configuration shown.",
     "photos": [
+      {
+        "src": "./assets/products/v26/steinadler-showcase.png",
+        "alt": "Steinadler Pro gold backrest-and-mirror configuration, illustrative product rendering.",
+        "caption": "Product rendering · Gold backrest-and-mirror configuration",
+        "configuration": "Gold vehicle with backrest and mirrors",
+        "kind": "render"
+      },
       {
         "src": "./assets/products/v25/steinadler-footboard-detail.jpg",
         "alt": "Real detail photograph of the gold Steinadler vehicle footboard and foot controls.",
@@ -130,12 +158,14 @@
       }
     ],
     "video": {
-      "url": "./assets/videos/footrest-installation.mp4",
-      "poster": "./assets/images/footrest-installation.png",
-      "title": "Footrest installation film",
-      "audio": "Original supplied audio track",
-      "caption": "Original supplied installation film for the shown accessory kit. Check compatibility against the delivered vehicle. This is a close-up installation reference.",
-      "kind": "accessory-installation-film"
+      "url": "./assets/products/v26/steinadler-product-showcase.mp4",
+      "poster": "./assets/products/v26/steinadler-showcase-poster.jpg",
+      "title": "Steinadler product video",
+      "duration": "00:10",
+      "durationSeconds": 10,
+      "audio": "No audio track · silent preview",
+      "caption": "This outdoor driving film shows a black single-saddle configuration with standing footboards, different from the backrest-and-mirror configuration in the product image; the exact model/version relationship is unconfirmed.",
+      "kind": "product-preview-film"
     }
   }
 };

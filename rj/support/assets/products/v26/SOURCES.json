@@ -1,0 +1,102 @@
+{
+  "release": "2.6",
+  "date": "2026-10-12",
+  "scope": "Selected presentation images, silent product excerpts and genuine film-frame posters. Original manuals, software, full films and private source models are not included in this asset folder.",
+  "assets": [
+    {
+      "file": "luchs-a-showcase.png",
+      "productId": "luchs-a",
+      "role": "hero",
+      "bytes": 1219439,
+      "sha256": "1f21132504ee7b652fe66e58172aa9a70d752e99f19e0c3282f0239f41842687",
+      "width": 1600,
+      "height": 1067
+    },
+    {
+      "file": "luchs-b-showcase.png",
+      "productId": "luchs-b",
+      "role": "hero",
+      "bytes": 1085007,
+      "sha256": "d4d4172cb70897b6a3f9dcad9d280c9b0ca5a71aaa571dcc5861967a99154eb6",
+      "width": 1600,
+      "height": 1067
+    },
+    {
+      "file": "steinadler-showcase.png",
+      "productId": "steinadler-pro",
+      "role": "hero",
+      "bytes": 1811031,
+      "sha256": "ed3f845a0a53389cbe0d25746c17e960ebc17910c2a9db9e98ae0d8c079e5521",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "file": "luchs-a-product-showcase.mp4",
+      "productId": "luchs-a",
+      "role": "video",
+      "bytes": 4518287,
+      "sha256": "5392b854ae89deb763b0b826e22b2a1b6477a4dce892e3b75d00ebee11563d79",
+      "width": 1280,
+      "height": 720,
+      "durationSeconds": 15
+    },
+    {
+      "file": "luchs-a-showcase-poster.jpg",
+      "productId": "luchs-a",
+      "role": "poster",
+      "bytes": 90437,
+      "sha256": "ffd54c34052da4b5c7a33eb08c3469c35629f498f7b94b178ccc9b0a78fdad16",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "file": "luchs-b-product-showcase.mp4",
+      "productId": "luchs-b",
+      "role": "video",
+      "bytes": 4960786,
+      "sha256": "48f865c18bb0f43b5ef5850a0664d09db594c411c01142b7dbb88e84a22d9264",
+      "width": 1280,
+      "height": 720,
+      "durationSeconds": 10.5
+    },
+    {
+      "file": "luchs-b-showcase-poster.jpg",
+      "productId": "luchs-b",
+      "role": "poster",
+      "bytes": 193976,
+      "sha256": "f356475a563f8cd00224961a80ec9f94edf20165e72858655a67dc2ec8b02435",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "file": "steinadler-product-showcase.mp4",
+      "productId": "steinadler-pro",
+      "role": "video",
+      "bytes": 5107878,
+      "sha256": "0fa884b1760a9065b420df870badda991512a64a9a87f004543f639a98a8718b",
+      "width": 1280,
+      "height": 720,
+      "durationSeconds": 10
+    },
+    {
+      "file": "steinadler-showcase-poster.jpg",
+      "productId": "steinadler-pro",
+      "role": "poster",
+      "bytes": 368699,
+      "sha256": "f766741d13b3cf180e378df80c9b765287afb88385ae861d6cf86db7d3151b5b",
+      "width": 1280,
+      "height": 720
+    }
+  ],
+  "processing": {
+    "luchs-a": "Owner-approved native product rendering with transparent background and no studio floor; source vehicle geometry retained. Silent driving and turning excerpts from the existing supplied film.",
+    "luchs-b": "Owner-approved native product rendering with transparent background and no studio floor; black empty-deck chassis. Silent excerpts from the existing supplied film.",
+    "steinadler-pro": "Owner-approved V4 illustrative image derived from the existing website rendering; camera and under-seat ring revised with AI image editing. Silent continuous outdoor-driving excerpt from the official film, showing a different black single-saddle configuration."
+  },
+  "sources": {
+    "luchs-a-film": "../../../files/luchs/a/Luchs_A_Promo_EN_1080p_v2.0_20261005.mp4",
+    "luchs-b-film": "../../../files/luchs/b/Luchs_B_Promo_EN_1080p_v3.2_20261005.mp4",
+    "steinadler-image": "../steinadler-pro.webp",
+    "steinadler-film": "https://www.rjtech-offroad.com//Upfile/File/2026-04-28/1ff668eb-bc02-49a4-b2a8-3461fb6227d4..mp4"
+  }
+}

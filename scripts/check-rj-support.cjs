@@ -399,8 +399,11 @@ for(const figure of figures) {
 }
 for(const product of C.products){
   const bytes=fs.readFileSync(path.resolve(root,'rj/support',product.image.src));
-  assert.equal(bytes.toString('ascii',0,4),'RIFF','Product asset is a WebP container');
-  assert.equal(bytes.toString('ascii',8,12),'WEBP','Product image format matches its filename');
+  if(product.image.src.endsWith('.png'))assert.equal(bytes.subarray(0,8).toString('hex'),'89504e470d0a1a0a','Product asset is a PNG container');
+  else {
+    assert.equal(bytes.toString('ascii',0,4),'RIFF','Product asset is a WebP container');
+    assert.equal(bytes.toString('ascii',8,12),'WEBP','Product image format matches its filename');
+  }
 }
 
 const media=context.window.RJSupportProductMedia;
@@ -409,7 +412,8 @@ for(const product of C.products){
   const entry=media[product.id];
   for(const photo of entry.photos){
     localAsset(photo.src);
-    assert(['photo','film-still'].includes(photo.kind),'Photo browser cannot substitute a rendering for real-camera material');
+    assert(['photo','film-still','render'].includes(photo.kind),'Gallery distinguishes product renderings and real-camera material');
+    if(photo.kind==='render')assert(/rendering/i.test(photo.caption),'Rendering is explicitly labelled in its caption');
     assert(photo.caption && photo.configuration,'Presentation images identify their configuration');
   }
   localAsset(entry.hero?.src);
@@ -417,11 +421,11 @@ for(const product of C.products){
   const html=UI.pageFor(UI.parseRoute(UI.href('product/'+product.id+'/media',{audience:'users'}))).html;
   assert(html.includes('controls playsinline preload="none"'),'Product film uses explicit controls and no upfront video transfer');
   assert(!/\bautoplay\b/.test(html),'Presentation film does not automatically start');
-  assert(html.includes(entry.video.url),'Each model uses its own existing video');
+  assert(html.includes(entry.video.url),'Each model uses its own showcase video');
   for(const other of C.products.filter(p=>p.id!==product.id))assert(!html.includes(media[other.id].video.url),'Media page cannot play another model film');
   assert.equal((html.match(/data-action="open-photo"/g)||[]).length,entry.photos.length,'Every selected real view can be enlarged');
 }
-for(const [folder,key] of [['assets/brand','files'],['assets/products/v25','assets']]){
+for(const [folder,key] of [['assets/brand','files'],['assets/products/v25','assets'],['assets/products/v26','assets']]){
   const manifest=JSON.parse(fs.readFileSync(path.join(root,'rj/support',folder,'SOURCES.json'),'utf8'));
   for(const entry of manifest[key]){
     const bytes=fs.readFileSync(path.join(root,'rj/support',folder,entry.file));

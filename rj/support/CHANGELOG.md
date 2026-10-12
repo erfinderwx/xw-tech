@@ -8,6 +8,18 @@ Website versions use `V<major>.<minor>` and are separate from document revisions
 - Add new entries at the top. Retain released entries and identify each published version by its Git commit and deployment record. After verification, freeze its commit in a snapshot branch named `rj-support-v<major>.<minor>`; never change an older snapshot. Main remains the deployment branch. A rollback reuses the recorded version and commit.
 - The owner establishes the existing L7e edition as V1.0 on 2026-10-09. Earlier unnumbered work is not a separate numbered release.
 
+## V2.6 — 2026-10-12
+
+Publish the approved transparent product images and corresponding product showcase videos for Steinadler, Luchs A and Luchs B.
+
+Version snapshot: [rj-support-v2.6](https://github.com/erfinderwx/xw-tech/tree/rj-support-v2.6/rj/support).
+
+- Use the selected shadow-free A/B raster renders and the owner-approved Steinadler V4 illustration with coordinated front-quarter views. Keep the original images and source materials.
+- Link product images to an enlarged product gallery. Identify renderings, real photographs and film stills in their captions, and present each product's own silent driving showcase with a genuine film-frame poster.
+- Replace the Steinadler card's accessory-installation video entrance with whole-vehicle driving footage. Preserve all accessory installation and service videos in their existing support topics. State that the black single-saddle vehicle in the film differs from the gold backrest-and-mirror image.
+- Preserve all manuals, downloads, public protocols, original films, fixed software preview links and document revisions. Private models and review material remain outside the public repository. Retain the released red theme and existing branding.
+- Synchronise the website version and cache labels to V2.6, and retain all prior snapshots.
+
 ## V2.5 — 2026-10-11
 
 Unify the Luchs product views, add model-specific real-product media and use the official RJ Tech logo with a temporary secondary TAR wordmark.
