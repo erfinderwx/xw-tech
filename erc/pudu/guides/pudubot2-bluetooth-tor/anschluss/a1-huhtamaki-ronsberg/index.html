@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet"><meta name="referrer" content="no-referrer">
+  <title>Huhtamaki Ronsberg: Rolltor für PuduBot 2 anschließen · ERC</title>
+  <meta name="description" content="Reale Anschlussfotos, vier Funktionen der Steckverbindung und Zuordnung zur kundenseitigen Torsteuerung. Danach mit der gemeinsamen Roboteranleitung B fortfahren.">
+  <link rel="canonical" href="https://xw-tech.de/erc/pudu/guides/pudubot2-bluetooth-tor/anschluss/a1-huhtamaki-ronsberg/">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+  <nav class="topbar" aria-label="Dokumentnavigation"><a href="../../../../">← PUDU-Dokumentation</a><a class="section-link" href="../../">Übersicht</a><a class="section-link active" href="../../anschluss/">A · Anschluss</a><a class="section-link" href="../../roboter-einrichtung/">B · Roboter</a><span>Deutsch</span><a class="pdf-download" href="../../downloads/a1-huhtamaki-ronsberg-anschluss-de.pdf" download>PDF herunterladen ↓</a><button type="button" data-print>Drucken</button></nav>
+  <main id="main">
+    <header class="intro"><div class="intro-top"><div class="intro-copy"><p class="eyebrow">A1 · Huhtamaki Ronsberg · Rolltor</p><h1>Huhtamaki Ronsberg: Rolltor für PuduBot 2 anschließen</h1></div><div class="erc-logo" role="img" aria-label="EnergieReich Consulting"><div class="erc-logo-mark"><img src="../../assets/erc-logo-original.png" alt="" width="671" height="300"></div><span aria-hidden="true">CONSULTING</span></div></div><p class="intro-description">Reale Anschlussfotos, vier Funktionen der Steckverbindung und Zuordnung zur kundenseitigen Torsteuerung. Danach mit der gemeinsamen Roboteranleitung B fortfahren.</p><div class="doc-meta"><span>Stand: 19.10.2026</span><span>Webausgabe 1.0</span><span>PuduBot 2</span></div></header>
+    <aside class="project-status" aria-label="Bearbeitungsstand"><strong>In Bearbeitung</strong><p>Anschlussunterlagen und Musteraufbau sind vorbereitet. Elektrische Prüfung und abschließende Inbetriebnahme am Kundenstandort stehen noch aus.</p></aside>
+    <nav class="contents" aria-label="Inhalt"><a href="#vorbereiteter-aufbau">01 · Aufbau</a><a href="#aderbelegung">02 · Adern</a><a href="#beide-richtungen">03 · Beide Richtungen</a><a href="#eplan">04 · EPLAN</a><a href="#montage">05 · Montage</a><a href="#pruefung-und-b">06 · Prüfung &amp; B</a></nav>
+    <section id="vorbereiteter-aufbau">
+  <div class="section-title"><span class="number">01</span><h2>Vorbereiteter Aufbau für Huhtamaki Ronsberg</h2></div>
+  <p>Diese Variante beschreibt die vierpolige Verbindung zwischen PUDU-Bluetooth-Tormodul und vorhandener Rolltorsteuerung am Standort Ronsberg. Das Rolltor soll bei einer Fahrt von innen nach außen und in Gegenrichtung jeweils <strong>dieselbe Öffnungsaktion</strong> ausführen.</p>
+  <div class="two-columns">
+    <figure class="module-figure"><a class="picture" href="../../assets/wiring/foto-modul-de.png" target="_blank" rel="noopener" aria-label="Foto vergrößern: PUDU-Modul mit den Anschlusspositionen J2 und J9"><img src="../../assets/wiring/foto-modul-de.png" alt="Reales PUDU-Bluetooth-Tormodul mit gekennzeichneten Anschlüssen J2 und J9" loading="lazy" width="1086" height="1448"></a><figcaption><strong>Reales Modul mit J2 und J9.</strong> Die Anschlusslage entspricht der bereitgestellten Originalaufnahme. J2 führt Versorgung und COM; J9 die zusammengefasste Öffnungsanforderung.</figcaption></figure>
+    <article class="parameter-block"><h3>Liefer- und Vorbereitungsumfang</h3><p>Fünf Gehäuse sind vorbereitet; die Öffnungen für die Kabelverschraubungen sind gebohrt. Die zugehörigen Steckverbinder, Schrauben und weiteren Zubehörteile liegen jeweils im betreffenden Gehäuse.</p><p><strong>Ein Gehäuse enthält ein verdrahtetes PUDU-Modul als Muster.</strong> Bei diesem Muster sind auch die Deckeldichtung eingesetzt und der Deckel mit vier Schrauben probeweise montiert. Die übrigen vier Module befinden sich beim Kunden und werden nach diesem Muster vorbereitet.</p><p>Der dokumentierte Musteraufbau ersetzt keine elektrische Prüfung und keine Funktionsabnahme an der Anlage. Die Einrichtung am Roboter und die Tests vor Ort stehen noch aus.</p></article>
+  </div>
+  <p class="note"><strong>Vor dem Anschluss:</strong> Die <a href="../#eignung">allgemeinen Eignungsbedingungen unter A</a> prüfen. Die nachfolgende Zuordnung gilt für diesen Kundenfall und muss am Originalplan sowie am konkreten Modul bestätigt werden. <strong>Klemme 8 ist ein Steuereingang, kein Versorgungs-0-V-Anschluss.</strong></p>
+</section>
+
+<section id="aderbelegung">
+  <div class="section-title"><span class="number">02</span><h2>Adern und vierpolige Verbindung zuordnen</h2></div>
+  <figure class="wire-ends-figure"><a class="picture" href="../../assets/wiring/foto-leitungsenden-de.png" target="_blank" rel="noopener" aria-label="Foto vergrößern: Leitungsenden von J2 und J9 mit vier Anschlussfunktionen"><img src="../../assets/wiring/foto-leitungsenden-de.png" alt="Beschriftete reale Leitungsenden: J2 Rot für +24 V, J2 Schwarz für 0 V, J2 Gelb und Grün gemeinsam für COM sowie J9 Schwarz und Grün gemeinsam für OPEN" loading="lazy" width="1536" height="1024"></a><figcaption>J2 links, J9 rechts. <strong>1–4 bezeichnen Anschlussfunktionen dieser Verbindung und keine Hersteller-Pinnummern.</strong> Die Adernfarben der kundenseitigen Leitung können abweichen.</figcaption></figure>
+  <div class="table-wrap"><table>
+    <caption>Kundenspezifische Zuordnung für den dokumentierten Musteraufbau</caption>
+    <thead><tr><th scope="col">Kennzeichen</th><th scope="col">Funktion</th><th scope="col">PUDU-Adern</th><th scope="col">Zuordnung an der Torsteuerung</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">1</th><td>+24 V DC</td><td>J2 Rot</td><td>Geeignete +24-V-DC-Versorgung des Moduls</td></tr>
+      <tr><th scope="row">2</th><td>0 V</td><td>J2 Schwarz</td><td>0 V derselben Versorgung</td></tr>
+      <tr><th scope="row">3</th><td>COM</td><td>J2 Gelb + Grün, verbunden</td><td><strong>8 / 02L+ · Öffnungseingang</strong></td></tr>
+      <tr><th scope="row">4</th><td>OPEN</td><td>J9 Schwarz + Grün, verbunden</td><td><strong>9 / 01L+ · +24 V DC</strong></td></tr>
+    </tbody>
+  </table></div>
+  <p class="key-point"><strong>J9 Rot und Gelb einzeln isolieren und frei lassen.</strong> Diese beiden Adern werden in dieser Variante nicht angeschlossen. Versorgung 0 V an Funktion 2 und COM an Funktion 3 bleiben getrennte Funktionen.</p>
+  <p>Stecker und Buchse anhand ihrer zusammengehörenden Kontaktpositionen zuordnen. Die Blickrichtung kann die sichtbare Reihenfolge spiegeln; nicht allein nach „links“ oder „rechts“ anschließen. Überstehende Litzen vor dem Anschluss nacharbeiten und jede Verbindung auf sicheren Sitz prüfen.</p>
+</section>
+
+<section id="beide-richtungen">
+  <div class="section-title"><span class="number">03</span><h2>Warum beide Öffnungsrichtungen zusammengeführt werden</h2></div>
+  <p>Das PUDU-Modul unterscheidet zwei Öffnungsbefehle, je nachdem, aus welcher Richtung der Roboter zum Tor fährt. Für dieses Rolltor ist die Torbewegung in beiden Fällen gleich: <strong>öffnen</strong>.</p>
+  <div class="two-columns">
+    <article class="parameter-block"><h3>Gemeinsamer COM</h3><p>Im vorbereiteten Kabelsatz werden <strong>J2 Gelb und Grün</strong> zusammengeführt und gemeinsam als COM auf Funktion 3 gelegt.</p></article>
+    <article class="parameter-block"><h3>Gemeinsame Öffnungsanforderung</h3><p><strong>J9 Schwarz und Grün</strong> werden zusammengeführt und als OPEN auf Funktion 4 gelegt. So kann jeder der beiden richtungsabhängigen Öffnungsbefehle dasselbe Tor anfordern.</p></article>
+  </div>
+  <p>Das ist eine ODER-Verknüpfung: <strong>Richtung A ODER Richtung B → Tor öffnen.</strong> Die beiden verwendeten J9-Adern bilden kein Paar „Auf/Zu“. Die übrigen J9-Adern bleiben in diesem Aufbau unbenutzt und jeweils isoliert.</p>
+</section>
+
+<section id="eplan">
+  <div class="section-title"><span class="number">04</span><h2>Mit dem Kundenplan abgleichen</h2></div>
+  <p>Die zusätzliche PUDU-Verbindung bildet die Öffnungsanforderung am vorgesehenen Kontaktpaar der Torsteuerung ab. Die Modulversorgung wird separat über Funktion 1 und 2 geführt.</p>
+  <figure><a class="picture" href="../../assets/wiring/a1-eplan.svg" target="_blank" rel="noopener" aria-label="Anschlussgrafik vergrößern: PUDU-Modul, vierpolige Steckverbindung und Huhtamaki-Torsteuerung"><img src="../../assets/wiring/a1-eplan.svg" alt="Kundenspezifische Anschlussgrafik: J2 Rot an +24 V, J2 Schwarz an 0 V, Funktion 3 COM an Klemme 8 und Funktion 4 OPEN an Klemme 9; J9 Rot und Gelb sind einzeln isoliert" loading="lazy" width="1143" height="495"></a><figcaption><strong>Projektzuordnung: 3 / COM → 8 / 02L+; 4 / OPEN → 9 / 01L+.</strong> Schematische Darstellung anhand des Kundenplans 22650_30535976_0010, Blatt 12 und Blatt 9, aus dem Projektvorschlag vom 05.10.2026. Kreuzungen ohne Verbindungspunkt sind nicht elektrisch verbunden. Grafik antippen zum Vergrößern.</figcaption></figure>
+  <p><strong>Planbezug:</strong> 01L+ entspricht X106:1 / +24 V DC. 02L+ führt über X107:2 zu X19:2 / Eingang 8 mit der Funktion „öffnen + schließen nach Zeit“.</p>
+  <p class="note"><strong>Elektrische Eignung vor Ort bestätigen:</strong> COM bedeutet hier nicht automatisch 0 V. Der Schaltkontakt soll die vom Kundenplan vorgesehene Öffnungsanforderung herstellen. Dafür müssen Ausgangstyp, Kontaktbelastbarkeit und Torlogik des tatsächlich verwendeten Moduls passen. Die Zuordnung ist vor dem Einschalten am Originalplan und durch Messung zu prüfen.</p>
+  <p class="short-note">Ältere PUDU-Unterlagen zeigen für J2 Gelb/Grün teilweise eine Zuordnung zu 0 V. Diese Darstellung nicht ungeprüft mit dem +24-V-Eingang dieses Kundenplans kombinieren. Bei abweichender Modulausführung den Aufbau zuerst klären.</p>
+</section>
+
+<section id="montage">
+  <div class="section-title"><span class="number">05</span><h2>Leitung einführen, verbinden und Gehäuse schließen</h2></div>
+  <div class="two-columns">
+    <figure class="connector-figure"><a class="picture" href="../../assets/wiring/foto-steckverbindung-de.png" target="_blank" rel="noopener" aria-label="Foto vergrößern: modulseitige Buchse und beigelegter kundenseitiger Stecker"><img src="../../assets/wiring/foto-steckverbindung-de.png" alt="Reale grüne vierpolige Steckverbindung: am PUDU-Kabel verdrahtete Buchse und zugehöriger kundenseitiger Stecker" loading="lazy" width="1536" height="1024"></a><figcaption><strong>Modulseitige Buchse und kundenseitiger Stecker.</strong> Die Buchse ist am Muster verdrahtet; den passenden Stecker verdrahtet der Kunde. Beide Hälften liegen nach dem Zusammenstecken im Gehäuse.</figcaption></figure>
+    <ol class="steps">
+      <li><strong>Spannungsfrei arbeiten.</strong> Den betreffenden Steuerkreis vor Anschlussarbeiten abschalten und gegen unbeabsichtigtes Einschalten sichern.</li>
+      <li><strong>Kundenleitung durch die Kabelverschraubung führen.</strong> Diesen Schritt unbedingt vor dem Anschließen des Steckers ausführen: Der fertige Stecker passt nicht durch die Öffnung.</li>
+      <li><strong>Stecker anschließen.</strong> Die vier Kundenadern nach der Tabelle zuordnen, Anschlussfunktionen kennzeichnen und die zusammengehörenden Kontakte beider Hälften prüfen.</li>
+      <li><strong>Innen zusammenstecken.</strong> Kundenstecker und PUDU-Buchse verbinden; Adern ohne Zug und ohne Quetschstellen im Gehäuse anordnen. Die Kabelverschraubung festziehen.</li>
+      <li><strong>Dichtung und Deckel montieren.</strong> Die Deckeldichtung korrekt einsetzen und das Gehäuse mit den vier Deckelschrauben schließen. Die übrigen Gehäuse nach dem Muster ausführen.</li>
+    </ol>
+  </div>
+  <h3>Modul und Gehäuse befestigen</h3>
+  <p>Das PUDU-Modul liegt im Mustergehäuse lose; eine interne Befestigung ist nicht vorbereitet. Bei Bedarf kann der Kunde eine passende Fixierung ergänzen, ohne Kabel oder Modul zu belasten.</p>
+  <p>Die Befestigung an Wand oder vorhandenem Träger wird vor Ort festgelegt, beispielsweise mit Schrauben durch den Gehäuseboden. Eine konkrete Halterungs- oder Befestigungslösung wird nicht mitgeliefert. Zusätzliche Gehäusedurchführungen passend abdichten. Das Kunststoffgehäuse mit dem Bluetooth-Modul außerhalb eines abschirmenden Metallkastens anordnen.</p>
+</section>
+
+<section id="pruefung-und-b">
+  <div class="section-title"><span class="number">06</span><h2>Anschluss prüfen und mit B fortfahren</h2></div>
+  <ol class="steps">
+    <li><strong>Elektrische Zuordnung bestätigen.</strong> Geeignete Versorgung, Polarität, Ausgangstyp, Kontaktgrenzen und Originalplan abgleichen. Funktion 2 / 0 V nicht mit Funktion 3 / COM verwechseln.</li>
+    <li><strong>Verbindungen kontrollieren.</strong> J2 Gelb/Grün gemeinsam an COM, J9 Schwarz/Grün gemeinsam an OPEN; J9 Rot/Gelb jeweils einzeln isoliert. Stecker, Buchse und Kundenklemmen entsprechend der vier Anschlussfunktionen prüfen.</li>
+    <li><strong>Mechanischen Aufbau kontrollieren.</strong> Leitung zugentlastet, Verschraubung fest, keine freien Litzen oder gequetschten Adern, Dichtung und Deckel korrekt montiert.</li>
+    <li><strong>Roboter einrichten und testen.</strong> Die beiden Öffnungsbefehle einzeln prüfen, das Modul am Torpunkt zuordnen und anschließend beide automatischen Durchfahrten testen. Öffnungszeitpunkt, vollständige Durchfahrt, Schließlogik und vorhandene Schutzfunktionen beobachten.</li>
+  </ol>
+  <p class="key-point"><strong>Weiter mit der gemeinsamen Roboteranleitung:</strong> <a href="../../roboter-einrichtung/">B · PuduBot 2: Automatische Tordurchfahrt einrichten und testen</a>. Die elektrische Anschlussprüfung muss vorher abgeschlossen sein.</p>
+  <p><a href="../../downloads/a1-huhtamaki-ronsberg-anschluss-de.pdf" download>A1 · Huhtamaki Ronsberg: Rolltor für PuduBot 2 anschließen – PDF herunterladen</a> · <a href="../">Zurück zu A · Anschlussvarianten und Eignungsbedingungen</a></p>
+</section>
+
+    <aside class="support"><strong>Technischer Kontakt · EnergieReich Consulting GmbH</strong><a href="mailto:info@energiereich-consulting.com">info@energiereich-consulting.com</a><a href="https://www.energiereich-consulting.com/kontakt/" target="_blank" rel="noopener">Kontakt und Unternehmensangaben ↗</a></aside>
+    <footer class="doc-footer"><span>PUDU Bluetooth-Toranbindung · A1 · 19.10.2026</span><div class="footer-links"><a href="../../">Übersicht</a><a href="../../../../">PUDU-Dokumentation</a></div></footer>
+  </main>
+  <dialog class="lightbox" id="image-viewer" aria-label="Abbildung vergrößert"><button class="close-lightbox" type="button">Schließen ×</button><img alt=""><p></p></dialog>
+  <script src="../../guide.js"></script>
+</body>
+</html>

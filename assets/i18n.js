@@ -42,7 +42,7 @@
           "Delivery and service robot documentation",
           "Dokumentation für Liefer- und Serviceroboter"
         ),
-        ".pudu .status": tr("已有 8 份资料 →", "8 documents available →", "8 Dokumente verfügbar →"),
+        ".pudu .status": tr("已有 10 份资料 →", "10 documents available →", "10 Dokumente verfügbar →"),
         ".card:not(.pudu):not(.orion) p": tr(
           "商用清洁机器人资料",
           "Commercial cleaning robot documentation",
@@ -188,6 +188,21 @@
           "A central location for manuals, PDF files and other customer delivery materials.",
           "Zentraler Bereich für Handbücher, PDF-Dateien und weitere Übergabeunterlagen."
         ),
+        ".pudubot2-gate-guide .tag": tr(
+          "PuduBot 2 · 接线 + 机器人部署 · 德语",
+          "PuduBot 2 · Wiring + Robot Setup · German",
+          "PuduBot 2 · Anschluss + Roboter-Einrichtung · Deutsch"
+        ),
+        ".pudubot2-gate-guide h3": tr(
+          "蓝牙开门器 · 接线变体与机器人部署",
+          "Bluetooth Gate · Wiring Variants and Robot Setup",
+          "Bluetooth-Toranbindung · Anschlussvarianten und Roboter-Einrichtung"
+        ),
+        ".pudubot2-gate-guide > div > p": tr(
+          "A 区按门和控制器区分接线方案，B 区共用一份机器人设置与测试说明；当前收录 A1 卷帘门案例。",
+          "Part A separates door-specific wiring variants. Part B is one shared robot setup and test guide. A1 roller-door case currently documented.",
+          "Teil A trennt die Anschlussvarianten nach Tor und Steuerung. Teil B beschreibt gemeinsam die Roboter-Einrichtung und Tests. Aktuell ist der Rolltorfall A1 dokumentiert."
+        ),
         ".cc1-schnellguide .tag": tr(
           "CC1 Pro · 员工简易指南 · 德语",
           "CC1 Pro · Staff Quick Guide · German",
@@ -264,6 +279,11 @@
           zh: ["BellaBot", "4 个阶段", "中文 / EN / DE", "视频 23:51"],
           en: ["BellaBot", "4 phases", "中文 / EN / DE", "Video 23:51"],
           de: ["BellaBot", "4 Phasen", "中文 / EN / DE", "Video 23:51"]
+        },
+        ".pudubot2-gate-guide .meta span": {
+          zh: ["PuduBot 2", "A · 接线变体", "B · 共用部署", "德语 + PDF", "实施中"],
+          en: ["PuduBot 2", "A · Wiring variants", "B · Shared setup", "German + PDF", "In progress"],
+          de: ["PuduBot 2", "A · Anschlussvarianten", "B · Gemeinsame Anleitung", "Deutsch + PDF", "In Bearbeitung"]
         },
         ".cc1-schnellguide .meta span": {
           zh: ["CC1 Pro", "3 页", "德语", "A4 打印"],
