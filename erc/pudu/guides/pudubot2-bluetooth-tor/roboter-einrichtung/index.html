@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet"><meta name="referrer" content="no-referrer">
+  <title>PuduBot 2: Automatische Tordurchfahrt einrichten und testen · ERC</title>
+  <meta name="description" content="Nach dem geprüften elektrischen Anschluss: Bluetooth-Verbindung testen, die Kartenbearbeitung öffnen, das Tormodul binden und beide Durchfahrtsrichtungen prüfen.">
+  <link rel="canonical" href="https://xw-tech.de/erc/pudu/guides/pudubot2-bluetooth-tor/roboter-einrichtung/">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+  <nav class="topbar" aria-label="Dokumentnavigation"><a href="../../../">← PUDU-Dokumentation</a><a class="section-link" href="../">Übersicht</a><a class="section-link" href="../anschluss/">A · Anschluss</a><a class="section-link active" href="../roboter-einrichtung/">B · Roboter</a><span>Deutsch</span><a class="pdf-download" href="../downloads/b-pudubot2-einrichtung-test-de.pdf" download>PDF herunterladen ↓</a><button type="button" data-print>Drucken</button></nav>
+  <main id="main">
+    <header class="intro"><div class="intro-top"><div class="intro-copy"><p class="eyebrow">B · Gemeinsame Roboteranleitung · Deutsch</p><h1>PuduBot 2: Automatische Tordurchfahrt einrichten und testen</h1></div><div class="erc-logo" role="img" aria-label="EnergieReich Consulting"><div class="erc-logo-mark"><img src="../assets/erc-logo-original.png" alt="" width="671" height="300"></div><span aria-hidden="true">CONSULTING</span></div></div><p class="intro-description">Nach dem geprüften elektrischen Anschluss: Bluetooth-Verbindung testen, die Kartenbearbeitung öffnen, das Tormodul binden und beide Durchfahrtsrichtungen prüfen.</p><div class="doc-meta"><span>Stand: 19.10.2026</span><span>Webausgabe 1.0</span><span>PuduBot 2</span></div></header>
+    <aside class="project-status" aria-label="Bearbeitungsstand"><strong>Geltungsbereich</strong><p>Diese Anleitung gilt gemeinsam für geeignete Anschlussvarianten A am PuduBot 2. Sie beschreibt die Einrichtung und Prüfkriterien; eine erfolgreiche Prüfung am jeweiligen Standort ist damit noch nicht bestätigt.</p></aside>
+    <nav class="contents" aria-label="Inhalt"><a href="#servicezugang">Servicezugang</a><a href="#iot-tortest">IoT und Tortest</a><a href="#bluetooth-verbinden">Bluetooth verbinden</a><a href="#oeffnungsbefehle">Beide Öffnungsbefehle</a><a href="#kartenverwaltung">Kartenverwaltung</a><a href="#karteneditor">Karteneditor öffnen</a><a href="#torpunkt">Torpunkt anlegen</a><a href="#mac-speichern">MAC binden und speichern</a><a href="#torparameter">Torparameter</a><a href="#route">Route kontrollieren</a><a href="#durchfahrt-testen">Durchfahrt testen</a><a href="#diagnose-abschluss">Diagnose und Abschluss</a></nav>
+    <section id="servicezugang" aria-labelledby="servicezugang-title">
+  <div class="section-title"><span class="number">01</span><h2 id="servicezugang-title">Einstellung und Fehlerbehebung öffnen</h2></div>
+
+<p>Beginnen Sie nach der elektrischen Prüfung gemäß der passenden <a href="../anschluss/">Anschlussvariante A</a>. Das Tormodul ist versorgt; die Torbewegung ist für den Test freigegeben.</p>
+<div class="two-columns"><div>
+<figure>
+  <a class="picture" href="../assets/robot/01_Startseite_DE.png" aria-label="PuduBot 2: deutsche Startseite mit Einstellung in der linken Seitenleiste – in voller Größe öffnen">
+    <img src="../assets/robot/01_Startseite_DE.png" alt="PuduBot 2: deutsche Startseite mit Einstellung in der linken Seitenleiste" loading="lazy" decoding="async" width="1024" height="600">
+    <span class="hotspot" style="left:0.10%;top:64.20%;width:8.80%;height:18.30%" aria-hidden="true"><b>1</b></span>
+  </a>
+  <figcaption>Reale Aufnahme des Referenzgeräts: Einstieg über <strong>Einstellung</strong>.</figcaption>
+</figure>
+<figure>
+  <a class="picture" href="../assets/robot/07_Einstellung_Fehlerbehebung_DE.png" aria-label="Einstellung: Menüeintrag Fehlerbehebung oberhalb der Erweiterten Einstellungen – in voller Größe öffnen">
+    <img src="../assets/robot/07_Einstellung_Fehlerbehebung_DE.png" alt="Einstellung: Menüeintrag Fehlerbehebung oberhalb der Erweiterten Einstellungen" loading="lazy" decoding="async" width="1024" height="600">
+    <span class="hotspot" style="left:1.70%;top:69.90%;width:28.90%;height:11.10%" aria-hidden="true"><b>2</b></span>
+  </a>
+  <figcaption>Für den Servicezugang <strong>Fehlerbehebung</strong> antippen. Im Aufnahmezustand war noch „Erweiterte Einstellungen“ geöffnet.</figcaption>
+</figure>
+</div><div>
+<ol>
+<li><strong>Einstellung öffnen.</strong> Auf der Startseite links auf das Zahnrad bzw. <strong>Einstellung</strong> tippen. Falls ein Kennwort abgefragt wird, den bereitgestellten Zugang verwenden.</li>
+<li><strong>Zu Fehlerbehebung scrollen.</strong> In der linken Einstellungsliste nach unten scrollen und <strong>Fehlerbehebung</strong> auswählen.</li>
+<li><strong>Servicemenü aufrufen.</strong> Mit dem bereitgestellten Servicezugang fortfahren, falls eine Abfrage erscheint. Die technische Menüansicht des Referenzgeräts heißt <strong>Testen</strong>.</li>
+</ol>
+<div class="key-point"><strong>Erwartetes Ergebnis:</strong> Das technische Testmenü ist sichtbar. Der Einstieg zur IoT-Konfiguration befindet sich unter <strong>Module Jump</strong>.</div>
+<div class="note">PuduBot 2 mit PuduOS verwendet laut Herstellerhandbuch die integrierte Testmaske. Eine separate GateTest.apk ist dafür nicht erforderlich. Die folgenden Aufnahmen zeigen ein Referenzgerät; Menütexte können mit dem Softwarestand abweichen.</div>
+</div></div>
+</section>
+
+<section id="iot-tortest" aria-labelledby="iot-tortest-title">
+  <div class="section-title"><span class="number">02</span><h2 id="iot-tortest-title">IoT-Konfiguration und Tortest aufrufen</h2></div>
+
+<p><strong>Menüfolge:</strong> Testen → Module Jump → IOT Configuration → Gate test.</p>
+<div class="two-columns"><div>
+<figure>
+  <a class="picture" href="../assets/robot/05_Testmenue_DE_EN.png" aria-label="Technisches Menü Testen mit IOT Configuration unter Module Jump – in voller Größe öffnen">
+    <img src="../assets/robot/05_Testmenue_DE_EN.png" alt="Technisches Menü Testen mit IOT Configuration unter Module Jump" loading="lazy" decoding="async" width="1024" height="600">
+    <span class="hotspot" style="left:3.70%;top:71.10%;width:45.50%;height:9.90%" aria-hidden="true"><b>1</b></span>
+  </a>
+  <figcaption>Reale Serviceansicht des deutschsprachigen Referenzgeräts. Die technischen Funktionsnamen sind hier englisch.</figcaption>
+</figure>
+<p><strong>1 · IOT Configuration</strong> unter <strong>Module Jump</strong> antippen.</p>
+</div><div>
+<figure>
+  <a class="picture" href="../assets/robot/iot-gate-test.jpg" aria-label="Englische Herstelleransicht mit Goto gate communication test im Abschnitt Gate test – in voller Größe öffnen">
+    <img src="../assets/robot/iot-gate-test.jpg" alt="Englische Herstelleransicht mit Goto gate communication test im Abschnitt Gate test" loading="lazy" decoding="async" width="2318" height="1399">
+    <span class="hotspot" style="left:3.50%;top:48.60%;width:31.70%;height:8.00%" aria-hidden="true"><b>2</b></span>
+  </a>
+  <figcaption>Englische Originalabbildung des Herstellers: <strong>Gate test</strong>.</figcaption>
+</figure>
+<p><strong>2 · Goto gate communication test</strong> im Abschnitt <strong>Gate test</strong> betätigen. Die Aufzug-Testfunktionen oberhalb gehören zu einer anderen IoT-Funktion.</p>
+</div></div>
+<div class="key-point"><strong>Erwartetes Ergebnis:</strong> Die Testmaske enthält Bluetooth-Schalter, DeviceID, Gerätesuche, Verbinden und getrennte Befehle für die beiden Öffnungsrichtungen.</div>
+</section>
+
+<section id="bluetooth-verbinden" aria-labelledby="bluetooth-verbinden-title">
+  <div class="section-title"><span class="number">03</span><h2 id="bluetooth-verbinden-title">Das richtige Tormodul suchen und verbinden</h2></div>
+
+<p>Die <strong>DeviceID ist die Bluetooth-MAC des Tormoduls</strong>. Für jedes Tor wird die Adresse des dort angeschlossenen Moduls verwendet.</p>
+<div class="note"><strong>EN-Übersetzung:</strong> Die folgende Abbildung wurde aus der chinesischen Herstellerabbildung ins Englische übertragen. Sie ist eine beschriftete Anleitungsgrafik, keine Aufnahme einer englischen Kundenfirmware.</div>
+<div class="two-columns"><div>
+<figure>
+  <a class="picture" href="../assets/robot/gate-disconnected-en.png" aria-label="Englisch übersetzte Testmaske: Bluetooth, Gerätesuche, DeviceID und Connect device – in voller Größe öffnen">
+    <img src="../assets/robot/gate-disconnected-en.png" alt="Englisch übersetzte Testmaske: Bluetooth, Gerätesuche, DeviceID und Connect device" loading="lazy" decoding="async" width="1598" height="984">
+    <span class="hotspot" style="left:13.40%;top:19.00%;width:8.00%;height:8.00%" aria-hidden="true"><b>1</b></span><span class="hotspot" style="left:51.40%;top:27.30%;width:20.00%;height:7.70%" aria-hidden="true"><b>2</b></span><span class="hotspot" style="left:51.50%;top:46.50%;width:22.00%;height:5.80%" aria-hidden="true"><b>3</b></span><span class="hotspot" style="left:14.20%;top:38.30%;width:34.20%;height:5.20%" aria-hidden="true"><b>4</b></span><span class="hotspot" style="left:4.40%;top:45.80%;width:11.00%;height:7.80%" aria-hidden="true"><b>5</b></span>
+  </a>
+  <figcaption><strong>EN-Übersetzung der Herstellerabbildung.</strong> Die sichtbare MAC-Adresse ist ein Herstellerbeispiel; nicht für das eigene Tor übernehmen.</figcaption>
+</figure>
+</div><div>
+<ol>
+<li><strong>Bluetooth einschalten.</strong> Bei <strong>Aus / Off</strong> den Schalter betätigen.</li>
+<li><strong>Geräte in der Nähe scannen.</strong> Die Gerätesuche starten. In der Liste erscheint ein PUDU-Gate mit MAC-Adresse.</li>
+<li><strong>Richtiges Modul wählen.</strong> Den zu diesem Tor gehörenden Eintrag antippen. Adresse mit dem Gehäuseetikett bzw. der ermittelten Modul-MAC abgleichen.</li>
+<li><strong>DeviceID kontrollieren.</strong> Die ausgewählte Adresse wird übernommen. Alternativ die bekannte, echte Modul-MAC eingeben.</li>
+<li><strong>Connect device / Verbinden</strong> antippen. Erst bei <strong>Connected / Verbunden</strong> fortfahren.</li>
+</ol>
+<div class="key-point"><strong>Für die Kartenbindung bereithalten:</strong> Torzuordnung und zugehörige Modul-MAC.</div>
+</div></div>
+<p>Die Bluetooth-Verbindung allein erzeugt noch keine dauerhafte Kartenbindung. <strong>Connected</strong> bestätigt die Funkverbindung und meldet keine Torblattstellung zurück.</p>
+</section>
+
+<section id="oeffnungsbefehle" aria-labelledby="oeffnungsbefehle-title">
+  <div class="section-title"><span class="number">04</span><h2 id="oeffnungsbefehle-title">Vorwärts und rückwärts einzeln testen</h2></div>
+
+<p>Der Roboter bleibt vor dem Tor stehen. Beobachten Sie bei jedem Befehl die tatsächliche Torreaktion.</p>
+<div class="note"><strong>EN-Übersetzung:</strong> Auch diese Testansicht ist eine englisch beschriftete Übersetzung der Herstellerabbildung.</div>
+<div class="two-columns"><div>
+<figure>
+  <a class="picture" href="../assets/robot/gate-connected-en.png" aria-label="Englisch übersetzte verbundene Testmaske mit Öffnungsbefehlen vorwärts und rückwärts – in voller Größe öffnen">
+    <img src="../assets/robot/gate-connected-en.png" alt="Englisch übersetzte verbundene Testmaske mit Öffnungsbefehlen vorwärts und rückwärts" loading="lazy" decoding="async" width="1605" height="980">
+    <span class="hotspot" style="left:15.00%;top:27.70%;width:11.00%;height:4.40%" aria-hidden="true"><b>1</b></span><span class="hotspot" style="left:31.00%;top:46.10%;width:14.40%;height:8.20%" aria-hidden="true"><b>2</b></span><span class="hotspot" style="left:18.80%;top:55.00%;width:13.30%;height:8.30%" aria-hidden="true"><b>3</b></span><span class="hotspot" style="left:4.30%;top:55.00%;width:14.10%;height:8.30%" aria-hidden="true"><b>4</b></span><span class="hotspot" style="left:18.30%;top:46.10%;width:12.40%;height:8.20%" aria-hidden="true"><b>5</b></span>
+  </a>
+  <figcaption><strong>EN-Übersetzung der Herstellerabbildung.</strong> Sichtbare Werte wie 1000 ms und 3 s sind Abbildungsbeispiele. Sie geben weder die Einstellungen dieses Tors noch seine Offenhaltezeit vor.</figcaption>
+</figure>
+</div><div>
+<ol>
+<li><strong>Status prüfen.</strong> <strong>Connected / Verbunden</strong> muss angezeigt werden; die MAC gehört zum aktuellen Tor.</li>
+<li><strong>Open (forward) / Öffnen vorwärts</strong> antippen. Das zugeordnete Tor muss öffnen.</li>
+<li><strong>Stop opening / Öffnen beenden</strong> antippen. Damit wird die Anforderung beendet; dies ist kein unmittelbarer Schließbefehl.</li>
+<li><strong>Open (reverse) / Öffnen rückwärts</strong> antippen. Dasselbe Tor muss wieder öffnen. Danach erneut <strong>Stop opening</strong> betätigen.</li>
+<li><strong>Disconnect / Gerät trennen</strong> antippen, bevor die automatische Durchfahrt geprüft wird.</li>
+</ol>
+</div></div>
+<div class="key-point"><strong>Beide Befehle, dieselbe Toraktion:</strong> PUDU steuert je nach Fahrtrichtung einen anderen Öffnungskanal an. Bei der hier beschriebenen Rolltoranbindung soll jeder Kanal dieselbe Öffnungsfunktion auslösen. Ein erfolgreicher Vorwärtstest ersetzt den Rückwärtstest nicht.</div>
+</section>
+
+<section id="kartenverwaltung" aria-labelledby="kartenverwaltung-title">
+  <div class="section-title"><span class="number">05</span><h2 id="kartenverwaltung-title">Karte und Kartenverwaltung öffnen</h2></div>
+
+<p><strong>Menüfolge:</strong> Startseite → Einstellung → Karte → Standortkarte prüfen → Kartenverwaltung.</p>
+<div class="two-columns"><div>
+<figure>
+  <a class="picture" href="../assets/robot/02_Grundeinstellungen_DE.png" aria-label="Deutsche Einstellungsliste mit Karte in der linken Seitenleiste – in voller Größe öffnen">
+    <img src="../assets/robot/02_Grundeinstellungen_DE.png" alt="Deutsche Einstellungsliste mit Karte in der linken Seitenleiste" loading="lazy" decoding="async" width="1024" height="600">
+    <span class="hotspot" style="left:1.70%;top:49.20%;width:28.90%;height:11.10%" aria-hidden="true"><b>2</b></span>
+  </a>
+  <figcaption>In der linken Einstellungsliste <strong>Karte</strong> auswählen.</figcaption>
+</figure>
+<figure>
+  <a class="picture" href="../assets/robot/03_Karte_DE_Namen_geschwaerzt.png" aria-label="Karteneinstellungen mit verdeckten Kartennamen und sichtbarem Kartenbild – in voller Größe öffnen">
+    <img src="../assets/robot/03_Karte_DE_Namen_geschwaerzt.png" alt="Karteneinstellungen mit verdeckten Kartennamen und sichtbarem Kartenbild" loading="lazy" decoding="async" width="1024" height="600">
+    <span class="hotspot" style="left:36.50%;top:41.90%;width:4.50%;height:8.30%" aria-hidden="true"><b>3</b></span><span class="hotspot" style="left:34.80%;top:15.40%;width:62.60%;height:11.00%" aria-hidden="true"><b>4</b></span>
+  </a>
+  <figcaption>Freigegebene Referenzaufnahme: Nur Kartennamen sind verdeckt; das Kartenbild bleibt sichtbar.</figcaption>
+</figure>
+</div><div>
+<ol>
+<li><strong>Einstellung öffnen.</strong> Nach dem Tortest die Testverbindung trennen, zur Startseite zurückkehren und <strong>Einstellung</strong> antippen. Falls nötig, bereitgestelltes Kennwort eingeben.</li>
+<li><strong>Karte auswählen.</strong> Links den Eintrag mit dem gefalteten Kartensymbol antippen.</li>
+<li><strong>Standortkarte prüfen.</strong> Unter <strong>Karte wählen</strong> Namen und Kartenstand am eigenen Roboter abgleichen. Der blaue Haken kennzeichnet die ausgewählte Karte.</li>
+<li><strong>Kartenverwaltung</strong> oben öffnen. Danach erscheint die <strong>Lageplanliste</strong>.</li>
+</ol>
+<div class="key-point"><strong>Erwartetes Ergebnis:</strong> Die vorhandene Betriebskarte ist eindeutig identifiziert. Sie wird im nächsten Schritt über ihr grünes Stiftsymbol bearbeitet.</div>
+</div></div>
+</section>
+
+<section id="karteneditor" aria-labelledby="karteneditor-title">
+  <div class="section-title"><span class="number">06</span><h2 id="karteneditor-title">Von der Lageplanliste in den Karteneditor</h2></div>
+
+<p>Die vorhandene Betriebskarte bearbeiten. Die Aufnahmen zeigen eine Referenzkarte und geben keine Standortgeometrie für das eigene Tor vor.</p>
+<div class="two-columns"><div>
+<figure>
+  <a class="picture" href="../assets/robot/04_Lageplanliste_DE_Namen_geschwaerzt.png" aria-label="Lageplanliste mit verdeckten Kartennamen, Im Einsatz und grünem Stiftsymbol – in voller Größe öffnen">
+    <img src="../assets/robot/04_Lageplanliste_DE_Namen_geschwaerzt.png" alt="Lageplanliste mit verdeckten Kartennamen, Im Einsatz und grünem Stiftsymbol" loading="lazy" decoding="async" width="1024" height="600">
+    <span class="hotspot" style="left:38.70%;top:52.70%;width:9.70%;height:6.50%" aria-hidden="true"><b>1</b></span><span class="hotspot" style="left:29.60%;top:60.30%;width:11.30%;height:7.70%" aria-hidden="true"><b>2</b></span>
+  </a>
+  <figcaption>Reale Lageplanliste. Die Kartennamen wurden geschwärzt; die Kartenbilder sind zur Orientierung erhalten.</figcaption>
+</figure>
+<ol>
+<li><strong>Karte abgleichen.</strong> <strong>Im Einsatz</strong> kennzeichnet die aktuell verwendete Karte.</li>
+<li><strong>Grünes Stiftsymbol</strong> auf der zugehörigen Kartenkarte antippen. Damit die bestehende Standortkarte zum Bearbeiten öffnen.</li>
+</ol>
+</div><div>
+<figure>
+  <a class="picture" href="../assets/robot/09_Karteneditor_DE.png" aria-label="Deutscher Karteneditor mit Punkt, Route und Bereich – in voller Größe öffnen">
+    <img src="../assets/robot/09_Karteneditor_DE.png" alt="Deutscher Karteneditor mit Punkt, Route und Bereich" loading="lazy" decoding="async" width="1024" height="600">
+    <span class="hotspot" style="left:3.00%;top:16.50%;width:27.60%;height:9.30%" aria-hidden="true"><b>3</b></span>
+  </a>
+  <figcaption>Reale Editoransicht mit sichtbaren Karten- und Punktanzeigen. Die Referenzdaten sind keine Projektvorgabe.</figcaption>
+</figure>
+<p><strong>3 · Punkt</strong> im linken Menü öffnen und die Funktion zum Hinzufügen eines Punkts aufrufen.</p>
+<div class="key-point"><strong>Erwartetes Ergebnis:</strong> Die richtige vorhandene Karte ist im Editor geöffnet; ein Torpunkt kann ergänzt werden.</div>
+</div></div>
+</section>
+
+<section id="torpunkt" aria-labelledby="torpunkt-title">
+  <div class="section-title"><span class="number">07</span><h2 id="torpunkt-title">Torpunkt anlegen und ID-Bindung öffnen</h2></div>
+
+<p>Im Menü <strong>Punkt</strong> die Funktion zum Hinzufügen aufrufen und in der Typenliste <strong>Tor</strong> wählen.</p>
+<div class="two-columns"><div>
+<figure>
+  <a class="picture" href="../assets/robot/08_Tor_Einstellungen_DE.png" aria-label="Torpunkt-Eigenschaften mit Tor, Punktname, Bitte binden Sie und Weitere Einstellungen – in voller Größe öffnen">
+    <img src="../assets/robot/08_Tor_Einstellungen_DE.png" alt="Torpunkt-Eigenschaften mit Tor, Punktname, Bitte binden Sie und Weitere Einstellungen" loading="lazy" decoding="async" width="1024" height="600">
+    <span class="hotspot" style="left:73.20%;top:65.00%;width:9.90%;height:7.50%" aria-hidden="true"><b>1</b></span><span class="hotspot" style="left:23.30%;top:53.30%;width:3.70%;height:5.20%" aria-hidden="true"><b>2</b></span><span class="hotspot" style="left:14.80%;top:62.20%;width:12.70%;height:5.70%" aria-hidden="true"><b>3</b></span><span class="hotspot" style="left:2.70%;top:69.40%;width:25.30%;height:9.60%" aria-hidden="true"><b>4</b></span>
+  </a>
+  <figcaption>Reale Torpunkt-Ansicht. Der Punktname „Tor“ und die Zahlen im Bild sind Referenzwerte.</figcaption>
+</figure>
+</div><div>
+<ol>
+<li><strong>Punkttyp Tor wählen.</strong> Rechts zu <strong>Tor</strong> scrollen und antippen. Der blaue Haken muss bei diesem Typ stehen.</li>
+<li><strong>Position und Namen festlegen.</strong> Tor vollständig öffnen und offenhalten. Den Roboter mittig in der Öffnung und senkrecht zur Torlinie ausrichten. Einen eindeutigen Namen vergeben, etwa <strong>Tor_01_Produktion</strong>.</li>
+<li><strong>Bitte binden Sie</strong> beim Feld <strong>ID</strong> antippen. Damit wird der Dialog für die Bluetooth-MAC geöffnet.</li>
+<li><strong>Weitere Einstellungen</strong> öffnet Stopp- und Annäherungsabstände sowie weitere Torparameter. Auf der Aufnahme ist dieses Fenster bereits geöffnet.</li>
+</ol>
+<div class="note">Die MAC-Bindung folgt im nächsten Abschnitt; die Torparameter werden anschließend gesondert geprüft.</div>
+</div></div>
+</section>
+
+<section id="mac-speichern" aria-labelledby="mac-speichern-title">
+  <div class="section-title"><span class="number">08</span><h2 id="mac-speichern-title">MAC binden und Kartenänderung speichern</h2></div>
+
+<p>Die dauerhafte Modulzuordnung entsteht am <strong>Torpunkt</strong>. Eine vorherige Bluetooth-Testverbindung ersetzt die ID-Bindung nicht.</p>
+<div class="two-columns"><div>
+<figure>
+  <a class="picture" href="../assets/robot/06_ID_Dialog_DE.png" aria-label="Deutscher ID-Dialog mit leerem Eingabefeld und Bestätigen Sie – in voller Größe öffnen">
+    <img src="../assets/robot/06_ID_Dialog_DE.png" alt="Deutscher ID-Dialog mit leerem Eingabefeld und Bestätigen Sie" loading="lazy" decoding="async" width="1024" height="600">
+    <span class="hotspot" style="left:8.60%;top:19.80%;width:50.60%;height:13.70%" aria-hidden="true"><b>1</b></span><span class="hotspot" style="left:61.10%;top:19.80%;width:30.50%;height:13.70%" aria-hidden="true"><b>2</b></span>
+  </a>
+  <figcaption>Der Titel <strong>ID gebunden</strong> steht bereits im leeren Dialog. Erst die eingetragene und bestätigte echte Modul-MAC erzeugt die beabsichtigte Zuordnung.</figcaption>
+</figure>
+<figure>
+  <a class="picture" href="../assets/robot/08_Tor_Einstellungen_DE.png" aria-label="Torpunktansicht mit der Schaltfläche Einrichtung abgeschlossen – in voller Größe öffnen">
+    <img src="../assets/robot/08_Tor_Einstellungen_DE.png" alt="Torpunktansicht mit der Schaltfläche Einrichtung abgeschlossen" loading="lazy" decoding="async" width="1024" height="600">
+    <span class="hotspot" style="left:72.10%;top:82.40%;width:25.30%;height:12.90%" aria-hidden="true"><b>3</b></span>
+  </a>
+  <figcaption><strong>Einrichtung abgeschlossen</strong> ist in der Aufnahme noch grau. Zuerst erforderliche Punktangaben und ID-Bindung abschließen.</figcaption>
+</figure>
+</div><div>
+<ol>
+<li><strong>Echte Modul-MAC eingeben.</strong> Die beim Tortest ermittelte Adresse verwenden: sechs Hexadezimal-Paare mit normalen Doppelpunkten, beispielsweise im Format <strong>AA:BB:CC:DD:EE:FF</strong>. Das Formatbeispiel ist keine echte Moduladresse.</li>
+<li><strong>Bestätigen Sie</strong> antippen. Zurück am Torpunkt Namen und zugeordnete ID kontrollieren.</li>
+<li><strong>Punkt und Karte abschließen.</strong> Den Torpunkt mit <strong>Einrichtung abgeschlossen</strong> übernehmen. Danach den Karteneditor mit <strong>vollständig</strong> abschließen bzw. speichern und die richtige Betriebskarte aktivieren.</li>
+<li><strong>ID zurücklesen.</strong> Im Tortest <strong>Select from map / Aus Karte auswählen</strong> verwenden. Der gewählte Torpunkt muss die zuvor ermittelte Modul-MAC als <strong>DeviceID</strong> liefern.</li>
+</ol>
+<div class="key-point"><strong>Vor dem Fahrtest:</strong> Torpunkt, gespeicherte MAC und aktive Karte müssen zueinander passen.</div>
+</div></div>
+</section>
+
+<section id="torparameter" aria-labelledby="torparameter-title">
+  <div class="section-title"><span class="number">09</span><h2 id="torparameter-title">Torparameter auf das vorhandene Tor abstimmen</h2></div>
+
+<p>Am Torpunkt <strong>Weitere Einstellungen</strong> öffnen. Die Zahlen der Referenzaufnahme sind keine fertigen Einstellwerte für ein anderes Tor.</p>
+<div class="two-columns"><div>
+<figure>
+  <a class="picture" href="../assets/robot/08_Tor_Einstellungen_DE.png" aria-label="Weitere Einstellungen am Torpunkt mit Stopp- und Verzögerungsabständen – in voller Größe öffnen">
+    <img src="../assets/robot/08_Tor_Einstellungen_DE.png" alt="Weitere Einstellungen am Torpunkt mit Stopp- und Verzögerungsabständen" loading="lazy" decoding="async" width="1024" height="600">
+    <span class="hotspot" style="left:28.40%;top:11.20%;width:28.20%;height:12.30%" aria-hidden="true"><b>1</b></span><span class="hotspot" style="left:28.40%;top:27.30%;width:28.20%;height:12.00%" aria-hidden="true"><b>2</b></span><span class="hotspot" style="left:28.40%;top:43.00%;width:28.20%;height:12.00%" aria-hidden="true"><b>3</b></span>
+  </a>
+  <figcaption>Für Geschwindigkeit und Wartezeiten im Fenster nach unten scrollen. Oben sind die Stopp- und Verzögerungsabstände sichtbar.</figcaption>
+</figure>
+</div><div class="table-wrap"><table>
+<thead><tr><th scope="col">Feld in der App</th><th scope="col">Wirkung und Prüfung</th></tr></thead>
+<tbody>
+<tr><th scope="row">1 · Einfahr-Stoppzone<br>Aufwärts-Stoppbereich Entfernung (m)</th><td>Abstand vor dem Tor, an dem die Öffnungsanforderung beginnt. Laut Handbuch ist mindestens 1 m wirksam.</td></tr>
+<tr><th scope="row">2 · Ausfahr-Stoppzone<br>Abwärts-Stoppbereich Entfernung (m)</th><td>Anforderung erst nach vollständiger Durchfahrt beenden. Roboter und Ladungsüberstand müssen den Torbereich vollständig verlassen haben.</td></tr>
+<tr><th scope="row">3 · Annäherungszone<br>Aufwärts-Verzögerungsbereich (m)</th><td>Früheres Abbremsen bzw. Verbindungsaufbau. Den Abstand größer als die Einfahr-Stoppzone wählen.</td></tr>
+<tr><th scope="row">Geschwindigkeit<br>Weiter unten im Fenster</th><td>Anfahrgeschwindigkeit auf Öffnungszeit und Umgebung abstimmen.</td></tr>
+<tr><th scope="row">Wartezeit<br>Gleiche / Gegenrichtung (s)</th><td>Beide Richtungen getrennt prüfen. Bei langsamem Rolltor genügend Zeit bis zur vollständigen Öffnung vorsehen.</td></tr>
+</tbody></table></div></div>
+<div class="key-point"><strong>Nach jeder Änderung:</strong> Torpunkt und Karte speichern, aktive Karte prüfen und beide Fahrtrichtungen erneut testen. Werte wie 1,3 m, 1 m und 3 m aus der Aufnahme nicht ungeprüft übernehmen.</div>
+</section>
+
+<section id="route" aria-labelledby="route-title">
+  <div class="section-title"><span class="number">10</span><h2 id="route-title">Route durch den richtigen Torpunkt kontrollieren</h2></div>
+
+<p><strong>Menüfolge:</strong> Karteneditor → Route → Topologische Route.</p>
+<div class="two-columns"><div>
+<figure>
+  <a class="picture" href="../assets/robot/10_Route_Menue_DE.png" aria-label="Karteneditor mit geöffnetem Route-Menü und Topologische Route – in voller Größe öffnen">
+    <img src="../assets/robot/10_Route_Menue_DE.png" alt="Karteneditor mit geöffnetem Route-Menü und Topologische Route" loading="lazy" decoding="async" width="1024" height="600">
+    <span class="hotspot" style="left:3.00%;top:26.90%;width:27.60%;height:8.90%" aria-hidden="true"><b>1</b></span><span class="hotspot" style="left:34.10%;top:27.30%;width:23.00%;height:7.70%" aria-hidden="true"><b>2</b></span>
+  </a>
+  <figcaption>Reale Route-Menüansicht. Die gezeigte Referenzroute ist keine Vorlage für die Wegeführung am eigenen Tor.</figcaption>
+</figure>
+<ol>
+<li><strong>Route</strong> im linken Menü antippen.</li>
+<li><strong>Topologische Route</strong> öffnen. Prüfen, dass der Fahrweg durch die richtige Toröffnung und den zugehörigen Torpunkt führt. Änderungen nur an der vorgesehenen Standortkarte vornehmen.</li>
+</ol>
+</div><div>
+<figure>
+  <a class="picture" href="../assets/robot/11_Topologische_Route_DE.png" aria-label="Topologische Route mit blauen Knoten sowie Handzeichnung und vollständig – in voller Größe öffnen">
+    <img src="../assets/robot/11_Topologische_Route_DE.png" alt="Topologische Route mit blauen Knoten sowie Handzeichnung und vollständig" loading="lazy" decoding="async" width="1024" height="600">
+    <span class="hotspot" style="left:61.00%;top:87.20%;width:17.60%;height:11.00%" aria-hidden="true"><b>3</b></span><span class="hotspot" style="left:79.30%;top:87.20%;width:13.10%;height:11.00%" aria-hidden="true"><b>4</b></span>
+  </a>
+  <figcaption>Reale Routenansicht. Kartenbild und Punktanzeigen bleiben zur Orientierung sichtbar.</figcaption>
+</figure>
+<p><strong>3 · Handzeichnung</strong> ist die sichtbare Funktion zum Zeichnen bzw. Anpassen des Fahrwegs. Eine passende vorhandene Route muss nicht neu gezeichnet werden.</p>
+<p><strong>4 · vollständig</strong> nach einer Änderung betätigen und danach die gesamte Kartenänderung speichern.</p>
+</div></div>
+<div class="key-point"><strong>Erwartetes Ergebnis:</strong> Die aktive Karte enthält Torpunkt und passenden Fahrweg. Nun werden beide automatischen Durchfahrten geprüft.</div>
+</section>
+
+<section id="durchfahrt-testen" aria-labelledby="durchfahrt-testen-title">
+  <div class="section-title"><span class="number">11</span><h2 id="durchfahrt-testen-title">Automatische Durchfahrt in beiden Richtungen testen</h2></div>
+
+<p>Für den ersten Fahrtest einen einzelnen Direktauftrag verwenden. Der Zielpunkt liegt vollständig hinter dem Tor.</p>
+<div class="two-columns"><div>
+<figure>
+  <a class="picture" href="../assets/robot/direct-start.png" aria-label="Englische Herstelleransicht zur Zielauswahl im Direktmodus – in voller Größe öffnen">
+    <img src="../assets/robot/direct-start.png" alt="Englische Herstelleransicht zur Zielauswahl im Direktmodus" loading="lazy" decoding="async" width="1024" height="600">
+    <span class="hotspot" style="left:71.40%;top:23.50%;width:18.20%;height:11.10%" aria-hidden="true"><b>1</b></span><span class="hotspot" style="left:31.80%;top:76.20%;width:61.10%;height:18.20%" aria-hidden="true"><b>2</b></span>
+  </a>
+  <figcaption>Englische Originalabbildung des Herstellers. Am deutschen Referenzgerät lautet der Einstieg <strong>Direktmodus</strong>. A3 ist ein Beispielziel; am eigenen Gerät einen passenden vorhandenen Zielpunkt wählen.</figcaption>
+</figure>
+</div><div>
+<ol>
+<li><strong>Testziel wählen.</strong> Aktive Testanforderung beenden und Testverbindung trennen. Zur Startseite zurückkehren, <strong>Direktmodus</strong> öffnen und genau einen Zielpunkt auf der anderen Torseite wählen.</li>
+<li><strong>Start antippen.</strong> Der Roboter steht vor dem Tor. Beobachten, ob das Tor rechtzeitig öffnet, der Roboter vollständig durchfährt und die Anforderung erst danach endet.</li>
+<li><strong>Ankunft abschließen.</strong> Am Ziel <strong>Fertig / Done</strong> wählen. Der Einzelauftrag endet dort; für den Rückweg einen neuen Auftrag starten.</li>
+<li><strong>Gegenrichtung prüfen.</strong> Im Direktmodus nun ein Ziel auf der ursprünglichen Seite wählen und <strong>Start</strong> antippen. Dieselben Beobachtungen wiederholen.</li>
+</ol>
+</div></div>
+<div class="key-point"><strong>Erfolgskriterium:</strong> A → B und B → A öffnen dasselbe Tor zuverlässig. Erst nach erfolgreichem Leertest die vorgesehene Beladung einbeziehen.</div>
+</section>
+
+<section id="diagnose-abschluss" aria-labelledby="diagnose-abschluss-title">
+  <div class="section-title"><span class="number">12</span><h2 id="diagnose-abschluss-title">Fehler eingrenzen und Einrichtung abschließen</h2></div>
+
+<p>Die Nachweise getrennt betrachten: <strong>Bluetooth verbunden</strong>, <strong>Torpunkt korrekt gebunden</strong> und <strong>automatische Durchfahrt erfolgreich</strong>.</p>
+<div class="table-wrap"><table>
+<thead><tr><th scope="col">Beobachtung</th><th scope="col">In der App kontrollieren</th><th scope="col">Nächster Schritt</th></tr></thead>
+<tbody>
+<tr><th scope="row">Kein Modul / Disconnected</th><td>Bluetooth eingeschaltet? Gerätesuche neu ausführen; richtige Modul-MAC in DeviceID?</td><td>Modulversorgung und Funknähe prüfen; <a href="#bluetooth-verbinden">erneut verbinden</a>.</td></tr>
+<tr><th scope="row">Connected, nur eine Richtung öffnet</th><td><a href="#oeffnungsbefehle">Beide Öffnungstasten</a> nacheinander auslösen und die Torreaktion je Richtung beobachten.</td><td>Öffnungskanäle am Tor prüfen lassen. Kartenänderungen ersetzen den elektrischen Einzeltest nicht.</td></tr>
+<tr><th scope="row">Handtest gut, Fahrtest ohne Toröffnung</th><td>Aktive Karte, Torpunktposition und gebundene MAC prüfen. „Aus Karte auswählen“ muss die richtige DeviceID liefern.</td><td><a href="#mac-speichern">Torpunkt/ID korrigieren</a>, Karte speichern und Direktauftrag neu testen.</td></tr>
+<tr><th scope="row">Tor öffnet zu spät / schließt zu früh</th><td>Weitere Einstellungen: Einfahr-Stoppzone, Wartezeit je Richtung, Anfahrgeschwindigkeit und Ausfahr-Stoppzone.</td><td><a href="#torparameter">Parameter gezielt anpassen</a> und beide Richtungen wiederholen.</td></tr>
+<tr><th scope="row">Fahrweg bleibt blockiert</th><td>Torpunkt-Ausrichtung und freien Bereich vor/hinter dem Tor prüfen. Karte auf feste Hindernisse und fehlerhafte Messpunkte prüfen.</td><td>Kartenführung berichtigen. Reale Hindernisse nicht durch Kartenlöschen ausblenden.</td></tr>
+</tbody></table></div>
+<div class="key-point"><strong>Einrichtung abgeschlossen, wenn:</strong> Die richtige Betriebskarte ist aktiv, der Torpunkt ist mit der passenden Modul-MAC gespeichert und beide Öffnungsbefehle funktionieren. A → B und B → A gelingen mit ausreichender Öffnungszeit und vollständig freiem Torbereich.</div>
+<div class="note"><strong>Dokumentationsstand:</strong> Diese Anleitung beschreibt den vorgesehenen Ablauf und seine Prüfkriterien. Sie ist kein Nachweis einer bereits durchgeführten Inbetriebnahme oder Abnahme am jeweiligen Standort.</div>
+<p>Für Änderungen am elektrischen Anschluss zuerst zu <a href="../anschluss/"><strong>A · Elektrischen Anschluss auswählen und vorbereiten</strong></a> wechseln. Danach den Ablauf <strong>„PuduBot 2: Automatische Tordurchfahrt einrichten und testen“</strong> erneut für die betroffenen Funktionen durchführen.</p>
+<div id="quellen" class="note">
+<h3>Quellen und Abbildungsstand</h3>
+<ul>
+<li><strong>PUDU Academy: Bluetooth-Gate Deployment Manual</strong>, Archivfassung 18.08.2026, 18 Seiten; insbesondere S. 1, 7–9 und 11–17.</li>
+<li><strong>Tür-/Schrankenhandbuch V3.2</strong>, 08.01.2025, S. 11–12; Grundlage der beiden ausdrücklich gekennzeichneten EN-Übersetzungen der Testmasken.</li>
+<li><strong>PuduBot 2 Operation Guide V12.2</strong>, Fassung vom 04.03.2026; Abschnitte 3.2.5, 3.3 und 3.3.4 sowie die englische Herstellerabbildung zur Zielauswahl.</li>
+<li><strong>Bereitgestellte Referenzaufnahmen</strong> eines deutschsprachigen Roboters. Nur Kartennamen wurden anonymisiert; Kartenbilder, Routen und Punktanzeigen sind entsprechend der Freigabe erhalten. Sie dienen der Bedienorientierung und sind keine Konfiguration für ein anderes Kundentor.</li>
+</ul>
+<p>Rote Markierungen und deutsche Erläuterungen wurden ergänzt. Die beiden englisch übersetzten Testansichten sind keine originalen Firmware-Aufnahmen. Die übrigen Herstelleransichten und realen Referenzaufnahmen sind in den jeweiligen Bildunterschriften gekennzeichnet.</p>
+</div>
+</section>
+
+    <aside class="support"><strong>Technischer Kontakt · EnergieReich Consulting GmbH</strong><a href="mailto:info@energiereich-consulting.com">info@energiereich-consulting.com</a><a href="https://www.energiereich-consulting.com/kontakt/" target="_blank" rel="noopener">Kontakt und Unternehmensangaben ↗</a></aside>
+    <footer class="doc-footer"><span>PUDU Bluetooth-Toranbindung · B · 19.10.2026</span><div class="footer-links"><a href="../">Übersicht</a><a href="../../../">PUDU-Dokumentation</a></div></footer>
+  </main>
+  <dialog class="lightbox" id="image-viewer" aria-label="Abbildung vergrößert"><button class="close-lightbox" type="button">Schließen ×</button><img alt=""><p></p></dialog>
+  <script src="../guide.js"></script>
+</body>
+</html>

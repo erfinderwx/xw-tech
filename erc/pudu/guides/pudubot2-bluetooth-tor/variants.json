@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "updated": "2026-10-19",
+  "title": "PUDU Bluetooth-Toranbindung",
+  "shared_robot_guide": {
+    "id": "B",
+    "title": "PuduBot 2: Automatische Tordurchfahrt einrichten und testen",
+    "href": "roboter-einrichtung/",
+    "model": "PuduBot 2"
+  },
+  "wiring_variants": [
+    {
+      "id": "A1",
+      "title": "Huhtamaki Ronsberg: Rolltor für PuduBot 2 anschließen",
+      "customer": "Huhtamaki, Standort Ronsberg",
+      "door_type": "Rolltor",
+      "href": "anschluss/a1-huhtamaki-ronsberg/",
+      "state": "site-verification-pending",
+      "documentation": "prepared",
+      "electrical_mapping": "3 / COM to 8 / 02L+; 4 / OPEN to 9 / 01L+; verify on original plant and module"
+    }
+  ]
+}

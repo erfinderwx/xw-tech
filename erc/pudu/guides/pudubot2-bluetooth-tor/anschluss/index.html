@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet"><meta name="referrer" content="no-referrer">
+  <title>Elektrischen Anschluss auswählen und vorbereiten · ERC</title>
+  <meta name="description" content="Der elektrische Anschluss hängt vom Tor und seiner Steuerung ab. Hier die Eignung klären und die passende dokumentierte Variante wählen.">
+  <link rel="canonical" href="https://xw-tech.de/erc/pudu/guides/pudubot2-bluetooth-tor/anschluss/">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+  <nav class="topbar" aria-label="Dokumentnavigation"><a href="../../../">← PUDU-Dokumentation</a><a class="section-link" href="../">Übersicht</a><a class="section-link active" href="../anschluss/">A · Anschluss</a><a class="section-link" href="../roboter-einrichtung/">B · Roboter</a><span>Deutsch</span><a class="pdf-download" href="../downloads/a-allgemeine-anschlussbedingungen-de.pdf" download>PDF herunterladen ↓</a><button type="button" data-print>Drucken</button></nav>
+  <main id="main">
+    <header class="intro"><div class="intro-top"><div class="intro-copy"><p class="eyebrow">A · Anschlussvarianten · Deutsch</p><h1>Elektrischen Anschluss auswählen und vorbereiten</h1></div><div class="erc-logo" role="img" aria-label="EnergieReich Consulting"><div class="erc-logo-mark"><img src="../assets/erc-logo-original.png" alt="" width="671" height="300"></div><span aria-hidden="true">CONSULTING</span></div></div><p class="intro-description">Der elektrische Anschluss hängt vom Tor und seiner Steuerung ab. Hier die Eignung klären und die passende dokumentierte Variante wählen.</p><div class="doc-meta"><span>Stand: 19.10.2026</span><span>Webausgabe 1.0</span><span>PuduBot 2</span></div></header>
+    <aside class="project-status" aria-label="Bearbeitungsstand"><strong>In Bearbeitung</strong><p>Aktuell ist A1 für Huhtamaki Ronsberg dokumentiert. Die Zuordnung muss vor Ort am Originalplan und am tatsächlich eingesetzten Modul geprüft werden.</p></aside>
+    <nav class="contents" aria-label="Inhalt"><a href="#variante-waehlen">A · Variante wählen</a><a href="#eignung">01 · Eignung prüfen</a><a href="#vier-funktionen">02 · Vier Funktionen</a><a href="#montagefolge">03 · Weiter zu B</a></nav>
+    <section id="variante-waehlen">
+  <div class="section-title"><span class="number">A</span><h2>Die passende Anschlussvariante wählen</h2></div>
+  <p>Die elektrische Anbindung richtet sich nach dem vorhandenen Tor und seiner Steuerung. Deshalb erhält jede konkrete Anschlusslösung eine eigene Kennung: <strong>A1, A2, A3 …</strong> Die anschließende Einrichtung am PuduBot 2 ist gemeinsam in <strong>B</strong> beschrieben.</p>
+  <div class="two-columns">
+    <article class="parameter-block"><span class="pill">A1 · Kundenspezifisch</span><h3>Huhtamaki Ronsberg</h3><p>Vierpolige Verbindung zwischen vorbereitetem PUDU-Modul und vorhandener Rolltorsteuerung. Mit realen Anschlussfotos und EPLAN-Zuordnung.</p><p><a href="a1-huhtamaki-ronsberg/">A1 · Huhtamaki Ronsberg: Rolltor für PuduBot 2 anschließen →</a></p></article>
+    <article class="parameter-block"><span class="pill">Allgemeine Grundlage</span><h3>Andere Rolltore</h3><p>Zuerst die nachfolgenden Bedingungen prüfen. Die Anschlussklemmen ergeben sich aus dem jeweiligen Originalplan; Kundennummern aus A1 dürfen nicht übernommen werden.</p><p><a href="../downloads/a-allgemeine-anschlussbedingungen-de.pdf" download>Allgemeine Anschlussanleitung als PDF herunterladen</a></p></article>
+  </div>
+  <p class="short-note">Weitere kundenspezifische Varianten werden ergänzt, sobald ihre Anschlüsse und Unterlagen vorliegen. Derzeit ist A1 dokumentiert.</p>
+</section>
+
+<section id="eignung">
+  <div class="section-title"><span class="number">01</span><h2>Prüfen, ob die Lösung geeignet ist</h2></div>
+  <p>Diese Anschlussfamilie verbindet die beiden richtungsabhängigen Öffnungsbefehle des Roboters mit <strong>derselben Öffnungsfunktion eines Rolltors</strong>. Alle folgenden Bedingungen müssen zum vorhandenen Aufbau passen.</p>
+  <div class="table-wrap"><table>
+    <caption>Voraussetzungen für die zusammengefasste Öffnungsfunktion</caption>
+    <thead><tr><th scope="col">Prüfpunkt</th><th scope="col">Erforderliche Bedingung</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Gleiche Toraktion</th><td>Ob der Roboter von innen nach außen oder von außen nach innen fährt: Das Tor soll jeweils auf dieselbe Weise öffnen. Getrennte Befehle für unterschiedliche Öffnungsrichtungen sind nicht erforderlich.</td></tr>
+      <tr><th scope="row">Eindeutiger Öffnungseingang</th><td>Die Torsteuerung akzeptiert das Schließen eines dafür vorgesehenen Schließerkontakts (NO) als Öffnungsanforderung. Ein Schrittfolge-Eingang <strong>„Auf–Stopp–Zu“</strong> ist für diese direkte Anschlusslösung nicht geeignet.</td></tr>
+      <tr><th scope="row">Modulversorgung</th><td><strong>12–24 V DC</strong>, richtige Polung und ausreichende Stromreserve gemäß den Unterlagen des konkreten Moduls. Keine Wechsel- oder Netzspannung an den Versorgungsanschluss J2 anschließen.</td></tr>
+      <tr><th scope="row">Tatsächlicher Ausgangstyp</th><td>Die verwendete Modulversion muss nachweislich geeignete <strong>potenzialfreie Relaiskontakte</strong> besitzen. Bei Transistor- oder Open-Collector-Ausgängen diese Schaltung nicht direkt übernehmen.</td></tr>
+      <tr><th scope="row">Spannung am Schaltkontakt</th><td>Die Spannung im geschalteten Steuerkreis darf die <strong>zulässige Schaltspannung</strong> des konkreten Ausgangs nicht überschreiten. Die Isolations- oder Prüfspannung eines Relais ist keine zulässige Arbeitsschaltspannung.</td></tr>
+      <tr><th scope="row">Strom und Last</th><td>Kontaktstrom, Einschaltspitzen, Schaltleistung und Lastart müssen innerhalb der freigegebenen Grenzen liegen. DC- und AC-Grenzen getrennt beachten. Mit dieser Anleitung werden keine Motor- oder Netzlasten direkt geschaltet.</td></tr>
+      <tr><th scope="row">Torlogik und Schutzfunktionen</th><td>Impuls- beziehungsweise Halteverhalten, automatische Schließung und vorhandene Schutzfunktionen müssen zur Öffnungsanforderung passen und nach dem Anschluss geprüft werden.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note"><strong>Versorgung und Kontaktbelastbarkeit getrennt beurteilen:</strong> 12–24 V DC bezeichnet die Modulversorgung. Daraus folgt keine Freigabe für Spannung oder Strom am Relaiskontakt. Numerische Schaltgrenzen des konkreten PUDU-Ausgangs sind in den vorliegenden Unterlagen nicht ausgewiesen; vor Einsatz die passende Modul-/Relais-Spezifikation beschaffen.</p>
+</section>
+
+<section id="vier-funktionen">
+  <div class="section-title"><span class="number">02</span><h2>Vier Funktionen sauber trennen</h2></div>
+  <p>Die vorbereitete Verbindung führt zwei Versorgungsadern und zwei Adern für die Öffnungsanforderung. Die Nummern 1–4 sind <strong>Funktionskennzeichen der Verbindung</strong>, keine Hersteller-Pinnummern.</p>
+  <div class="table-wrap"><table>
+    <caption>Belegung des dokumentierten, vorbereiteten Kabelsatzes</caption>
+    <thead><tr><th scope="col">Kennzeichen</th><th scope="col">Funktion</th><th scope="col">PUDU-Adern</th><th scope="col">Anschluss an der Anlage</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">1</th><td>Versorgung DC+</td><td>J2 Rot</td><td>Geeignete +12–24-V-DC-Versorgung</td></tr>
+      <tr><th scope="row">2</th><td>Versorgung 0 V</td><td>J2 Schwarz</td><td>0 V derselben Versorgung</td></tr>
+      <tr><th scope="row">3</th><td>COM</td><td>J2 Gelb + Grün, gemeinsam</td><td>Kontakt A des ermittelten Öffnungstasterpaars</td></tr>
+      <tr><th scope="row">4</th><td>OPEN</td><td>J9 Schwarz + Grün, gemeinsam</td><td>Kontakt B des ermittelten Öffnungstasterpaars</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>J9 Rot und Gelb bleiben jeweils einzeln isoliert und unbenutzt.</strong> Bei anderen Modulversionen oder Kabelsätzen die Ader- und Pinbelegung zuerst mit den passenden Herstellerunterlagen abgleichen.</p>
+  <div class="two-columns">
+    <article class="parameter-block"><h3>Warum Adern zusammengeführt werden</h3><p>PUDU unterscheidet je nach Fahrtrichtung des Roboters zwei Öffnungsausgänge. Für ein Rolltor führen beide Befehle zur gleichen Aktion. Im vorbereiteten Kabelsatz werden deshalb J2 Gelb und Grün als gemeinsamer COM sowie J9 Schwarz und Grün als gemeinsames OPEN zusammengeführt: <strong>Richtung A ODER Richtung B öffnet dasselbe Tor.</strong> Die beiden Öffnungsadern sind kein Paar „Auf/Zu“.</p></article>
+    <article class="parameter-block"><h3>Was „potenzialfrei“ bedeutet</h3><p>Ein potenzialfreier Kontakt liefert keine eigene Spannung. Die Torsteuerung bestimmt die beiden Anschlusspunkte des Öffnungskreises. Die hier verwendeten Bezeichnungen A/B sind Platzhalter; <strong>PUDU-COM ist nicht pauschal Versorgungs-0 V</strong>. Die Zuordnung anhand des Originalplans und des tatsächlichen Ausgangstyps festlegen.</p></article>
+  </div>
+</section>
+
+<section id="montagefolge">
+  <div class="section-title"><span class="number">03</span><h2>Vom Anschluss zur Inbetriebnahme</h2></div>
+  <ol class="steps">
+    <li><strong>Anlage und Modul abgleichen.</strong> Eignung, Versorgung und Öffnungseingang prüfen; die passende A-Variante verwenden.</li>
+    <li><strong>Leitung zuerst einführen.</strong> Die noch unkonfektionierte Kundenleitung durch die Kabelverschraubung führen. Erst danach den kundenseitigen Stecker anschließen; der Stecker passt nicht durch die Verschraubung.</li>
+    <li><strong>Verbinden und Gehäuse schließen.</strong> Alle vier Funktionen auf beiden Steckerhälften kontrollieren, zusammenstecken, Leitung zugentlasten und Verschraubung festziehen. Dichtung einsetzen und Deckel mit den vorgesehenen Schrauben schließen.</li>
+    <li><strong>Elektrischen Aufbau prüfen.</strong> Insbesondere Polarität, Kontaktgrenzen, Aderzuordnung, Isolierung und vorgesehene Torfunktion bestätigen.</li>
+    <li><strong>Am Roboter fortfahren.</strong> Beide Öffnungsbefehle einzeln testen, die Modul-MAC am Torpunkt binden und die automatische Durchfahrt in beiden Richtungen prüfen.</li>
+  </ol>
+  <p class="key-point"><strong>Nächster Schritt:</strong> Nach abgeschlossener elektrischer Prüfung mit <a href="../roboter-einrichtung/">B · PuduBot 2: Automatische Tordurchfahrt einrichten und testen</a> fortfahren. Diese Roboteranleitung wird gemeinsam für die geeigneten A-Varianten gepflegt.</p>
+</section>
+
+    <aside class="support"><strong>Technischer Kontakt · EnergieReich Consulting GmbH</strong><a href="mailto:info@energiereich-consulting.com">info@energiereich-consulting.com</a><a href="https://www.energiereich-consulting.com/kontakt/" target="_blank" rel="noopener">Kontakt und Unternehmensangaben ↗</a></aside>
+    <footer class="doc-footer"><span>PUDU Bluetooth-Toranbindung · A · 19.10.2026</span><div class="footer-links"><a href="../">Übersicht</a><a href="../../../">PUDU-Dokumentation</a></div></footer>
+  </main>
+  <dialog class="lightbox" id="image-viewer" aria-label="Abbildung vergrößert"><button class="close-lightbox" type="button">Schließen ×</button><img alt=""><p></p></dialog>
+  <script src="../guide.js"></script>
+</body>
+</html>
