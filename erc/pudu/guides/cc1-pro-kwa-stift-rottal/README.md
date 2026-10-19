@@ -1,6 +1,6 @@
 # KWA Stift Rottal · CC1 Pro
 
-German, customer-specific visual operating guide. Version 1.2, 2026-10-19.
+German, customer-specific visual operating guide. Version 1.3, 2026-10-19.
 
 ## Order and scope
 
@@ -37,3 +37,11 @@ Values such as 0.4/0.7 m/s and selections Stark/Hoch in screenshots are examples
 - Station LEDs per V4.0: steady blue ready without robot connection; steady green connected; flashing red fault. Less common transition states are omitted from the short guide.
 
 Keep customer incident reports, robot serial numbers and personal contact details outside this public guide. Preserve the original Konstanz guide and its assets.
+
+## Print edition and speed advice (1.3)
+
+An A4 portrait PDF is linked directly from the guide. Maintenance comes first, then task parameters. Its light-background ERC logo and warm accent palette follow the approved PUDU gate-module customer guides. It uses the original gradient logo with transparent alpha; the supporting CONSULTING line is set in graphite on white, as in that reference.
+
+Operator guidance: transit speed (Fahrgeschwindigkeit) can be somewhat higher; cleaning and edge-cleaning speeds should initially be low. Operators must test a complete task and adjust themselves based on cleaning result and remaining water/battery. Very slow cleaning may prevent completion within the available water/battery. No single numerical speed is prescribed.
+
+The workstation text refers to the position marked in the image, without requiring the reader to have attended an on-site demonstration.
