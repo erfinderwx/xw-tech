@@ -1,6 +1,6 @@
 # KWA Stift Rottal · CC1 Pro
 
-German, customer-specific visual operating guide. Version 1.1, 2026-10-19.
+German, customer-specific visual operating guide. Version 1.2, 2026-10-19.
 
 ## Order and scope
 
@@ -8,7 +8,13 @@ German, customer-specific visual operating guide. Version 1.1, 2026-10-19.
 2. Weekly workstation wastewater-inlet flush and three essential LED states.
 3. Task parameters, task cleaning-speed inheritance and the system-speed menu.
 
-Keep maintenance first. Prefer real pictures and short captions. The AI-control tutorial has been removed at the user's request. Do not add a workstation photo placeholder: the central front wastewater receiving point was demonstrated on site.
+Keep maintenance first. Prefer real pictures and short captions. The AI-control tutorial has been removed at the user's request. The central front wastewater receiving point was demonstrated on site and is now shown in an annotated original photo.
+
+## Workstation photo
+
+`assets/workstation-abwasseraufnahme-de.jpg` is a crop/cutout from the real site photo supplied by Xi Wang on 2026-10-19. It was rotated 18 degrees counterclockwise, isolated with a geometric mask and annotated. No relighting, generated component details, surface repainting or replacement product rendering is used in the selected asset. The final SVG and lossless PNG are retained locally in `output/kwa-stift-rottal/`; the source JPG remains unchanged.
+
+The arrow points into the black porous mesh at the lower central wastewater receiving tray. It does not point at the metal contacts, the upper recess or the right-hand pipe. The German caption says Abwasseraufnahme / Hier langsam eingießen / Wöchentlich · ca. 60 °C. Other guide logic and section order remain as in version 1.1.
 
 ## Device screenshots
 
