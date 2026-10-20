@@ -1,0 +1,22 @@
+{
+  "edition": "2.11",
+  "preparedAt": "2026-10-21",
+  "purpose": "Owner-requested black-paint colour preview of the existing backrest-and-mirror product illustration.",
+  "assets": [
+    {
+      "file": "steinadler-black-paint.png",
+      "product": "steinadler-pro",
+      "mediaKind": "illustrative-rendering",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1763831,
+      "sha256": "fa27f434ea70c7be3358ded2baf50995aa312b37e581edc50ba19e95ccc2eaf5",
+      "configuration": "Black backrest-and-mirror configuration",
+      "source": {
+        "file": "../v26/steinadler-showcase.png",
+        "sha256": "ed3f845a0a53389cbe0d25746c17e960ebc17910c2a9db9e98ae0d8c079e5521"
+      },
+      "processing": "Built-in image generation edit: recolour the existing gold-painted metal to satin black while preserving vehicle geometry, camera, equipment, red mechanical accents and transparent cutout. This remains a labelled product rendering, separate from real product photographs."
+    }
+  ]
+}

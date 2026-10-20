@@ -193,7 +193,7 @@
   function productsGrid(audience) {
     return `<div class="product-grid">${C.products.map(p => {
       const image = mediaOf(p).hero || p.image;
-      const imageLabel = {'luchs-a':'A-4WS IP54 example','luchs-b':'Base chassis example','steinadler-pro':'Gold backrest configuration'}[p.id];
+      const imageLabel = {'luchs-a':'A-4WS IP54 example','luchs-b':'Base chassis example','steinadler-pro':'Black backrest configuration'}[p.id];
       const resourceUrl = audience === 'developers' ? href('developers',{product:p.id}) : productHref(p,audience);
       const visual = image ? `<img class="product-image" src="${e(versionedAsset(image.src))}" width="${e(image.width)}" height="${e(image.height)}" style="--product-image-scale:${e(image.displayScale || image.scale || 1)}" alt="${e(image.alt || p.name + ' product rendering')}" loading="lazy" decoding="async">` : `<span class="product-code">${e(p.code)}</span>`;
       return `<article class="product-card${image ? ' has-product-image' : ''}"><a class="product-render-link" href="${e(mediaHref(p,audience,'photos'))}" aria-label="View ${e(p.name)} product images"><div class="product-visual">${visual}${imageLabel ? `<span class="product-image-caption">${e(imageLabel)}</span>` : ''}</div></a>${mediaEntries(p,audience)}<a class="product-body" href="${e(resourceUrl)}"><h3>${e(p.name)}</h3><p>${e(p.description)}</p><div class="card-footer"><span>Support resources</span>${icon('arrow')}</div></a></article>`;

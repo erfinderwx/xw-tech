@@ -146,14 +146,14 @@
   },
   "steinadler-pro": {
     "hero": {
-      "src": "./assets/products/v26/steinadler-showcase.png",
+      "src": "./assets/products/v211/steinadler-black-paint.png",
       "width": 1536,
       "height": 1024,
       "displayScale": 1,
-      "alt": "Steinadler Pro gold backrest-and-mirror configuration, illustrative product rendering."
+      "alt": "Steinadler Pro black backrest-and-mirror configuration, illustrative product rendering."
     },
     "galleryTitle": "Product gallery",
-    "galleryIntro": "Real product photographs of single-seat and dual-seat configurations, followed by the illustrative gold product rendering. Check each caption for the configuration shown.",
+    "galleryIntro": "Real product photographs of single-seat and dual-seat configurations, followed by the illustrative black product rendering. Check each caption for the configuration shown.",
     "photos": [
       {
         "src": "./assets/products/v210/steinadler-single-seat-right.jpg",
@@ -180,10 +180,10 @@
         "kind": "photo"
       },
       {
-        "src": "./assets/products/v26/steinadler-showcase.png",
-        "alt": "Steinadler Pro gold backrest-and-mirror configuration, illustrative product rendering.",
-        "caption": "Product rendering · Gold backrest-and-mirror configuration",
-        "configuration": "Gold vehicle with backrest and mirrors",
+        "src": "./assets/products/v211/steinadler-black-paint.png",
+        "alt": "Steinadler Pro black backrest-and-mirror configuration, illustrative product rendering.",
+        "caption": "Product rendering · Black backrest-and-mirror configuration",
+        "configuration": "Black vehicle with backrest and mirrors",
         "kind": "render"
       }
     ],
@@ -208,7 +208,7 @@
         "width": 406,
         "height": 720,
         "audio": "No audio track · silent preview",
-        "caption": "A single-saddle Steinadler demonstration vehicle crosses a speed bump in a paved test yard. The configuration shown differs from the gold backrest-and-mirror product image.",
+        "caption": "A single-saddle Steinadler demonstration vehicle crosses a speed bump in a paved test yard. The single-saddle configuration shown differs from the backrest-and-mirror product image.",
         "kind": "application-film"
       },
       {
