@@ -6,7 +6,7 @@
     "name": "RJ Tech",
     "title": "Product support",
     "stage": "published",
-    "version": "2.7",
+    "version": "2.8",
     "language": "en",
     "visibleResourceLanguages": [
       "en",

@@ -153,7 +153,7 @@
       "alt": "Steinadler Pro gold backrest-and-mirror configuration, illustrative product rendering."
     },
     "galleryTitle": "Product gallery",
-    "galleryIntro": "Illustrative product rendering of the gold backrest-and-mirror configuration, plus a real footboard detail photograph. Check each caption for the configuration shown.",
+    "galleryIntro": "Illustrative product rendering of the gold backrest-and-mirror configuration. Check each video caption for the configuration shown.",
     "photos": [
       {
         "src": "./assets/products/v26/steinadler-showcase.png",
@@ -161,15 +161,6 @@
         "caption": "Product rendering · Gold backrest-and-mirror configuration",
         "configuration": "Gold vehicle with backrest and mirrors",
         "kind": "render"
-      },
-      {
-        "src": "./assets/products/v25/steinadler-footboard-detail.jpg",
-        "alt": "Real detail photograph of the gold Steinadler vehicle footboard and foot controls.",
-        "caption": "Official L7e page photograph: gold vehicle footboard and foot controls. Accessory detail.",
-        "configuration": "Official L7e page example; footboard detail",
-        "sourceUrl": "https://www.rjtech-offroad.com/Upfile/EditPage/20260522/a968def0-706c-434a-a77a-7f6af1fb6191.jpg",
-        "sourceLabel": "Official RJ Tech L7e page",
-        "kind": "photo"
       }
     ],
     "video": {

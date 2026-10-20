@@ -8,6 +8,16 @@ Website versions use `V<major>.<minor>` and are separate from document revisions
 - Add new entries at the top. Retain released entries and identify each published version by its Git commit and deployment record. After verification, freeze its commit in a snapshot branch named `rj-support-v<major>.<minor>`; never change an older snapshot. Main remains the deployment branch. A rollback reuses the recorded version and commit.
 - The owner establishes the existing L7e edition as V1.0 on 2026-10-09. Earlier unnumbered work is not a separate numbered release.
 
+## V2.8 — 2026-10-20
+
+Remove the owner-selected Steinadler footboard detail photograph from the public product gallery.
+
+Version snapshot: [rj-support-v2.8](https://github.com/erfinderwx/xw-tech/tree/rj-support-v2.8/rj/support).
+
+- Remove the footboard detail gallery entry and its visible captions. Update the gallery introduction to describe the retained gold backrest-and-mirror illustration; the image count follows the selected gallery entries.
+- Retain the approved Steinadler V4 product illustration, all product and support videos, other product galleries, original source photograph, source records and historical snapshots.
+- Synchronise the website version and local asset cache labels to V2.8.
+
 ## V2.7 — 2026-10-20
 
 Add selected Steinadler application footage, official YouTube films and the owner-supplied Luchs B presentation.
