@@ -407,9 +407,13 @@ for(const product of C.products){
 }
 
 const media=context.window.RJSupportProductMedia;
+const htmlAttribute=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const productFilms=entry=>[entry.video,...(entry.videos||[])].filter(Boolean);
 assert.equal(JSON.stringify(Object.keys(media).sort()),JSON.stringify(C.products.map(p=>p.id).sort()),'Presentation media belongs only to the three existing products');
 for(const product of C.products){
   const entry=media[product.id];
+  const originalFilmName=product.id==='steinadler-pro'?'steinadler':product.id;
+  assert.equal(entry.video.url,`./assets/products/v26/${originalFilmName}-product-showcase.mp4`,'The previously approved primary showcase remains the product entrance film');
   for(const photo of entry.photos){
     localAsset(photo.src);
     assert(['photo','film-still','render'].includes(photo.kind),'Gallery distinguishes product renderings and real-camera material');
@@ -417,19 +421,51 @@ for(const product of C.products){
     assert(photo.caption && photo.configuration,'Presentation images identify their configuration');
   }
   localAsset(entry.hero?.src);
-  localAsset(entry.video.url);localAsset(entry.video.alternateUrl);localAsset(entry.video.poster);
+  const films=productFilms(entry),externalVideos=entry.externalVideos||[];
+  unique([...(entry.videos||[]),...externalVideos],product.id+' additional media');
+  for(const video of films){
+    assert(video.url && video.title && video.caption && video.audio,'Product films identify the film, configuration and audio');
+    assert(video.url.startsWith('./') && /\.mp4$/i.test(video.url),'On-site product players use local MP4 files');
+    assert(video.durationSeconds>0 && video.duration,'Product films have a known duration');
+    localAsset(video.url);localAsset(video.alternateUrl);localAsset(video.poster);
+  }
+  for(const video of externalVideos){
+    assert(/^https:\/\/(?:www\.)?(?:youtube\.com\/(?:watch\?|shorts\/)|youtu\.be\/)/.test(video.url),'External product films use explicit YouTube links');
+    assert(video.title && video.caption && video.sourceLabel,'External product films identify the official source and configuration');
+    assert(!video.poster || video.poster.startsWith('./'),'YouTube cards do not request remote thumbnail services');
+    localAsset(video.poster);
+  }
   const html=UI.pageFor(UI.parseRoute(UI.href('product/'+product.id+'/media',{audience:'users'}))).html;
   assert(html.includes('controls playsinline preload="none"'),'Product film uses explicit controls and no upfront video transfer');
   assert(!/\bautoplay\b/.test(html),'Presentation film does not automatically start');
+  assert(!/<iframe\b/.test(html),'Product media does not connect to an external player before the viewer opens YouTube');
+  assert.equal((html.match(/<video\b/g)||[]).length,films.length,'Every on-site film is playable once, and YouTube pages are not MP4 sources');
   assert(html.includes(entry.video.url),'Each model uses its own showcase video');
-  for(const other of C.products.filter(p=>p.id!==product.id))assert(!html.includes(media[other.id].video.url),'Media page cannot play another model film');
+  for(const video of [...films,...externalVideos]){
+    assert(html.includes(htmlAttribute(video.title)) && html.includes(htmlAttribute(video.caption)),'Each selected film has its own visible title and configuration caption');
+    assert(html.includes(`href="${htmlAttribute(video.url)}" target="_blank" rel="noopener noreferrer"`),'Every selected film has a usable, safely opened direct link');
+  }
+  for(const other of C.products.filter(p=>p.id!==product.id)){
+    for(const video of [...productFilms(media[other.id]),...(media[other.id].externalVideos||[])])assert(!html.includes(htmlAttribute(video.url)),'Media page does not show another product film');
+  }
+  if(films.length+externalVideos.length>1){
+    const audienceHtml=UI.pageFor(UI.parseRoute('#/users')).html;
+    assert(audienceHtml.includes(`${films.length+externalVideos.length} videos`),'Product entrance shows its complete selected video count');
+    assert.equal((html.match(/preload="metadata"/g)||[]).length,films.length-1,'Additional on-site clips load metadata without auto-play');
+  }
+  const videoFirstHtml=UI.pageFor(UI.parseRoute(UI.href('product/'+product.id+'/media',{audience:'users',section:'video'}))).html;
+  assert(videoFirstHtml.indexOf('id="product-video"')<videoFirstHtml.indexOf('id="product-real-photos"'),'The existing video entrance opens the video section before the gallery');
   assert.equal((html.match(/data-action="open-photo"/g)||[]).length,entry.photos.length,'Every selected real view can be enlarged');
 }
-for(const [folder,key] of [['assets/brand','files'],['assets/products/v25','assets'],['assets/products/v26','assets']]){
+for(const [folder,key] of [['assets/brand','files'],['assets/products/v25','assets'],['assets/products/v26','assets'],['assets/products/v27','assets']]){
   const manifest=JSON.parse(fs.readFileSync(path.join(root,'rj/support',folder,'SOURCES.json'),'utf8'));
   for(const entry of manifest[key]){
     const bytes=fs.readFileSync(path.join(root,'rj/support',folder,entry.file));
     assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),entry.sha256,'New presentation asset agrees with its recorded source hash: '+entry.file);
+    if(entry.posterFile){
+      const posterBytes=fs.readFileSync(path.join(root,'rj/support',folder,entry.posterFile));
+      assert.equal(crypto.createHash('sha256').update(posterBytes).digest('hex'),entry.posterSHA256,'Product poster agrees with its recorded source hash: '+entry.posterFile);
+    }
   }
   assert(!/C:\\\\|Users\/|\.private|\.step|\.blend|\.pem/.test(JSON.stringify(manifest)),'Presentation provenance contains no private path, model payload or credential');
 }

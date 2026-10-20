@@ -8,6 +8,19 @@ Website versions use `V<major>.<minor>` and are separate from document revisions
 - Add new entries at the top. Retain released entries and identify each published version by its Git commit and deployment record. After verification, freeze its commit in a snapshot branch named `rj-support-v<major>.<minor>`; never change an older snapshot. Main remains the deployment branch. A rollback reuses the recorded version and commit.
 - The owner establishes the existing L7e edition as V1.0 on 2026-10-09. Earlier unnumbered work is not a separate numbered release.
 
+## V2.7 — 2026-10-20
+
+Add selected Steinadler application footage, official YouTube films and the owner-supplied Luchs B presentation.
+
+Version snapshot: [rj-support-v2.7](https://github.com/erfinderwx/xw-tech/tree/rj-support-v2.7/rj/support).
+
+- Retain the approved V2.6 product images, galleries and three existing showcase clips. Add four silent, continuous Steinadler excerpts showing speed-bump crossing, low-speed steering, trailer manoeuvring and winter yard driving, with genuine source-frame posters.
+- Add the complete visual sequence of the supplied Luchs B film as a silent presentation. Its caption distinguishes real driving, sensor-equipped visualisations and the offline public-dataset example; original accelerated-footage labels remain.
+- Add two external official RJ Tech Global YouTube films for agriculture/transport and mountain/rough-road applications. Verify channel ownership through the brand website; keep original YouTube hosting without downloaded videos, thumbnails or embedded third-party requests.
+- Extend each product media page to multiple videos and show the matching video count on product cards. Use explicit playback controls, portrait-friendly layouts and direct video links. Keep video browsing separate from file-only Downloads.
+- Record source hashes, original filenames, excerpt boundaries, processing and configuration differences in assets/products/v27/SOURCES.json. Keep full originals and private source paths outside the public repository; do not convert source filenames or older promotional claims into current L7e specifications.
+- Synchronise the website version and cache labels to V2.7; preserve existing documents, source files, software preview links, branding, red theme and release snapshots.
+
 ## V2.6 — 2026-10-12
 
 Publish the approved transparent product images and corresponding product showcase videos for Steinadler, Luchs A and Luchs B.

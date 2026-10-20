@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  // Selected product presentation media. Original support resources remain intact.
+  // Product presentation media; original support resources remain intact.
   window.RJSupportProductMedia = {
   "luchs-a": {
     "hero": {
@@ -127,7 +127,22 @@
       "audio": "No audio track · silent preview",
       "caption": "Luchs B driving and steering, including a white demonstration configuration with deck-mounted equipment and the black chassis with an empty deck. Silent excerpts; original captions and framing retained.",
       "kind": "product-preview-film"
-    }
+    },
+    "videos": [
+      {
+        "id": "luchs-b-application-and-autonomy",
+        "url": "./assets/products/v27/luchs-b-application-and-autonomy.mp4",
+        "poster": "./assets/products/v27/luchs-b-application-and-autonomy-poster.jpg",
+        "title": "Luchs B application and autonomy presentation",
+        "duration": "00:16",
+        "durationSeconds": 16,
+        "width": 1080,
+        "height": 1920,
+        "audio": "No audio track · silent preview",
+        "caption": "A supplied presentation combining real driving footage, sensor-equipped product visualisations and an offline perception example. Original overlays identify accelerated footage and the public-dataset example; equipment and software shown are configuration-specific.",
+        "kind": "mixed-product-presentation"
+      }
+    ]
   },
   "steinadler-pro": {
     "hero": {
@@ -166,7 +181,85 @@
       "audio": "No audio track · silent preview",
       "caption": "This outdoor driving film shows a black single-saddle configuration with standing footboards, different from the backrest-and-mirror configuration in the product image; the exact model/version relationship is unconfirmed.",
       "kind": "product-preview-film"
-    }
+    },
+    "videos": [
+      {
+        "id": "steinadler-speed-bump",
+        "url": "./assets/products/v27/steinadler-speed-bump.mp4",
+        "poster": "./assets/products/v27/steinadler-speed-bump-poster.jpg",
+        "title": "Speed-bump crossing",
+        "duration": "00:25",
+        "durationSeconds": 25,
+        "width": 406,
+        "height": 720,
+        "audio": "No audio track · silent preview",
+        "caption": "A single-saddle Steinadler demonstration vehicle crosses a speed bump in a paved test yard. The configuration shown differs from the gold backrest-and-mirror product image.",
+        "kind": "application-film"
+      },
+      {
+        "id": "steinadler-steering",
+        "url": "./assets/products/v27/steinadler-steering.mp4",
+        "poster": "./assets/products/v27/steinadler-steering-poster.jpg",
+        "title": "Low-speed steering",
+        "duration": "00:20",
+        "durationSeconds": 20,
+        "width": 1280,
+        "height": 720,
+        "audio": "No audio track · silent preview",
+        "caption": "A single-saddle demonstration vehicle manoeuvres through a marked yard. Demonstration footage; use the current L7e instructions for the vehicle supplied.",
+        "kind": "application-film"
+      },
+      {
+        "id": "steinadler-trailer-steering",
+        "url": "./assets/products/v27/steinadler-trailer-steering.mp4",
+        "poster": "./assets/products/v27/steinadler-trailer-steering-poster.jpg",
+        "title": "Manoeuvring with a trailer",
+        "duration": "00:25",
+        "durationSeconds": 25,
+        "width": 1280,
+        "height": 720,
+        "audio": "No audio track · silent preview",
+        "caption": "A single-saddle demonstration vehicle turns with a trailer in a paved yard. Trailer equipment is specific to the configuration shown.",
+        "kind": "application-film"
+      },
+      {
+        "id": "steinadler-winter-driving",
+        "url": "./assets/products/v27/steinadler-winter-driving.mp4",
+        "poster": "./assets/products/v27/steinadler-winter-driving-poster.jpg",
+        "title": "Winter yard driving",
+        "duration": "00:14.7",
+        "durationSeconds": 14.7,
+        "width": 1280,
+        "height": 716,
+        "audio": "No audio track · silent preview",
+        "caption": "A single-saddle demonstration vehicle drives in a snowy yard. This excerpt shows the filmed conditions and configuration.",
+        "kind": "application-film"
+      }
+    ],
+    "externalVideos": [
+      {
+        "id": "steinadler-youtube-agriculture",
+        "url": "https://www.youtube.com/watch?v=uab-Kkn8Pzw",
+        "title": "Agriculture and transport",
+        "duration": "01:39",
+        "durationSeconds": 99,
+        "sourceLabel": "RJ Tech Global · Official YouTube channel",
+        "caption": "Official Steinadler Pro Extender application film with agricultural and transport demonstrations. The filmed equipment and development version may differ from the current L7e configuration.",
+        "sourceTitle": "Steinadler Pro Extender - Your Best e-ATV Friend for Farming, Agriculture, and Transportation",
+        "publishedDate": "2024-11-05"
+      },
+      {
+        "id": "steinadler-youtube-terrain",
+        "url": "https://www.youtube.com/watch?v=wTBGzd2FoT8",
+        "title": "Mountain and rough-road driving",
+        "duration": "01:36",
+        "durationSeconds": 96,
+        "sourceLabel": "RJ Tech Global · Official YouTube channel",
+        "caption": "Official Steinadler Pro film showing mountain and rough-road applications. The filmed configuration may differ from the current L7e vehicle; use the current documentation for specifications.",
+        "sourceTitle": "Steinadler Pro e-ATV: Conquering Mountains and Rough Roads with Ultimate Power and Precision",
+        "publishedDate": "2024-11-01"
+      }
+    ]
   }
 };
 })();
