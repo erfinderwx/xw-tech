@@ -61,12 +61,13 @@
 .brand-stack{display:flex;flex-direction:column;align-items:flex-start;gap:5px}
 .brand-rj-logo{display:block;width:100px;height:auto;object-fit:contain;object-position:left center}
 .brand-secondary{display:flex;align-items:center;gap:8px}
-.brand-tar-logo{display:block;width:40px;height:auto;object-fit:contain;object-position:left center}
+/* Keep concept A pixels intact; crop its blank canvas proportionally. */
+.brand-tar-logo{display:block;width:64px;height:22px;object-fit:cover;object-position:center}
 .brand .brand-secondary small{margin:0;font-size:7.5px;letter-spacing:.9px;line-height:1.2;white-space:nowrap}
 .footer .brand-stack,.footer .brand-secondary{margin:0}
 .footer .footer-caption{display:block;margin:12px 0 0;font-size:10px;color:var(--muted)}
 .brand-footer .brand-rj-logo{width:96px;height:auto}
-.brand-footer .brand-tar-logo{width:38px;height:auto}
+.brand-footer .brand-tar-logo{width:60px;height:21px}
 
 /* Resource links and media controls are siblings, without nested anchors. */
 .product-card{display:flex;flex-direction:column;overflow:hidden}
@@ -109,7 +110,7 @@
   .site-header{height:84px}
   .main-nav{top:83px}
   .brand-rj-logo{width:82px;height:auto}
-  .brand-tar-logo{width:34px;height:auto}
+  .brand-tar-logo{width:58px;height:20px}
   .brand-stack{gap:4px}
   .brand .brand-secondary small{font-size:7px;letter-spacing:.7px}
   .product-photo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}

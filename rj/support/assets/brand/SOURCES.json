@@ -1,8 +1,42 @@
 {
   "preparedAt": "2026-10-11",
   "files": [
-    {"file":"rj-tech-official-dark.png","source":"https://rjtech-offroad.com/Upfile/File/2024-09-10/61ac2fe0-8d7c-4698-93f4-e1e883cbd0ea..png","role":"Official RJ Tech logo for a light background","processing":"Original PNG bytes; proportional CSS display only","bytes":2299,"sha256":"dd7682e8689f8c91f2a57e1097e3d6b6f8b83cdb0b49ff904face22285943377"},
-    {"file":"rj-tech-official-light.png","source":"https://rjtech-offroad.com/Upfile/File/2024-09-10/796d49c6-8041-4c3e-968a-58eec30f6f72..png","role":"Official RJ Tech logo for a dark background","processing":"Original PNG bytes","bytes":2441,"sha256":"4f70c3111ead149fcc24c1a61a845815550c3e34b07686108a2c0536e51b2fab"},
-    {"file":"tar-wordmark.svg","source":"Owner-requested temporary TAR wordmark","role":"Secondary wordmark beneath RJ Tech","status":"Temporary design; not an official manufacturer logo","processing":"Original vector typography and simple underline; no registered-trademark claim","sha256":"2ed096d26999532448ebf13c85be283d2c2b4e315f13d9f1a8ffd13bd8f5e5e2"}
-  ]
+    {
+      "file": "rj-tech-official-dark.png",
+      "source": "https://rjtech-offroad.com/Upfile/File/2024-09-10/61ac2fe0-8d7c-4698-93f4-e1e883cbd0ea..png",
+      "role": "Official RJ Tech logo for a light background",
+      "processing": "Original PNG bytes; proportional CSS display only",
+      "bytes": 2299,
+      "sha256": "dd7682e8689f8c91f2a57e1097e3d6b6f8b83cdb0b49ff904face22285943377"
+    },
+    {
+      "file": "rj-tech-official-light.png",
+      "source": "https://rjtech-offroad.com/Upfile/File/2024-09-10/796d49c6-8041-4c3e-968a-58eec30f6f72..png",
+      "role": "Official RJ Tech logo for a dark background",
+      "processing": "Original PNG bytes",
+      "bytes": 2441,
+      "sha256": "4f70c3111ead149fcc24c1a61a845815550c3e34b07686108a2c0536e51b2fab"
+    },
+    {
+      "file": "tar-wordmark.svg",
+      "source": "Owner-requested temporary TAR wordmark",
+      "role": "Secondary wordmark beneath RJ Tech",
+      "status": "Temporary design; not an official manufacturer logo",
+      "processing": "Original vector typography and simple underline; no registered-trademark claim",
+      "sha256": "2ed096d26999532448ebf13c85be283d2c2b4e315f13d9f1a8ffd13bd8f5e5e2"
+    },
+    {
+      "file": "tar-logo-a.png",
+      "source": "Owner-selected TAR concept A from the 2026-10-20 blue logo samples",
+      "role": "Secondary TAR logo beneath official RJ Tech in the shared header and footer",
+      "status": "Selected by owner for website appearance review",
+      "createdWith": "Built-in image generation tool; original concept A PNG",
+      "processing": "Original PNG bytes; proportional CSS display with blank canvas clipped; no logo redraw or recolouring",
+      "width": 1774,
+      "height": 887,
+      "bytes": 1111165,
+      "sha256": "792eef803ae65ac2b4a80bbe7e5e5cc96525e3926431a960ab58901871cf643a"
+    }
+  ],
+  "updatedAt": "2026-10-20"
 }

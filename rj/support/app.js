@@ -152,7 +152,7 @@
     return source + (source.includes('?') ? '&' : '?') + 'v=' + encodeURIComponent(C.site.version);
   }
   function brandImages() {
-    return `<span class="brand-stack"><img class="brand-rj-logo" src="${e(versionedAsset('./assets/brand/rj-tech-official-dark.png'))}" alt="RJ Tech" width="147" height="80"><span class="brand-secondary"><img class="brand-tar-logo" src="${e(versionedAsset('./assets/brand/tar-wordmark.svg'))}" alt="TAR" width="110" height="44"><small>SUPPORT CENTER</small></span></span>`;
+    return `<span class="brand-stack"><img class="brand-rj-logo" src="${e(versionedAsset('./assets/brand/rj-tech-official-dark.png'))}" alt="RJ Tech" width="147" height="80"><span class="brand-secondary"><img class="brand-tar-logo" src="${e(versionedAsset('./assets/brand/tar-logo-a.png'))}" alt="TAR" width="1774" height="887"><small>SUPPORT CENTER</small></span></span>`;
   }
   function mediaOf(product) {
     return window.RJSupportProductMedia?.[product.id] || {photos:[]};

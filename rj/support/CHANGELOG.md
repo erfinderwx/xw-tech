@@ -8,6 +8,16 @@ Website versions use `V<major>.<minor>` and are separate from document revisions
 - Add new entries at the top. Retain released entries and identify each published version by its Git commit and deployment record. After verification, freeze its commit in a snapshot branch named `rj-support-v<major>.<minor>`; never change an older snapshot. Main remains the deployment branch. A rollback reuses the recorded version and commit.
 - The owner establishes the existing L7e edition as V1.0 on 2026-10-09. Earlier unnumbered work is not a separate numbered release.
 
+## V2.9 — 2026-10-20
+
+Display the owner-selected blue TAR concept A on the support platform for appearance review.
+
+Version snapshot: [rj-support-v2.9](https://github.com/erfinderwx/xw-tech/tree/rj-support-v2.9/rj/support).
+
+- Replace the temporary TAR typography in the shared header and footer with the original concept A PNG. Keep the official RJ Tech logo above it and scale both brand rows for desktop and mobile.
+- Clip only the new image's blank canvas in CSS and retain its original bytes, colours and proportions. Record source dimensions and SHA256; preserve the previous temporary SVG as history.
+- Synchronise the website version and local asset cache labels to V2.9. The support navigation, released red interface, product media, downloads and document revisions are unchanged.
+
 ## V2.8 — 2026-10-20
 
 Remove the owner-selected Steinadler footboard detail photograph from the public product gallery.
