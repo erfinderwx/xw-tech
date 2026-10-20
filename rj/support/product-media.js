@@ -153,8 +153,32 @@
       "alt": "Steinadler Pro gold backrest-and-mirror configuration, illustrative product rendering."
     },
     "galleryTitle": "Product gallery",
-    "galleryIntro": "Illustrative product rendering of the gold backrest-and-mirror configuration. Check each video caption for the configuration shown.",
+    "galleryIntro": "Real product photographs of single-seat and dual-seat configurations, followed by the illustrative gold product rendering. Check each caption for the configuration shown.",
     "photos": [
+      {
+        "src": "./assets/products/v210/steinadler-single-seat-right.jpg",
+        "alt": "Real right-side photograph of a gold-frame Steinadler with one saddle, mirrors and black footboards.",
+        "caption": "Single-seat · Right-side product photograph",
+        "configuration": "Gold frame, single saddle and mirrors",
+        "sourceLabel": "Owner-supplied Steinadler product photograph",
+        "kind": "photo"
+      },
+      {
+        "src": "./assets/products/v210/steinadler-dual-seat-photo-collage.jpg",
+        "alt": "Original real-photo collage of a black Steinadler off-road example with an extended tandem seat and rear backrest, showing a side view and two front-quarter views.",
+        "caption": "Dual-seat example · Original product photo collage",
+        "configuration": "Black off-road vehicle, extended seat and rear backrest",
+        "sourceLabel": "Owner-supplied Steinadler product photo collage",
+        "kind": "photo"
+      },
+      {
+        "src": "./assets/products/v210/steinadler-single-seat-left.jpg",
+        "alt": "Real left-side photograph of a gold-frame Steinadler with one saddle, mirrors and black footboards.",
+        "caption": "Single-seat · Left-side product photograph",
+        "configuration": "Gold frame, single saddle and mirrors",
+        "sourceLabel": "Owner-supplied Steinadler product photograph",
+        "kind": "photo"
+      },
       {
         "src": "./assets/products/v26/steinadler-showcase.png",
         "alt": "Steinadler Pro gold backrest-and-mirror configuration, illustrative product rendering.",

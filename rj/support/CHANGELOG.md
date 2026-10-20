@@ -8,6 +8,16 @@ Website versions use `V<major>.<minor>` and are separate from document revisions
 - Add new entries at the top. Retain released entries and identify each published version by its Git commit and deployment record. After verification, freeze its commit in a snapshot branch named `rj-support-v<major>.<minor>`; never change an older snapshot. Main remains the deployment branch. A rollback reuses the recorded version and commit.
 - The owner establishes the existing L7e edition as V1.0 on 2026-10-09. Earlier unnumbered work is not a separate numbered release.
 
+## V2.10 — 2026-10-20
+
+Add genuine whole-vehicle photographs of single-seat and dual-seat Steinadler configurations to the product gallery.
+
+Version snapshot: [rj-support-v2.10](https://github.com/erfinderwx/xw-tech/tree/rj-support-v2.10/rj/support).
+
+- Put real single-seat and dual-seat product photographs first in the gallery, with explicit seating and equipment captions. The product-gallery entrance thumbnail follows the first real photograph.
+- Retain the approved gold product rendering after the photographs and identify it as a rendering. Record photo dimensions, sources and original byte hashes in assets/products/v210/SOURCES.json.
+- Synchronise the website version and asset cache labels to V2.10. Keep the selected TAR A mark, existing support architecture, videos and file revisions.
+
 ## V2.9 — 2026-10-20
 
 Display the owner-selected blue TAR concept A on the support platform for appearance review.

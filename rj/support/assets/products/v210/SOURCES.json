@@ -1,0 +1,57 @@
+{
+  "edition": "2.10",
+  "preparedAt": "2026-10-20",
+  "purpose": "Real single-seat and dual-seat whole-vehicle photographs for the Steinadler product gallery.",
+  "publicationRules": [
+    "Use genuine photographs, with the visible seating configuration identified.",
+    "Preserve original photo bytes, proportions and colours.",
+    "Example equipment is configuration-specific; photographs do not replace the current manuals or specifications."
+  ],
+  "assets": [
+    {
+      "file": "steinadler-single-seat-right.jpg",
+      "product": "steinadler-pro",
+      "mediaKind": "photograph",
+      "width": 1576,
+      "height": 1280,
+      "bytes": 194550,
+      "sha256": "24965246e62363dfb145529fa61dcbf29fe8e59307770f335564dffd881ab362",
+      "configuration": "Gold frame, single saddle and mirrors",
+      "source": {
+        "label": "Owner-supplied Steinadler product photograph",
+        "filename": "Steinadler-L7e-real4.jpg"
+      },
+      "transformation": "Original photograph bytes; proportional website display only."
+    },
+    {
+      "file": "steinadler-dual-seat-photo-collage.jpg",
+      "product": "steinadler-pro",
+      "mediaKind": "photograph",
+      "width": 4800,
+      "height": 4800,
+      "bytes": 6770097,
+      "sha256": "935cea4111d829dbebb57aa23cc66df8f9c431a8ac3b579d497b961bff84fcb5",
+      "configuration": "Black off-road vehicle, extended seat and rear backrest",
+      "source": {
+        "label": "Owner-supplied Steinadler product photo collage",
+        "filename": "new-rear-seat8_Copy.jpg"
+      },
+      "transformation": "Original photograph bytes; proportional website display only."
+    },
+    {
+      "file": "steinadler-single-seat-left.jpg",
+      "product": "steinadler-pro",
+      "mediaKind": "photograph",
+      "width": 1422,
+      "height": 1276,
+      "bytes": 149034,
+      "sha256": "4a5394eec0c8fd7cec89230858a1f34c3fc148d6138da8747dbd7dc02de18f40",
+      "configuration": "Gold frame, single saddle and mirrors",
+      "source": {
+        "label": "Owner-supplied Steinadler product photograph",
+        "filename": "Steinadler-L7e-real2.jpg"
+      },
+      "transformation": "Original photograph bytes; proportional website display only."
+    }
+  ]
+}
