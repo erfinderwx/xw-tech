@@ -4,17 +4,17 @@
   window.RJSupportProductMedia = {
   "luchs-a": {
     "hero": {
-      "src": "./assets/products/v26/luchs-a-showcase.png",
-      "width": 1600,
-      "height": 1067,
-      "displayScale": 1,
+      "src": "./assets/products/v212/luchs-a-studio.png",
+      "width": 1536,
+      "height": 1024,
+      "displayScale": 0.94,
       "alt": "Luchs A-4WS IP54 example product rendering."
     },
     "galleryTitle": "Product gallery",
     "galleryIntro": "Product rendering and three stills from the Luchs A demonstration film.",
     "photos": [
       {
-        "src": "./assets/products/v26/luchs-a-showcase.png",
+        "src": "./assets/products/v212/luchs-a-studio.png",
         "alt": "Luchs A-4WS IP54 example product rendering.",
         "caption": "Product rendering · A-4WS IP54 example",
         "configuration": "A-4WS IP54 example",
@@ -146,10 +146,10 @@
   },
   "steinadler-pro": {
     "hero": {
-      "src": "./assets/products/v211/steinadler-black-paint.png",
+      "src": "./assets/products/v212/steinadler-black-studio.png",
       "width": 1536,
       "height": 1024,
-      "displayScale": 1,
+      "displayScale": 0.94,
       "alt": "Steinadler Pro black backrest-and-mirror configuration, illustrative product rendering."
     },
     "galleryTitle": "Product gallery",
@@ -180,7 +180,7 @@
         "kind": "photo"
       },
       {
-        "src": "./assets/products/v211/steinadler-black-paint.png",
+        "src": "./assets/products/v212/steinadler-black-studio.png",
         "alt": "Steinadler Pro black backrest-and-mirror configuration, illustrative product rendering.",
         "caption": "Product rendering · Black backrest-and-mirror configuration",
         "configuration": "Black vehicle with backrest and mirrors",

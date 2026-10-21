@@ -1,0 +1,46 @@
+{
+  "edition": "2.12",
+  "preparedAt": "2026-10-21",
+  "purpose": "Coordinate the Steinadler and Luchs A rendering style with the existing Luchs B illustration.",
+  "styleReference": {
+    "file": "../v26/luchs-b-showcase.png",
+    "sha256": "d4d4172cb70897b6a3f9dcad9d280c9b0ca5a71aaa571dcc5861967a99154eb6",
+    "role": "Lighting, material finish and moderate sharpness reference only; the B asset is unchanged."
+  },
+  "qualityBrief": {
+    "sharpness": "Clear anti-aliased silhouettes and readable detail without crunchy texture, ringing or edge halos.",
+    "gloss": "Matte to satin painted bodywork, low-sheen rubber and broad restrained metallic reflections."
+  },
+  "assets": [
+    {
+      "file": "steinadler-black-studio.png",
+      "product": "steinadler-pro",
+      "mediaKind": "illustrative-rendering",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1882790,
+      "sha256": "b00ef73da4805e7b39323f07a135bbb587edcd8b3a925b17f6ef1cc32e7424b1",
+      "configuration": "Black backrest-and-mirror configuration",
+      "source": {
+        "file": "../v211/steinadler-black-paint.png",
+        "sha256": "fa27f434ea70c7be3358ded2baf50995aa312b37e581edc50ba19e95ccc2eaf5"
+      },
+      "processing": "Built-in image generation style edit of the existing product rendering. Match the Luchs B soft-light CG treatment, moderate sharpness and restrained matte/satin gloss; retain the target vehicle configuration, black Steinadler paint, white Luchs A body and transparent background."
+    },
+    {
+      "file": "luchs-a-studio.png",
+      "product": "luchs-a",
+      "mediaKind": "illustrative-rendering",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1513753,
+      "sha256": "5bb02d000135a2ed6ff3329897b552106e596ce4293383826c752f4302c3c403",
+      "configuration": "A-4WS IP54 example, white body",
+      "source": {
+        "file": "../v26/luchs-a-showcase.png",
+        "sha256": "1f21132504ee7b652fe66e58172aa9a70d752e99f19e0c3282f0239f41842687"
+      },
+      "processing": "Built-in image generation style edit of the existing product rendering. Match the Luchs B soft-light CG treatment, moderate sharpness and restrained matte/satin gloss; retain the target vehicle configuration, black Steinadler paint, white Luchs A body and transparent background."
+    }
+  ]
+}

@@ -457,7 +457,7 @@ for(const product of C.products){
   assert(videoFirstHtml.indexOf('id="product-video"')<videoFirstHtml.indexOf('id="product-real-photos"'),'The existing video entrance opens the video section before the gallery');
   assert.equal((html.match(/data-action="open-photo"/g)||[]).length,entry.photos.length,'Every selected real view can be enlarged');
 }
-for(const [folder,key] of [['assets/brand','files'],['assets/products/v25','assets'],['assets/products/v26','assets'],['assets/products/v27','assets'],['assets/products/v210','assets'],['assets/products/v211','assets']]){
+for(const [folder,key] of [['assets/brand','files'],['assets/products/v25','assets'],['assets/products/v26','assets'],['assets/products/v27','assets'],['assets/products/v210','assets'],['assets/products/v211','assets'],['assets/products/v212','assets']]){
   const manifest=JSON.parse(fs.readFileSync(path.join(root,'rj/support',folder,'SOURCES.json'),'utf8'));
   for(const entry of manifest[key]){
     const bytes=fs.readFileSync(path.join(root,'rj/support',folder,entry.file));

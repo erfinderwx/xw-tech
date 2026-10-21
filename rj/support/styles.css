@@ -130,8 +130,8 @@
 /* V2.6 product presentation only; keep the existing red theme. */
 body .has-product-image .product-visual{height:auto;min-height:0;aspect-ratio:1600/1067;padding:22px 15px 28px;border-right:0;border-bottom:0;background:#fff}
 body .has-product-image .product-visual:before{display:none}
-body .product-image{filter:none;transform:none;object-fit:contain;object-position:center}
-body .has-product-image:hover .product-image{transform:none}
+body .product-image{filter:none;transform:scale(var(--product-image-scale,1));object-fit:contain;object-position:center}
+body .has-product-image:hover .product-image{transform:scale(var(--product-image-scale,1))}
 body .product-image-caption{left:18px;bottom:8px;background:transparent;color:#69707a;font-size:10px;padding:0}
 body .product-card:hover{transform:none}
 body .product-media-entry{min-height:84px;background:#fff}

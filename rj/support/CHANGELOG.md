@@ -8,6 +8,16 @@ Website versions use `V<major>.<minor>` and are separate from document revisions
 - Add new entries at the top. Retain released entries and identify each published version by its Git commit and deployment record. After verification, freeze its commit in a snapshot branch named `rj-support-v<major>.<minor>`; never change an older snapshot. Main remains the deployment branch. A rollback reuses the recorded version and commit.
 - The owner establishes the existing L7e edition as V1.0 on 2026-10-09. Earlier unnumbered work is not a separate numbered release.
 
+## V2.12 — 2026-10-21
+
+Match the first two product illustrations to the existing Luchs B rendering style, with controlled sharpness and gloss.
+
+Version snapshot: [rj-support-v2.12](https://github.com/erfinderwx/xw-tech/tree/rj-support-v2.12/rj/support).
+
+- Restyle the Steinadler black backrest configuration and the white Luchs A-4WS IP54 example using soft neutral studio light, restrained matte/satin reflections and moderate edge/detail sharpness. Retain each product's existing equipment and configuration.
+- Use both new transparent illustrations in their product cards and labelled gallery-render entries. Apply a small proportional display inset to coordinate the card margins without stretching the images or changing the third Luchs B illustration.
+- Record sources, reference and output hashes in assets/products/v212/SOURCES.json. Keep real photographs, film stills, videos, support documents, software and TAR A branding, and synchronise the website/cache versions to V2.12.
+
 ## V2.11 — 2026-10-21
 
 Show the owner-requested black paint version of the Steinadler backrest-and-mirror rendering.
