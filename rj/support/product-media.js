@@ -68,7 +68,7 @@
       "alt": "Luchs B black base chassis with an empty deck, product rendering."
     },
     "galleryTitle": "Product gallery",
-    "galleryIntro": "Product rendering and real photographs of the base chassis and example configurations.",
+    "galleryIntro": "Product rendering, a preliminary autonomy-kit sensor layout and real photographs of example configurations.",
     "photos": [
       {
         "src": "./assets/products/v26/luchs-b-showcase.png",
@@ -76,6 +76,14 @@
         "caption": "Product rendering · Black base chassis, empty deck",
         "configuration": "Black base chassis, empty deck",
         "kind": "render"
+      },
+      {
+        "src": "./assets/products/v213/luchs-b-autonomy-kit-layout.png",
+        "alt": "Luchs B optional autonomy-kit sensor layout poster. Indicative layout / Preliminary.",
+        "caption": "Luchs B Autonomy Kit · Sensor Layout (Preliminary)",
+        "configuration": "Indicative layout · Optional sensor and autonomy equipment; final configuration agreed for the application.",
+        "sourceLabel": "Owner-supplied autonomy-kit poster · Preliminary",
+        "kind": "diagram"
       },
       {
         "src": "./assets/products/v25/luchs-b-yard-front.jpg",

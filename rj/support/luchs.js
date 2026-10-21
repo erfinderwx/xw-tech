@@ -552,6 +552,16 @@
               "The optional desert configuration uses two approximately 5 kWh battery packs and a 1.5 kW range extender inside the frame. A range extender on a test vehicle’s deck is a test position.",
               "TAR sensor, compute and autonomy equipment is optional and agreed for the application."
             ]
+          },
+          {
+            "type": "media-link",
+            "section": "photos",
+            "title": "View the autonomy kit sensor layout"
+          },
+          {
+            "type": "media-link",
+            "section": "video",
+            "title": "Watch Luchs B application and autonomy videos"
           }
         ]
       },

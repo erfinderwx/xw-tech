@@ -8,6 +8,16 @@ Website versions use `V<major>.<minor>` and are separate from document revisions
 - Add new entries at the top. Retain released entries and identify each published version by its Git commit and deployment record. After verification, freeze its commit in a snapshot branch named `rj-support-v<major>.<minor>`; never change an older snapshot. Main remains the deployment branch. A rollback reuses the recorded version and commit.
 - The owner establishes the existing L7e edition as V1.0 on 2026-10-09. Earlier unnumbered work is not a separate numbered release.
 
+## V2.13 — 2026-10-21
+
+Add the approved Luchs B optional autonomy-kit sensor layout to product media and link it from the product overview.
+
+Version snapshot: [rj-support-v2.13](https://github.com/erfinderwx/xw-tech/tree/rj-support-v2.13/rj/support).
+
+- Place the byte-identical owner-supplied poster second in the B gallery, after the existing base-chassis rendering. Retain the original indicative/preliminary marking and identify the kit as optional application-specific equipment.
+- Add gallery and existing application/autonomy-video links to the B overview for users and dealers, preserving the current support audience. Retain original source revisions, specifications, files and primary product visuals.
+- Record poster provenance and SHA-256 in assets/products/v213/SOURCES.json, extend image-kind validation to diagrams and synchronise website/cache versions to V2.13.
+
 ## V2.12 — 2026-10-21
 
 Match the first two product illustrations to the existing Luchs B rendering style, with controlled sharpness and gloss.

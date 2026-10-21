@@ -1,0 +1,22 @@
+{
+  "edition": "2.13",
+  "preparedAt": "2026-10-21",
+  "purpose": "Owner-approved Luchs B optional autonomy-kit sensor layout, retained as indicative and preliminary.",
+  "assets": [
+    {
+      "file": "luchs-b-autonomy-kit-layout.png",
+      "product": "luchs-b",
+      "mediaKind": "sensor-layout-diagram",
+      "width": 519,
+      "height": 769,
+      "bytes": 565466,
+      "sha256": "16185acf2f29900437cb81c603edd85670e5afa76792bf759568048ff7a42fcb",
+      "source": {
+        "type": "owner-supplied",
+        "originalFilename": "957a169d480c0bd7fbb0cae9db8d3465.png"
+      },
+      "processing": "Byte-identical original; no crop, recolouring or generated modifications.",
+      "status": "Indicative layout / Preliminary. Optional equipment; final configuration agreed for the application."
+    }
+  ]
+}

@@ -22,9 +22,23 @@ function load(previous) {
 const current=load(false),old=load(true);
 const guides=current.C.resources.filter(r=>r.id.startsWith('luchs-dev-'));
 assert.equal(guides.length,7,'Seven prepared developer guides');
+const autonomyMediaLinks=[
+  {type:'media-link',section:'photos',title:'View the autonomy kit sensor layout'},
+  {type:'media-link',section:'video',title:'Watch Luchs B application and autonomy videos'}
+];
+const oldBOverview=old.C.resources.find(r=>r.id==='luchs-b-overview');
+function withoutApprovedAutonomyLinks(resources) {
+  return resources.map(resource=>{
+    if(resource.id!=='luchs-b-overview')return resource;
+    const blocks=resource.content[0].blocks,oldBlocks=oldBOverview.content[0].blocks;
+    assert.equal(blocks.length,oldBlocks.length+autonomyMediaLinks.length,'Only two approved media links are appended to the B overview');
+    assert.equal(JSON.stringify(blocks.slice(oldBlocks.length)),JSON.stringify(autonomyMediaLinks),'B overview appends exactly the approved gallery and video links');
+    return {...resource,content:resource.content.map((section,index)=>index===0?{...section,blocks:blocks.slice(0,oldBlocks.length)}:section)};
+  });
+}
 const changedIds=new Set(['luchs-ros1','luchs-ros2','luchs-dev-ros2-quick-start']);
 const unchanged=resources=>resources.filter(r=>!changedIds.has(r.id));
-assert.equal(JSON.stringify(unchanged(current.C.resources)),JSON.stringify(unchanged(old.C.resources)),'Every resource except the two authorised repositories and revised quick-start is unchanged');
+assert.equal(JSON.stringify(unchanged(withoutApprovedAutonomyLinks(current.C.resources))),JSON.stringify(unchanged(old.C.resources)),'Every resource except the two authorised repositories, revised quick-start and two approved B overview media links is unchanged');
 assert.equal(current.C.resources.length,old.C.resources.length,'No existing resource is removed or extra public record introduced');
 for(const id of ['luchs-ros1','luchs-ros2']){
   const currentResource=current.C.resources.find(r=>r.id===id),oldResource=old.C.resources.find(r=>r.id===id);
@@ -43,10 +57,17 @@ assert.equal(JSON.stringify(productScope(current.C.products)),JSON.stringify(pro
 assert.equal(JSON.stringify(current.C.resourceTypes.filter(t=>t.id!=='repository')),JSON.stringify(old.C.resourceTypes),'Existing resource types remain unchanged');
 assert.equal(JSON.stringify(current.C.resourceTypes.filter(t=>t.id==='repository')),'[{"id":"repository","name":"Software repository"}]','Only the repository display type is added');
 for(const audience of ['users','dealers']) {
-  assert.equal(JSON.stringify(current.UI.publishedResources(null,audience)),JSON.stringify(old.UI.publishedResources(null,audience)),'Existing '+audience+' materials remain unchanged');
+  assert.equal(JSON.stringify(withoutApprovedAutonomyLinks(current.UI.publishedResources(null,audience))),JSON.stringify(old.UI.publishedResources(null,audience)),'Existing '+audience+' materials remain unchanged apart from the two approved B overview media links');
   for(const product of old.C.products)for(const topicId of product.topicIds) {
     const route=`#/product/${product.id}/topic/${topicId}?audience=${audience}`;
-    assert.equal(current.UI.pageFor(current.UI.parseRoute(route)).html,old.UI.pageFor(old.UI.parseRoute(route)).html,'Existing topic rendering remains unchanged: '+route);
+    let currentHtml=current.UI.pageFor(current.UI.parseRoute(route)).html;
+    if(product.id==='luchs-b'&&topicId==='product-information')for(const link of autonomyMediaLinks){
+      const url=`#/product/luchs-b/media?audience=${audience}&amp;section=${link.section}`;
+      const paragraph=`<p><a class="button-secondary" href="${url}">${link.title}</a></p>`;
+      assert.equal(currentHtml.split(paragraph).length-1,1,'Exactly one approved same-tab media link preserves the selected '+audience+' audience');
+      currentHtml=currentHtml.replace(paragraph,'');
+    }
+    assert.equal(currentHtml,old.UI.pageFor(old.UI.parseRoute(route)).html,'Existing topic rendering remains unchanged apart from approved B overview links: '+route);
   }
 }
 const manifest=JSON.parse(fs.readFileSync(path.join(support,'files/luchs/guides/SOURCES.json'),'utf8'));
@@ -105,4 +126,4 @@ assert.equal(quickstart.assets[0].url,'./files/luchs/guides/Luchs_Developer_ros2
 for(const name of fs.readdirSync(path.join(support,'files/luchs/guides')))assert(/^(?:Luchs_Developer_[a-z0-9_]+_EN_v0\.1_20261011\.pdf|Luchs_Developer_ros2_quick_start_EN_v0\.2_20261011\.pdf|SOURCES\.json|LICENSE\.txt)$/.test(name),'Only the seven original PDFs, revised quick-start, provenance and licence are public');
 assert.equal(hash(fs.readFileSync(path.join(support,'files/luchs/guides/LICENSE.txt'))),manifest.licence.sha256);
 assert.equal(current.UI.publishedResources(null,'developers').filter(r=>r.assets.some(a=>a.kind==='file')).length,23,'Developer Downloads contain sixteen source files and seven current prepared PDFs');
-console.log('Passed: only two authorised GitHub repository entrances and the quick-start V0.2 changed, seven developer-only guide records, eight verified current/historical PDFs, unchanged other records and all user/dealer topics, preserved source hashes and provenance, escaped examples, separate B draft/VCU scope, and 23 developer downloads.');
+console.log('Passed: only two authorised GitHub repository entrances, the quick-start V0.2 and two same-tab B overview media links changed, seven developer-only guide records, eight verified current/historical PDFs, unchanged other records and user/dealer topic content, preserved source hashes and provenance, escaped examples, separate B draft/VCU scope, and 23 developer downloads.');
